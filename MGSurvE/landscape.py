@@ -38,13 +38,13 @@ class Landscape:
             self.pointTypesMask = pointTypesMask
         else:
             msg = 'Number of points ({}) does not match number of point types ({}) or point-type mask ({}).'
-            raise Exception(msg.format(pcNum, ptNum, ptmNum))
+            raise Exception(msg.format(pcNum, ptNum, len(pointTypesMask)))
         # Traps ---------------------------------------------------------------
         if trapsCoordinates is not None:
             (tcNum, ttNum) = (len(trapsCoordinates), len(trapsTypes))
             if pcNum == ptNum:
-                self.pointCoordinates = pointCoordinates
-                self.pointTypes = pointTypes
+                self.trapsCoordinates = trapsCoordinates
+                self.trapsTypes = trapsTypes
             else:
                 msg = 'Number of traps ({}) does not match number of trap types ({}).'
                 raise Exception(msg.format(tcNum, ttNum))

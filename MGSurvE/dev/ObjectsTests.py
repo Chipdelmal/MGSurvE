@@ -6,7 +6,7 @@ import MGSurvE as srv
 
 xy = np.asarray([[0, 0], [1, 0]])
 pTypes = [0, 1]
-pTypesMask = np.asarray([[0]])
+pTypesMask = np.asarray([[1, 1], [1, 1]])
 
 lnd = srv.Landscape(xy, pointTypes=pTypes, pointTypesMask=pTypesMask)
 # lnd.calculatePointsDistances()
