@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import os
 import setuptools
 from version import version as this_version
@@ -13,7 +16,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name='MoNeT_MGDrivE',
+    name='MGSurvE',
     version=this_version,
     url='https://github.com/Chipdelmal/MGSurvE',
     author='Hector M. Sanchez C.',
@@ -23,13 +26,13 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
     install_requires=[
-        'numpy', 'scipy', 'matplotlib', 'ipython',
-        'jupyter', 'pandas', 'scikit-learn', 'compress-pickle',
-        'deap'
+        'numpy', 'matplotlib', 'ipython',
+        'jupyter', 'pandas', 'compress-pickle',
+        'deap', 'scikit-learn', 'scipy'
     ],
     license='MIT',
     classifiers=[
-        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.9",
         "Operating System :: OS Independent",
     ]
  )

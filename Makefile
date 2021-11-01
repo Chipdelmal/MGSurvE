@@ -23,7 +23,7 @@ python=python
 pip=pip
 tests=.
 version:=$(shell $(python) version.py)
-sdist_name:=PlotMAPQ-$(version).tar.gz
+sdist_name:=MGSurvE-$(version).tar.gz
 
 develop:
 	$(pip) install -e .
@@ -46,5 +46,6 @@ pypi: clean clean_sdist
 	&& $(python) setup.py sdist bdist_wheel \
 	&& twine check dist/* \
 	&& twine upload dist/*
+
 clean_pypi:
 	- rm -rf build/
