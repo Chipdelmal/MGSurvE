@@ -16,6 +16,4 @@ lnd = srv.Landscape(points)
 # lnd.calculatePointsDistances()
 # lnd.distanceMatrix
 lnd.distanceMatrix
-lnd.migrationMatrix
-
-lnd.pointCoords
+np.sum(lnd.migrationMatrix, axis=1)
