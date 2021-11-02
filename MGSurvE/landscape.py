@@ -28,7 +28,8 @@ class Landscape:
         self.distanceFunction = distanceFunction
         self.kernelFunction = kernelFunction
         self.kernelParams = kernelParams
-        self.maskingMatrix = np.asarray(pointTypesMask)
+        self.maskingMatrix = pointTypesMask
+        self.pointsNumber = len(points)
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
@@ -44,9 +45,16 @@ class Landscape:
                 '''
             )
         # Check and define point-types ----------------------------------------
-        self.pointTypes = None
         if ('t' in ptsHead):
             self.pointTypes = np.asarray(points['t'])
+        else:
+            self.pointTypes = np.asarray([0]*len(points))
+        # If no migration mask is provided, generate a dummy one --------------
+        if pointTypesMask is None:
+            ptNum = len(set(self.pointTypes))
+            self.maskingMatrix = np.full((ptNum, ptNum), 1)
+        else:
+            self.maskingMatrix = np.asarray(pointTypesMask)
         # Init distance matrix ------------------------------------------------
         if distanceMatrix is None:
             self.calcPointsDistances()
@@ -56,12 +64,13 @@ class Landscape:
         if (migrationMatrix is None):
             self.calcPointsMigration()
         else:
-            self.distanceMatrix = np.asarray(migrationMatrix)
+            self.migrationMatrix = np.asarray(migrationMatrix)
         # Init masked migration matrix ----------------------------------------
         if (maskedMigration is None) and (self.pointTypes is not None):
             self.calcPointsMaskedMigration()
         else:
             self.maskedMigration = np.asarray(maskedMigration)
+
     ###########################################################################
     # Matrix Methods
     ###########################################################################
