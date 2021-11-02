@@ -4,58 +4,62 @@
 import math
 import numpy as np
 import MGSurvE.matrices as mat
-
+import MGSurvE.constants as cst
+ 
 
 class Landscape:
-    ###########################################################################
-    # Default parameters
-    ###########################################################################
-
     ###########################################################################
     # Initializers
     ###########################################################################
     def __init__(self, 
-        pointCoordinates, pointTypes=None, pointTypesMask=None,
-        trapsCoordinates=None, trapsTypes=None,
-        distanceMatrix=None, migrationMatrix=None, 
-        distanceFunction=math.dist, geometryType='xy'
+        points, 
+        pointTypesMask=None,
+        
+        distanceMatrix=None, 
+        distanceFunction=math.dist, 
+        
+        migrationMatrix=None, 
+        kernelFunction=mat.zeroInflatedExponentialKernel,
+        kernelParams={'params': cst.AEDES_EXP_PARAMS, 'zeroInflation': .75}
     ):
-        (self.distanceFunction, self.geometryType) = (
-            distanceFunction, geometryType
-        )
-        # Points --------------------------------------------------------------
-        # Check if the number of points is equal to the number of point-types
-        #   provided or generate a default type (0) for them.
-        pcNum = len(pointCoordinates)
-        if pointTypes is None:
-            pointTypes = [0] * pcNum
-            pointTypesMask = np.asarray([[1]])
-        (ptNum, ptmNum) = (len(pointTypes), len(set(pointTypes)))
-        # If there's a missmatch in the lengths, raise an exception
-        if (pcNum == ptNum) and (len(pointTypesMask) == ptmNum):
-            self.pointCoordinates = pointCoordinates
-            self.pointTypes = pointTypes
-            self.pointTypesMask = pointTypesMask
+        self.distanceFunction = distanceFunction
+        self.kernelFunction = kernelFunction
+        self.kernelParams = kernelParams
+        # Check landscape type and define coordinates -------------------------
+        ptsHead = set(points.columns)
+        if ('x' in ptsHead) and ('y' in ptsHead) and ('t' in ptsHead):
+            self.geometryType = 'xy'
+            self.pointCoords = np.asarray(points[['x', 'y']])
+            self.pointTypes = np.asarray(points['t'])
+        elif ('lat' in ptsHead) and ('lon' in ptsHead) and ('t' in ptsHead):
+            self.geometryType = 'll'
+            self.pointCoords = np.asarray(points[['lon', 'lat']])
+            self.pointTypes = np.asarray(points['t'])
         else:
-            msg = 'Number of points ({}) does not match number of point types ({}) or point-type mask ({}).'
-            raise Exception(msg.format(pcNum, ptNum, len(pointTypesMask)))
-        # Traps ---------------------------------------------------------------
-        if trapsCoordinates is not None:
-            (tcNum, ttNum) = (len(trapsCoordinates), len(trapsTypes))
-            if pcNum == ptNum:
-                self.trapsCoordinates = trapsCoordinates
-                self.trapsTypes = trapsTypes
-            else:
-                msg = 'Number of traps ({}) does not match number of trap types ({}).'
-                raise Exception(msg.format(tcNum, ttNum))
-        # Matrices ------------------------------------------------------------
+            raise Exception(
+                ''' Check the landscape type! 
+                Accepted headers are "(x, y, t)" and "(lat, lon, t).
+                '''
+            )
+        # Init distance matrix ------------------------------------------------
         if distanceMatrix is None:
             self.calculatePointsDistances()
-
+        else:
+            self.distanceMatrix = distanceMatrix
+        # Init migration matrix -----------------------------------------------
+        if migrationMatrix is None:
+            self.calculatePointsMigration()
+        else:
+            self.distanceMatrix = distanceMatrix
     ###########################################################################
     # Matrix Methods
     ###########################################################################
     def calculatePointsDistances(self):
         self.distanceMatrix = mat.calculateDistanceMatrix(
-            self.pointCoordinates, self.distanceFunction
+            self.pointCoords, self.distanceFunction
+        )
+
+    def calculatePointsMigration(self):
+        self.migrationMatrix = self.kernelFunction(
+            self.distanceMatrix, **self.kernelParams
         )
