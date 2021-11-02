@@ -17,9 +17,8 @@ msk = [
     [.3, .7]
 ]
 
-lnd = srv.Landscape(points, pointTypesMask=msk)
-# lnd.calculatePointsDistances()
-# lnd.distanceMatrix
+lnd = srv.Landscape(points, maskingMatrix=msk)
+
 lnd.distanceMatrix
 lnd.migrationMatrix
 lnd.maskedMigration

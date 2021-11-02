@@ -14,7 +14,7 @@ class Landscape:
     ###########################################################################
     def __init__(self, 
         points, 
-        pointTypesMask=None,
+        maskingMatrix=None,
         
         distanceMatrix=None, 
         distanceFunction=math.dist, 
@@ -28,7 +28,7 @@ class Landscape:
         self.distanceFunction = distanceFunction
         self.kernelFunction = kernelFunction
         self.kernelParams = kernelParams
-        self.maskingMatrix = pointTypesMask
+        self.maskingMatrix = maskingMatrix
         self.pointsNumber = len(points)
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
@@ -50,11 +50,11 @@ class Landscape:
         else:
             self.pointTypes = np.asarray([0]*len(points))
         # If no migration mask is provided, generate a dummy one --------------
-        if pointTypesMask is None:
+        if maskingMatrix is None:
             ptNum = len(set(self.pointTypes))
             self.maskingMatrix = np.full((ptNum, ptNum), 1)
         else:
-            self.maskingMatrix = np.asarray(pointTypesMask)
+            self.maskingMatrix = np.asarray(maskingMatrix)
         # Init distance matrix ------------------------------------------------
         if distanceMatrix is None:
             self.calcPointsDistances()
