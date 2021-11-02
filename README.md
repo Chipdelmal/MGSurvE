@@ -1,1 +1,1 @@
-# MGSurvE
+# MGSurvE: Mosquito Gene Surveillance Explorer
