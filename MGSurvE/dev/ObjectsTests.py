@@ -2,12 +2,19 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+import pandas as pd
 import MGSurvE as srv
 
-xy = np.asarray([[0, 0], [1, 0]])
-pTypes = [0, 1]
-pTypesMask = np.asarray([[1, 1], [1, 1]])
+pts = [
+    [0.00, 0.00, 0], 
+    [0.25, 0.50, 1], 
+    [1.00, 0.15, 0]
+]
+points = pd.DataFrame(pts, columns=['x', 'y', 't'])
 
-lnd = srv.Landscape(xy, pointTypes=pTypes, pointTypesMask=pTypesMask)
+lnd = srv.Landscape(points)
 # lnd.calculatePointsDistances()
+# lnd.distanceMatrix
 lnd.distanceMatrix
+
+lnd.pointCoords
