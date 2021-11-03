@@ -9,10 +9,11 @@ MGSurvE is a project oriented towards the optimization of traps' placement in co
 Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/) for more info.
 
 
-## Authors
+## Author
 
 <img src="https://raw.githubusercontent.com/Chipdelmal/pyMSync/master/media/pusheen.jpg" height="130px" align="middle"><br>
 
 * Lead: [Héctor M. Sánchez C.](https://chipdelmal.github.io/blog/)
+* PIs: [David L. Smith](http://www.healthdata.org/about/david-smith), [John M. Marshall](https://publichealth.berkeley.edu/people/john-marshall/)
 
 <img src="./img/berkeley.jpg" height="25px"> <img src="./img/IHME.jpg" height="25px">  <img src="./img/UCIMI.png" height="25px"> <img src="./img/IGI.png" height="25px"> <img src="./img/DARPA.jpg" height="25px">

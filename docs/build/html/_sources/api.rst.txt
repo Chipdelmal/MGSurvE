@@ -5,3 +5,4 @@ API
    :toctree: generated
 
    MGSurvE.Landscape
+   MGSurvE.calcDistanceMatrix

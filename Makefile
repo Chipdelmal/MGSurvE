@@ -54,4 +54,7 @@ doc:
 	- sphinx-apidoc -f -o docs/source MGSurvE
 	- sphinx-build -b html docs/source/ docs/build/html
 
-dev: clean develop doc
+dev: 
+	- make clean
+	- make develop
+	- make doc
