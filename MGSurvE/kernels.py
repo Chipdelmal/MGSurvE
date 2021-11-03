@@ -10,30 +10,33 @@ from sklearn.preprocessing import normalize
 ###############################################################################
 # Migration Kernels
 ###############################################################################
-def zeroInflatedLinearMigrationKernel(
-            distMat,
-            params=[.75, 1]
-        ):
-    '''
-    Takes in the distances matrix, zero inflated value (step) and two extra
-        parameters to determine the change from distances into distance-based
-        migration probabilities (based on the kernel function provided).
+def zeroInflatedLinearMigrationKernel(distMat, params=[.75, 1]):
+    '''Calculates the zero-inflated linear distance-based movement probability.
+
+    Args:
+        distMat (numpy array): Distances matrix.
+
+    Returns:
+        numpy array: Migration matrix.
     '''
     coordsNum = len(distMat)
     migrMat = np.empty((coordsNum, coordsNum))
     for (i, row) in enumerate(distMat):
         for (j, dst) in enumerate(row):
             migrMat[i][j] = inverseLinearStep(dst, params=params)
-        # Normalize rows to sum 1
         migrMat[i] = migrMat[i] / sum(migrMat[i])
     return migrMat
 
 
 def truncatedExponential(distance, params=cst.AEDES_EXP_PARAMS):
-    '''
-    Calculates the zero-inflated exponential for the mosquito movement kernel
-        (default parameters set to Aedes aegypti calibrations).
-        params = [rate, a, b]
+    ''' Calculates the zero-inflated exponential distance-based movement probability.
+
+    Args:
+        distance (float): Distances matrix.
+        params (list): Shape distribution parameters [rate, a, b].
+
+    Returns:
+        float: Migration probability.
     '''
     if(params[1] > params[2]):
         return None
@@ -51,14 +54,17 @@ def truncatedExponential(distance, params=cst.AEDES_EXP_PARAMS):
 
 
 def zeroInflatedExponentialKernel(
-            distMat,
-            params=cst.AEDES_EXP_PARAMS,
-            zeroInflation=.75
-        ):
-    '''
-    Calculates the migration matrix using a zero-inflated exponential function
-        taking as arguments the species-specific lifespan parameters, and the
-        kernel constants (along with the lifelong stay probability).
+        distMat, params=cst.AEDES_EXP_PARAMS, zeroInflation=.75
+    ):
+    '''Calculates the migration matrix using a zero-inflated exponential function.
+
+    Args:
+        distMat (numpy array): Distances matrix.
+        params (list): Shape distribution parameters [rate, a, b].
+        zeroInflation (float): Probability to stay in the same place.
+
+    Returns:
+        numpy array: Migration matrix.
     '''
     coordsNum = len(distMat)
     migrMat = np.empty((coordsNum, coordsNum))

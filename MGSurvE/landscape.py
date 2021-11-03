@@ -10,25 +10,26 @@ import MGSurvE.kernels as krn
 
 class Landscape:
     """ Stores the information for a mosquito landscape. Works with different point-types in the form of matrices and coordinates.
-
-    Attributes:
+    
+    Parameters:
         points (pandas dataframe): Sites coordinates in (x, y) or (lon, lat) format.
         pointTypes (numpy array): Sites types in the same order and length as the points coordinates.
-        pointsNumber (int): Number of sites present in the environment.
-
-        distanceMatrix (numpy array): Matrix with the distances between all the points in the landscape.
-        migrationMatrix (numpy array): Markov matrix that determines the probability of moving from one site to another.
-        maskedMigrationMatrix (numpy array): Markov matrix that biases migration probabilities as dictated by the masking matrix.
-
+               
         kernelFunction (function): Function that determines de relationship between distances and migration probabilities.
         kernelParams (dict): Parameters required for the kernel function to determine migration probabilities.
+        maskingMatrix (numpy array): Matrix that determines the probability of shifting from one point-type to another one (squared with size equal to the number of point types). If None, every point-type transition is equiprobable.
 
-        maskingMatrix (numpy array): Matrix that determines the probability of shifting from one point-type to another one (squared with size equal to the number of point types)
+        distanceMatrix (numpy array): Matrix with the distances between all the points in the landscape. If None, it's auto-calculated (see calcPointsDistances).
+        migrationMatrix (numpy array): Markov matrix that determines the probability of moving from one site to another. If None, it's auto-calculated (see calcPointsMigration).
+        maskedMigrationMatrix (numpy array): Markov matrix that biases migration probabilities as dictated by the masking matrix. If None, it's auto-calculated (see calcPointsMaskedMigration).
 
-    Methods:
-        calcPointsDistances: Calculates the distance matrix between the points in the landscape (in place).
-        calcPointsMigration: Calculates the migration matrix between the points in the landscape based on distance alone (in place).
-        calcPointsMaskedMigration: Calculates the migration matrix that takes into account the point-types of the sites (in place).
+    Attributes:
+        pointsNumber (int): Number of sites present in the environment.
+
+        distanceMatrix (numpy array): Distances amongst the points in the landscape.
+        migrationMatrix (numpy array): Distance-based migration probabilities amongst the points in the landscape.
+        maskedMigrationMatrix (numpy array): Point-type based migration probabilities amongst the points in the landscape.
+
     """
     ###########################################################################
     # Initializers
@@ -46,6 +47,8 @@ class Landscape:
 
         maskedMigrationMatrix=None
     ):
+        """Constructor method
+        """
         self.distanceFunction = distanceFunction
         self.kernelFunction = kernelFunction
         self.kernelParams = kernelParams
@@ -96,21 +99,21 @@ class Landscape:
     # Matrix Methods
     ###########################################################################
     def calcPointsDistances(self):
-        """Test
+        """Calculates the distancesMatrix amongst the points (in place). Uses the distanceFunction to calculate the distanceMatrix internally.
         """
         self.distanceMatrix = mat.calcDistanceMatrix(
             self.pointCoords, self.distanceFunction
         )
 
     def calcPointsMigration(self):
-        """
+        """Calculates the migrationMatrix amongst the points (in place). Uses the kernelFunction and kernelParams to generate the migrationMatrix.
         """
         self.migrationMatrix = self.kernelFunction(
             self.distanceMatrix, **self.kernelParams
         )
 
     def calcPointsMaskedMigration(self):
-        """
+        """Calculates the maskedMigrationMatrix depending on point-type (in place). Uses the maskingMatrix to bias the migrationMatrix and store the results in the maskedMigrationMatrix.
         """
         self.maskedMigration = mat.calcMaskedMigrationMatrix(
             self.migrationMatrix, self.maskingMatrix, self.pointTypes,

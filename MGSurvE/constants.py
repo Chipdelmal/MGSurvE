@@ -4,7 +4,23 @@
 import math
 import MGSurvE.colors as col
 
-MKRS = ('o', '^', 's', 'p', 'd')
-MCOL = ('#e0c3fc', '#bdb2ff', '#a0c4ff', '#ffd6a5')
-PINK_NAVY = col.colorPaletteFromHexList(['#e0c3fc',  '#00296b'])
+###############################################################################
+# Bio
+###############################################################################
 AEDES_EXP_PARAMS = [0.01848777, 1.0e-10, math.inf]
+"""Aedes aegypti's migration parameters for kernel."""
+
+
+###############################################################################
+# Plots
+###############################################################################
+MKRS = ('o', '^', 's', 'p', 'd')
+"""Markers for point-types"""
+
+MCOL = ('#e0c3fc', '#bdb2ff', '#a0c4ff', '#ffd6a5')
+"""A cute pastel colors list."""
+
+PINK_NAVY = col.colorPaletteFromHexList(['#e0c3fc',  '#00296b'])
+"""Pink to Navy Blue cmap."""
+
+
