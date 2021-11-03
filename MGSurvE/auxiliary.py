@@ -6,6 +6,11 @@
 ###############################################################################
 
 def makeFolder(path):
+    """Creates a folder if it doesn't already exist.
+    
+    Args:
+        path (string): Path to the desired directory.
+    """
     if not os.path.exists(path):
         try:
             os.mkdir(path)
@@ -15,6 +20,11 @@ def makeFolder(path):
                 )
 
 def makeFolders(pathsList):
+    """Creates a list of folders if they don't exist.
+    
+    Args:
+        paths (list): List path to the desired directories.
+    """
     for fldr in pathsList:
         makeFolder(fldr)
 
@@ -24,7 +34,6 @@ def isNotebook():
 
     Returns:
         bool: Flags Jupyter environment. 
-
     """
     try:
         shell = get_ipython().__class__.__name__
