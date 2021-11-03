@@ -20,6 +20,12 @@ def makeFolders(pathsList):
 
 
 def isNotebook():
+    """Checks if the script is running from a Jupyter environment.
+
+    Returns:
+        bool: Flags Jupyter environment. 
+
+    """
     try:
         shell = get_ipython().__class__.__name__
         if shell == 'ZMQInteractiveShell':
