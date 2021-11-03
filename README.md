@@ -4,6 +4,7 @@ MGSurvE is a project oriented towards the optimization of traps' placement in co
 
 ![](./img/demo.jpg)
 
+Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/) for more info.
 
 Developer: [Héctor M. Sánchez C.](https://chipdelmal.github.io/blog/)
 
