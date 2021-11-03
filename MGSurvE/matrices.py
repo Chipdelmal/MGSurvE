@@ -17,7 +17,7 @@ def calcDistanceMatrix(pointCoords, distFun=math.dist):
     return distMatrix
 
 
-def calcMaskedMigration(
+def calcMaskedMigrationMatrix(
         migrationMatrix, maskingMatrix, pointTypes,
         distFun=math.dist
     ):

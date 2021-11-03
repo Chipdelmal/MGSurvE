@@ -49,3 +49,6 @@ pypi: clean clean_sdist
 
 clean_pypi:
 	- rm -rf build/
+
+doc:
+	- sphinx-build -b html docs/source/ docs/build/html
