@@ -6,7 +6,7 @@
 MGSurvE's documentation!
 ===================================
 
-
+This package is still under development!
 
 .. toctree::
    usage
