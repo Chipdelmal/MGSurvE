@@ -51,4 +51,7 @@ clean_pypi:
 	- rm -rf build/
 
 doc:
+	- sphinx-apidoc -f -o docs/source MGSurvE
 	- sphinx-build -b html docs/source/ docs/build/html
+
+dev: clean develop doc

@@ -1,0 +1,266 @@
+
+
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>MGSurvE.Landscape &#8212; MGSurvE  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MGSurvE" href="../modules.html" />
+    <link rel="prev" title="API" href="../api.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../modules.html" title="MGSurvE"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../api.html" title="API"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MGSurvE  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">MGSurvE.Landscape</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="mgsurve-landscape">
+<h1>MGSurvE.Landscape<a class="headerlink" href="#mgsurve-landscape" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="MGSurvE.Landscape">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">MGSurvE.</span></span><span class="sig-name descname"><span class="pre">Landscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">points,</span> <span class="pre">maskingMatrix=None,</span> <span class="pre">distanceMatrix=None,</span> <span class="pre">distanceFunction=&lt;built-in</span> <span class="pre">function</span> <span class="pre">dist&gt;,</span> <span class="pre">migrationMatrix=None,</span> <span class="pre">kernelFunction=&lt;function</span> <span class="pre">zeroInflatedExponentialKernel&gt;,</span> <span class="pre">kernelParams={'params':</span> <span class="pre">[0.01848777,</span> <span class="pre">1e-10,</span> <span class="pre">inf],</span> <span class="pre">'zeroInflation':</span> <span class="pre">0.75},</span> <span class="pre">maskedMigrationMatrix=None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.Landscape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores the information for a mosquito landscape. Works with different point-types in the form of matrices and coordinates.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.points">
+<span class="sig-name descname"><span class="pre">points</span></span><a class="headerlink" href="#MGSurvE.Landscape.points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sites coordinates in (x, y) or (lon, lat) format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.pointTypes">
+<span class="sig-name descname"><span class="pre">pointTypes</span></span><a class="headerlink" href="#MGSurvE.Landscape.pointTypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sites types in the same order and length as the points coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.pointsNumber">
+<span class="sig-name descname"><span class="pre">pointsNumber</span></span><a class="headerlink" href="#MGSurvE.Landscape.pointsNumber" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of sites present in the environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.distanceMatrix">
+<span class="sig-name descname"><span class="pre">distanceMatrix</span></span><a class="headerlink" href="#MGSurvE.Landscape.distanceMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matrix with the distances between all the points in the landscape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.migrationMatrix">
+<span class="sig-name descname"><span class="pre">migrationMatrix</span></span><a class="headerlink" href="#MGSurvE.Landscape.migrationMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Markov matrix that determines the probability of moving from one site to another.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.maskedMigrationMatrix">
+<span class="sig-name descname"><span class="pre">maskedMigrationMatrix</span></span><a class="headerlink" href="#MGSurvE.Landscape.maskedMigrationMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Markov matrix that biases migration probabilities as dictated by the masking matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.kernelFunction">
+<span class="sig-name descname"><span class="pre">kernelFunction</span></span><a class="headerlink" href="#MGSurvE.Landscape.kernelFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that determines de relationship between distances and migration probabilities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.kernelParams">
+<span class="sig-name descname"><span class="pre">kernelParams</span></span><a class="headerlink" href="#MGSurvE.Landscape.kernelParams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters required for the kernel function to determine migration probabilities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.maskingMatrix">
+<span class="sig-name descname"><span class="pre">maskingMatrix</span></span><a class="headerlink" href="#MGSurvE.Landscape.maskingMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matrix that determines the probability of shifting from one point-type to another one (squared with size equal to the number of point types)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.calcPointsDistances">
+<span class="sig-name descname"><span class="pre">calcPointsDistances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.Landscape.calcPointsDistances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the distance matrix between the points in the landscape (in place).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.calcPointsMigration">
+<span class="sig-name descname"><span class="pre">calcPointsMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.Landscape.calcPointsMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the migration matrix between the points in the landscape based on distance alone (in place).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.calcPointsMaskedMigration">
+<span class="sig-name descname"><span class="pre">calcPointsMaskedMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.Landscape.calcPointsMaskedMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the migration matrix that takes into account the point-types of the sites (in place).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">points,</span> <span class="pre">maskingMatrix=None,</span> <span class="pre">distanceMatrix=None,</span> <span class="pre">distanceFunction=&lt;built-in</span> <span class="pre">function</span> <span class="pre">dist&gt;,</span> <span class="pre">migrationMatrix=None,</span> <span class="pre">kernelFunction=&lt;function</span> <span class="pre">zeroInflatedExponentialKernel&gt;,</span> <span class="pre">kernelParams={'params':</span> <span class="pre">[0.01848777,</span> <span class="pre">1e-10,</span> <span class="pre">inf],</span> <span class="pre">'zeroInflation':</span> <span class="pre">0.75},</span> <span class="pre">maskedMigrationMatrix=None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.Landscape.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#MGSurvE.Landscape.__init__" title="MGSurvE.Landscape.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(points[, maskingMatrix, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#MGSurvE.Landscape.calcPointsDistances" title="MGSurvE.Landscape.calcPointsDistances"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcPointsDistances</span></code></a>()</p></td>
+<td><p>Test</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#MGSurvE.Landscape.calcPointsMaskedMigration" title="MGSurvE.Landscape.calcPointsMaskedMigration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcPointsMaskedMigration</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#MGSurvE.Landscape.calcPointsMigration" title="MGSurvE.Landscape.calcPointsMigration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcPointsMigration</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../api.html"
+                        title="previous chapter">API</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../modules.html"
+                        title="next chapter">MGSurvE</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/generated/MGSurvE.Landscape.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../modules.html" title="MGSurvE"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../api.html" title="API"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">MGSurvE  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">MGSurvE.Landscape</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Hector M. Sanchez C..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>
