@@ -18,7 +18,7 @@
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="MGSurvE.calcDistanceMatrix" href="MGSurvE.calcDistanceMatrix.html" />
+    <link rel="next" title="MGSurvE" href="../modules.html" />
     <link rel="prev" title="API" href="../api.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
@@ -35,7 +35,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="MGSurvE.calcDistanceMatrix.html" title="MGSurvE.calcDistanceMatrix"
+          <a href="../modules.html" title="MGSurvE"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../api.html" title="API"
@@ -116,6 +116,24 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.calcPointsDistances">
+<span class="sig-name descname"><span class="pre">calcPointsDistances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.Landscape.calcPointsDistances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the distancesMatrix amongst the points (in place). Uses the distanceFunction to calculate the distanceMatrix internally.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.calcPointsMigration">
+<span class="sig-name descname"><span class="pre">calcPointsMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.Landscape.calcPointsMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the migrationMatrix amongst the points (in place). Uses the kernelFunction and kernelParams to generate the migrationMatrix.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.Landscape.calcPointsMaskedMigration">
+<span class="sig-name descname"><span class="pre">calcPointsMaskedMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.Landscape.calcPointsMaskedMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the maskedMigrationMatrix depending on point-type (in place). Uses the maskingMatrix to bias the migrationMatrix and store the results in the maskedMigrationMatrix.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="MGSurvE.Landscape.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">points,</span> <span class="pre">maskingMatrix=None,</span> <span class="pre">distanceMatrix=None,</span> <span class="pre">distanceFunction=&lt;built-in</span> <span class="pre">function</span> <span class="pre">dist&gt;,</span> <span class="pre">migrationMatrix=None,</span> <span class="pre">kernelFunction=&lt;function</span> <span class="pre">zeroInflatedExponentialKernel&gt;,</span> <span class="pre">kernelParams={'params':</span> <span class="pre">[0.01848777,</span> <span class="pre">1e-10,</span> <span class="pre">inf],</span> <span class="pre">'zeroInflation':</span> <span class="pre">0.75},</span> <span class="pre">maskedMigrationMatrix=None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.Landscape.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor method</p>
@@ -131,13 +149,13 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#MGSurvE.Landscape.__init__" title="MGSurvE.Landscape.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(points[, maskingMatrix, ...])</p></td>
 <td><p>Constructor method</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcPointsDistances</span></code>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#MGSurvE.Landscape.calcPointsDistances" title="MGSurvE.Landscape.calcPointsDistances"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcPointsDistances</span></code></a>()</p></td>
 <td><p>Calculates the distancesMatrix amongst the points (in place).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcPointsMaskedMigration</span></code>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#MGSurvE.Landscape.calcPointsMaskedMigration" title="MGSurvE.Landscape.calcPointsMaskedMigration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcPointsMaskedMigration</span></code></a>()</p></td>
 <td><p>Calculates the maskedMigrationMatrix depending on point-type (in place).</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcPointsMigration</span></code>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#MGSurvE.Landscape.calcPointsMigration" title="MGSurvE.Landscape.calcPointsMigration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcPointsMigration</span></code></a>()</p></td>
 <td><p>Calculates the migrationMatrix amongst the points (in place).</p></td>
 </tr>
 </tbody>
@@ -157,8 +175,8 @@
   <p class="topless"><a href="../api.html"
                         title="previous chapter">API</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="MGSurvE.calcDistanceMatrix.html"
-                        title="next chapter">MGSurvE.calcDistanceMatrix</a></p>
+  <p class="topless"><a href="../modules.html"
+                        title="next chapter">MGSurvE</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -190,7 +208,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="MGSurvE.calcDistanceMatrix.html" title="MGSurvE.calcDistanceMatrix"
+          <a href="../modules.html" title="MGSurvE"
              >next</a> |</li>
         <li class="right" >
           <a href="../api.html" title="API"

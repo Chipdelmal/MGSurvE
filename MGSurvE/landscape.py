@@ -7,7 +7,6 @@ import MGSurvE.matrices as mat
 import MGSurvE.constants as cst
 import MGSurvE.kernels as krn
 
-
 class Landscape:
     """ Stores the information for a mosquito landscape. Works with different point-types in the form of matrices and coordinates.
     
@@ -30,6 +29,10 @@ class Landscape:
         migrationMatrix (numpy array): Distance-based migration probabilities amongst the points in the landscape.
         maskedMigrationMatrix (numpy array): Point-type based migration probabilities amongst the points in the landscape.
 
+    Methods:
+        calcPointsDistances: Calculates the distancesMatrix amongst the points (in place). Uses the distanceFunction to calculate the distanceMatrix internally.
+        calcPointsMigration: Calculates the migrationMatrix amongst the points (in place). Uses the kernelFunction and kernelParams to generate the migrationMatrix.
+        calcPointsMaskedMigration: Calculates the maskedMigrationMatrix depending on point-type (in place). Uses the maskingMatrix to bias the migrationMatrix and store the results in the maskedMigrationMatrix.
     """
     ###########################################################################
     # Initializers
@@ -64,7 +67,7 @@ class Landscape:
             self.pointCoords = np.asarray(points[['lon', 'lat']])
         else:
             raise Exception(
-                ''' Check the landscape type! 
+                '''Check the landscape type! 
                 Accepted headers are "(x, y)" and "(lat, lon).
                 '''
             )
@@ -99,21 +102,21 @@ class Landscape:
     # Matrix Methods
     ###########################################################################
     def calcPointsDistances(self):
-        """Calculates the distancesMatrix amongst the points (in place). Uses the distanceFunction to calculate the distanceMatrix internally.
+        """Calculates the distancesMatrix amongst the points (in place).
         """
         self.distanceMatrix = mat.calcDistanceMatrix(
             self.pointCoords, self.distanceFunction
         )
 
     def calcPointsMigration(self):
-        """Calculates the migrationMatrix amongst the points (in place). Uses the kernelFunction and kernelParams to generate the migrationMatrix.
+        """Calculates the migrationMatrix amongst the points (in place).
         """
         self.migrationMatrix = self.kernelFunction(
             self.distanceMatrix, **self.kernelParams
         )
 
     def calcPointsMaskedMigration(self):
-        """Calculates the maskedMigrationMatrix depending on point-type (in place). Uses the maskingMatrix to bias the migrationMatrix and store the results in the maskedMigrationMatrix.
+        """Calculates the maskedMigrationMatrix depending on point-type (in place).
         """
         self.maskedMigration = mat.calcMaskedMigrationMatrix(
             self.migrationMatrix, self.maskingMatrix, self.pointTypes,
