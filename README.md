@@ -4,7 +4,7 @@ MGSurvE is a project oriented towards the optimization of traps' placement in co
 
 ![landscape](https://github.com/Chipdelmal/MGSurvE/raw/main/img/demo.jpg)
 
-Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/) for more info and our [https://pypi.org/project/MGSurvE/](pypi) package for installation and versions.
+Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/) for more info and our [pypi](https://pypi.org/project/MGSurvE/) package for installation and versions.
 
 ## Authors and Funders
 
