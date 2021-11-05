@@ -24,6 +24,7 @@ class Landscape:
 
     Attributes:
         pointsNumber (int): Number of sites present in the environment.
+        geometryType (str): Type of geometry being analyzed (cartesian "xy" or lat-lon "ll")
 
         distanceMatrix (numpy array): Distances amongst the points in the landscape.
         migrationMatrix (numpy array): Distance-based migration probabilities amongst the points in the landscape.
