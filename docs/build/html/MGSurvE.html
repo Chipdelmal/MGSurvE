@@ -232,6 +232,17 @@
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.geometryType">
+<span class="sig-name descname"><span class="pre">geometryType</span></span><a class="headerlink" href="#MGSurvE.landscape.Landscape.geometryType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type of geometry being analyzed (cartesian “xy” or lat-lon “ll”)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.distanceMatrix">
 <span class="sig-name descname"><span class="pre">distanceMatrix</span></span><a class="headerlink" href="#MGSurvE.landscape.Landscape.distanceMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Distances amongst the points in the landscape.</p>
@@ -308,12 +319,43 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.matrices.calcDistanceMatrix">
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.matrices.</span></span><span class="sig-name descname"><span class="pre">calcDistanceMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pointCoords</span></em>, <em class="sig-param"><span class="pre">distFun=&lt;built-in</span> <span class="pre">function</span> <span class="pre">dist&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.matrices.calcDistanceMatrix" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Calculates the distance matrix between all the provided coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pointCoords</strong> (<em>numpy array</em>) – Coordinates of the sites.</p></li>
+<li><p><strong>distFun</strong> (<em>function</em>) – Distance function to be used in the computations.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Distances matrix</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.matrices.calcMaskedMigrationMatrix">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.matrices.</span></span><span class="sig-name descname"><span class="pre">calcMaskedMigrationMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">migrationMatrix</span></em>, <em class="sig-param"><span class="pre">maskingMatrix</span></em>, <em class="sig-param"><span class="pre">pointTypes</span></em>, <em class="sig-param"><span class="pre">distFun=&lt;built-in</span> <span class="pre">function</span> <span class="pre">dist&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.matrices.calcMaskedMigrationMatrix" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.matrices.</span></span><span class="sig-name descname"><span class="pre">calcMaskedMigrationMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">migrationMatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maskingMatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointTypes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.matrices.calcMaskedMigrationMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the masked migration matrix between points according to their types.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>migrationMatrix</strong> (<em>numpy array</em>) – Migration probabilities amongst points.</p></li>
+<li><p><strong>maskingMatrix</strong> (<em>numpy array</em>) – Transition probabilities between point-types.</p></li>
+<li><p><strong>pointTypes</strong> (<em>numpy vector</em>) – Point-types for each one of the sites in the matrix (in the same order).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Masked migration matrix</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-MGSurvE.trap">
