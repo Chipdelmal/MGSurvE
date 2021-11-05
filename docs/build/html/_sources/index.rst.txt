@@ -6,12 +6,17 @@
 MGSurvE's documentation!
 ===================================
 
-This package is still under development! Have a look at our `github repo <https://github.com/Chipdelmal/MGSurvE>`_ and our `pypi package <https://pypi.org/project/MGSurvE/>`_ for news and developments.
+Have a look at our `github repo <https://github.com/Chipdelmal/MGSurvE>`_ and our `pypi package <https://pypi.org/project/MGSurvE/>`_ for news and developments.
+
+
+.. note::
+
+   This project is under active development.
 
 .. toctree::
    usage
    api
-   modules
+
 
 
 Indices and tables
