@@ -10,6 +10,7 @@ API
    MGSurvE.auxiliary
    MGSurvE.colors
    MGSurvE.constants
+   MGSurvE.plot
 
    
    

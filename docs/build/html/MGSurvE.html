@@ -138,13 +138,13 @@
 
 <dl class="py data">
 <dt class="sig sig-object py" id="MGSurvE.constants.MCOL">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">MCOL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('#e0c3fc',</span> <span class="pre">'#bdb2ff',</span> <span class="pre">'#a0c4ff',</span> <span class="pre">'#ffd6a5')</span></em><a class="headerlink" href="#MGSurvE.constants.MCOL" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">MCOL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('#e0c3fc',</span> <span class="pre">'#bdb2ff',</span> <span class="pre">'#a0c4ff',</span> <span class="pre">'#ffd6a5',</span> <span class="pre">'#caffbf')</span></em><a class="headerlink" href="#MGSurvE.constants.MCOL" title="Permalink to this definition"></a></dt>
 <dd><p>A cute pastel colors list.</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="MGSurvE.constants.MKRS">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">MKRS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('o',</span> <span class="pre">'^',</span> <span class="pre">'s',</span> <span class="pre">'p',</span> <span class="pre">'d')</span></em><a class="headerlink" href="#MGSurvE.constants.MKRS" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">MKRS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('o',</span> <span class="pre">'^',</span> <span class="pre">'s',</span> <span class="pre">'p',</span> <span class="pre">'d',</span> <span class="pre">'X')</span></em><a class="headerlink" href="#MGSurvE.constants.MKRS" title="Permalink to this definition"></a></dt>
 <dd><p>Markers for point-types</p>
 </dd></dl>
 
@@ -370,6 +370,66 @@
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-MGSurvE.plot">
+<span id="mgsurve-plot-module"></span><h2>MGSurvE.plot module<a class="headerlink" href="#module-MGSurvE.plot" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.plot.plotNetwork">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.plot.</span></span><span class="sig-name descname"><span class="pre">plotNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transMtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sites</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#03045e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineWidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plot.plotNetwork" title="Permalink to this definition"></a></dt>
+<dd><p>Plots a transitions matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
+<li><p><strong>transMtx</strong> (<em>numpy matrix</em>) – Transitions matrix.</p></li>
+<li><p><strong>sites</strong> (<em>numpy array</em>) – Coordinates of the vertices.</p></li>
+<li><p><strong>lineColor</strong> (<em>color</em>) – Color for the network.</p></li>
+<li><p><strong>lineWidth</strong> (<em>float</em>) – Amplitude for the linewidth.</p></li>
+<li><p><strong>alphaMin</strong> (<em>float</em>) – Minimum alpha value allowed.</p></li>
+<li><p><strong>alphaAmplitude</strong> (<em>float</em>) – Alpha multiplier for matrix.</p></li>
+<li><p><strong>zorder</strong> (<em>int</em>) – Matplotlib’s zorder.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Matplotlib’s plot-compliant kwargs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(fig, ax)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.plot.plotSites">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.plot.</span></span><span class="sig-name descname"><span class="pre">plotSites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sites</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pTypes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('o',</span> <span class="pre">'^',</span> <span class="pre">'s',</span> <span class="pre">'p',</span> <span class="pre">'d',</span> <span class="pre">'X')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('#e0c3fc',</span> <span class="pre">'#bdb2ff',</span> <span class="pre">'#a0c4ff',</span> <span class="pre">'#ffd6a5',</span> <span class="pre">'#caffbf')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">150</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linewidths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plot.plotSites" title="Permalink to this definition"></a></dt>
+<dd><p>Plots a transitions matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
+<li><p><strong>sites</strong> (<em>numpy array</em>) – Coordinates of the points.</p></li>
+<li><p><strong>pTypes</strong> (<em>numpy array</em>) – Point types.</p></li>
+<li><p><strong>markers</strong> (<em>list</em>) – List of marker shapes for point-types (matplotlib).</p></li>
+<li><p><strong>colors</strong> (<em>list</em>) – List of colors for point-types (matplotlib).</p></li>
+<li><p><strong>size</strong> (<em>float</em>) – Marker size.</p></li>
+<li><p><strong>edgecolors</strong> (<em>color</em>) – Edge color for markers.</p></li>
+<li><p><strong>linewidths</strong> (<em>float</em>) – Edge line width for markers.</p></li>
+<li><p><strong>zorder</strong> (<em>int</em>) – Matplotlib’s zorder.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Matplotlib’s plot-compliant kwargs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(fig, ax)</p>
 </dd>
 </dl>
 </dd></dl>
