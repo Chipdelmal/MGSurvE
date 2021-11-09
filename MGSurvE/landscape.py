@@ -95,7 +95,7 @@ class Landscape:
             self.migrationMatrix = np.asarray(migrationMatrix)
         # Init masked migration matrix ----------------------------------------
         if (maskedMigrationMatrix is None) and (self.pointTypes is not None):
-            self.calcPointsMaskedMigrationMatrix()
+            self.calcPointsMaskedMigration()
         else:
             self.maskedMigration = np.asarray(maskedMigration)
 
@@ -120,6 +120,5 @@ class Landscape:
         """Calculates the maskedMigrationMatrix depending on point-type (in place).
         """
         self.maskedMigration = mat.calcMaskedMigrationMatrix(
-            self.migrationMatrix, self.maskingMatrix, self.pointTypes,
-            distFun=self.distanceFunction
+            self.migrationMatrix, self.maskingMatrix, self.pointTypes
         )

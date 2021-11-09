@@ -6,3 +6,4 @@ from .kernels import *
 from .landscape import *
 from .matrices import *
 from .trap import *
+from .plot import *
