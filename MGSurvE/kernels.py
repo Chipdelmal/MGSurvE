@@ -50,7 +50,7 @@ def truncatedExponential(distance, params=cst.AEDES_EXP_PARAMS):
     densNum = stats.expon.pdf(distance, scale=scale)
     densDen = gB - gA
 
-    return densNum/densDen
+    return (densNum/densDen)
 
 
 def zeroInflatedExponentialKernel(
@@ -78,3 +78,21 @@ def zeroInflatedExponentialKernel(
     np.fill_diagonal(migrMat, zeroInflation)
     tauN = normalize(migrMat, axis=1, norm='l1')
     return tauN
+
+
+###############################################################################
+# Exponential Decay
+###############################################################################
+def exponentialDecay(dist, A=1, b=1):
+    '''Calculates the probability of moving between points.
+
+    Args:
+        dist (float): 
+        A (float): Maximum amplitude at distance 0.
+        b (float): Decay rate (higher means tighter kernel).
+
+    Returns:
+        float: Movement probability.
+    '''
+    prob = A * math.exp(-b * dist)
+    return prob

@@ -3,6 +3,41 @@ from math import log
 import matplotlib.pyplot as plt
 import MGSurvE.constants as cst
 
+
+def plotSites(
+        fig, ax, 
+        sites, pTypes,
+        markers=cst.MKRS, colors=cst.MCOL,
+        size=150, edgecolors='w', linewidths=1.25,
+        zorder=5, **kwargs
+    ):
+    """ Plots a transitions matrix.
+    
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        sites (numpy array): Coordinates of the points.
+        pTypes (numpy array): Point types.
+        markers (list): List of marker shapes for point-types (matplotlib).
+        colors (list): List of colors for point-types (matplotlib).
+        size (float): Marker size.
+        edgecolors (color): Edge color for markers.
+        linewidths (float): Edge line width for markers.
+        zorder (int): Matplotlib's zorder.
+        kwargs (dict): Matplotlib's plot-compliant kwargs.
+    
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+    """
+    for (i, site) in enumerate(sites):
+        plt.scatter(
+            site[0], site[1], 
+            marker=markers[pTypes[i]], color=colors[pTypes[i]], 
+            s=size, zorder=zorder, edgecolors=edgecolors, linewidths=linewidths
+        )
+    return (fig, ax)
+
+
 def plotNetwork(
         fig, ax, 
         transMtx, sites, 
@@ -41,36 +76,3 @@ def plotNetwork(
             )
     return (fig, ax)
 
-
-def plotSites(
-        fig, ax, 
-        sites, pTypes,
-        markers=cst.MKRS, colors=cst.MCOL,
-        size=150, edgecolors='w', linewidths=1.25,
-        zorder=5, **kwargs
-    ):
-    """ Plots a transitions matrix.
-    
-    Parameters:
-        fig (matplotlib): Matplotlib fig object.
-        ax (matplotlib): Matplotlib ax object.
-        sites (numpy array): Coordinates of the points.
-        pTypes (numpy array): Point types.
-        markers (list): List of marker shapes for point-types (matplotlib).
-        colors (list): List of colors for point-types (matplotlib).
-        size (float): Marker size.
-        edgecolors (color): Edge color for markers.
-        linewidths (float): Edge line width for markers.
-        zorder (int): Matplotlib's zorder.
-        kwargs (dict): Matplotlib's plot-compliant kwargs.
-    
-    Returns:
-        (fig, ax): Matplotlib (fig, ax) tuple.
-    """
-    for (i, site) in enumerate(sites):
-        plt.scatter(
-            site[0], site[1], 
-            marker=markers[pTypes[i]], color=colors[pTypes[i]], 
-            s=size, zorder=zorder, edgecolors=edgecolors, linewidths=linewidths
-        )
-    return (fig, ax)

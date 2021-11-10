@@ -3,6 +3,7 @@
 
 import math
 import numpy as np
+import vincenty as vin
 import MGSurvE.matrices as mat
 import MGSurvE.constants as cst
 import MGSurvE.kernels as krn
@@ -43,17 +44,24 @@ class Landscape:
         maskingMatrix=None,
         
         distanceMatrix=None, 
-        distanceFunction=math.dist, 
+        distanceFunction=None, 
         
         migrationMatrix=None, 
         kernelFunction=krn.zeroInflatedExponentialKernel,
         kernelParams={'params': cst.AEDES_EXP_PARAMS, 'zeroInflation': .75},
 
-        maskedMigrationMatrix=None
+        maskedMigrationMatrix=None,
+
+        traps=None,
+        trapKernels={0: krn.exponentialDecay},
+        trapsKernelParams={0: cst.BASIC_EXP_TRAP},
+    
+        repellents=None,
+        repellentsKernels={0: krn.exponentialDecay},
+        repellentsKernelParams={0: cst.BASIC_EXP_TRAP}
     ):
         """Constructor method
         """
-        self.distanceFunction = distanceFunction
         self.kernelFunction = kernelFunction
         self.kernelParams = kernelParams
         self.maskingMatrix = maskingMatrix
@@ -62,14 +70,18 @@ class Landscape:
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
             self.geometryType = 'xy'
-            self.pointCoords = np.asarray(points[['x', 'y']])          
+            self.pointCoords = np.asarray(points[['x', 'y']])
+            if distanceFunction is None:
+                self.distanceFunction = math.dist
         elif ('lat' in ptsHead) and ('lon' in ptsHead):
             self.geometryType = 'll'
             self.pointCoords = np.asarray(points[['lon', 'lat']])
+            if distanceFunction is None:
+                self.distanceFunction = vin.vincenty
         else:
             raise Exception(
                 '''Check the landscape type! 
-                Accepted headers are "(x, y)" and "(lat, lon).
+                Accepted headers are "(x, y)" and "(lon, lat).
                 '''
             )
         # Check and define point-types ----------------------------------------
