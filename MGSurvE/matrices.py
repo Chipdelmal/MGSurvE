@@ -88,7 +88,7 @@ def calcTrapsProbabilities(trapsDistances, trapsTypes, trapsKernels):
     return trapProbs
 
 
-def genVoidFullMigration(migrationMatrix, trapsNumber):
+def genVoidFullMigrationMatrix(migrationMatrix, trapsNumber):
     """Calculates a migration matrix with sections for traps (Xi) to be filled in place.
     
     Args:

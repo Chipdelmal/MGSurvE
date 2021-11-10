@@ -15,6 +15,9 @@
    
       calcDistanceMatrix
       calcMaskedMigrationMatrix
+      calcTrapsProbabilities
+      calcTrapsToPointsDistances
+      genVoidFullMigrationMatrix
    
    
 

@@ -13,6 +13,7 @@
 
    .. autosummary::
    
+      exponentialDecay
       truncatedExponential
       zeroInflatedExponentialKernel
       zeroInflatedLinearMigrationKernel
