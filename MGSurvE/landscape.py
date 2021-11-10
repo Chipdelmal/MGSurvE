@@ -56,7 +56,7 @@ class Landscape:
         maskedMigrationMatrix=None,
 
         traps=None,
-        trapKernels={
+        trapsKernels={
             0: {'kernel': krn.exponentialDecay, 'params': cst.BASIC_EXP_TRAP}
         },
 
@@ -74,6 +74,7 @@ class Landscape:
         self.trapsCoords = None
         self.trapsTypes = None
         self.trapsDistances = None
+        self.trapsKernels = trapsKernels
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
@@ -131,7 +132,6 @@ class Landscape:
                 self.trapsTypes = np.asarray([0]*len(trapsCoords))
             # Calculate trapsDistances ----------------------------------------
             self.calcTrapsDistances()
-
     ###########################################################################
     # Matrix Methods
     ###########################################################################

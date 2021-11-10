@@ -50,7 +50,7 @@ def calcMaskedMigrationMatrix(
     return tauN
 
 
-def calcTrapsToPointsDistances(trapsCoords, pointsCoords, dFun=math.dist):
+def calcTrapsToPointsDistances(trapsCoords, pointCoords, dFun=math.dist):
     """Generates the distances matrix between the traps and the sites.
     
     Args:
@@ -62,7 +62,48 @@ def calcTrapsToPointsDistances(trapsCoords, pointsCoords, dFun=math.dist):
         (numpy array): Distances matrix
     """
     trapDists = np.asarray([
-        [dFun(trap, site) for site in pointsCoords]
+        [dFun(trap, site) for site in pointCoords]
         for trap in trapsCoords
     ]).T
     return trapDists
+
+
+def calcTrapsProbabilities(trapsDistances, trapsTypes, trapsKernels):
+    """Calculates the traps probabilities given distances to points in the landscape and their effectiveness kernels.
+    
+    Args:
+        trapsDistances (numpy array): Distances to all points.
+        trapsTypes (numpy array): Types of the traps.
+        trapsKernels (function): Kernels functions and params for trap types.
+    
+    Returns:
+        (numpy array): Traps probabilities
+    """
+    trapProbs = np.asarray([
+        [
+            trapsKernels[ttype]['kernel'](i, **trapsKernels[ttype]['params']) 
+            for (i, ttype) in zip(dist, trapsTypes)
+        ] for dist in trapsDistances
+    ])
+    return trapProbs
+
+
+def genVoidFullMigration(migrationMatrix, trapsNumber):
+    """Calculates a migration matrix with sections for traps (Xi) to be filled in place.
+    
+    Args:
+        migrationMatrix (numpy array): Migration matrix without any traps (Tau).
+        trapsNumber (int): Number of traps in the landscape
+    
+    Returns:
+        (numpy array): Full migration matrix with no traps effects
+    """
+    (tau, sitesNumber) = (migrationMatrix, migrationMatrix.shape[0])
+    identity = np.identity(trapsNumber)
+    void = np.zeros((trapsNumber, sitesNumber))
+    alpha = np.zeros((sitesNumber, trapsNumber))
+    assembled = np.vstack([
+        np.hstack([tau, alpha]), 
+        np.hstack([void, identity])
+    ])
+    return assembled

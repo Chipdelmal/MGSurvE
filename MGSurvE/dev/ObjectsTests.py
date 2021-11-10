@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import math
 import numpy as np
 import pandas as pd
 import MGSurvE as srv
@@ -12,7 +13,8 @@ import matplotlib.pyplot as plt
 pts = [
     [0.00, 0.00, 0], 
     [0.25, 0.50, 1], 
-    [2.5, 0.15, 0]
+    [2.5, 0.15, 0],
+    [1, 1, 0]
 ]
 points = pd.DataFrame(pts, columns=['x', 'y', 't'])
 msk = [
@@ -21,22 +23,47 @@ msk = [
 ]
 # Traps info ------------------------------------------------------------------
 trp = [
-    [0, 0, 1],
-    [5, 0, 0]
+    [0, 0, 0],
+    [5, 0, 1]
 ]
 traps = pd.DataFrame(trp, columns=['x', 'y', 't'])
 tker = {
     0: {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 0.5}} 
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': 0, 'b': 0.5}} 
 }
 # Land tests ------------------------------------------------------------------
 lnd = srv.Landscape(
-    points, maskingMatrix=msk, traps=traps
+    points, maskingMatrix=msk, traps=traps, trapsKernels=tker
 )
 lnd.distanceMatrix
 lnd.migrationMatrix
 lnd.maskedMigration
-lnd.trapsDistances
+###############################################################################
+# Active dev
+###############################################################################
+trapsCoords = lnd.trapsCoords
+trapsDistances = lnd.trapsDistances
+trapsTypes = lnd.trapsTypes
+trapsKernels = lnd.trapsKernels
+pointCoords = lnd.pointCoords
+
+trapProbs = np.asarray([
+    [
+        trapsKernels[ttype]['kernel'](i, **trapsKernels[ttype]['params']) 
+        for (i, ttype) in zip(dist, trapsTypes)
+    ] for dist in trapsDistances
+])
+
+
+trapIdentity = np.identity(trapsDistances.shape[1])
+trapEscape = np.zeros(tuple(reversed(trapProbs.shape)))
+# Assemble dictionary
+retDict = {
+    'Trap': trapProbs, 
+    'Identity': trapIdentity,
+    'Escape': trapEscape
+}
+
 # Plots tests -----------------------------------------------------------------
 (fig, ax) = plt.subplots(figsize=(15, 15))
 srv.plotSites(
@@ -51,6 +78,8 @@ srv.plotNetwork(
     lineWidth=20, alphaMin=.5, alphaAmplitude=2.5, 
     zorder=0
 )
+
+
 
 ###############################################################################
 # Geo Landscape
