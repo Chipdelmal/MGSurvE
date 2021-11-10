@@ -23,8 +23,11 @@ class Landscape:
         migrationMatrix (numpy array): Markov matrix that determines the probability of moving from one site to another. If None, it's auto-calculated (see calcPointsMigration).
         maskedMigrationMatrix (numpy array): Markov matrix that biases migration probabilities as dictated by the masking matrix. If None, it's auto-calculated (see calcPointsMaskedMigration).
 
+        distanceFunction (function): Function that takes two points in the landscape and calculates the distance between them.
+
     Attributes:
-        pointsNumber (int): Number of sites present in the environment.
+        pointsCoords (numpy array): 
+        pointNumber (int): Number of sites present in the environment.
         geometryType (str): Type of geometry being analyzed (cartesian "xy" or lat-lon "ll")
 
         distanceMatrix (numpy array): Distances amongst the points in the landscape.
@@ -53,19 +56,24 @@ class Landscape:
         maskedMigrationMatrix=None,
 
         traps=None,
-        trapKernels={0: krn.exponentialDecay},
-        trapsKernelParams={0: cst.BASIC_EXP_TRAP},
-    
+        trapKernels={
+            0: {'kernel': krn.exponentialDecay, 'params': cst.BASIC_EXP_TRAP}
+        },
+
         repellents=None,
-        repellentsKernels={0: krn.exponentialDecay},
-        repellentsKernelParams={0: cst.BASIC_EXP_TRAP}
+        repellentsKernels={
+            0: {'kernel': krn.exponentialDecay, 'params': cst.BASIC_EXP_TRAP}
+        }
     ):
         """Constructor method
         """
         self.kernelFunction = kernelFunction
         self.kernelParams = kernelParams
         self.maskingMatrix = maskingMatrix
-        self.pointsNumber = len(points)
+        self.pointNumber = len(points)
+        self.trapsCoords = None
+        self.trapsTypes = None
+        self.trapsDistances = None
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
@@ -81,7 +89,7 @@ class Landscape:
         else:
             raise Exception(
                 '''Check the landscape type! 
-                Accepted headers are "(x, y)" and "(lon, lat).
+                Accepted headers are (x, y) and (lon, lat).
                 '''
             )
         # Check and define point-types ----------------------------------------
@@ -110,6 +118,19 @@ class Landscape:
             self.calcPointsMaskedMigration()
         else:
             self.maskedMigration = np.asarray(maskedMigration)
+        # Init traps locations ------------------------------------------------
+        if (traps is not None):
+            if (self.geometryType == 'xy'):
+                self.trapsCoords = np.asarray(traps[['x', 'y']])
+            else:
+                self.trapsCoords = np.asarray(traps[['lon', 'lat']])
+            # Check if there's trap-type information --------------------------
+            if ('t' in ptsHead):
+                self.trapsTypes = np.asarray(traps['t'])
+            else:
+                self.trapsTypes = np.asarray([0]*len(trapsCoords))
+            # Calculate trapsDistances ----------------------------------------
+            self.calcTrapsDistances()
 
     ###########################################################################
     # Matrix Methods
@@ -133,4 +154,13 @@ class Landscape:
         """
         self.maskedMigration = mat.calcMaskedMigrationMatrix(
             self.migrationMatrix, self.maskingMatrix, self.pointTypes
+        )
+    ###########################################################################
+    # Traps Methods
+    ###########################################################################
+    def calcTrapsDistances(self):
+        """Calculates the trapsDistances matrix (in place).
+        """
+        self.trapsDistances = mat.calcTrapsToPointsDistances(
+            self.trapsCoords, self.pointCoords, self.distanceFunction
         )

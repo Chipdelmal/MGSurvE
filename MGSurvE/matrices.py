@@ -42,10 +42,27 @@ def calcMaskedMigrationMatrix(
     pNum = len(migrationMatrix)
     itr = list(range(pNum))
     mskP = np.zeros((pNum, pNum))
-    print(migrationMatrix)
     for row in itr:
         for col in itr:
             (a, b) = (pointTypes[row], pointTypes[col])
             mskP[row, col] = maskingMatrix[a, b]
     tauN = normalize(mskP*migrationMatrix, axis=1, norm='l1')
     return tauN
+
+
+def calcTrapsToPointsDistances(trapsCoords, pointsCoords, dFun=math.dist):
+    """Generates the distances matrix between the traps and the sites.
+    
+    Args:
+        trapsCoords (numpy array): Coordinates of the traps.
+        pointsCoords (numpy array): Coordinates of the sites.
+        dFun (function): Distance function to be used in the computations.
+    
+    Returns:
+        (numpy array): Distances matrix
+    """
+    trapDists = np.asarray([
+        [dFun(trap, site) for site in pointsCoords]
+        for trap in trapsCoords
+    ]).T
+    return trapDists

@@ -6,24 +6,38 @@ import pandas as pd
 import MGSurvE as srv
 import matplotlib.pyplot as plt
 
+###############################################################################
+# XY Landscape
+###############################################################################
 pts = [
     [0.00, 0.00, 0], 
     [0.25, 0.50, 1], 
-    [1.00, 0.15, 0]
+    [2.5, 0.15, 0]
 ]
 points = pd.DataFrame(pts, columns=['x', 'y', 't'])
-
 msk = [
     [.6, .4],
     [.3, .7]
 ]
-
-lnd = srv.Landscape(points, maskingMatrix=msk)
-
+# Traps info ------------------------------------------------------------------
+trp = [
+    [0, 0, 1],
+    [5, 0, 0]
+]
+traps = pd.DataFrame(trp, columns=['x', 'y', 't'])
+tker = {
+    0: {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 0.5}} 
+}
+# Land tests ------------------------------------------------------------------
+lnd = srv.Landscape(
+    points, maskingMatrix=msk, traps=traps
+)
 lnd.distanceMatrix
 lnd.migrationMatrix
 lnd.maskedMigration
-
+lnd.trapsDistances
+# Plots tests -----------------------------------------------------------------
 (fig, ax) = plt.subplots(figsize=(15, 15))
 srv.plotSites(
     fig, ax, 
@@ -38,11 +52,9 @@ srv.plotNetwork(
     zorder=0
 )
 
-
-
-
-
-
+###############################################################################
+# Geo Landscape
+###############################################################################
 stp = [
     [7.353119999999999656e+00,1.598879999999999857e+00],
     [7.377180000000000071e+00,1.620500000000000052e+00],
