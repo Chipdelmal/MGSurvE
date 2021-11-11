@@ -75,6 +75,7 @@ class Landscape:
         self.trapsTypes = None
         self.trapsDistances = None
         self.trapsKernels = trapsKernels
+        self.trapsNumber = None
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
@@ -129,7 +130,8 @@ class Landscape:
             if ('t' in ptsHead):
                 self.trapsTypes = np.asarray(traps['t'])
             else:
-                self.trapsTypes = np.asarray([0]*len(trapsCoords))
+                self.trapsTypes = np.asarray([0]*len(self.trapsCoords))
+            self.trapsNumber = len(self.trapsCoords)
             # Calculate trapsDistances ----------------------------------------
             self.calcTrapsDistances()
     ###########################################################################
