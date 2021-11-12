@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import MGSurvE as srv
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import normalize
 
 ###############################################################################
 # XY Landscape
@@ -37,6 +38,13 @@ lnd = srv.Landscape(
 lnd.distanceMatrix
 lnd.migrationMatrix
 lnd.maskedMigration
+lnd.trapsMigration
+
+np.sum(lnd.trapsMigration, axis=1)
+np.sum(
+    normalize(lnd.trapsMigration, axis=1, norm='l1'),
+    axis=1
+)
 ###############################################################################
 # Active dev
 ###############################################################################

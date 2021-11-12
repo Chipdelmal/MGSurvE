@@ -4,6 +4,7 @@
 import math
 import numpy as np
 import vincenty as vin
+from sklearn.preprocessing import normalize
 import MGSurvE.matrices as mat
 import MGSurvE.constants as cst
 import MGSurvE.kernels as krn
@@ -76,6 +77,7 @@ class Landscape:
         self.trapsDistances = None
         self.trapsKernels = trapsKernels
         self.trapsNumber = None
+        self.trapsMigration = None
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
@@ -134,6 +136,12 @@ class Landscape:
             self.trapsNumber = len(self.trapsCoords)
             # Calculate trapsDistances ----------------------------------------
             self.calcTrapsDistances()
+            # Generate empty traps matrix -------------------------------------
+            self.trapsMigration = mat.genVoidFullMigrationMatrix(
+                self.maskedMigration, self.trapsNumber
+            )
+            # Filll in traps matrix -------------------------------------------
+            self.calcTrapsMigration()
     ###########################################################################
     # Matrix Methods
     ###########################################################################
@@ -166,3 +174,12 @@ class Landscape:
         self.trapsDistances = mat.calcTrapsToPointsDistances(
             self.trapsCoords, self.pointCoords, self.distanceFunction
         )
+    def calcTrapsMigration(self):
+        """Replaces section in the trapsMigration matrix (in place).
+        """
+        trapProbs = mat.calcTrapsProbabilities(
+            self.trapsDistances, self.trapsTypes, self.trapsKernels
+        )
+        ptsN = self.pointNumber
+        self.trapsMigration[:ptsN, ptsN:] = trapProbs
+        self.trapsMigration = normalize(self.trapsMigration, axis=1, norm='l1')
