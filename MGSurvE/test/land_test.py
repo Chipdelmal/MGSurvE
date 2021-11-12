@@ -27,7 +27,8 @@ tker = {
 }
 # Generating landscape --------------------------------------------------------
 lnd = srv.Landscape(
-    points, maskingMatrix=msk, traps=traps, trapsKernels=tker
+    points, maskingMatrix=msk, 
+    traps=traps, trapsKernels=tker
 )
 
 ###############################################################################
@@ -46,5 +47,8 @@ def test_MarkovMatrices():
         tsts.extend([sumsOne])
     assert all(tsts)
 
+###############################################################################
+# Main
+###############################################################################
 if __name__ == '__main__':
     unittest.main()
