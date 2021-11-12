@@ -37,6 +37,9 @@ clean_sdist:
 
 clean: clean_develop clean_pypi
 
+test:
+	@$(python) -m pytest -vv $(tests)
+
 check_build_reqs:
 	@$(python) -c 'import pytest' \
                 || ( printf "$(redpip)Build requirements are missing. Run 'make prepare' to install them.$(normal)" ; false )
@@ -57,4 +60,4 @@ doc:
 dev: 
 	- make clean
 	- make develop
-	- make doc
+	- make test

@@ -56,18 +56,6 @@ pointCoords = lnd.pointCoords
 trapsNumber = lnd.trapsNumber
 pointNumber = lnd.pointNumber
 
-# Generate full matrix with migration sections empty --------------------------
-xi = srv.genVoidFullMigrationMatrix(lnd.migrationMatrix, trapsNumber)
-# Calculate traps probabilities section ---------------------------------------
-trapProbs = np.asarray([
-    [
-        trapsKernels[ttype]['kernel'](i, **trapsKernels[ttype]['params']) 
-        for (i, ttype) in zip(dist, trapsTypes)
-    ] for dist in trapsDistances
-])
-# Replace traps region in place -----------------------------------------------
-xi[:pointNumber, pointNumber:] = trapProbs
-
 
 # Plots tests -----------------------------------------------------------------
 # (fig, ax) = plt.subplots(figsize=(15, 15))
