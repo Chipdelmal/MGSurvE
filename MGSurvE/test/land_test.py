@@ -39,8 +39,7 @@ def test_LandPointsNumbers():
     full = all([ptsMatch, trpMatch])
     assert full
 
-def test_MarkovMatrix():
-
+# def test_MarkovMatrix():
 
 if __name__ == '__main__':
     unittest.main()
