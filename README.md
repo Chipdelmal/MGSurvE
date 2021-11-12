@@ -3,8 +3,7 @@
 
 MGSurvE is a project oriented towards the optimization of traps' placement in complex heterogeneous landscapes in an effort to minimize the time to detection of genetic variants of interest.
 
-[![Build Status](https://app.travis-ci.com/Chipdelmal/MGSurvE.svg?branch=main)](https://app.travis-ci.com/Chipdelmal/MGSurvE)
-
+[![Build Status](https://app.travis-ci.com/Chipdelmal/MGSurvE.svg?branch=main)](https://app.travis-ci.com/Chipdelmal/MGSurvE)![Git Build](https://github.com/Chipdelmal/MGSurvE/actions/workflows/main.yml/badge.svg)
 
 ![landscape](https://github.com/Chipdelmal/MGSurvE/raw/main/img/demo.jpg)
 
