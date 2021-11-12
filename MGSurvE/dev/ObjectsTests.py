@@ -40,11 +40,9 @@ lnd.migrationMatrix
 lnd.maskedMigration
 lnd.trapsMigration
 
-np.sum(lnd.trapsMigration, axis=1)
-np.sum(
-    normalize(lnd.trapsMigration, axis=1, norm='l1'),
-    axis=1
-)
+
+
+
 ###############################################################################
 # Active dev
 ###############################################################################
@@ -55,6 +53,17 @@ trapsKernels = lnd.trapsKernels
 pointCoords = lnd.pointCoords
 trapsNumber = lnd.trapsNumber
 pointNumber = lnd.pointNumber
+
+traps = pd.DataFrame({
+    'x': [200, 200],
+    'y': [200, 200],
+    't': ['b', 'a']
+})
+tker = {
+    'a': {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
+    'b': {'kernel': srv.exponentialDecay, 'params': {'A': 0.1, 'b': 0.5}} 
+}
+lnd.updateTraps(traps, tker)
 
 
 # Plots tests -----------------------------------------------------------------

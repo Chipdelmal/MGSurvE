@@ -58,7 +58,11 @@ class Landscape:
 
         traps=None,
         trapsKernels={
-            0: {'kernel': krn.exponentialDecay, 'params': cst.BASIC_EXP_TRAP}
+            0: {
+                'kernel': krn.exponentialDecay, 
+                'params': cst.BASIC_EXP_TRAP,
+                'inverse': None
+            }
         },
 
         repellents=None,
@@ -183,3 +187,24 @@ class Landscape:
         ptsN = self.pointNumber
         self.trapsMigration[:ptsN, ptsN:] = trapProbs
         self.trapsMigration = normalize(self.trapsMigration, axis=1, norm='l1')
+    def updateTraps(self, traps, trapsKernels):
+        """Updates the traps locations and migration matrices (in place).
+
+        Parameters:
+            traps (pandas dataframe):
+            trapsKernel (dictionary):
+        """
+        # Update traps locations and types ------------------------------------
+        if (self.geometryType == 'xy'):
+            self.trapsCoords = np.asarray(traps[['x', 'y']])
+        else:
+            self.trapsCoords = np.asarray(traps[['lon', 'lat']])
+            if ('t' in ptsHead):
+                self.trapsTypes = np.asarray(traps['t'])
+            else:
+                self.trapsTypes = np.asarray([0]*len(self.trapsCoords))
+        self.trapsNumber = len(self.trapsCoords)
+        self.trapsKernels = trapsKernels
+        # Updating necessary matrices -----------------------------------------
+        self.calcTrapsDistances()
+        self.calcTrapsMigration()

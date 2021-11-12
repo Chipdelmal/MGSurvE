@@ -78,6 +78,24 @@ def plotNetwork(
 
 
 def plotTraps(
-        fig, ax
+        fig, ax,
+        trapsCoords, trapsTypes, radii,
+        colors=['#f72585FA', ], markers=["X", ],
+        **kwargs
     ):
+    """ Plots the traps with the radii of effectiveness.
+
+    """
+    # for trap in trapsCoords:
+    #     plt.scatter(
+    #         trap[0], trap[1], 
+    #         marker="X", color=color, s=600, zorder=25,
+    #         edgecolors='w', linewidths=2
+    #     )
+    #     for r in radii:
+    #         circle = plt.Circle(
+    #             (trap[0], trap[1]), r, 
+    #             color='#f7258509', fill=True, ls=':', lw=0, zorder=0
+    #         )
+    #         ax.add_patch(circle)
     return (fig, ax)
