@@ -76,3 +76,8 @@ def plotNetwork(
             )
     return (fig, ax)
 
+
+def plotTraps(
+        fig, ax
+    ):
+    return (fig, ax)

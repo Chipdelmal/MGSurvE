@@ -61,3 +61,8 @@ dev:
 	- make clean
 	- make develop
 	- make test
+	- make conda
+
+conda:
+	- conda list -e > REQUIREMENTS.txt
+	- conda env export > REQUIREMENTS.yml
