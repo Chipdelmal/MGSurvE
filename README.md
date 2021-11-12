@@ -16,7 +16,6 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 
 * Lead: [Héctor M. Sánchez C.](https://chipdelmal.github.io/blog/)
 * PIs: [David L. Smith](http://www.healthdata.org/about/david-smith), [John M. Marshall](https://publichealth.berkeley.edu/people/john-marshall/)
-<br>
 
-<img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/berkeley.jpg" height="25px"> <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/IHME.jpg" height="25px">  <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/UCIMI.png" height="25px"> <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/IGI.png" height="25px"> <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/DARPA.jpg" height="25px">
+<img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/berkeley.jpg" height="25px"> <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/IHME.jpg" height="25px">  <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/UCIMI.png" height="25px"> <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/IGI.png" height="25px"> <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/DARPA.jpg" height="25px"> <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/gates.jpg" height="25px">
 
