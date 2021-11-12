@@ -28,7 +28,8 @@ setuptools.setup(
     install_requires=[
         'numpy', 'matplotlib', 'ipython',
         'jupyter', 'pandas', 'compress-pickle',
-        'deap', 'scikit-learn', 'scipy', 'vincenty'
+        'deap', 'scikit-learn', 'scipy', 'vincenty',
+        'pytest'
     ],
     license='MIT',
     classifiers=[
