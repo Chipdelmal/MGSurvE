@@ -39,7 +39,12 @@ def test_LandPointsNumbers():
     full = all([ptsMatch, trpMatch])
     assert full
 
-# def test_MarkovMatrix():
+def test_MarkovMatrices():
+    tsts = []
+    for mat in (lnd.migrationMatrix, lnd.maskedMigration, lnd.trapsMigration):
+        sumsOne = all([np.isclose(i, 1) for i in np.sum(mat, axis=1)])
+        tsts.extend([sumsOne])
+    assert all(tsts)
 
 if __name__ == '__main__':
     unittest.main()
