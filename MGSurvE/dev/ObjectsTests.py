@@ -41,7 +41,9 @@ lnd.maskedMigration
 lnd.trapsMigration
 
 
+trapExp = lnd.trapsKernels[0]
 
+srv.nSolveKernel(trapExp, 0.000001)
 
 ###############################################################################
 # Active dev

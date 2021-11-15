@@ -4,8 +4,9 @@
 import math
 import numpy as np
 import scipy.stats as stats
-import MGSurvE.constants as cst
+from scipy.optimize import fsolve
 from sklearn.preprocessing import normalize
+import MGSurvE.constants as cst
 
 ###############################################################################
 # Migration Kernels
@@ -96,3 +97,23 @@ def exponentialDecay(dist, A=1, b=1):
     '''
     prob = A * math.exp(-b * dist)
     return prob
+
+
+###############################################################################
+# Auxiliary
+###############################################################################
+def nSolveKernel(kernelDict, yVal, guess=10):
+    '''Calculates the distance it takes for the kernel to match a given probability (yVar).
+
+    Args:
+        kernelDict (dict): Dictionary with the kernel info {'kernel', 'params'}.
+        yVal (float): Probability for which we are solving the distance.
+        guess (float): Initial guess for the distance.
+
+    Returns:
+        float: Distance for the probability value.
+    '''
+    (kFun, kPar) = (kernelDict['kernel'], kernelDict['params'])
+    func = lambda delta : yVal-kFun(delta, **kPar)
+    distance = fsolve(func, guess)
+    return distance[0]
