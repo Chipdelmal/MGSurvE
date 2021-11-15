@@ -185,6 +185,27 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.kernels.nSolveKernel">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">nSolveKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernelDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yVal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.nSolveKernel" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the distance it takes for the kernel to match a given probability (yVar).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kernelDict</strong> (<em>dict</em>) – Dictionary with the kernel info {‘kernel’, ‘params’}.</p></li>
+<li><p><strong>yVal</strong> (<em>float</em>) – Probability for which we are solving the distance.</p></li>
+<li><p><strong>guess</strong> (<em>float</em>) – Initial guess for the distance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Distance for the probability value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.kernels.truncatedExponential">
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">truncatedExponential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.01848777,</span> <span class="pre">1e-10,</span> <span class="pre">inf]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.truncatedExponential" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the zero-inflated exponential distance-based movement probability.</p>
@@ -247,7 +268,7 @@
 <span id="mgsurve-landscape-module"></span><h2>MGSurvE.landscape module<a class="headerlink" href="#module-MGSurvE.landscape" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="MGSurvE.landscape.Landscape">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">MGSurvE.landscape.</span></span><span class="sig-name descname"><span class="pre">Landscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">points,</span> <span class="pre">maskingMatrix=None,</span> <span class="pre">distanceMatrix=None,</span> <span class="pre">distanceFunction=None,</span> <span class="pre">migrationMatrix=None,</span> <span class="pre">kernelFunction=&lt;function</span> <span class="pre">zeroInflatedExponentialKernel&gt;,</span> <span class="pre">kernelParams={'params':</span> <span class="pre">[0.01848777,</span> <span class="pre">1e-10,</span> <span class="pre">inf],</span> <span class="pre">'zeroInflation':</span> <span class="pre">0.75},</span> <span class="pre">maskedMigrationMatrix=None,</span> <span class="pre">traps=None,</span> <span class="pre">trapsKernels={0:</span> <span class="pre">{'kernel':</span> <span class="pre">&lt;function</span> <span class="pre">exponentialDecay&gt;,</span> <span class="pre">'params':</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}}},</span> <span class="pre">repellents=None,</span> <span class="pre">repellentsKernels={0:</span> <span class="pre">{'kernel':</span> <span class="pre">&lt;function</span> <span class="pre">exponentialDecay&gt;,</span> <span class="pre">'params':</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}}}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">MGSurvE.landscape.</span></span><span class="sig-name descname"><span class="pre">Landscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">points,</span> <span class="pre">maskingMatrix=None,</span> <span class="pre">distanceMatrix=None,</span> <span class="pre">distanceFunction=None,</span> <span class="pre">migrationMatrix=None,</span> <span class="pre">kernelFunction=&lt;function</span> <span class="pre">zeroInflatedExponentialKernel&gt;,</span> <span class="pre">kernelParams={'params':</span> <span class="pre">[0.01848777,</span> <span class="pre">1e-10,</span> <span class="pre">inf],</span> <span class="pre">'zeroInflation':</span> <span class="pre">0.75},</span> <span class="pre">maskedMigrationMatrix=None,</span> <span class="pre">traps=None,</span> <span class="pre">trapsKernels={0:</span> <span class="pre">{'inverse':</span> <span class="pre">None,</span> <span class="pre">'kernel':</span> <span class="pre">&lt;function</span> <span class="pre">exponentialDecay&gt;,</span> <span class="pre">'params':</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}}},</span> <span class="pre">repellents=None,</span> <span class="pre">repellentsKernels={0:</span> <span class="pre">{'kernel':</span> <span class="pre">&lt;function</span> <span class="pre">exponentialDecay&gt;,</span> <span class="pre">'params':</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}}}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Stores the information for a mosquito landscape. Works with different point-types in the form of matrices and coordinates.</p>
 <dl class="field-list simple">
@@ -376,6 +397,20 @@
 <dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.calcTrapsMigration">
 <span class="sig-name descname"><span class="pre">calcTrapsMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.calcTrapsMigration" title="Permalink to this definition"></a></dt>
 <dd><p>Replaces section in the trapsMigration matrix (in place).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.updateTraps">
+<span class="sig-name descname"><span class="pre">updateTraps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsKernels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.updateTraps" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the traps locations and migration matrices (in place).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>traps</strong> (<em>pandas dataframe</em>) – </p></li>
+<li><p><strong>trapsKernel</strong> (<em>dictionary</em>) – </p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -544,6 +579,12 @@
 <dd class="field-odd"><p>(fig, ax)</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.plot.plotTraps">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.plot.</span></span><span class="sig-name descname"><span class="pre">plotTraps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsCoords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsTypes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radii</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['#f72585FA']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['X']</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plot.plotTraps" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the traps with the radii of effectiveness.</p>
 </dd></dl>
 
 </section>

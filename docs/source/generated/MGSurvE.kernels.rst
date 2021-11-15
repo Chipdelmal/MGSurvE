@@ -14,6 +14,7 @@
    .. autosummary::
    
       exponentialDecay
+      nSolveKernel
       truncatedExponential
       zeroInflatedExponentialKernel
       zeroInflatedLinearMigrationKernel

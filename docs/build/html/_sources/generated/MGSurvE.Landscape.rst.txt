@@ -19,6 +19,7 @@
       ~Landscape.calcPointsMigration
       ~Landscape.calcTrapsDistances
       ~Landscape.calcTrapsMigration
+      ~Landscape.updateTraps
    
    
 
