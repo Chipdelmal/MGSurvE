@@ -199,10 +199,7 @@ class Landscape:
             self.trapsCoords = np.asarray(traps[['x', 'y']])
         else:
             self.trapsCoords = np.asarray(traps[['lon', 'lat']])
-            if ('t' in ptsHead):
-                self.trapsTypes = np.asarray(traps['t'])
-            else:
-                self.trapsTypes = np.asarray([0]*len(self.trapsCoords))
+        self.trapsTypes = np.asarray(traps['t'])
         self.trapsNumber = len(self.trapsCoords)
         self.trapsKernels = trapsKernels
         # Updating necessary matrices -----------------------------------------

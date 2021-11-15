@@ -1,3 +1,5 @@
+
+import math
 import unittest
 import numpy as np
 import pandas as pd
@@ -46,6 +48,23 @@ def test_MarkovMatrices():
         sumsOne = all([np.isclose(i, 1) for i in np.sum(mat, axis=1)])
         tsts.extend([sumsOne])
     assert all(tsts)
+
+def test_UpdateMigration():
+    trapsNew = pd.DataFrame({
+        'x': [0, 0],
+        'y': [1, 1],
+        't': [1, 0]
+    })
+    tkerNew = {
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': 100000, 'b': 0}},
+        1: {'kernel': srv.exponentialDecay, 'params': {'A': 0, 'b': 0}} 
+    }
+    lnd.updateTraps(trapsNew, tkerNew)
+    sumsNumber = lnd.pointNumber+lnd.trapsNumber-1
+    maxTrap = np.isclose(np.sum(lnd.trapsMigration[:,-1]), sumsNumber)
+    nullTrap = np.isclose(np.sum(lnd.trapsMigration[:,-2]), 1)
+    assert(all([maxTrap, nullTrap]))
+
 
 ###############################################################################
 # Main

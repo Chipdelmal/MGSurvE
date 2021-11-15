@@ -57,11 +57,11 @@ pointNumber = lnd.pointNumber
 traps = pd.DataFrame({
     'x': [200, 200],
     'y': [200, 200],
-    't': ['b', 'a']
+    't': [0, 1]
 })
 tker = {
-    'a': {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
-    'b': {'kernel': srv.exponentialDecay, 'params': {'A': 0.1, 'b': 0.5}} 
+    1: {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': 0, 'b': 0.5}} 
 }
 lnd.updateTraps(traps, tker)
 
