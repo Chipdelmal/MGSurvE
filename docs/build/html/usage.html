@@ -89,6 +89,31 @@
 </section>
 <section id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline"></a></h2>
+<p>Let’s create a simple landscape with three sites, and two traps.</p>
+<p>First, we load the required libraries:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">MGSurvE</span> <span class="k">as</span> <span class="nn">srv</span>
+</pre></div>
+</div>
+<p>and lay down the points at coordinates <code class="code docutils literal notranslate"><span class="pre">((0,</span> <span class="pre">0),</span> <span class="pre">(2,</span> <span class="pre">0.5),</span> <span class="pre">(2.5,</span> <span class="pre">1.5))</span></code> with the same point-type <code class="code docutils literal notranslate"><span class="pre">0</span></code>.
+This is done by creating a pandas dataframe with column names <code class="code docutils literal notranslate"><span class="pre">('x',</span> <span class="pre">'y',</span> <span class="pre">'t')</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pts</span> <span class="o">=</span> <span class="p">(</span>
+   <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+   <span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+   <span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>To add the traps, we follow a similar process, with the addition of the kernel shape function:</p>
+<p>Once with this information, we can generate our landscape instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lnd</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">Landscape</span><span class="p">(</span>
+   <span class="n">points</span><span class="p">,</span>
+   <span class="n">traps</span><span class="o">=</span><span class="n">traps</span><span class="p">,</span> <span class="n">trapsKernels</span><span class="o">=</span><span class="n">tKernels</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
 
