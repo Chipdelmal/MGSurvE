@@ -38,7 +38,7 @@ def plotSites(
     return (fig, ax)
 
 
-def plotNetwork(
+def plotMigrationNetwork(
         fig, ax, 
         transMtx, sitesB, sitesA,
         lineColor='#03045e', lineWidth=20, 
@@ -51,7 +51,8 @@ def plotNetwork(
         fig (matplotlib): Matplotlib fig object.
         ax (matplotlib): Matplotlib ax object.
         transMtx (numpy matrix): Transitions matrix.
-        sites (numpy array): Coordinates of the vertices.
+        sitesB (numpy array): Coordinates of the vertices origins (sites/traps).
+        sitesA (numpy array): Coordinates of the vertices origins (sites).
         lineColor (color): Color for the network.
         lineWidth (float): Amplitude for the linewidth.
         alphaMin (float): Minimum alpha value allowed.
@@ -127,4 +128,24 @@ def plotTraps(
                 lw=lws[1], zorder=zorders[1]
             )
             ax.add_patch(circle)
+    return (fig, ax)
+
+
+def plotTrapsNetwork(
+        fig, ax,
+        transMtx, traps, sites,
+        lineColor='#f72585', lineWidth=20, 
+        alphaMin=.5, alphaAmplitude=2.5,
+        zorder=0, **kwargs
+    ):
+    ptsNum = sites.shape[0]
+    txMtx = transMtx[:ptsNum, ptsNum:]
+    (fig, ax) = plotMigrationNetwork(
+        fig, ax, 
+        txMtx, traps, sites,
+        lineColor=lineColor, lineWidth=lineWidth,
+        alphaMin=alphaMin, alphaAmplitude=alphaAmplitude,
+        zorder=zorder,
+        **kwargs
+    )
     return (fig, ax)

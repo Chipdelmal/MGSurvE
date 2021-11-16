@@ -76,7 +76,7 @@ trapsCoords = lnd.trapsCoords
     size=500, edgecolors='w', linewidths=1.25,
     zorder=5
 )
-(fig, ax) = srv.plotNetwork(
+(fig, ax) = srv.plotMigrationNetwork(
     fig, ax, 
     lnd.maskedMigration, lnd.pointCoords, lnd.pointCoords,
     lineWidth=20, alphaMin=.5, alphaAmplitude=2.5, 
@@ -87,16 +87,11 @@ trapsCoords = lnd.trapsCoords
     trapsCoords, trapsTypes, lnd.trapsKernels,
     colors=srv.TRP_COLS
 )
+srv.plotTrapsNetwork(
+    fig, ax,
+    lnd.trapsMigration, lnd.trapsCoords, lnd.pointCoords
+)
 ax.set_aspect('equal')
-
-tauN = lnd.trapsMigration
-tx = tauN[:pointNumber, pointNumber:]
-(fig, ax) = srv.plotNetwork(
-        fig, ax, 
-        tx, trapsCoords, pointCoords,
-        lineColor='#f72585'
-    )
-
 
 
 
