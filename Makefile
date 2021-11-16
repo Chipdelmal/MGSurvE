@@ -64,5 +64,5 @@ dev:
 	- make conda
 
 conda:
-	- conda list -e > REQUIREMENTS.txt
-	- conda env export > REQUIREMENTS.yml
+	- conda list -e > /conda/REQUIREMENTS.txt
+	- conda env export > /conda/REQUIREMENTS.yml

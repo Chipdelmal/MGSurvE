@@ -20,6 +20,7 @@
       ~Landscape.calcTrapsDistances
       ~Landscape.calcTrapsMigration
       ~Landscape.updateTraps
+      ~Landscape.updateTrapsRadii
    
    
 
