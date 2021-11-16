@@ -107,6 +107,16 @@ This is done by creating a pandas dataframe with column names <code class="code 
 </pre></div>
 </div>
 <p>To add the traps, we follow a similar process, with the addition of the kernel shape function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trp</span> <span class="o">=</span> <span class="p">(</span>
+   <span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+   <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">traps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">trp</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">))</span>
+<span class="n">tKernels</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">exponentialDecay</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>Once with this information, we can generate our landscape instance:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lnd</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">Landscape</span><span class="p">(</span>
    <span class="n">points</span><span class="p">,</span>
@@ -114,6 +124,7 @@ This is done by creating a pandas dataframe with column names <code class="code 
 <span class="p">)</span>
 </pre></div>
 </div>
+<p>And that’s it. We have successfully created our basic landscape.</p>
 </section>
 </section>
 

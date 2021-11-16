@@ -53,6 +53,7 @@ This is done by creating a pandas dataframe with column names :code:`('x', 'y', 
 To add the traps, we follow a similar process, with the addition of the kernel shape function:
 
 .. code-block:: python
+
    trp = (
       (2.0, 2.0, 0),
       (1.0, 3.0, 0)

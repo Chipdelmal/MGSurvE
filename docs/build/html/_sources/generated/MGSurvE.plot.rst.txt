@@ -13,9 +13,10 @@
 
    .. autosummary::
    
-      plotNetwork
+      plotMigrationNetwork
       plotSites
       plotTraps
+      plotTrapsNetwork
    
    
 

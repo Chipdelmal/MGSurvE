@@ -53,6 +53,7 @@ This is done by creating a pandas dataframe with column names :code:`('x', 'y', 
 To add the traps, we follow a similar process, with the addition of the kernel shape function:
 
 .. code-block:: python
+
    trp = (
       (2.0, 2.0, 0),
       (1.0, 3.0, 0)
@@ -70,3 +71,5 @@ Once with this information, we can generate our landscape instance:
       points, 
       traps=traps, trapsKernels=tKernels
    )
+
+And that's it. We have successfully created our basic landscape.
