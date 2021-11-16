@@ -22,7 +22,7 @@ BASIC_EXP_TRAP = {'A': 0.5, 'b': 0.15}
 MKRS = ('o', '^', 's', 'p', 'd', 'X')
 """Markers for point-types"""
 
-MCOL = ('#e0c3fc', '#bdb2ff', '#a0c4ff', '#ffd6a5', '#caffbf')
+MCOL = ('#e0c3fc', '#bdb2ff', '#a0c4ff', '#ffd6a5', '#caffbf', '#d0d1ff')
 """A cute pastel colors list."""
 
 PINK_NAVY = col.colorPaletteFromHexList(['#e0c3fc',  '#00296b'])

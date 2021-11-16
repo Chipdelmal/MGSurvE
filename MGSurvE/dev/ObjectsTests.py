@@ -29,7 +29,7 @@ trp = [
 traps = pd.DataFrame(trp, columns=['x', 'y', 't'])
 tker = {
     0: {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': 0.1, 'b': 0.5}} 
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 2}} 
 }
 # Land tests ------------------------------------------------------------------
 lnd = srv.Landscape(
@@ -40,11 +40,14 @@ lnd.migrationMatrix
 lnd.maskedMigration
 lnd.trapsMigration
 
+trapsRadii=[.5, .01]
+lnd.updateTrapsRadii(trapsRadii)
 
-trapExp = lnd.trapsKernels[0]
 
-srv.nSolveKernel(trapExp, 0.000001)
 
+
+
+    
 ###############################################################################
 # Active dev
 ###############################################################################
@@ -63,7 +66,7 @@ traps = pd.DataFrame({
 })
 tker = {
     1: {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': 0, 'b': 0.5}} 
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': 0.1}} 
 }
 lnd.updateTraps(traps, tker)
 

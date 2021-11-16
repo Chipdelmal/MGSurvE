@@ -102,7 +102,7 @@ def exponentialDecay(dist, A=1, b=1):
 ###############################################################################
 # Auxiliary
 ###############################################################################
-def nSolveKernel(kernelDict, yVal, guess=10):
+def nSolveKernel(kernelDict, yVal, guess=0):
     '''Calculates the distance it takes for the kernel to match a given probability (yVar).
 
     Args:

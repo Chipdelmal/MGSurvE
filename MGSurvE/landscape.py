@@ -64,6 +64,7 @@ class Landscape:
                 'inverse': None
             }
         },
+        trapsRadii=[.1, .05, .01],
 
         repellents=None,
         repellentsKernels={
@@ -82,6 +83,7 @@ class Landscape:
         self.trapsKernels = trapsKernels
         self.trapsNumber = None
         self.trapsMigration = None
+        self.trapsRadii = trapsRadii
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
@@ -146,6 +148,8 @@ class Landscape:
             )
             # Filll in traps matrix -------------------------------------------
             self.calcTrapsMigration()
+            # Filll in traps matrix -------------------------------------------
+            self.updateTrapsRadii(self.trapsRadii)
     ###########################################################################
     # Matrix Methods
     ###########################################################################
@@ -205,3 +209,13 @@ class Landscape:
         # Updating necessary matrices -----------------------------------------
         self.calcTrapsDistances()
         self.calcTrapsMigration()
+        self.updateTrapsRadii(self.trapsRadii)
+    def updateTrapsRadii(self, probValues):
+        tker = self.trapsKernels
+        for k in list(tker.keys()):
+            tker[k].update({
+                'radii': [
+                    krn.nSolveKernel(tker[k], d, guess=0) for d in probValues
+                ]
+            })
+        self.trapsKernels = tker
