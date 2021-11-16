@@ -61,13 +61,13 @@ traps = pd.DataFrame({
     't': [0, 2]
 })
 tker = {
-    0: {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
-    2: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': 0.1}} 
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': 1.5}},
+    2: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': 2}} 
 }
 lnd.updateTraps(traps, tker)
 
 trapsTypes = lnd.trapsTypes
-trapsTypes = lnd.trapsTypes
+trapsCoords = lnd.trapsCoords
 # Plots tests -----------------------------------------------------------------
 (fig, ax) = plt.subplots(figsize=(15, 15))
 (fig, ax) = srv.plotSites(
@@ -84,16 +84,11 @@ trapsTypes = lnd.trapsTypes
 )
 (fig, ax) = srv.plotTraps(
     fig, ax, 
-    trapsCoords, trapsTypes, [0.25, .1],
+    trapsCoords, trapsTypes, lnd.trapsKernels,
     colors=srv.TRP_COLS
 )
 ax.set_aspect('equal')
 
-trapsCoords
-trapsTypes[0]
-
-for (i, trap) in enumerate(trapsCoords):
-        col = print(trapsTypes[i])
 
 ###############################################################################
 # Geo Landscape

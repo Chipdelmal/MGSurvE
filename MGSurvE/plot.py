@@ -79,7 +79,7 @@ def plotNetwork(
 
 def plotTraps(
         fig, ax,
-        trapsCoords, trapsTypes, radii,
+        trapsCoords, trapsTypes, trapsKernels,
         colors=cst.TRP_COLS, marker="X",
         edgecolor='w', lws=(2, 0), ls=':',
         size=200, zorders=(25, 1),
@@ -91,15 +91,15 @@ def plotTraps(
         fig (matplotlib): Matplotlib fig object.
         ax (matplotlib): Matplotlib ax object.
         trapsCoords (numpy array): Coordinates of the vertices.
-        trapsTypes (list ints): Trap types IDs
-        radii (lists floats): Radii of action for each trap type
-        colors (dict): List of colors for different trap types
-        marker (mrk): Marker type for matplotlib
-        edgecolor (color): Edgecolor for trap marker
-        lws (tuple): Line widths for marker and radii (in order)
-        ls (str): Linestyle for the radii
-        size (float): Size of the marker
-        zorders (tuple): Zorders for marker and circles
+        trapsTypes (list ints): Trap types IDs.
+        trapsKernels (dict): Dictionary of traps kernels.
+        colors (dict): List of colors for different trap types.
+        marker (mrk): Marker type for matplotlib.
+        edgecolor (color): Edgecolor for trap marker.
+        lws (tuple): Line widths for marker and radii (in order).
+        ls (str): Linestyle for the radii.
+        size (float): Size of the marker.
+        zorders (tuple): Zorders for marker and circles.
         kwargs (dict): Matplotlib's plot-compliant kwargs.
     
     Returns:
@@ -112,13 +112,14 @@ def plotTraps(
             'Less colors ({}) than trap types ({})!'.format(cNum, tNum)
         )
     for (i, trap) in enumerate(trapsCoords):
-        col = colors[trapsTypes[i]]
+        tType = trapsTypes[i]
+        col = colors[tType]
         plt.scatter(
             trap[0], trap[1], 
             marker=marker, color=col, s=size, zorder=zorders[0],
             edgecolors=edgecolor, linewidths=lws[0]
         )
-        for r in radii:
+        for r in trapsKernels[tType]['radii']:
             circle = plt.Circle(
                 (trap[0], trap[1]), r, 
                 color=col, fill=True, ls=ls, 
