@@ -106,12 +106,13 @@ def plotTraps(
         (fig, ax): Matplotlib (fig, ax) tuple.
 
     """
-    # missCol = len(colors) - len(trapsTypes)
-    # if missCol < 0:
-    #     colors = colors + [colors[0]]*missCol
+    (cNum, tNum) = (len(colors), len(trapsTypes))
+    if (cNum-tNum) < 0:
+        raise Exception(
+            'Less colors ({}) than trap types ({})!'.format(cNum, tNum)
+        )
     for (i, trap) in enumerate(trapsCoords):
         col = colors[trapsTypes[i]]
-        print(trapsTypes)
         plt.scatter(
             trap[0], trap[1], 
             marker=marker, color=col, s=size, zorder=zorders[0],
