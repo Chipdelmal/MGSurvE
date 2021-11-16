@@ -43,10 +43,6 @@ lnd.trapsMigration
 trapsRadii=[.5, .01]
 lnd.updateTrapsRadii(trapsRadii)
 
-
-
-
-
     
 ###############################################################################
 # Active dev
@@ -60,33 +56,44 @@ trapsNumber = lnd.trapsNumber
 pointNumber = lnd.pointNumber
 
 traps = pd.DataFrame({
-    'x': [200, 200],
-    'y': [200, 200],
-    't': [0, 1]
+    'x': [0, 3],
+    'y': [3, 0],
+    't': [0, 2]
 })
 tker = {
-    1: {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': 0.1}} 
+    0: {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
+    2: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': 0.1}} 
 }
 lnd.updateTraps(traps, tker)
 
-
+trapsTypes = lnd.trapsTypes
+trapsTypes = lnd.trapsTypes
 # Plots tests -----------------------------------------------------------------
-# (fig, ax) = plt.subplots(figsize=(15, 15))
-# srv.plotSites(
-#     fig, ax, 
-#     lnd.pointCoords, lnd.pointTypes,
-#     size=500, edgecolors='w', linewidths=1.25,
-#     zorder=5
-# )
-# srv.plotNetwork(
-#     fig, ax, 
-#     lnd.maskedMigration, lnd.pointCoords,
-#     lineWidth=20, alphaMin=.5, alphaAmplitude=2.5, 
-#     zorder=0
-# )
+(fig, ax) = plt.subplots(figsize=(15, 15))
+(fig, ax) = srv.plotSites(
+    fig, ax, 
+    lnd.pointCoords, lnd.pointTypes,
+    size=500, edgecolors='w', linewidths=1.25,
+    zorder=5
+)
+(fig, ax) = srv.plotNetwork(
+    fig, ax, 
+    lnd.maskedMigration, lnd.pointCoords,
+    lineWidth=20, alphaMin=.5, alphaAmplitude=2.5, 
+    zorder=0
+)
+(fig, ax) = srv.plotTraps(
+    fig, ax, 
+    trapsCoords, trapsTypes, [0.25, .1],
+    colors=srv.TRP_COLS
+)
+ax.set_aspect('equal')
 
+trapsCoords
+trapsTypes[0]
 
+for (i, trap) in enumerate(trapsCoords):
+        col = print(trapsTypes[i])
 
 ###############################################################################
 # Geo Landscape

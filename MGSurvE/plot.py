@@ -80,22 +80,48 @@ def plotNetwork(
 def plotTraps(
         fig, ax,
         trapsCoords, trapsTypes, radii,
-        colors=['#f72585FA', ], markers=["X", ],
+        colors=cst.TRP_COLS, marker="X",
+        edgecolor='w', lws=(2, 0), ls=':',
+        size=200, zorders=(25, 1),
         **kwargs
     ):
     """ Plots the traps with the radii of effectiveness.
 
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        trapsCoords (numpy array): Coordinates of the vertices.
+        trapsTypes (list ints): Trap types IDs
+        radii (lists floats): Radii of action for each trap type
+        colors (dict): List of colors for different trap types
+        marker (mrk): Marker type for matplotlib
+        edgecolor (color): Edgecolor for trap marker
+        lws (tuple): Line widths for marker and radii (in order)
+        ls (str): Linestyle for the radii
+        size (float): Size of the marker
+        zorders (tuple): Zorders for marker and circles
+        kwargs (dict): Matplotlib's plot-compliant kwargs.
+    
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+
     """
-    # for trap in trapsCoords:
-    #     plt.scatter(
-    #         trap[0], trap[1], 
-    #         marker="X", color=color, s=600, zorder=25,
-    #         edgecolors='w', linewidths=2
-    #     )
-    #     for r in radii:
-    #         circle = plt.Circle(
-    #             (trap[0], trap[1]), r, 
-    #             color='#f7258509', fill=True, ls=':', lw=0, zorder=0
-    #         )
-    #         ax.add_patch(circle)
+    # missCol = len(colors) - len(trapsTypes)
+    # if missCol < 0:
+    #     colors = colors + [colors[0]]*missCol
+    for (i, trap) in enumerate(trapsCoords):
+        col = colors[trapsTypes[i]]
+        print(trapsTypes)
+        plt.scatter(
+            trap[0], trap[1], 
+            marker=marker, color=col, s=size, zorder=zorders[0],
+            edgecolors=edgecolor, linewidths=lws[0]
+        )
+        for r in radii:
+            circle = plt.Circle(
+                (trap[0], trap[1]), r, 
+                color=col, fill=True, ls=ls, 
+                lw=lws[1], zorder=zorders[1]
+            )
+            ax.add_patch(circle)
     return (fig, ax)
