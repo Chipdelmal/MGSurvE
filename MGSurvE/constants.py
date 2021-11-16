@@ -29,7 +29,7 @@ PINK_NAVY = col.colorPaletteFromHexList(['#e0c3fc',  '#00296b'])
 """Pink to Navy Blue cmap."""
 
 TRP_COLS = {
-    0: '#f7258544', 1: '#9381ff44', 2: '#5ddeb144', 
-    3: '#f038ff44', 4: '#fe5f5544', 5: '#e2ef7044'
+    0: '#f7258522', 1: '#9381ff22', 2: '#5ddeb122', 
+    3: '#f038ff22', 4: '#fe5f5522', 5: '#e2ef7022'
 }
 """Base colors for trap types."""

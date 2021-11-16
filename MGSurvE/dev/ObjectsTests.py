@@ -57,7 +57,7 @@ pointNumber = lnd.pointNumber
 
 traps = pd.DataFrame({
     'x': [0, 3],
-    'y': [3, 0],
+    'y': [1, 0],
     't': [0, 2]
 })
 tker = {
@@ -78,7 +78,7 @@ trapsCoords = lnd.trapsCoords
 )
 (fig, ax) = srv.plotNetwork(
     fig, ax, 
-    lnd.maskedMigration, lnd.pointCoords,
+    lnd.maskedMigration, lnd.pointCoords, lnd.pointCoords,
     lineWidth=20, alphaMin=.5, alphaAmplitude=2.5, 
     zorder=0
 )
@@ -88,6 +88,18 @@ trapsCoords = lnd.trapsCoords
     colors=srv.TRP_COLS
 )
 ax.set_aspect('equal')
+
+tauN = lnd.trapsMigration
+tx = tauN[:pointNumber, pointNumber:]
+(fig, ax) = srv.plotNetwork(
+        fig, ax, 
+        tx, trapsCoords, pointCoords,
+        lineColor='#f72585'
+    )
+
+
+
+
 
 
 ###############################################################################

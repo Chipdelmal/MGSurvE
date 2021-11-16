@@ -40,7 +40,7 @@ def plotSites(
 
 def plotNetwork(
         fig, ax, 
-        transMtx, sites, 
+        transMtx, sitesB, sitesA,
         lineColor='#03045e', lineWidth=20, 
         alphaMin=.5, alphaAmplitude=2.5,
         zorder=0, **kwargs
@@ -62,11 +62,11 @@ def plotNetwork(
     Returns:
         (fig, ax): Matplotlib (fig, ax) tuple.
     """
-    (aNum, bNum) = (sites.shape[0], sites.shape[0])
+    (aNum, bNum) = (sitesA.shape[0], sitesB.shape[0])
     for j in range(aNum):
-        src = sites[j]
+        src = sitesA[j]
         for i in range(bNum):
-            snk = sites[i]
+            snk = sitesB[i]
             plt.plot(
                 [src[0], snk[0]], [src[1], snk[1]],
                 lw=log(1+lineWidth*transMtx[j][i]),
@@ -82,7 +82,7 @@ def plotTraps(
         trapsCoords, trapsTypes, trapsKernels,
         colors=cst.TRP_COLS, marker="X",
         edgecolor='w', lws=(2, 0), ls=':',
-        size=200, zorders=(25, 1),
+        size=200, zorders=(25, -5),
         **kwargs
     ):
     """ Plots the traps with the radii of effectiveness.
@@ -116,7 +116,8 @@ def plotTraps(
         col = colors[tType]
         plt.scatter(
             trap[0], trap[1], 
-            marker=marker, color=col, s=size, zorder=zorders[0],
+            marker=marker, color=col[:-2]+'DD', 
+            s=size, zorder=zorders[0],
             edgecolors=edgecolor, linewidths=lws[0]
         )
         for r in trapsKernels[tType]['radii']:
