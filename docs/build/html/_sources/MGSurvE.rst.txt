@@ -52,6 +52,14 @@ MGSurvE.matrices module
    :undoc-members:
    :show-inheritance:
 
+MGSurvE.optimization module
+---------------------------
+
+.. automodule:: MGSurvE.optimization
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 MGSurvE.plots module
 --------------------
 

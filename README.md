@@ -14,7 +14,8 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 
 <img src="https://raw.githubusercontent.com/Chipdelmal/pyMSync/master/media/pusheen.jpg" height="130px" align="middle"><br>
 
-* Lead: [Héctor M. Sánchez C.](https://chipdelmal.github.io/blog/)
+* Lead and Dev: [Héctor M. Sánchez C.](https://chipdelmal.github.io/blog/)
+* Devs: Elijah Bartolome
 * PIs: [David L. Smith](http://www.healthdata.org/about/david-smith), [John M. Marshall](https://publichealth.berkeley.edu/people/john-marshall/)
 
 <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/berkeley.jpg" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/IHME.jpg" height="25px"> &nbsp;<img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/UCIMI.png" height="25px"> &nbsp;  <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/IGI.png" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/DARPA.jpg" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/gates.jpg" height="25px">

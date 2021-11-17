@@ -11,7 +11,7 @@ API
    MGSurvE.colors
    MGSurvE.constants
    MGSurvE.plots
-
+   MGSurvE.optimization
    
    
 
