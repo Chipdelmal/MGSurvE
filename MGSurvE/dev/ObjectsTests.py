@@ -102,6 +102,8 @@ ax.set_aspect('equal')
 
 
 
+(fig, ax) = plt.subplots(figsize=(15, 15))
+srv.plotMatrix(fig, ax, lnd.trapsMigration)
 
 
 ###############################################################################
