@@ -153,7 +153,8 @@ def plotTrapsNetwork(
 
 def plotMatrix(
         fig, ax,
-        matrix,
+        matrix, 
+        trapsNumber=None,
         vmin=0, vmax=None, cmap='Purples',
         **kwargs
     ):
@@ -162,14 +163,15 @@ def plotMatrix(
         cmap=cmap, vmin=vmin, vmax=vmax, aspect='equal', 
         **kwargs
     )
+    sitesNumber = matrix.shape[0] - trapsNumber
+    if trapsNumber is not None:
+        plt.axhline(sitesNumber-.5, color='#f72585', ls='--')
+        plt.axvline(sitesNumber-.5, color='#f72585', ls='--')
     return (fig, ax)
 
 
-def plotClean(fig, ax, sitesNumber, frame=False, blockLimits=True):
+def plotClean(fig, ax, frame=False, blockLimits=True):
     ax.set_aspect('equal')
     if frame is not True:
         plt.axis('off')
-    if blockLimits:
-        plt.axhline(sitesNumber-.5, color='#f72585', ls='--')
-        plt.axvline(sitesNumber-.5, color='#f72585', ls='--')
     return (fig, ax)
