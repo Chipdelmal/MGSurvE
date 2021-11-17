@@ -134,7 +134,7 @@ def plotTraps(
 def plotTrapsNetwork(
         fig, ax,
         transMtx, traps, sites,
-        lineColor='#f72585', lineWidth=20, 
+        lineColor='#3d0e61', lineWidth=20, 
         alphaMin=.5, alphaAmplitude=2.5,
         zorder=0, **kwargs
     ):

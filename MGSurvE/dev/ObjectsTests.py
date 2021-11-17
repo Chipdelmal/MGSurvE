@@ -23,12 +23,12 @@ msk = [
 ]
 # Traps info ------------------------------------------------------------------
 trp = [
-    [2, 0, 0],
-    [5, 0, 1]
+    [2, 1, 0],
+    [0, .5, 1]
 ]
 traps = pd.DataFrame(trp, columns=['x', 'y', 't'])
 tker = {
-    0: {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 2}},
     1: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 2}} 
 }
 # Land tests ------------------------------------------------------------------
@@ -40,10 +40,17 @@ lnd.migrationMatrix
 lnd.maskedMigration
 lnd.trapsMigration
 
+(fig, ax) = plt.subplots(figsize=(15, 15))
+lnd.plotSites(fig, ax)
+lnd.plotMigrationNetwork(fig, ax)
+lnd.plotTraps(fig, ax)
+lnd.plotTrapsNetwork(fig, ax)
+ax.set_aspect('equal')
+
+
+
 trapsRadii=[.5, .01]
 lnd.updateTrapsRadii(trapsRadii)
-
-    
 ###############################################################################
 # Active dev
 ###############################################################################

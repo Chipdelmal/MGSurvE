@@ -8,6 +8,7 @@ from sklearn.preprocessing import normalize
 import MGSurvE.matrices as mat
 import MGSurvE.constants as cst
 import MGSurvE.kernels as krn
+import MGSurvE.plots as plt
 
 class Landscape:
     """ Stores the information for a mosquito landscape. Works with different point-types in the form of matrices and coordinates.
@@ -222,3 +223,61 @@ class Landscape:
     ###########################################################################
     # Plotting Methods
     ###########################################################################
+    def plotSites(self, 
+            fig, ax, 
+            markers=cst.MKRS, colors=cst.MCOL,
+            size=250, edgecolors='w', linewidths=1.25,
+            zorder=5, **kwargs
+        ):
+        (fig, ax) = plt.plotSites(
+            fig, ax, 
+            self.pointCoords, self.pointTypes,
+            colors=colors, size=size, 
+            edgecolors=edgecolors, linewidths=linewidths,
+            zorder=zorder, **kwargs
+        )
+        return (fig, ax)
+    def plotMigrationNetwork(self,
+            fig, ax, 
+            lineColor='#03045e', lineWidth=20, 
+            alphaMin=.5, alphaAmplitude=2.5,
+            zorder=0, **kwargs
+        ):
+        plt.plotMigrationNetwork(
+            fig, ax, 
+            self.migrationMatrix, self.pointCoords, self.pointCoords,
+            lineColor=lineColor, lineWidth=lineWidth, 
+            alphaMin=alphaMin, alphaAmplitude=alphaAmplitude,
+            zorder=zorder, **kwargs
+        )
+        return (fig, ax)
+    def plotTraps(self,
+            fig, ax,
+            colors=cst.TRP_COLS, marker="X",
+            edgecolor='w', lws=(2, 0), ls=':',
+            size=300, zorders=(25, -5),
+            **kwargs
+        ):
+        (fig, ax) = plt.plotTraps(
+            fig, ax,
+            self.trapsCoords, self.trapsTypes, self.trapsKernels,
+            colors=cst.TRP_COLS, marker=marker,
+            edgecolor=edgecolor, lws=lws, ls=ls,
+            size=size, zorders=zorders,
+            **kwargs
+        )
+        return (fig, ax)
+    def plotTrapsNetwork(self,
+            fig, ax,
+            lineColor='#2667ff', lineWidth=20, 
+            alphaMin=.5, alphaAmplitude=2.5,
+            zorder=0, **kwargs
+        ):
+        (fig, ax) = plt.plotTrapsNetwork(
+            fig, ax,
+            self.trapsMigration, self.trapsCoords, self.pointCoords,
+            lineColor=lineColor, lineWidth=lineWidth, 
+            alphaMin=alphaMin, alphaAmplitude=alphaAmplitude,
+            zorder=zorder, **kwargs
+        )
+        return (fig, ax)
