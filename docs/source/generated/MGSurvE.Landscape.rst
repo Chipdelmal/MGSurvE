@@ -1,29 +1,29 @@
-﻿MGSurvE.Landscape
+﻿MGSurvE.landscape
 =================
 
-.. currentmodule:: MGSurvE
-
-.. autoclass:: Landscape
+.. automodule:: MGSurvE.landscape
 
    
-   .. automethod:: __init__
+   
+   
 
    
-   .. rubric:: Methods
+   
+   
+
+   
+   
+   .. rubric:: Classes
 
    .. autosummary::
    
-      ~Landscape.__init__
-      ~Landscape.calcPointsDistances
-      ~Landscape.calcPointsMaskedMigration
-      ~Landscape.calcPointsMigration
-      ~Landscape.calcTrapsDistances
-      ~Landscape.calcTrapsMigration
-      ~Landscape.updateTraps
-      ~Landscape.updateTrapsRadii
+      Landscape
    
    
 
    
    
    
+
+
+

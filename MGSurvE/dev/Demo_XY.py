@@ -16,18 +16,19 @@ pts = (
 points = pd.DataFrame(pts, columns=('x', 'y', 't'))
 # Traps info ------------------------------------------------------------------
 trp = (
-    (2.0, 2.0, 0),
-    (1.0, 3.0, 0)
+    (2.5, 0.75, 0),
+    (0, 0.5, 0)
 )
 traps = pd.DataFrame(trp, columns=('x', 'y', 't'))
-tKernels = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 2}}}
+tKernels = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 3}}}
 # Land tests ------------------------------------------------------------------
 lnd = srv.Landscape(points, traps=traps, trapsKernels=tKernels)
 ###############################################################################
 # Plotting
 ###############################################################################
 (fig, ax) = plt.subplots(figsize=(15, 15))
-srv.plotSites(    
-    fig, ax, 
-    lnd.pointCoords, lnd.pointTypes
-)
+lnd.plotSites(fig, ax)
+lnd.plotMigrationNetwork(fig, ax)
+lnd.plotTraps(fig, ax)
+lnd.plotTrapsNetwork(fig, ax)
+ax.set_aspect('equal')

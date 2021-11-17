@@ -4,13 +4,13 @@ API
 .. autosummary::
    :toctree: generated
 
-   MGSurvE.Landscape
+   MGSurvE.landscape
    MGSurvE.kernels
    MGSurvE.matrices
    MGSurvE.auxiliary
    MGSurvE.colors
    MGSurvE.constants
-   MGSurvE.plot
+   MGSurvE.plots
 
    
    

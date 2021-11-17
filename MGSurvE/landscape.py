@@ -65,7 +65,7 @@ class Landscape:
                 'inverse': None
             }
         },
-        trapsRadii=[.1, .05, .01],
+        trapsRadii=[.1, .05, .025],
 
         repellents=None,
         repellentsKernels={
@@ -226,9 +226,11 @@ class Landscape:
     def plotSites(self, 
             fig, ax, 
             markers=cst.MKRS, colors=cst.MCOL,
-            size=250, edgecolors='w', linewidths=1.25,
+            size=350, edgecolors='w', linewidths=1.25,
             zorder=5, **kwargs
         ):
+        """Plots the sites coordinates.
+        """
         (fig, ax) = plt.plotSites(
             fig, ax, 
             self.pointCoords, self.pointTypes,
@@ -243,6 +245,8 @@ class Landscape:
             alphaMin=.5, alphaAmplitude=2.5,
             zorder=0, **kwargs
         ):
+        """Plots the base sites migration network.
+        """
         plt.plotMigrationNetwork(
             fig, ax, 
             self.migrationMatrix, self.pointCoords, self.pointCoords,
@@ -255,9 +259,11 @@ class Landscape:
             fig, ax,
             colors=cst.TRP_COLS, marker="X",
             edgecolor='w', lws=(2, 0), ls=':',
-            size=300, zorders=(25, -5),
+            size=400, zorders=(25, -5),
             **kwargs
         ):
+        """Plots the traps locations.
+        """
         (fig, ax) = plt.plotTraps(
             fig, ax,
             self.trapsCoords, self.trapsTypes, self.trapsKernels,
@@ -269,10 +275,12 @@ class Landscape:
         return (fig, ax)
     def plotTrapsNetwork(self,
             fig, ax,
-            lineColor='#2667ff', lineWidth=20, 
+            lineColor='#f72585', lineWidth=20, 
             alphaMin=.5, alphaAmplitude=2.5,
             zorder=0, **kwargs
         ):
+        """Plots the traps networks.
+        """
         (fig, ax) = plt.plotTrapsNetwork(
             fig, ax,
             self.trapsMigration, self.trapsCoords, self.pointCoords,

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MGSurvE.constants &mdash; MGSurvE  documentation</title>
+  <title>MGSurvE.plots &mdash; MGSurvE  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="MGSurvE.plots" href="MGSurvE.plots.html" />
-    <link rel="prev" title="MGSurvE.colors" href="MGSurvE.colors.html" /> 
+    <link rel="prev" title="MGSurvE.constants" href="MGSurvE.constants.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,8 +43,8 @@
 <li class="toctree-l2"><a class="reference internal" href="MGSurvE.matrices.html">MGSurvE.matrices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MGSurvE.auxiliary.html">MGSurvE.auxiliary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MGSurvE.colors.html">MGSurvE.colors</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">MGSurvE.constants</a></li>
-<li class="toctree-l2"><a class="reference internal" href="MGSurvE.plots.html">MGSurvE.plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MGSurvE.constants.html">MGSurvE.constants</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MGSurvE.plots</a></li>
 </ul>
 </li>
 </ul>
@@ -65,9 +64,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../api.html">API</a> &raquo;</li>
-      <li>MGSurvE.constants</li>
+      <li>MGSurvE.plots</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/generated/MGSurvE.constants.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/generated/MGSurvE.plots.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -75,29 +74,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-MGSurvE.constants">
-<span id="mgsurve-constants"></span><h1>MGSurvE.constants<a class="headerlink" href="#module-MGSurvE.constants" title="Permalink to this headline"></a></h1>
-<p class="rubric">Module Attributes</p>
+  <section id="module-MGSurvE.plots">
+<span id="mgsurve-plots"></span><h1>MGSurvE.plots<a class="headerlink" href="#module-MGSurvE.plots" title="Permalink to this headline"></a></h1>
+<p class="rubric">Functions</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.constants.AEDES_EXP_PARAMS" title="MGSurvE.constants.AEDES_EXP_PARAMS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AEDES_EXP_PARAMS</span></code></a></p></td>
-<td><p>Aedes aegypti's migration parameters for kernel.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotMigrationNetwork" title="MGSurvE.plots.plotMigrationNetwork"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotMigrationNetwork</span></code></a>(fig, ax, transMtx, ...)</p></td>
+<td><p>Plots a transitions matrix.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.constants.BASIC_EXP_TRAP" title="MGSurvE.constants.BASIC_EXP_TRAP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BASIC_EXP_TRAP</span></code></a></p></td>
-<td><p>Generic params for an exponential-decay trap</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotSites" title="MGSurvE.plots.plotSites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotSites</span></code></a>(fig, ax, sites, pTypes[, markers, ...])</p></td>
+<td><p>Plots a transitions matrix.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.constants.MKRS" title="MGSurvE.constants.MKRS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MKRS</span></code></a></p></td>
-<td><p>Markers for point-types</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotTraps" title="MGSurvE.plots.plotTraps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotTraps</span></code></a>(fig, ax, trapsCoords, trapsTypes, ...)</p></td>
+<td><p>Plots the traps with the radii of effectiveness.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.constants.MCOL" title="MGSurvE.constants.MCOL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MCOL</span></code></a></p></td>
-<td><p>A cute pastel colors list.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.constants.TRP_COLS" title="MGSurvE.constants.TRP_COLS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TRP_COLS</span></code></a></p></td>
-<td><p>Base colors for trap types.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotTrapsNetwork" title="MGSurvE.plots.plotTrapsNetwork"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotTrapsNetwork</span></code></a>(fig, ax, transMtx, traps, sites)</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -107,8 +103,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="MGSurvE.colors.html" class="btn btn-neutral float-left" title="MGSurvE.colors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="MGSurvE.plots.html" class="btn btn-neutral float-right" title="MGSurvE.plots" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="MGSurvE.constants.html" class="btn btn-neutral float-left" title="MGSurvE.constants" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
