@@ -165,8 +165,11 @@ def plotMatrix(
     return (fig, ax)
 
 
-def plotClean(fig, ax, frame=False):
+def plotClean(fig, ax, sitesNumber, frame=False, blockLimits=True):
     ax.set_aspect('equal')
     if frame is not True:
         plt.axis('off')
+    if blockLimits:
+        plt.axhline(sitesNumber-.5, color='#f72585', ls='--')
+        plt.axvline(sitesNumber-.5, color='#f72585', ls='--')
     return (fig, ax)

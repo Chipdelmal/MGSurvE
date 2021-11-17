@@ -11,6 +11,7 @@ AEDES_EXP_PARAMS = [0.01848777, 1.0e-10, math.inf]
 """Aedes aegypti's migration parameters for kernel."""
 
 SHORT_EXP_PARAMS = [1, 1.0e-10, math.inf]
+"""Dummy migration parameters for short-distance kernel."""
 
 ###############################################################################
 # Traps

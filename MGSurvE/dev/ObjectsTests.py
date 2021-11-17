@@ -42,8 +42,12 @@ lnd.migrationMatrix
 lnd.maskedMigration
 lnd.trapsMigration
 
+
+
 (fig, ax) = plt.subplots(figsize=(15, 15))
 srv.plotMatrix(fig, ax, lnd.trapsMigration)
+plt.axhline(lnd.pointNumber-.5, color='#f72585', ls='--')
+plt.axvline(lnd.pointNumber-.5, color='#f72585', ls='--')
 srv.plotClean(fig, ax)
 
 
