@@ -21,11 +21,29 @@ trp = (
 )
 traps = pd.DataFrame(trp, columns=('x', 'y', 't'))
 tKernels = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 3}}}
-# Land tests ------------------------------------------------------------------
+# Land creation ---------------------------------------------------------------
 lnd = srv.Landscape(points, traps=traps, trapsKernels=tKernels)
+# Plotting landscape ----------------------------------------------------------
+(fig, ax) = plt.subplots(figsize=(15, 15))
+lnd.plotSites(fig, ax)
+lnd.plotMigrationNetwork(fig, ax)
+lnd.plotTraps(fig, ax)
+lnd.plotTrapsNetwork(fig, ax)
+ax.set_aspect('equal')
 ###############################################################################
-# Plotting
+# Updating traps
 ###############################################################################
+traps = pd.DataFrame({
+    'x': [-1, 3], 
+    'y': [0, 0], 
+    't': [0, 1]
+})
+tker = {
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .30, 'b': 2}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': 1}} 
+}
+lnd.updateTraps(traps, tker)
+# Plotting updated traps ------------------------------------------------------
 (fig, ax) = plt.subplots(figsize=(15, 15))
 lnd.plotSites(fig, ax)
 lnd.plotMigrationNetwork(fig, ax)

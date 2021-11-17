@@ -149,3 +149,17 @@ def plotTrapsNetwork(
         **kwargs
     )
     return (fig, ax)
+
+
+def plotMatrix(
+        fig, ax,
+        matrix,
+        vmin=0, vmax=None, cmap='Purples',
+        **kwargs
+    ):
+    ax.imshow(
+        matrix, 
+        cmap=cmap, vmin=vmin, vmax=vmax, aspect='equal', 
+        **kwargs
+    )
+    return (fig, ax)
