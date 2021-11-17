@@ -53,7 +53,7 @@ class Landscape:
         
         migrationMatrix=None, 
         kernelFunction=krn.zeroInflatedExponentialKernel,
-        kernelParams={'params': cst.AEDES_EXP_PARAMS, 'zeroInflation': .75},
+        kernelParams={'params': cst.SHORT_EXP_PARAMS, 'zeroInflation': .75},
 
         maskedMigrationMatrix=None,
 

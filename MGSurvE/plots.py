@@ -163,3 +163,10 @@ def plotMatrix(
         **kwargs
     )
     return (fig, ax)
+
+
+def plotClean(fig, ax, frame=False):
+    ax.set_aspect('equal')
+    if frame is not True:
+        plt.axis('off')
+    return (fig, ax)

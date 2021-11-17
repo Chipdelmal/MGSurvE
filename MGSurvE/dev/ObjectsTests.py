@@ -15,6 +15,8 @@ pts = [
     [0.00, 0.00, 0], 
     [0.25, 0.50, 1], 
     [2.5, 0.15, 0],
+    [5, 0.1, 0],
+    [3, 3, 0]
 ]
 points = pd.DataFrame(pts, columns=['x', 'y', 't'])
 msk = [
@@ -23,7 +25,7 @@ msk = [
 ]
 # Traps info ------------------------------------------------------------------
 trp = [
-    [2, 1, 0],
+    [5, 1, 0],
     [0, .5, 1]
 ]
 traps = pd.DataFrame(trp, columns=['x', 'y', 't'])
@@ -41,11 +43,16 @@ lnd.maskedMigration
 lnd.trapsMigration
 
 (fig, ax) = plt.subplots(figsize=(15, 15))
+srv.plotMatrix(fig, ax, lnd.trapsMigration)
+srv.plotClean(fig, ax)
+
+
+(fig, ax) = plt.subplots(figsize=(15, 15))
 lnd.plotSites(fig, ax)
 lnd.plotMigrationNetwork(fig, ax)
 lnd.plotTraps(fig, ax)
 lnd.plotTrapsNetwork(fig, ax)
-ax.set_aspect('equal')
+srv.plotClean(fig, ax)
 
 
 
