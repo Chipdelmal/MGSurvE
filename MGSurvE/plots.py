@@ -156,8 +156,8 @@ def plotTrapsNetwork(
 def plotMatrix(
         fig, ax,
         matrix, 
-        trapsNumber=None,
-        vmin=0, vmax=None, cmap='Purples',
+        trapsNumber=None, vmin=0, vmax=None, 
+        cmap='Purples', linecolor='#222222', linestyle='--', ticks=False,
         **kwargs
     ):
     ax.imshow(
@@ -167,12 +167,15 @@ def plotMatrix(
     )
     sitesNumber = matrix.shape[0] - trapsNumber
     if trapsNumber is not None:
-        plt.axhline(sitesNumber-.5, color='#f72585', ls='--')
-        plt.axvline(sitesNumber-.5, color='#f72585', ls='--')
+        plt.axhline(sitesNumber-.5, color=linecolor, ls=linestyle)
+        plt.axvline(sitesNumber-.5, color=linecolor, ls=linestyle)
+    if not ticks:
+        plt.setp(ax.get_xticklabels(), visible=False)
+        plt.setp(ax.get_yticklabels(), visible=False)
     return (fig, ax)
 
 
-def plotClean(fig, ax, frame=False, blockLimits=True):
+def plotClean(fig, ax, frame=False):
     ax.set_aspect('equal')
     if frame is not True:
         plt.axis('off')
