@@ -53,7 +53,8 @@ def test_UpdateMigration():
     trapsNew = pd.DataFrame({
         'x': [0, 0],
         'y': [1, 1],
-        't': [1, 0]
+        't': [1, 0],
+        'f': [0, 0]
     })
     tkerNew = {
         0: {'kernel': srv.exponentialDecay, 'params': {'A': 100000, 'b': 0}},
@@ -63,6 +64,7 @@ def test_UpdateMigration():
     sumsNumber = lnd.pointNumber+lnd.trapsNumber-1
     maxTrap = np.isclose(np.sum(lnd.trapsMigration[:,-1]), sumsNumber)
     nullTrap = np.isclose(np.sum(lnd.trapsMigration[:,-2]), 1)
+    test_MarkovMatrices()
     assert(all([maxTrap, nullTrap]))
 
 

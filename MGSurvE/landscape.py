@@ -204,6 +204,7 @@ class Landscape:
             traps (pandas dataframe):
             trapsKernel (dictionary):
         """
+        oldTrapsNum = self.trapsNumber
         # Update traps locations and types ------------------------------------
         if (self.geometryType == 'xy'):
             self.trapsCoords = np.asarray(traps[['x', 'y']])
@@ -214,6 +215,10 @@ class Landscape:
         self.trapsKernels = trapsKernels
         self.trapsFixed = traps['f']
         # Updating necessary matrices -----------------------------------------
+        if (oldTrapsNum != len(self.trapsCoords)):
+            self.trapsMigration = mat.genVoidFullMigrationMatrix(
+                self.maskedMigration, self.trapsNumber
+            )
         self.calcTrapsDistances()
         self.calcTrapsMigration()
         self.updateTrapsRadii(self.trapsRadii)

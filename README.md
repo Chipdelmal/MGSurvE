@@ -3,6 +3,9 @@
 
 MGSurvE is a project oriented towards the optimization of traps' placement in complex heterogeneous landscapes in an effort to minimize the time to detection of genetic variants of interest.
 
+**Under Construction** :construction:
+
+
 ![Git Build](https://github.com/Chipdelmal/MGSurvE/actions/workflows/main.yml/badge.svg)[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)![Travis Build](https://app.travis-ci.com/Chipdelmal/MGSurvE.svg?branch=main)
 
 ![landscape](https://github.com/Chipdelmal/MGSurvE/raw/main/img/demo.jpg)
@@ -10,7 +13,54 @@ MGSurvE is a project oriented towards the optimization of traps' placement in co
 
 Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/) for more info and our [pypi](https://pypi.org/project/MGSurvE/) package for installation and versions.
 
-## Authors and Funders
+# Progress and Features
+
+* Setup pkg skeleton
+  * ~~Setup pypi pkg~~
+  * ~~Setup CI~~
+  * ~~Setup autodoc~~
+* Landscape generation and variables update
+  * ~~Basic landscape and matrices init~~
+  * ~~Auto-calculate distance matrix~~
+  * ~~Auto-calculate migration matrix~~
+  * ~~Landscape onbjects constructors~~
+  * ~~Auto distance and migration updates on change~~
+  * ~~Update traps migrations in place (avoids memory shifts)~~
+  * ~~Update traps migrations with new array if traps number changes~~
+* Plots
+  * Landscape
+    * ~~Auto-assign markers with point-type~~
+    * ~~Auto-assign colors with trap-type~~
+    * ~~Auto-assign edge to trap if non-movable~~
+    * ~~Auto-plot trap radii~~
+    * Spherical coordinates projection
+  * ~~Migration matrices~~
+  * ~~Block Migration matrices~~
+  * ~~Remove frames and axes~~
+* Genetic Algorithm
+  * Init chromosome
+  * Fitness function
+    * ~~Canonical form~~
+    * ~~Get steady absorbing states~~
+    * Put the cost function together
+* Code efficiency
+  * ~~Process traps movement in place~~
+* Tests
+  * ~~Points and traps numbers are updated correctly~~
+  * ~~Check matrices for Markov validity~~
+  * Test landscape with external migrations
+  * Changing number of traps doesn't affect migration part
+* Whishlist
+  * Non-movable traps
+    * ~~Add to object properties~~
+    * Take into account in the GA
+  * ~~Different trap types~~
+  * Male/Female kernel
+  * Point-processes generation
+  * Parallelize fitness function evaluation
+
+
+# Authors and Funders
 
 <img src="https://raw.githubusercontent.com/Chipdelmal/pyMSync/master/media/pusheen.jpg" height="130px" align="middle"><br>
 

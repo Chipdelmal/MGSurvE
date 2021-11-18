@@ -30,14 +30,16 @@ lnd.plotMigrationNetwork(fig, ax)
 lnd.plotTraps(fig, ax)
 lnd.plotTrapsNetwork(fig, ax)
 ax.set_aspect('equal')
+(fig, ax) = plt.subplots(figsize=(15, 15))
+srv.plotMatrix(fig, ax, lnd.trapsMigration, lnd.trapsNumber)
 ###############################################################################
 # Updating traps
 ###############################################################################
 traps = pd.DataFrame({
-    'x': [0.5, 3.0], 
-    'y': [0.0, 0.0], 
-    't': [0, 1],
-    'f': [1, 0]
+    'x': [0.5, 3.0, 2.0], 
+    'y': [0.0, 0.0, 2.0], 
+    't': [0, 1, 0],
+    'f': [1, 0, 0]
 })
 tker = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .30, 'b': 2}},
