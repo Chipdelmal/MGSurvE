@@ -67,6 +67,14 @@ def test_UpdateMigration():
     test_MarkovMatrices()
     assert(all([maxTrap, nullTrap]))
 
+def test_MarkovFundamentalMatrix():
+    (tau, sitesN, trapsN) = (
+        lnd.trapsMigration, lnd.pointNumber, lnd.trapsNumber
+    )
+    tauC = srv.reshapeInCanonicalForm(tau, lnd.pointNumber, lnd.trapsNumber)
+    F_A = srv.getMarkovAbsorbing(tauC, trapsN)
+    F_B = srv.getFundamentalMatrix(tau, sitesN, trapsN)
+    assert np.equal(F_A, F_B).all()
 
 ###############################################################################
 # Main

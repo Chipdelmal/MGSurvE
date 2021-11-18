@@ -25,10 +25,11 @@ msk = [
 ]
 # Traps info ------------------------------------------------------------------
 trp = [
-    [5, 1, 0],
-    [0, .5, 1]
+    [5, 1, 0, 0],
+    [0, .5, 1, 0],
+    [0, 0, 0, 0],
 ]
-traps = pd.DataFrame(trp, columns=['x', 'y', 't'])
+traps = pd.DataFrame(trp, columns=['x', 'y', 't', 'f'])
 tker = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 2}},
     1: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 2}} 
@@ -37,16 +38,10 @@ tker = {
 lnd = srv.Landscape(
     points, maskingMatrix=msk, traps=traps, trapsKernels=tker
 )
-lnd.distanceMatrix
-lnd.migrationMatrix
-lnd.maskedMigration
-lnd.trapsMigration
-
 
 (fig, ax) = plt.subplots(figsize=(15, 15))
 srv.plotMatrix(fig, ax, lnd.trapsMigration, lnd.trapsNumber)
 srv.plotClean(fig, ax)
-
 
 (fig, ax) = plt.subplots(figsize=(15, 15))
 lnd.plotSites(fig, ax)
@@ -55,10 +50,6 @@ lnd.plotTraps(fig, ax)
 lnd.plotTrapsNetwork(fig, ax)
 srv.plotClean(fig, ax)
 
-
-
-trapsRadii=[.5, .01]
-lnd.updateTrapsRadii(trapsRadii)
 ###############################################################################
 # Active dev
 ###############################################################################
@@ -73,7 +64,8 @@ pointNumber = lnd.pointNumber
 traps = pd.DataFrame({
     'x': [0, 3],
     'y': [1, 0],
-    't': [0, 2]
+    't': [0, 2],
+    'f': [0, 0]
 })
 tker = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': 1.5}},
@@ -83,35 +75,25 @@ lnd.updateTraps(traps, tker)
 
 trapsTypes = lnd.trapsTypes
 trapsCoords = lnd.trapsCoords
-# Plots tests -----------------------------------------------------------------
-(fig, ax) = plt.subplots(figsize=(15, 15))
-(fig, ax) = srv.plotSites(
-    fig, ax, 
-    lnd.pointCoords, lnd.pointTypes,
-    size=500, edgecolors='w', linewidths=1.25,
-    zorder=5
-)
-(fig, ax) = srv.plotMigrationNetwork(
-    fig, ax, 
-    lnd.maskedMigration, lnd.pointCoords, lnd.pointCoords,
-    lineWidth=20, alphaMin=.5, alphaAmplitude=2.5, 
-    zorder=0
-)
-(fig, ax) = srv.plotTraps(
-    fig, ax, 
-    trapsCoords, trapsTypes, lnd.trapsKernels,
-    colors=srv.TRP_COLS
-)
-srv.plotTrapsNetwork(
-    fig, ax,
-    lnd.trapsMigration, lnd.trapsCoords, lnd.pointCoords
-)
-ax.set_aspect('equal')
+
 
 
 
 (fig, ax) = plt.subplots(figsize=(15, 15))
-srv.plotMatrix(fig, ax, lnd.trapsMigration)
+srv.plotMatrix(fig, ax, tau, lnd.trapsNumber)
+
+
+
+
+Q = tau[:sitesN, :sitesN]
+R = tau[:sitesN, -trapsN:]
+F = np.linalg.inv(np.subtract(np.identity(Q.shape[0]), Q))
+
+srv.getMarkovAbsorbing(tauC, trapsN)
+
+(fig, ax) = plt.subplots(figsize=(15, 15))
+srv.plotMatrix(fig, ax, R, None, vmax=1)
+
 
 
 ###############################################################################

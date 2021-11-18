@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import numpy as np
 from deap import base, creator, algorithms, tools
 
 
@@ -22,7 +23,7 @@ def initChromosome(trapsNum, coordsRange):
 
 
 def reshapeInCanonicalForm(tau, sitesN, trapsN):
-    """ Reshapes a migration matrix into canonical form.
+    """ Reshapes a migration matrix into canonical form (deprecated).
     
     Parameters:
         tau (numpy array): Traps migration matrix.
@@ -38,7 +39,7 @@ def reshapeInCanonicalForm(tau, sitesN, trapsN):
 
 
 def getMarkovAbsorbing(tauCan, trapsN):
-    """ Get Markov's absorbing states.
+    """ Get Markov's absorbing states (deprecated).
     
     Parameters:
         tauCan (numpy array): Traps migration matrix in canonical form.
@@ -50,4 +51,25 @@ def getMarkovAbsorbing(tauCan, trapsN):
     A = tauCan[trapsN:, :trapsN]
     B = tauCan[trapsN:, trapsN:]
     F = np.linalg.inv(np.subtract(np.identity(B.shape[0]), B))
+    return F
+
+
+def getFundamentalMatrix(tau, sitesN, trapsN):
+    """ Get Markov's fundamental matrix.
+    
+    Equivalent to using reshapeInCanonicalForm and getMarkovAbsorbing (which
+        should be deprecated).
+
+    Parameters:
+        tau (numpy array): Traps migration matrix in canonical form.
+        sitesN (int): Number of sites.
+        trapsN (int): Number of traps.
+
+    Returns:
+        (numpy array): Time to fall into absorbing states from anywhere in landscape.
+    """
+    Q = tau[:sitesN, :sitesN]
+    R = tau[:sitesN, -trapsN:]
+    I = np.identity(Q.shape[0])
+    F = np.linalg.inv(np.subtract(I, Q))
     return F
