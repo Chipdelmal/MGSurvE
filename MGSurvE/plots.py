@@ -157,21 +157,19 @@ def plotMatrix(
         fig, ax,
         matrix, 
         trapsNumber=None, vmin=0, vmax=None, 
-        cmap='Purples', linecolor='#222222', linestyle='--', ticks=False,
+        cmap='Purples', linecolor='#222222', linestyle=':', ticks=False, lw=.25,
         **kwargs
     ):
     ax.imshow(
         matrix, 
-        cmap=cmap, vmin=vmin, vmax=vmax, aspect='equal', 
+        cmap=cmap, vmin=vmin, vmax=vmax, aspect='equal',
         **kwargs
     )
     sitesNumber = matrix.shape[0] - trapsNumber
     if trapsNumber is not None:
-        plt.axhline(sitesNumber-.5, color=linecolor, ls=linestyle)
-        plt.axvline(sitesNumber-.5, color=linecolor, ls=linestyle)
+        plt.axhline(sitesNumber-.5, color=linecolor, ls=linestyle, lw=lw)
+        plt.axvline(sitesNumber-.5, color=linecolor, ls=linestyle, lw=lw)
     if not ticks:
-        plt.setp(ax.get_xticklabels(), visible=False)
-        plt.setp(ax.get_yticklabels(), visible=False)
         ax.set_xticks([]) 
         ax.set_yticks([]) 
     return (fig, ax)
@@ -180,5 +178,5 @@ def plotMatrix(
 def plotClean(fig, ax, frame=False):
     ax.set_aspect('equal')
     if frame is not True:
-        plt.axis('off')
+        ax.axis('off')
     return (fig, ax)

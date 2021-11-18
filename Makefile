@@ -61,7 +61,7 @@ dev:
 	- make clean
 	- make develop
 	- make test
-	- make conda
+	- make develop
 
 conda:
 	- conda list -e > /conda/REQUIREMENTS.txt

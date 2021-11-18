@@ -24,13 +24,13 @@ tKernels = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 3}}}
 # Land creation ---------------------------------------------------------------
 lnd = srv.Landscape(points, traps=traps, trapsKernels=tKernels)
 # Plotting landscape ----------------------------------------------------------
-(fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=True)
+(fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax[0])
 lnd.plotMigrationNetwork(fig, ax[0])
 lnd.plotTraps(fig, ax[0])
 lnd.plotTrapsNetwork(fig, ax[0])
 srv.plotMatrix(fig, ax[1], lnd.trapsMigration, lnd.trapsNumber)
-[srv.plotClean(fig, i, frame=True) for i in ax]
+[srv.plotClean(fig, i, frame=False) for i in ax]
 ###############################################################################
 # Updating traps
 ###############################################################################
@@ -46,11 +46,10 @@ tker = {
 }
 lnd.updateTraps(traps, tker)
 # Plotting updated traps ------------------------------------------------------
-(fig, ax) = plt.subplots(figsize=(15, 15))
-lnd.plotSites(fig, ax)
-lnd.plotMigrationNetwork(fig, ax)
-lnd.plotTraps(fig, ax)
-lnd.plotTrapsNetwork(fig, ax)
-srv.plotClean(fig, ax, frame=True)
-(fig, ax) = plt.subplots(figsize=(15, 15))
-srv.plotMatrix(fig, ax, lnd.trapsMigration, lnd.trapsNumber)
+(fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
+lnd.plotSites(fig, ax[0])
+lnd.plotMigrationNetwork(fig, ax[0])
+lnd.plotTraps(fig, ax[0])
+lnd.plotTrapsNetwork(fig, ax[0])
+srv.plotMatrix(fig, ax[1], lnd.trapsMigration, lnd.trapsNumber)
+[srv.plotClean(fig, i, frame=False) for i in ax]

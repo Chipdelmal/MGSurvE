@@ -3,7 +3,9 @@
 
 MGSurvE is a project oriented towards the optimization of traps' placement in complex heterogeneous landscapes in an effort to minimize the time to detection of genetic variants of interest.
 
+
 **Under Construction** :construction:
+
 
 
 ![Git Build](https://github.com/Chipdelmal/MGSurvE/actions/workflows/main.yml/badge.svg)[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)![Travis Build](https://app.travis-ci.com/Chipdelmal/MGSurvE.svg?branch=main)
@@ -13,6 +15,8 @@ MGSurvE is a project oriented towards the optimization of traps' placement in co
 
 Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/) for more info and our [pypi](https://pypi.org/project/MGSurvE/) package for installation and versions.
 
+
+[<img src="https://pypi.org/static/images/logo-large.6bdbb439.svg" height="50px" align="middle">](https://pypi.org/project/MGSurvE/)
 # Progress and Features
 
 * Setup pkg skeleton
