@@ -16,10 +16,10 @@ pts = (
 points = pd.DataFrame(pts, columns=('x', 'y', 't'))
 # Traps info ------------------------------------------------------------------
 trp = (
-    (2.5, 0.75, 0),
-    (0, 0.5, 0)
+    (2.5, 0.75, 0, 0),
+    (0.0, 0.50, 0, 0)
 )
-traps = pd.DataFrame(trp, columns=('x', 'y', 't'))
+traps = pd.DataFrame(trp, columns=('x', 'y', 't', 'f'))
 tKernels = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 3}}}
 # Land creation ---------------------------------------------------------------
 lnd = srv.Landscape(points, traps=traps, trapsKernels=tKernels)
@@ -34,9 +34,10 @@ ax.set_aspect('equal')
 # Updating traps
 ###############################################################################
 traps = pd.DataFrame({
-    'x': [-1, 3], 
-    'y': [0, 0], 
-    't': [0, 1]
+    'x': [0.5, 3.0], 
+    'y': [0.0, 0.0], 
+    't': [0, 1],
+    'f': [1, 0]
 })
 tker = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .30, 'b': 2}},
@@ -49,4 +50,4 @@ lnd.plotSites(fig, ax)
 lnd.plotMigrationNetwork(fig, ax)
 lnd.plotTraps(fig, ax)
 lnd.plotTrapsNetwork(fig, ax)
-ax.set_aspect('equal')
+srv.plotClean(fig, ax, frame=True)

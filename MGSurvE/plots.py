@@ -80,9 +80,9 @@ def plotMigrationNetwork(
 
 def plotTraps(
         fig, ax,
-        trapsCoords, trapsTypes, trapsKernels,
+        trapsCoords, trapsTypes, trapsKernels, trapsFixed,
         colors=cst.TRP_COLS, marker="X",
-        edgecolor='w', lws=(2, 0), ls=':',
+        edgecolors=('w', 'k'), lws=(2, 0), ls=':',
         size=200, zorders=(25, -5),
         **kwargs
     ):
@@ -114,12 +114,14 @@ def plotTraps(
         )
     for (i, trap) in enumerate(trapsCoords):
         tType = trapsTypes[i]
-        col = colors[tType]
+        (col, ec) = (colors[tType], edgecolors[0])
+        if trapsFixed[i]:
+            ec = edgecolors[1]
         plt.scatter(
             trap[0], trap[1], 
             marker=marker, color=col[:-2]+'DD', 
             s=size, zorder=zorders[0],
-            edgecolors=edgecolor, linewidths=lws[0]
+            edgecolors=ec, linewidths=lws[0]
         )
         for r in trapsKernels[tType]['radii']:
             circle = plt.Circle(

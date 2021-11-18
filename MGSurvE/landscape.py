@@ -66,6 +66,7 @@ class Landscape:
             }
         },
         trapsRadii=[.1, .05, .025],
+        trapsMovable=None,
 
         repellents=None,
         repellentsKernels={
@@ -85,6 +86,7 @@ class Landscape:
         self.trapsNumber = None
         self.trapsMigration = None
         self.trapsRadii = trapsRadii
+        self.trapsFixed= None
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
@@ -140,6 +142,10 @@ class Landscape:
                 self.trapsTypes = np.asarray(traps['t'])
             else:
                 self.trapsTypes = np.asarray([0]*len(self.trapsCoords))
+            if ('f' in ptsHead):
+                self.trapsFixed = np.asarray(traps['f'])
+            else:
+                self.trapsFixed = np.asarray([0]*len(self.trapsCoords))
             self.trapsNumber = len(self.trapsCoords)
             # Calculate trapsDistances ----------------------------------------
             self.calcTrapsDistances()
@@ -207,6 +213,7 @@ class Landscape:
         self.trapsTypes = np.asarray(traps['t'])
         self.trapsNumber = len(self.trapsCoords)
         self.trapsKernels = trapsKernels
+        self.trapsFixed = traps['f']
         # Updating necessary matrices -----------------------------------------
         self.calcTrapsDistances()
         self.calcTrapsMigration()
@@ -266,8 +273,9 @@ class Landscape:
         """
         (fig, ax) = plt.plotTraps(
             fig, ax,
-            self.trapsCoords, self.trapsTypes, self.trapsKernels,
-            colors=cst.TRP_COLS, marker=marker,
+            self.trapsCoords, self.trapsTypes, 
+            self.trapsKernels, self.trapsFixed,
+            colors=colors, marker=marker,
             edgecolor=edgecolor, lws=lws, ls=ls,
             size=size, zorders=zorders,
             **kwargs
