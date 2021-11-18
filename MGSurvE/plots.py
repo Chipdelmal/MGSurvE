@@ -30,7 +30,7 @@ def plotSites(
         (fig, ax): Matplotlib (fig, ax) tuple.
     """
     for (i, site) in enumerate(sites):
-        plt.scatter(
+        ax.scatter(
             site[0], site[1], 
             marker=markers[pTypes[i]], color=colors[pTypes[i]], 
             s=size, zorder=zorder, edgecolors=edgecolors, linewidths=linewidths
@@ -68,7 +68,7 @@ def plotMigrationNetwork(
         src = sitesA[j]
         for i in range(bNum):
             snk = sitesB[i]
-            plt.plot(
+            ax.plot(
                 [src[0], snk[0]], [src[1], snk[1]],
                 lw=log(1+lineWidth*transMtx[j][i]),
                 alpha=min(alphaMin, log(1+alphaAmplitude*transMtx[j][i])),
@@ -117,7 +117,7 @@ def plotTraps(
         (col, ec) = (colors[tType], edgecolors[0])
         if trapsFixed[i]:
             ec = edgecolors[1]
-        plt.scatter(
+        ax.scatter(
             trap[0], trap[1], 
             marker=marker, color=col[:-2]+'DD', 
             s=size, zorder=zorders[0],
@@ -172,6 +172,8 @@ def plotMatrix(
     if not ticks:
         plt.setp(ax.get_xticklabels(), visible=False)
         plt.setp(ax.get_yticklabels(), visible=False)
+        ax.set_xticks([]) 
+        ax.set_yticks([]) 
     return (fig, ax)
 
 
