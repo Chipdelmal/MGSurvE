@@ -17,6 +17,19 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 
 
 [<img src="https://pypi.org/static/images/logo-large.6bdbb439.svg" height="50px" align="middle">](https://pypi.org/project/MGSurvE/)
+
+# Authors and Funders
+
+<img src="https://raw.githubusercontent.com/Chipdelmal/pyMSync/master/media/pusheen.jpg" height="130px" align="middle"><br>
+
+* Lead and Dev: [Héctor M. Sánchez C.](https://chipdelmal.github.io/blog/)
+* Active Devs: Elijah Bartolome
+* PIs: [David L. Smith](http://www.healthdata.org/about/david-smith), [John M. Marshall](https://publichealth.berkeley.edu/people/john-marshall/)
+
+<img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/berkeley.jpg" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/IHME.jpg" height="25px"> &nbsp;<img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/UCIMI.png" height="25px"> &nbsp;  <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/IGI.png" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/DARPA.jpg" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/gates.jpg" height="25px">
+
+<hr>
+
 # Progress and Features
 
 * Setup pkg skeleton
@@ -38,17 +51,22 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
     * ~~Auto-assign edge to trap if non-movable~~
     * ~~Auto-plot trap radii~~
     * Spherical coordinates projection
+    * Directed networks
   * ~~Migration matrices~~
   * ~~Block Migration matrices~~
   * ~~Remove frames and axes~~
 * Genetic Algorithm
-  * Init chromosome
+  * ~~Init chromosome~~
   * Fitness function
     * ~~Canonical form~~
     * ~~Get steady absorbing states~~
-    * Put the cost function together
+    * ~~Put the cost function together~~
     * ~~Markov's fundamental matrix with no re-ordering~~
-  * Skip non-movable traps
+    * Test different fitness functions
+  * Code new mutation functions
+    *  If all traps are movable, default to fast implementation
+  * Code new crossover functions
+    * If all traps are movable, default to fast implementation
 * Code efficiency
   * ~~Process traps movement in place~~
 * Tests
@@ -63,15 +81,3 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
   * Male/Female kernel
   * Point-processes generation
   * Parallelize fitness function evaluation
-
-
-# Authors and Funders
-
-<img src="https://raw.githubusercontent.com/Chipdelmal/pyMSync/master/media/pusheen.jpg" height="130px" align="middle"><br>
-
-* Lead and Dev: [Héctor M. Sánchez C.](https://chipdelmal.github.io/blog/)
-* Devs: Elijah Bartolome
-* PIs: [David L. Smith](http://www.healthdata.org/about/david-smith), [John M. Marshall](https://publichealth.berkeley.edu/people/john-marshall/)
-
-<img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/berkeley.jpg" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/IHME.jpg" height="25px"> &nbsp;<img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/UCIMI.png" height="25px"> &nbsp;  <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/IGI.png" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/DARPA.jpg" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/gates.jpg" height="25px">
-
