@@ -53,3 +53,9 @@ lnd.plotTraps(fig, ax[0])
 lnd.plotTrapsNetwork(fig, ax[0])
 srv.plotMatrix(fig, ax[1], lnd.trapsMigration, lnd.trapsNumber)
 [srv.plotClean(fig, i, frame=False) for i in ax]
+###############################################################################
+# Plotting traps elements
+###############################################################################
+(fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
+lnd.plotSites(fig, ax[0])
+lnd.plotMigrationNetwork(fig, ax[0], vmax=1)

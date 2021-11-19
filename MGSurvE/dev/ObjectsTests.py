@@ -13,7 +13,7 @@ from sklearn.preprocessing import normalize
 ###############################################################################
 pts = [
     [0.00, 0.00, 0], 
-    [0.25, 0.50, 1], 
+    [0.25, 2, 0], 
     [2.5, 0.15, 0],
     [5, 0.1, 0],
     [3, 3, 0]
@@ -26,8 +26,8 @@ msk = [
 # Traps info ------------------------------------------------------------------
 trp = [
     [5, 1, 0, 0],
-    [0, .5, 1, 0],
-    [0, 0, 0, 0],
+    [10, .5, 0, 0],
+    [10, 0, 0, 0],
 ]
 traps = pd.DataFrame(trp, columns=['x', 'y', 't', 'f'])
 tker = {
@@ -53,29 +53,48 @@ srv.plotClean(fig, ax)
 ###############################################################################
 # Active dev
 ###############################################################################
-trapsCoords = lnd.trapsCoords
-trapsDistances = lnd.trapsDistances
-trapsTypes = lnd.trapsTypes
-trapsKernels = lnd.trapsKernels
-pointCoords = lnd.pointCoords
-trapsNumber = lnd.trapsNumber
-pointNumber = lnd.pointNumber
-
 traps = pd.DataFrame({
-    'x': [0, 3],
-    'y': [1, 0],
-    't': [0, 2],
+    'x': [2, 5],
+    'y': [2, 1],
+    't': [0, 1],
     'f': [0, 0]
 })
 tker = {
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': 1.5}},
-    2: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': 2}} 
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': 1}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': 2}} 
 }
 lnd.updateTraps(traps, tker)
 
-trapsTypes = lnd.trapsTypes
-trapsCoords = lnd.trapsCoords
+(fig, ax) = plt.subplots(figsize=(15, 15))
+lnd.plotSites(fig, ax)
+lnd.plotMigrationNetwork(fig, ax)
+lnd.plotTraps(fig, ax)
+lnd.plotTrapsNetwork(fig, ax)
+srv.plotClean(fig, ax, frame=True)
 
+
+(tau, sitesN, trapsN) = (lnd.trapsMigration, lnd.pointNumber, lnd.trapsNumber)
+fitFuns = {'outer': np.mean, 'inner': np.mean}
+F = srv.getFundamentalMatrix(tau, sitesN, trapsN)
+daysTillTrapped = np.apply_along_axis(fitFuns['inner'], 1, F)
+fitness = fitFuns['outer'](daysTillTrapped)
+print(fitness)
+
+
+tauC = srv.reshapeInCanonicalForm(tau, lnd.pointNumber, lnd.trapsNumber)
+F = srv.getMarkovAbsorbing(tauC, trapsN)
+daysTillTrapped = np.apply_along_axis(fitFuns['inner'], 1, F)
+fitness = fitFuns['outer'](daysTillTrapped)
+print(fitness)
+
+
+###############################################################################
+# Testing Markov Asborbing
+###############################################################################
+
+
+daysTillTrapped = np.apply_along_axis(fitFuns['inner'], 1, F)
+fitness = fitFuns['outer'](daysTillTrapped)
 
 
 
@@ -89,7 +108,7 @@ Q = tau[:sitesN, :sitesN]
 R = tau[:sitesN, -trapsN:]
 F = np.linalg.inv(np.subtract(np.identity(Q.shape[0]), Q))
 
-srv.getMarkovAbsorbing(tauC, trapsN)
+
 
 (fig, ax) = plt.subplots(figsize=(15, 15))
 srv.plotMatrix(fig, ax, R, None, vmax=1)

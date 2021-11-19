@@ -4,7 +4,7 @@
 MGSurvE is a project oriented towards the optimization of traps' placement in complex heterogeneous landscapes in an effort to minimize the time to detection of genetic variants of interest.
 
 
-**Under Construction** :construction:
+**Under Construction** :construction: **Please check back in a couple of weeks!**
 
 
 
@@ -47,6 +47,8 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
     * ~~Canonical form~~
     * ~~Get steady absorbing states~~
     * Put the cost function together
+    * ~~Markov's fundamental matrix with no re-ordering~~
+  * Skip non-movable traps
 * Code efficiency
   * ~~Process traps movement in place~~
 * Tests
@@ -57,7 +59,6 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 * Whishlist
   * Non-movable traps
     * ~~Add to object properties~~
-    * Take into account in the GA
   * ~~Different trap types~~
   * Male/Female kernel
   * Point-processes generation

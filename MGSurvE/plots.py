@@ -8,7 +8,7 @@ def plotSites(
         fig, ax, 
         sites, pTypes,
         markers=cst.MKRS, colors=cst.MCOL,
-        size=150, edgecolors='w', linewidths=1.25,
+        size=350, edgecolors='w', linewidths=1.25,
         zorder=5, **kwargs
     ):
     """ Plots a transitions matrix.
@@ -83,7 +83,7 @@ def plotTraps(
         trapsCoords, trapsTypes, trapsKernels, trapsFixed,
         colors=cst.TRP_COLS, marker="X",
         edgecolors=('w', 'k'), lws=(2, 0), ls=':',
-        size=200, zorders=(25, -5),
+        size=350, zorders=(25, -5),
         **kwargs
     ):
     """ Plots the traps with the radii of effectiveness.
@@ -157,7 +157,8 @@ def plotMatrix(
         fig, ax,
         matrix, 
         trapsNumber=None, vmin=0, vmax=1, 
-        cmap='Purples', linecolor='#222222', linestyle=':', ticks=False, lw=.25,
+        cmap='Purples', linecolor='#222222', linestyle=':', 
+        ticks=False, lw=.5,
         **kwargs
     ):
     ax.imshow(

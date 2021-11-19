@@ -237,7 +237,7 @@ class Landscape:
     def plotSites(self, 
             fig, ax, 
             markers=cst.MKRS, colors=cst.MCOL,
-            size=350, edgecolors='w', linewidths=1.25,
+            size=500, edgecolors='w', linewidths=1.25,
             zorder=5, **kwargs
         ):
         """Plots the sites coordinates.
@@ -266,11 +266,27 @@ class Landscape:
             zorder=zorder, **kwargs
         )
         return (fig, ax)
+    def plotMaskedMigrationNetwork(self,
+            fig, ax, 
+            lineColor='#03045e', lineWidth=20, 
+            alphaMin=.5, alphaAmplitude=2.5,
+            zorder=0, **kwargs
+        ):
+        """Plots the base sites migration network.
+        """
+        plt.plotMigrationNetwork(
+            fig, ax, 
+            self.maskedMigration, self.pointCoords, self.pointCoords,
+            lineColor=lineColor, lineWidth=lineWidth, 
+            alphaMin=alphaMin, alphaAmplitude=alphaAmplitude,
+            zorder=zorder, **kwargs
+        )
+        return (fig, ax)
     def plotTraps(self,
             fig, ax,
             colors=cst.TRP_COLS, marker="X",
             edgecolor='w', lws=(2, 0), ls=':',
-            size=400, zorders=(25, -5),
+            size=500, zorders=(25, -5),
             **kwargs
         ):
         """Plots the traps locations.
