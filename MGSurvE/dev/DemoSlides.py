@@ -8,15 +8,15 @@ import matplotlib.pyplot as plt
 
 (PT_OUT, DPI) = ('/home/chipdelmal/Documents/WorkSims/Mov/Demo/', 300)
 PAD = 1
-(minX, maxX) = (0, 3.25)
+(minX, maxX) = (.5, 3.25)
 (minY, maxY) = (0, 3)
 ###############################################################################
 # XY Landscape with one point-type and one trap-type
 ###############################################################################
 pts = pd.DataFrame({
-    'x': [0, 3, 2.5, 1, 1], 
-    'y': [0, 2, 1, 0, 2.25], 
-    't': [0, 0, 1, 0, 0],
+    'x': [0, 3, 2.5, 1, 1.25, .5], 
+    'y': [0, 2, 1, 0, .75, 1.25], 
+    't': [0, 0, 1, 0, 0, 1],
 })
 points = pd.DataFrame(pts, columns=('x', 'y', 't'))
 msk = [
@@ -102,7 +102,7 @@ ax.set_ylim(minY-PAD, maxY+PAD)
 ax.text(
     0.5, 0.5, '{:.2f}'.format(fitness),
     horizontalalignment='center', verticalalignment='center',
-    fontsize=100, color='#00000011',
+    fontsize=125, color='#00000011',
     transform=ax.transAxes, zorder=5
 )
 fig.savefig(
@@ -132,7 +132,7 @@ ax.set_ylim(minY-PAD, maxY+PAD)
 ax.text(
     0.5, 0.5, '{:.2f}'.format(fitness),
     horizontalalignment='center', verticalalignment='center',
-    fontsize=100, color='#00000011',
+    fontsize=125, color='#00000011',
     transform=ax.transAxes, zorder=5
 )
 fig.savefig(
@@ -162,7 +162,7 @@ ax.set_ylim(minY-PAD, maxY+PAD)
 ax.text(
     0.5, 0.5, '{:.2f}'.format(fitness),
     horizontalalignment='center', verticalalignment='center',
-    fontsize=100, color='#00000011',
+    fontsize=125, color='#00000011',
     transform=ax.transAxes, zorder=5
 )
 fig.savefig(
