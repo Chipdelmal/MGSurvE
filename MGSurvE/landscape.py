@@ -9,6 +9,7 @@ import MGSurvE.matrices as mat
 import MGSurvE.constants as cst
 import MGSurvE.kernels as krn
 import MGSurvE.plots as plt
+import MGSurvE.optimization as opt
 
 class Landscape:
     """ Stores the information for a mosquito landscape. Works with different point-types in the form of matrices and coordinates.
@@ -86,6 +87,7 @@ class Landscape:
         self.trapsMigration = None
         self.trapsRadii = trapsRadii
         self.trapsFixed= None
+        self.fundamentalMatrix = None
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
@@ -231,6 +233,24 @@ class Landscape:
                 ]
             })
         self.trapsKernels = tker
+    ###########################################################################
+    # Fitness Function
+    ###########################################################################
+    def calcFundamentalMatrix(self):
+        self.fundamentalMatrix = opt.getFundamentalMatrix(
+            self.trapsMigration, self.pointNumber, self.trapsNumber
+        )
+    def getDaysTillTrapped(self, fitFuns={'outer': np.mean, 'inner': np.max}):
+        if self.fundamentalMatrix is None:
+            raise Exception(
+                '''Calculate the Fundamental Matrix first! 
+                lnd.calcFundamentalMatrix()
+                '''
+            )
+        daysTillTrapped = opt.getFundamentalFitness(
+            self.fundamentalMatrix, fitFuns
+        )
+        return daysTillTrapped
     ###########################################################################
     # Plotting Methods
     ###########################################################################

@@ -73,3 +73,11 @@ def getFundamentalMatrix(tau, sitesN, trapsN):
     I = np.identity(Q.shape[0])
     F = np.linalg.inv(np.subtract(I, Q))
     return F
+
+
+def getFundamentalFitness(
+        fundamentalMatrix, fitFuns={'outer': np.mean, 'inner': np.max}
+    ):
+    daysInSites = np.apply_along_axis(fitFuns['inner'], 1, fundamentalMatrix)
+    daysTillTrapped = fitFuns['outer'](daysInSites)
+    return daysTillTrapped

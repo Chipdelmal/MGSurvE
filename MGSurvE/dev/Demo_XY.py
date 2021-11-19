@@ -23,6 +23,8 @@ traps = pd.DataFrame(trp, columns=('x', 'y', 't', 'f'))
 tKernels = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 3}}}
 # Land creation ---------------------------------------------------------------
 lnd = srv.Landscape(points, traps=traps, trapsKernels=tKernels)
+lnd.calcFundamentalMatrix()
+lnd.getDaysTillTrapped()
 # Plotting landscape ----------------------------------------------------------
 (fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax[0])

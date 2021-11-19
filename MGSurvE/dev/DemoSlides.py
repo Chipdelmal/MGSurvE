@@ -18,11 +18,11 @@ pts = pd.DataFrame({
     'y': [0, 2, 1, 0, .75, 1.25], 
     't': [0, 0, 1, 0, 0, 1],
 })
-points = pd.DataFrame(pts, columns=('x', 'y', 't'))
 msk = [
     [.2, .8],
     [.8, .2]
 ]
+points = pd.DataFrame(pts, columns=('x', 'y', 't'))
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
     'x': [1.75, 0.65], 
