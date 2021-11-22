@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import numpy as np
 import pandas as pd
 import MGSurvE as srv
 import matplotlib.pyplot as plt
+
+from MGSurvE.optimization import mutateChromosome
 
 
 ###############################################################################
@@ -20,7 +23,7 @@ traps = pd.DataFrame({
     'x': [0.5, 3.0, 2.0], 
     'y': [0.0, 0.0, 2.0], 
     't': [0, 1, 0],
-    'f': [1, 1, 0]
+    'f': [0, 0, 0]
 })
 tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .30, 'b': 2}},
@@ -33,5 +36,7 @@ lnd.getDaysTillTrapped()
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
-
-lnd.trapsFixed
+chrom = srv.initChromosome(lnd.trapsNumber, coordsRange=((0, 5), (0, 5)))
+fxdTrpsMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
+mut = srv.mutateChromosome(chrom, fxdTrpsMsk)
+mut
