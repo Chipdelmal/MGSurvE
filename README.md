@@ -76,7 +76,7 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
   * Test landscape with external migrations
   * Changing number of traps doesn't affect migration part
   * ~~Selective mutation~~
-* Whishlist
+* Wishlist
   * ~~Non-movable traps~~
     * ~~Add to object properties~~
     * ~~Add to mutation~~
