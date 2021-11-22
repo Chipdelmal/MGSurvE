@@ -63,8 +63,18 @@ def getFundamentalMatrix(tau, sitesN, trapsN):
 
 
 def getFundamentalFitness(
-        fundamentalMatrix, fitFuns={'outer': np.mean, 'inner': np.max}
+        fundamentalMatrix, 
+        fitFuns={'outer': np.mean, 'inner': np.max}
     ):
+    """ Get fitness from Markov's fundamental matrix.
+
+    Parameters:
+        fundamentalMatrix (numpy array): Markov's fundamental matrix (calcFundamentalMatrix)
+        fitFuns (dict): Dictionary containing the inner (row) and outer (col) operations for the fundamental matrix.
+
+    Returns:
+        (float): Summarized fitness function for the fundamental matrix.
+    """
     daysInSites = np.apply_along_axis(fitFuns['inner'], 1, fundamentalMatrix)
     daysTillTrapped = fitFuns['outer'](daysInSites)
     return daysTillTrapped

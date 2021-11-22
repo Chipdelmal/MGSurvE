@@ -9,6 +9,18 @@
 
    
    
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      genFixedTrapsMask
+      getFundamentalFitness
+      getFundamentalMatrix
+      getMarkovAbsorbing
+      initChromosome
+      mutateChromosome
+      reshapeInCanonicalForm
+   
    
 
    

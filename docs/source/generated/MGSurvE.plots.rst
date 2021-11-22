@@ -13,6 +13,8 @@
 
    .. autosummary::
    
+      plotClean
+      plotMatrix
       plotMigrationNetwork
       plotSites
       plotTraps

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MGSurvE.matrices &mdash; MGSurvE  documentation</title>
+  <title>MGSurvE.landscape &mdash; MGSurvE  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="MGSurvE.auxiliary" href="MGSurvE.auxiliary.html" />
-    <link rel="prev" title="MGSurvE.kernels" href="MGSurvE.kernels.html" /> 
+    <link rel="next" title="MGSurvE.kernels" href="MGSurvE.kernels.html" />
+    <link rel="prev" title="API" href="../api.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,9 +40,9 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="MGSurvE.landscape.html">MGSurvE.landscape</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MGSurvE.landscape</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MGSurvE.kernels.html">MGSurvE.kernels</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">MGSurvE.matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MGSurvE.matrices.html">MGSurvE.matrices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MGSurvE.auxiliary.html">MGSurvE.auxiliary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MGSurvE.colors.html">MGSurvE.colors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MGSurvE.constants.html">MGSurvE.constants</a></li>
@@ -67,9 +67,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../api.html">API</a> &raquo;</li>
-      <li>MGSurvE.matrices</li>
+      <li>MGSurvE.landscape</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/generated/MGSurvE.matrices.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/generated/MGSurvE.landscape.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -77,29 +77,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-MGSurvE.matrices">
-<span id="mgsurve-matrices"></span><h1>MGSurvE.matrices<a class="headerlink" href="#module-MGSurvE.matrices" title="Permalink to this headline"></a></h1>
-<p class="rubric">Functions</p>
+  <section id="module-MGSurvE.landscape">
+<span id="mgsurve-landscape"></span><h1>MGSurvE.landscape<a class="headerlink" href="#module-MGSurvE.landscape" title="Permalink to this headline"></a></h1>
+<p class="rubric">Classes</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.matrices.calcDistanceMatrix" title="MGSurvE.matrices.calcDistanceMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcDistanceMatrix</span></code></a>(pointCoords[, distFun])</p></td>
-<td><p>Calculates the distance matrix between all the provided coordinates.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.matrices.calcMaskedMigrationMatrix" title="MGSurvE.matrices.calcMaskedMigrationMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcMaskedMigrationMatrix</span></code></a>(migrationMatrix, ...)</p></td>
-<td><p>Calculates the masked migration matrix between points according to their types.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.matrices.calcTrapsProbabilities" title="MGSurvE.matrices.calcTrapsProbabilities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcTrapsProbabilities</span></code></a>(trapsDistances, ...)</p></td>
-<td><p>Calculates the traps probabilities given distances to points in the landscape and their effectiveness kernels.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.matrices.calcTrapsToPointsDistances" title="MGSurvE.matrices.calcTrapsToPointsDistances"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcTrapsToPointsDistances</span></code></a>(trapsCoords, ...)</p></td>
-<td><p>Generates the distances matrix between the traps and the sites.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.matrices.genVoidFullMigrationMatrix" title="MGSurvE.matrices.genVoidFullMigrationMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genVoidFullMigrationMatrix</span></code></a>(migrationMatrix, ...)</p></td>
-<td><p>Calculates a migration matrix with sections for traps (Xi) to be filled in place.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.landscape.Landscape" title="MGSurvE.landscape.Landscape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Landscape</span></code></a>(points[, maskingMatrix, ...])</p></td>
+<td><p>Stores the information for a mosquito landscape.</p></td>
 </tr>
 </tbody>
 </table>
@@ -109,8 +97,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="MGSurvE.kernels.html" class="btn btn-neutral float-left" title="MGSurvE.kernels" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="MGSurvE.auxiliary.html" class="btn btn-neutral float-right" title="MGSurvE.auxiliary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../api.html" class="btn btn-neutral float-left" title="API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="MGSurvE.kernels.html" class="btn btn-neutral float-right" title="MGSurvE.kernels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
