@@ -65,10 +65,9 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
     * ~~Put the cost function together~~
     * ~~Markov's fundamental matrix with no re-ordering~~
     * Test different fitness functions
-  * Code new mutation functions
-    *  If all traps are movable, default to fast implementation
+  * ~~Code new mutation functions~~
   * Code new crossover functions
-    * If all traps are movable, default to fast implementation
+  * Implement full optimization loop
 * Code efficiency
   * ~~Process traps movement in place~~
 * Tests
@@ -76,9 +75,12 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
   * ~~Check matrices for Markov validity~~
   * Test landscape with external migrations
   * Changing number of traps doesn't affect migration part
+  * ~~Selective mutation~~
 * Whishlist
-  * Non-movable traps
+  * ~~Non-movable traps~~
     * ~~Add to object properties~~
+    * ~~Add to mutation~~
+    * Add to crossover
   * ~~Different trap types~~
   * Male/Female kernel
   * Point-processes generation
