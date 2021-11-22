@@ -90,6 +90,7 @@ class Landscape:
         self.fundamentalMatrix = None
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
+        tpsHead = set(traps.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
             self.geometryType = 'xy'
             self.pointCoords = np.asarray(points[['x', 'y']])
@@ -139,11 +140,11 @@ class Landscape:
             else:
                 self.trapsCoords = np.asarray(traps[['lon', 'lat']])
             # Check if there's trap-type information --------------------------
-            if ('t' in ptsHead):
+            if ('t' in tpsHead):
                 self.trapsTypes = np.asarray(traps['t'])
             else:
                 self.trapsTypes = np.asarray([0]*len(self.trapsCoords))
-            if ('f' in ptsHead):
+            if ('f' in tpsHead):
                 self.trapsFixed = np.asarray(traps['f'])
             else:
                 self.trapsFixed = np.asarray([0]*len(self.trapsCoords))

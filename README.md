@@ -28,6 +28,8 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 
 <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/berkeley.jpg" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/IHME.jpg" height="25px"> &nbsp;<img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/UCIMI.png" height="25px"> &nbsp;  <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/IGI.png" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/DARPA.jpg" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/gates.jpg" height="25px">
 
+<br><br>
+
 <hr>
 
 # Progress and Features

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+import numpy.random as rand
 from deap import base, creator, algorithms, tools
 
 
@@ -81,3 +82,13 @@ def getFundamentalFitness(
     daysInSites = np.apply_along_axis(fitFuns['inner'], 1, fundamentalMatrix)
     daysTillTrapped = fitFuns['outer'](daysInSites)
     return daysTillTrapped
+
+
+def mutateChromosome(
+        chromosome, fixedTrapsMask,
+        randFun=rand.normal, randArgs={'loc': 0, 'scale': 0.1}
+    ):
+    randDraw = randFun(size=len(chromosome), **randArgs)
+
+    mutChrom = chromosome + randDraw
+    return mutChrom
