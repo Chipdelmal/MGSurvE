@@ -50,7 +50,7 @@ chrom, mut
 ###############################################################################
 # Mutation function test
 ###############################################################################
-trpsNum = 10
+trpsNum = 12
 trpsFxd = [0]*trpsNum
 dims = 2
 
@@ -64,14 +64,15 @@ for i in range(trpsNum):
     mutChrom = srv.mutateChromosome(initChrom, fxdTrpsMsk)
     resSum = np.sum(np.isclose(initChrom, mutChrom))
     results.extend([resSum == dims])
-all(results)
+testShift = all(results)
 
 
-trpsFxd = [0]*trpsNum
-results = []
+(trpsFxd, results, total) = ([0]*trpsNum, [], 0)
 for i in range(trpsNum):
+    total = total + (i+1)
     trpsFxd[i] = 1
     fxdTrpsMsk = srv.genFixedTrapsMask(trpsFxd)
     mutChrom = srv.mutateChromosome(initChrom, fxdTrpsMsk)
     resSum = np.sum(np.isclose(initChrom, mutChrom))
     results.extend([resSum])
+testCumsum = (np.sum(results)//2 == total)
