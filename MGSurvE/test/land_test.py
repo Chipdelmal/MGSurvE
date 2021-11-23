@@ -76,51 +76,6 @@ def test_MarkovFundamentalMatrix():
     F_B = srv.getFundamentalMatrix(tau, sitesN, trapsN)
     assert np.equal(F_A, F_B).all()
 
-def test_SelectiveMutation():
-    # Fix all traps -----------------------------------------------------------
-    trapsNew = pd.DataFrame({
-        'x': [0, 0, 1, 1], 'y': [1, 1, 0, 0],
-        't': [1, 0, 1, 0], 'f': [1, 1, 1, 1]
-    })
-    tkerNew = {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': 100000, 'b': 0}},
-        1: {'kernel': srv.exponentialDecay, 'params': {'A': 0, 'b': 0}} 
-    }
-    lnd.updateTraps(trapsNew, tkerNew)
-    chrom = srv.initChromosome(lnd.trapsNumber, coordsRange=((0, 5), (0, 5)))
-    fxdTrpsMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
-    mut = srv.mutateChromosome(chrom, fxdTrpsMsk)
-    noMutation = all(np.equal(chrom, mut))
-    # Move all traps ----------------------------------------------------------
-    trapsNew = pd.DataFrame({
-        'x': [0, 0, 1, 1], 'y': [1, 1, 0, 0],
-        't': [1, 0, 1, 0], 'f': [0, 0, 0, 0]
-    })
-    tkerNew = {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': 100000, 'b': 0}},
-        1: {'kernel': srv.exponentialDecay, 'params': {'A': 0, 'b': 0}} 
-    }
-    lnd.updateTraps(trapsNew, tkerNew)
-    chrom = srv.initChromosome(lnd.trapsNumber, coordsRange=((0, 5), (0, 5)))
-    fxdTrpsMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
-    mut = srv.mutateChromosome(chrom, fxdTrpsMsk)
-    mutation = any(np.equal(chrom, mut))
-    # Move one trap -----------------------------------------------------------
-    trapsNew = pd.DataFrame({
-        'x': [0, 0, 1, 1], 'y': [1, 1, 0, 0],
-        't': [1, 0, 1, 0], 'f': [0, 1, 0, 0]
-    })
-    tkerNew = {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': 100000, 'b': 0}},
-        1: {'kernel': srv.exponentialDecay, 'params': {'A': 0, 'b': 0}} 
-    }
-    lnd.updateTraps(trapsNew, tkerNew)
-    chrom = srv.initChromosome(lnd.trapsNumber, coordsRange=((0, 5), (0, 5)))
-    fxdTrpsMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
-    mut = srv.mutateChromosome(chrom, fxdTrpsMsk)
-    mutationOne = any(np.equal(chrom, mut))
-    # Combine tests -----------------------------------------------------------
-    assert (noMutation and not(mutation) and mutationOne)
 
 ###############################################################################
 # Main
