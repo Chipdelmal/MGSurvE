@@ -46,3 +46,32 @@ chrom, mut
 [np.isclose(a, b) for (a, b) in zip(pre2, ind2)]
 
 
+
+###############################################################################
+# Mutation function test
+###############################################################################
+trpsNum = 10
+trpsFxd = [0]*trpsNum
+dims = 2
+
+initChrom = srv.initChromosome(trpsNum, coordsRange=((0, 5), (0, 5)))
+
+results = []
+for i in range(trpsNum):
+    trpsFxd = [0]*trpsNum
+    trpsFxd[i] = 1
+    fxdTrpsMsk = srv.genFixedTrapsMask(trpsFxd)
+    mutChrom = srv.mutateChromosome(initChrom, fxdTrpsMsk)
+    resSum = np.sum(np.isclose(initChrom, mutChrom))
+    results.extend([resSum == dims])
+all(results)
+
+
+trpsFxd = [0]*trpsNum
+results = []
+for i in range(trpsNum):
+    trpsFxd[i] = 1
+    fxdTrpsMsk = srv.genFixedTrapsMask(trpsFxd)
+    mutChrom = srv.mutateChromosome(initChrom, fxdTrpsMsk)
+    resSum = np.sum(np.isclose(initChrom, mutChrom))
+    results.extend([resSum])
