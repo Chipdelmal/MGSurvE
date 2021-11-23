@@ -76,8 +76,38 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="mgsurve-optimization">
-<h1>MGSurvE.optimization<a class="headerlink" href="#mgsurve-optimization" title="Permalink to this headline"></a></h1>
+  <section id="module-MGSurvE.optimization">
+<span id="mgsurve-optimization"></span><h1>MGSurvE.optimization<a class="headerlink" href="#module-MGSurvE.optimization" title="Permalink to this headline"></a></h1>
+<p class="rubric">Functions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.genFixedTrapsMask" title="MGSurvE.optimization.genFixedTrapsMask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genFixedTrapsMask</span></code></a>(trapsFixed[, dims])</p></td>
+<td><p>Creates a mask for the fixed traps (non-movable).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalFitness" title="MGSurvE.optimization.getFundamentalFitness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalFitness</span></code></a>(fundamentalMatrix[, ...])</p></td>
+<td><p>Get fitness from Markov's fundamental matrix.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalMatrix" title="MGSurvE.optimization.getFundamentalMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalMatrix</span></code></a>(tau, sitesN, trapsN)</p></td>
+<td><p>Get Markov's fundamental matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getMarkovAbsorbing" title="MGSurvE.optimization.getMarkovAbsorbing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getMarkovAbsorbing</span></code></a>(tauCan, trapsN)</p></td>
+<td><p>Get Markov's absorbing states (deprecated).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.initChromosome" title="MGSurvE.optimization.initChromosome"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initChromosome</span></code></a>(trapsNum, coordsRange)</p></td>
+<td><p>Generates a random uniform chromosome for GA optimization.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.mutateChromosome" title="MGSurvE.optimization.mutateChromosome"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mutateChromosome</span></code></a>(chromosome, fxdTrpsMsk[, ...])</p></td>
+<td><p>Mutates a chromosome with a probability distribution based on the mutation mask.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.reshapeInCanonicalForm" title="MGSurvE.optimization.reshapeInCanonicalForm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reshapeInCanonicalForm</span></code></a>(tau, sitesN, trapsN)</p></td>
+<td><p>Reshapes a migration matrix into canonical form (deprecated).</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 
 

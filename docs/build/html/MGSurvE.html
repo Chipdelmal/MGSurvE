@@ -69,32 +69,778 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 </section>
-<section id="mgsurve-auxiliary-module">
-<h2>MGSurvE.auxiliary module<a class="headerlink" href="#mgsurve-auxiliary-module" title="Permalink to this headline"></a></h2>
+<section id="module-MGSurvE.auxiliary">
+<span id="mgsurve-auxiliary-module"></span><h2>MGSurvE.auxiliary module<a class="headerlink" href="#module-MGSurvE.auxiliary" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.auxiliary.isNotebook">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.auxiliary.</span></span><span class="sig-name descname"><span class="pre">isNotebook</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.auxiliary.isNotebook" title="Permalink to this definition"></a></dt>
+<dd><p>Checks if the script is running from a Jupyter environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Flags Jupyter environment.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.auxiliary.makeFolder">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.auxiliary.</span></span><span class="sig-name descname"><span class="pre">makeFolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.auxiliary.makeFolder" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a folder if it doesn’t already exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>string</em>) – Path to the desired directory.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.auxiliary.makeFolders">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.auxiliary.</span></span><span class="sig-name descname"><span class="pre">makeFolders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pathsList</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.auxiliary.makeFolders" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a list of folders if they don’t exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>paths</strong> (<em>list</em>) – List path to the desired directories.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="mgsurve-colors-module">
-<h2>MGSurvE.colors module<a class="headerlink" href="#mgsurve-colors-module" title="Permalink to this headline"></a></h2>
+<section id="module-MGSurvE.colors">
+<span id="mgsurve-colors-module"></span><h2>MGSurvE.colors module<a class="headerlink" href="#module-MGSurvE.colors" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.colors.colorPaletteFromHexList">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.colors.</span></span><span class="sig-name descname"><span class="pre">colorPaletteFromHexList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.colors.colorPaletteFromHexList" title="Permalink to this definition"></a></dt>
+<dd><p>Generates a matplotlib-compliant cmap from a list of hex colors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>clist</strong> (<em>list</em>) – List of hex codes (eg. ‘#f72585’) to blend in the map.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matplotlib’s colormap object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>cmap</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="mgsurve-constants-module">
-<h2>MGSurvE.constants module<a class="headerlink" href="#mgsurve-constants-module" title="Permalink to this headline"></a></h2>
+<section id="module-MGSurvE.constants">
+<span id="mgsurve-constants-module"></span><h2>MGSurvE.constants module<a class="headerlink" href="#module-MGSurvE.constants" title="Permalink to this headline"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="MGSurvE.constants.AEDES_EXP_PARAMS">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">AEDES_EXP_PARAMS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[0.01848777,</span> <span class="pre">1e-10,</span> <span class="pre">inf]</span></em><a class="headerlink" href="#MGSurvE.constants.AEDES_EXP_PARAMS" title="Permalink to this definition"></a></dt>
+<dd><p>Aedes aegypti’s migration parameters for kernel.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="MGSurvE.constants.BASIC_EXP_TRAP">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">BASIC_EXP_TRAP</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}</span></em><a class="headerlink" href="#MGSurvE.constants.BASIC_EXP_TRAP" title="Permalink to this definition"></a></dt>
+<dd><p>Generic params for an exponential-decay trap</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="MGSurvE.constants.MCOL">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">MCOL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('#e0c3fc',</span> <span class="pre">'#bdb2ff',</span> <span class="pre">'#a0c4ff',</span> <span class="pre">'#ffd6a5',</span> <span class="pre">'#caffbf',</span> <span class="pre">'#d0d1ff')</span></em><a class="headerlink" href="#MGSurvE.constants.MCOL" title="Permalink to this definition"></a></dt>
+<dd><p>A cute pastel colors list.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="MGSurvE.constants.MKRS">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">MKRS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('o',</span> <span class="pre">'^',</span> <span class="pre">'s',</span> <span class="pre">'p',</span> <span class="pre">'d',</span> <span class="pre">'X')</span></em><a class="headerlink" href="#MGSurvE.constants.MKRS" title="Permalink to this definition"></a></dt>
+<dd><p>Markers for point-types</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="MGSurvE.constants.PINK_NAVY">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">PINK_NAVY</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;matplotlib.colors.LinearSegmentedColormap</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#MGSurvE.constants.PINK_NAVY" title="Permalink to this definition"></a></dt>
+<dd><p>Pink to Navy Blue cmap.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="MGSurvE.constants.SHORT_EXP_PARAMS">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">SHORT_EXP_PARAMS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[1,</span> <span class="pre">1e-10,</span> <span class="pre">inf]</span></em><a class="headerlink" href="#MGSurvE.constants.SHORT_EXP_PARAMS" title="Permalink to this definition"></a></dt>
+<dd><p>Dummy migration parameters for short-distance kernel.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="MGSurvE.constants.TRP_COLS">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">TRP_COLS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{0:</span> <span class="pre">'#f7258511',</span> <span class="pre">1:</span> <span class="pre">'#9381ff11',</span> <span class="pre">2:</span> <span class="pre">'#5ddeb111',</span> <span class="pre">3:</span> <span class="pre">'#f038ff11',</span> <span class="pre">4:</span> <span class="pre">'#fe5f5511',</span> <span class="pre">5:</span> <span class="pre">'#e2ef7011'}</span></em><a class="headerlink" href="#MGSurvE.constants.TRP_COLS" title="Permalink to this definition"></a></dt>
+<dd><p>Base colors for trap types.</p>
+</dd></dl>
+
 </section>
-<section id="mgsurve-kernels-module">
-<h2>MGSurvE.kernels module<a class="headerlink" href="#mgsurve-kernels-module" title="Permalink to this headline"></a></h2>
+<section id="module-MGSurvE.kernels">
+<span id="mgsurve-kernels-module"></span><h2>MGSurvE.kernels module<a class="headerlink" href="#module-MGSurvE.kernels" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.kernels.exponentialDecay">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">exponentialDecay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.exponentialDecay" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the probability of moving between points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dist</strong> (<em>float</em>) – </p></li>
+<li><p><strong>A</strong> (<em>float</em>) – Maximum amplitude at distance 0.</p></li>
+<li><p><strong>b</strong> (<em>float</em>) – Decay rate (higher means tighter kernel).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Movement probability.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.kernels.nSolveKernel">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">nSolveKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernelDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yVal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.nSolveKernel" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the distance it takes for the kernel to match a given probability (yVar).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kernelDict</strong> (<em>dict</em>) – Dictionary with the kernel info {‘kernel’, ‘params’}.</p></li>
+<li><p><strong>yVal</strong> (<em>float</em>) – Probability for which we are solving the distance.</p></li>
+<li><p><strong>guess</strong> (<em>float</em>) – Initial guess for the distance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Distance for the probability value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.kernels.truncatedExponential">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">truncatedExponential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.01848777,</span> <span class="pre">1e-10,</span> <span class="pre">inf]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.truncatedExponential" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the zero-inflated exponential distance-based movement probability.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>distance</strong> (<em>float</em>) – Distances matrix.</p></li>
+<li><p><strong>params</strong> (<em>list</em>) – Shape distribution parameters [rate, a, b].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Migration probability.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.kernels.zeroInflatedExponentialKernel">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">zeroInflatedExponentialKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distMat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.01848777,</span> <span class="pre">1e-10,</span> <span class="pre">inf]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zeroInflation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.zeroInflatedExponentialKernel" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the migration matrix using a zero-inflated exponential function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>distMat</strong> (<em>numpy array</em>) – Distances matrix.</p></li>
+<li><p><strong>params</strong> (<em>list</em>) – Shape distribution parameters [rate, a, b].</p></li>
+<li><p><strong>zeroInflation</strong> (<em>float</em>) – Probability to stay in the same place.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Migration matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.kernels.zeroInflatedLinearMigrationKernel">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">zeroInflatedLinearMigrationKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distMat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.75,</span> <span class="pre">1]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.zeroInflatedLinearMigrationKernel" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the zero-inflated linear distance-based movement probability.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>distMat</strong> (<em>numpy array</em>) – Distances matrix.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Migration matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="mgsurve-landscape-module">
-<h2>MGSurvE.landscape module<a class="headerlink" href="#mgsurve-landscape-module" title="Permalink to this headline"></a></h2>
+<section id="module-MGSurvE.landscape">
+<span id="mgsurve-landscape-module"></span><h2>MGSurvE.landscape module<a class="headerlink" href="#module-MGSurvE.landscape" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">MGSurvE.landscape.</span></span><span class="sig-name descname"><span class="pre">Landscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">points,</span> <span class="pre">maskingMatrix=None,</span> <span class="pre">distanceMatrix=None,</span> <span class="pre">distanceFunction=None,</span> <span class="pre">migrationMatrix=None,</span> <span class="pre">kernelFunction=&lt;function</span> <span class="pre">zeroInflatedExponentialKernel&gt;,</span> <span class="pre">kernelParams={'params':</span> <span class="pre">[1,</span> <span class="pre">1e-10,</span> <span class="pre">inf],</span> <span class="pre">'zeroInflation':</span> <span class="pre">0.75},</span> <span class="pre">maskedMigrationMatrix=None,</span> <span class="pre">traps=None,</span> <span class="pre">trapsKernels={0:</span> <span class="pre">{'inverse':</span> <span class="pre">None,</span> <span class="pre">'kernel':</span> <span class="pre">&lt;function</span> <span class="pre">exponentialDecay&gt;,</span> <span class="pre">'params':</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}}},</span> <span class="pre">trapsRadii=[0.1,</span> <span class="pre">0.05,</span> <span class="pre">0.025],</span> <span class="pre">repellents=None,</span> <span class="pre">repellentsKernels={0:</span> <span class="pre">{'kernel':</span> <span class="pre">&lt;function</span> <span class="pre">exponentialDecay&gt;,</span> <span class="pre">'params':</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}}}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Stores the information for a mosquito landscape. Works with different point-types in the form of matrices and coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points</strong> (<em>pandas dataframe</em>) – Sites coordinates in (x, y) or (lon, lat) format.</p></li>
+<li><p><strong>pointTypes</strong> (<em>numpy array</em>) – Sites types in the same order and length as the points coordinates.</p></li>
+<li><p><strong>kernelFunction</strong> (<em>function</em>) – Function that determines de relationship between distances and migration probabilities.</p></li>
+<li><p><strong>kernelParams</strong> (<em>dict</em>) – Parameters required for the kernel function to determine migration probabilities.</p></li>
+<li><p><strong>maskingMatrix</strong> (<em>numpy array</em>) – Matrix that determines the probability of shifting from one point-type to another one (squared with size equal to the number of point types). If None, every point-type transition is equiprobable.</p></li>
+<li><p><strong>distanceMatrix</strong> (<em>numpy array</em>) – Matrix with the distances between all the points in the landscape. If None, it’s auto-calculated (see calcPointsDistances).</p></li>
+<li><p><strong>migrationMatrix</strong> (<em>numpy array</em>) – Markov matrix that determines the probability of moving from one site to another. If None, it’s auto-calculated (see calcPointsMigration).</p></li>
+<li><p><strong>maskedMigrationMatrix</strong> (<em>numpy array</em>) – Markov matrix that biases migration probabilities as dictated by the masking matrix. If None, it’s auto-calculated (see calcPointsMaskedMigration).</p></li>
+<li><p><strong>distanceFunction</strong> (<em>function</em>) – Function that takes two points in the landscape and calculates the distance between them.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.pointsCoords">
+<span class="sig-name descname"><span class="pre">pointsCoords</span></span><a class="headerlink" href="#MGSurvE.landscape.Landscape.pointsCoords" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.pointNumber">
+<span class="sig-name descname"><span class="pre">pointNumber</span></span><a class="headerlink" href="#MGSurvE.landscape.Landscape.pointNumber" title="Permalink to this definition"></a></dt>
+<dd><p>Number of sites present in the environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.geometryType">
+<span class="sig-name descname"><span class="pre">geometryType</span></span><a class="headerlink" href="#MGSurvE.landscape.Landscape.geometryType" title="Permalink to this definition"></a></dt>
+<dd><p>Type of geometry being analyzed (cartesian “xy” or lat-lon “ll”)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.distanceMatrix">
+<span class="sig-name descname"><span class="pre">distanceMatrix</span></span><a class="headerlink" href="#MGSurvE.landscape.Landscape.distanceMatrix" title="Permalink to this definition"></a></dt>
+<dd><p>Distances amongst the points in the landscape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.migrationMatrix">
+<span class="sig-name descname"><span class="pre">migrationMatrix</span></span><a class="headerlink" href="#MGSurvE.landscape.Landscape.migrationMatrix" title="Permalink to this definition"></a></dt>
+<dd><p>Distance-based migration probabilities amongst the points in the landscape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.maskedMigrationMatrix">
+<span class="sig-name descname"><span class="pre">maskedMigrationMatrix</span></span><a class="headerlink" href="#MGSurvE.landscape.Landscape.maskedMigrationMatrix" title="Permalink to this definition"></a></dt>
+<dd><p>Point-type based migration probabilities amongst the points in the landscape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.calcPointsDistances">
+<span class="sig-name descname"><span class="pre">calcPointsDistances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.calcPointsDistances" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the distancesMatrix amongst the points (in place). Uses the distanceFunction to calculate the distanceMatrix internally.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.calcPointsMigration">
+<span class="sig-name descname"><span class="pre">calcPointsMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.calcPointsMigration" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the migrationMatrix amongst the points (in place). Uses the kernelFunction and kernelParams to generate the migrationMatrix.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.calcPointsMaskedMigration">
+<span class="sig-name descname"><span class="pre">calcPointsMaskedMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.calcPointsMaskedMigration" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the maskedMigrationMatrix depending on point-type (in place). Uses the maskingMatrix to bias the migrationMatrix and store the results in the maskedMigrationMatrix.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.calcFundamentalMatrix">
+<span class="sig-name descname"><span class="pre">calcFundamentalMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.calcFundamentalMatrix" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the Markov fundamental matrix on the landscape.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">calcPointsDistances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the distancesMatrix amongst the points (in place).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">calcPointsMaskedMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#id1" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the maskedMigrationMatrix depending on point-type (in place).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">calcPointsMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#id2" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the migrationMatrix amongst the points (in place).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.calcTrapsDistances">
+<span class="sig-name descname"><span class="pre">calcTrapsDistances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.calcTrapsDistances" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the trapsDistances matrix (in place).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.calcTrapsMigration">
+<span class="sig-name descname"><span class="pre">calcTrapsMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.calcTrapsMigration" title="Permalink to this definition"></a></dt>
+<dd><p>Replaces section in the trapsMigration matrix (in place).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.getDaysTillTrapped">
+<span class="sig-name descname"><span class="pre">getDaysTillTrapped</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></em>, <em class="sig-param"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.getDaysTillTrapped" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the number of timesteps until a walker falls into a trap</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.plotMaskedMigrationNetwork">
+<span class="sig-name descname"><span class="pre">plotMaskedMigrationNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#03045e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineWidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.plotMaskedMigrationNetwork" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the base sites migration network.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.plotMigrationNetwork">
+<span class="sig-name descname"><span class="pre">plotMigrationNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#03045e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineWidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.plotMigrationNetwork" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the base sites migration network.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.plotSites">
+<span class="sig-name descname"><span class="pre">plotSites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('o',</span> <span class="pre">'^',</span> <span class="pre">'s',</span> <span class="pre">'p',</span> <span class="pre">'d',</span> <span class="pre">'X')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('#e0c3fc',</span> <span class="pre">'#bdb2ff',</span> <span class="pre">'#a0c4ff',</span> <span class="pre">'#ffd6a5',</span> <span class="pre">'#caffbf',</span> <span class="pre">'#d0d1ff')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linewidths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.plotSites" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the sites coordinates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.plotTraps">
+<span class="sig-name descname"><span class="pre">plotTraps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{0:</span> <span class="pre">'#f7258511',</span> <span class="pre">1:</span> <span class="pre">'#9381ff11',</span> <span class="pre">2:</span> <span class="pre">'#5ddeb111',</span> <span class="pre">3:</span> <span class="pre">'#f038ff11',</span> <span class="pre">4:</span> <span class="pre">'#fe5f5511',</span> <span class="pre">5:</span> <span class="pre">'#e2ef7011'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'X'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">':'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(25,</span> <span class="pre">-</span> <span class="pre">5)</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.plotTraps" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the traps locations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.plotTrapsNetwork">
+<span class="sig-name descname"><span class="pre">plotTrapsNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#f72585'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineWidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.plotTrapsNetwork" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the traps networks.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.updateTraps">
+<span class="sig-name descname"><span class="pre">updateTraps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsKernels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.updateTraps" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the traps locations and migration matrices (in place).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>traps</strong> (<em>pandas dataframe</em>) – </p></li>
+<li><p><strong>trapsKernel</strong> (<em>dictionary</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.updateTrapsRadii">
+<span class="sig-name descname"><span class="pre">updateTrapsRadii</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">probValues</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.updateTrapsRadii" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="mgsurve-matrices-module">
-<h2>MGSurvE.matrices module<a class="headerlink" href="#mgsurve-matrices-module" title="Permalink to this headline"></a></h2>
+<section id="module-MGSurvE.matrices">
+<span id="mgsurve-matrices-module"></span><h2>MGSurvE.matrices module<a class="headerlink" href="#module-MGSurvE.matrices" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.matrices.calcDistanceMatrix">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.matrices.</span></span><span class="sig-name descname"><span class="pre">calcDistanceMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pointCoords</span></em>, <em class="sig-param"><span class="pre">distFun=&lt;built-in</span> <span class="pre">function</span> <span class="pre">dist&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.matrices.calcDistanceMatrix" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the distance matrix between all the provided coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pointCoords</strong> (<em>numpy array</em>) – Coordinates of the sites.</p></li>
+<li><p><strong>distFun</strong> (<em>function</em>) – Distance function to be used in the computations.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Distances matrix</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.matrices.calcMaskedMigrationMatrix">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.matrices.</span></span><span class="sig-name descname"><span class="pre">calcMaskedMigrationMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">migrationMatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maskingMatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointTypes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.matrices.calcMaskedMigrationMatrix" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the masked migration matrix between points according to their types.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>migrationMatrix</strong> (<em>numpy array</em>) – Migration probabilities amongst points.</p></li>
+<li><p><strong>maskingMatrix</strong> (<em>numpy array</em>) – Transition probabilities between point-types.</p></li>
+<li><p><strong>pointTypes</strong> (<em>numpy vector</em>) – Point-types for each one of the sites in the matrix (in the same order).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Masked migration matrix</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.matrices.calcTrapsProbabilities">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.matrices.</span></span><span class="sig-name descname"><span class="pre">calcTrapsProbabilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trapsDistances</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsTypes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsKernels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.matrices.calcTrapsProbabilities" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the traps probabilities given distances to points in the landscape and their effectiveness kernels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trapsDistances</strong> (<em>numpy array</em>) – Distances to all points.</p></li>
+<li><p><strong>trapsTypes</strong> (<em>numpy array</em>) – Types of the traps.</p></li>
+<li><p><strong>trapsKernels</strong> (<em>function</em>) – Kernels functions and params for trap types.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Traps probabilities</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.matrices.calcTrapsToPointsDistances">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.matrices.</span></span><span class="sig-name descname"><span class="pre">calcTrapsToPointsDistances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">trapsCoords</span></em>, <em class="sig-param"><span class="pre">pointCoords</span></em>, <em class="sig-param"><span class="pre">dFun=&lt;built-in</span> <span class="pre">function</span> <span class="pre">dist&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.matrices.calcTrapsToPointsDistances" title="Permalink to this definition"></a></dt>
+<dd><p>Generates the distances matrix between the traps and the sites.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trapsCoords</strong> (<em>numpy array</em>) – Coordinates of the traps.</p></li>
+<li><p><strong>pointsCoords</strong> (<em>numpy array</em>) – Coordinates of the sites.</p></li>
+<li><p><strong>dFun</strong> (<em>function</em>) – Distance function to be used in the computations.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Distances matrix</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.matrices.genVoidFullMigrationMatrix">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.matrices.</span></span><span class="sig-name descname"><span class="pre">genVoidFullMigrationMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">migrationMatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsNumber</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.matrices.genVoidFullMigrationMatrix" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates a migration matrix with sections for traps (Xi) to be filled in place.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>migrationMatrix</strong> (<em>numpy array</em>) – Migration matrix without any traps (Tau).</p></li>
+<li><p><strong>trapsNumber</strong> (<em>int</em>) – Number of traps in the landscape</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Full migration matrix with no traps effects</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="mgsurve-optimization-module">
-<h2>MGSurvE.optimization module<a class="headerlink" href="#mgsurve-optimization-module" title="Permalink to this headline"></a></h2>
+<section id="module-MGSurvE.optimization">
+<span id="mgsurve-optimization-module"></span><h2>MGSurvE.optimization module<a class="headerlink" href="#module-MGSurvE.optimization" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.optimization.genFixedTrapsMask">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">genFixedTrapsMask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trapsFixed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.genFixedTrapsMask" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a mask for the fixed traps (non-movable).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trapsFixed</strong> (<em>bool numpy array</em>) – Boolean array with the traps that are not movable (lnd.trapsFixed).</p></li>
+<li><p><strong>dims</strong> (<em>int</em>) – Unused for now, but it’s the number of dimensions for the landscape.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Mask of the elements that can be moved in the GA operations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.optimization.getFundamentalFitness">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">getFundamentalFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fundamentalMatrix</span></em>, <em class="sig-param"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></em>, <em class="sig-param"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.getFundamentalFitness" title="Permalink to this definition"></a></dt>
+<dd><p>Get fitness from Markov’s fundamental matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fundamentalMatrix</strong> (<em>numpy array</em>) – Markov’s fundamental matrix (calcFundamentalMatrix)</p></li>
+<li><p><strong>fitFuns</strong> (<em>dict</em>) – Dictionary containing the inner (row) and outer (col) operations for the fundamental matrix.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Summarized fitness function for the fundamental matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.optimization.getFundamentalMatrix">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">getFundamentalMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sitesN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.getFundamentalMatrix" title="Permalink to this definition"></a></dt>
+<dd><p>Get Markov’s fundamental matrix.</p>
+<dl class="simple">
+<dt>Equivalent to using reshapeInCanonicalForm and getMarkovAbsorbing (which</dt><dd><p>should be deprecated).</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tau</strong> (<em>numpy array</em>) – Traps migration matrix in canonical form.</p></li>
+<li><p><strong>sitesN</strong> (<em>int</em>) – Number of sites.</p></li>
+<li><p><strong>trapsN</strong> (<em>int</em>) – Number of traps.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Time to fall into absorbing states from anywhere in landscape.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.optimization.getMarkovAbsorbing">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">getMarkovAbsorbing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tauCan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.getMarkovAbsorbing" title="Permalink to this definition"></a></dt>
+<dd><p>Get Markov’s absorbing states (deprecated).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tauCan</strong> (<em>numpy array</em>) – Traps migration matrix in canonical form.</p></li>
+<li><p><strong>trapsN</strong> (<em>int</em>) – Number of traps.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Time to fall into absorbing states from anywhere in landscape.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.optimization.initChromosome">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">initChromosome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trapsNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordsRange</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.initChromosome" title="Permalink to this definition"></a></dt>
+<dd><p>Generates a random uniform chromosome for GA optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trapsNum</strong> (<em>int</em>) – Number of traps to lay down in the landscape.</p></li>
+<li><p><strong>xRan</strong> (<em>tuple of tuples of floats</em>) – XY Range for the coordinates.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of xy coordinates for the traps’ positions.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.optimization.mutateChromosome">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">mutateChromosome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">chromosome</span></em>, <em class="sig-param"><span class="pre">fxdTrpsMsk</span></em>, <em class="sig-param"><span class="pre">randFun=&lt;built-in</span> <span class="pre">method</span> <span class="pre">normal</span> <span class="pre">of</span> <span class="pre">numpy.random.mtrand.RandomState</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">randArgs={'loc':</span> <span class="pre">0</span></em>, <em class="sig-param"><span class="pre">'scale':</span> <span class="pre">0.1}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.mutateChromosome" title="Permalink to this definition"></a></dt>
+<dd><p>Mutates a chromosome with a probability distribution based on the mutation mask.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chromosome</strong> (<em>floats numpy array</em>) – GA’s float chromosome generated by initChromosome.</p></li>
+<li><p><strong>fxdTrpsMsk</strong> (<em>bool numpy array</em>) – Array of bools that define which alleles can be mutated (1).</p></li>
+<li><p><strong>randFun</strong> (<em>function</em>) – Probability function for the mutation operation.</p></li>
+<li><p><strong>randArgs</strong> (<em>dict</em>) – Arguments to control the shape of the probability function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Selectively-mutated chromosome.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.optimization.reshapeInCanonicalForm">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">reshapeInCanonicalForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sitesN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.reshapeInCanonicalForm" title="Permalink to this definition"></a></dt>
+<dd><p>Reshapes a migration matrix into canonical form (deprecated).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tau</strong> (<em>numpy array</em>) – Traps migration matrix.</p></li>
+<li><p><strong>sitesN</strong> (<em>int</em>) – Number of sites.</p></li>
+<li><p><strong>trapsN</strong> (<em>int</em>) – Number of traps.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Reshaped matrix in canonical form.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="mgsurve-plots-module">
-<h2>MGSurvE.plots module<a class="headerlink" href="#mgsurve-plots-module" title="Permalink to this headline"></a></h2>
+<section id="module-MGSurvE.plots">
+<span id="mgsurve-plots-module"></span><h2>MGSurvE.plots module<a class="headerlink" href="#module-MGSurvE.plots" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.plots.plotClean">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotClean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotClean" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.plots.plotMatrix">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsNumber</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Purples'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linecolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#222222'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linestyle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">':'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotMatrix" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.plots.plotMigrationNetwork">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotMigrationNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transMtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sitesB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sitesA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#03045e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineWidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotMigrationNetwork" title="Permalink to this definition"></a></dt>
+<dd><p>Plots a transitions matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
+<li><p><strong>transMtx</strong> (<em>numpy matrix</em>) – Transitions matrix.</p></li>
+<li><p><strong>sitesB</strong> (<em>numpy array</em>) – Coordinates of the vertices origins (sites/traps).</p></li>
+<li><p><strong>sitesA</strong> (<em>numpy array</em>) – Coordinates of the vertices origins (sites).</p></li>
+<li><p><strong>lineColor</strong> (<em>color</em>) – Color for the network.</p></li>
+<li><p><strong>lineWidth</strong> (<em>float</em>) – Amplitude for the linewidth.</p></li>
+<li><p><strong>alphaMin</strong> (<em>float</em>) – Minimum alpha value allowed.</p></li>
+<li><p><strong>alphaAmplitude</strong> (<em>float</em>) – Alpha multiplier for matrix.</p></li>
+<li><p><strong>zorder</strong> (<em>int</em>) – Matplotlib’s zorder.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Matplotlib’s plot-compliant kwargs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(fig, ax)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.plots.plotSites">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotSites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sites</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pTypes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('o',</span> <span class="pre">'^',</span> <span class="pre">'s',</span> <span class="pre">'p',</span> <span class="pre">'d',</span> <span class="pre">'X')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('#e0c3fc',</span> <span class="pre">'#bdb2ff',</span> <span class="pre">'#a0c4ff',</span> <span class="pre">'#ffd6a5',</span> <span class="pre">'#caffbf',</span> <span class="pre">'#d0d1ff')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">350</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linewidths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotSites" title="Permalink to this definition"></a></dt>
+<dd><p>Plots a transitions matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
+<li><p><strong>sites</strong> (<em>numpy array</em>) – Coordinates of the points.</p></li>
+<li><p><strong>pTypes</strong> (<em>numpy array</em>) – Point types.</p></li>
+<li><p><strong>markers</strong> (<em>list</em>) – List of marker shapes for point-types (matplotlib).</p></li>
+<li><p><strong>colors</strong> (<em>list</em>) – List of colors for point-types (matplotlib).</p></li>
+<li><p><strong>size</strong> (<em>float</em>) – Marker size.</p></li>
+<li><p><strong>edgecolors</strong> (<em>color</em>) – Edge color for markers.</p></li>
+<li><p><strong>linewidths</strong> (<em>float</em>) – Edge line width for markers.</p></li>
+<li><p><strong>zorder</strong> (<em>int</em>) – Matplotlib’s zorder.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Matplotlib’s plot-compliant kwargs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(fig, ax)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.plots.plotTraps">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotTraps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsCoords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsTypes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsKernels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsFixed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{0:</span> <span class="pre">'#f7258511',</span> <span class="pre">1:</span> <span class="pre">'#9381ff11',</span> <span class="pre">2:</span> <span class="pre">'#5ddeb111',</span> <span class="pre">3:</span> <span class="pre">'#f038ff11',</span> <span class="pre">4:</span> <span class="pre">'#fe5f5511',</span> <span class="pre">5:</span> <span class="pre">'#e2ef7011'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'X'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('w',</span> <span class="pre">'k')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">':'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">350</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(25,</span> <span class="pre">-</span> <span class="pre">5)</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotTraps" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the traps with the radii of effectiveness.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
+<li><p><strong>trapsCoords</strong> (<em>numpy array</em>) – Coordinates of the vertices.</p></li>
+<li><p><strong>trapsTypes</strong> (<em>list ints</em>) – Trap types IDs.</p></li>
+<li><p><strong>trapsKernels</strong> (<em>dict</em>) – Dictionary of traps kernels.</p></li>
+<li><p><strong>colors</strong> (<em>dict</em>) – List of colors for different trap types.</p></li>
+<li><p><strong>marker</strong> (<em>mrk</em>) – Marker type for matplotlib.</p></li>
+<li><p><strong>edgecolor</strong> (<em>color</em>) – Edgecolor for trap marker.</p></li>
+<li><p><strong>lws</strong> (<em>tuple</em>) – Line widths for marker and radii (in order).</p></li>
+<li><p><strong>ls</strong> (<em>str</em>) – Linestyle for the radii.</p></li>
+<li><p><strong>size</strong> (<em>float</em>) – Size of the marker.</p></li>
+<li><p><strong>zorders</strong> (<em>tuple</em>) – Zorders for marker and circles.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Matplotlib’s plot-compliant kwargs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(fig, ax)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.plots.plotTrapsNetwork">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotTrapsNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transMtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sites</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#3d0e61'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineWidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotTrapsNetwork" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline"></a></h2>
+<section id="module-MGSurvE">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-MGSurvE" title="Permalink to this headline"></a></h2>
 </section>
 </section>
 
