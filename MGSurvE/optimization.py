@@ -115,7 +115,7 @@ def genFixedTrapsMask(trapsFixed, dims=2):
 
 
 def mutateChromosome(
-        chromosome, fxdTrpsMsk,
+        chromosome, fixedTrapsMask,
         randFun=rand.normal, 
         randArgs={'loc': 0, 'scale': 0.1}
     ):
@@ -131,6 +131,20 @@ def mutateChromosome(
         (numpy array): Selectively-mutated chromosome.
     """
     randDraw = randFun(size=len(chromosome), **randArgs)
-    randMsk = randDraw * fxdTrpsMsk
+    randMsk = randDraw * fixedTrapsMask
     mutChrom = chromosome + randMsk
     return mutChrom
+
+
+def cxBlend(
+        ind1, ind2, 
+        fixedTrapsMask, 
+        alpha=.5
+    ):
+    # https://github.com/DEAP/deap/blob/master/deap/tools/crossover.py
+    # Add IF clause with mask
+    for i, (x1, x2) in enumerate(zip(ind1, ind2)):
+        gamma = (1. + 2. * alpha) * random.random() - alpha
+        ind1[i] = (1. - gamma) * x1 + gamma * x2
+        ind2[i] = gamma * x1 + (1. - gamma) * x2
+    return ind1, ind2

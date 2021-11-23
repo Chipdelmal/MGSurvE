@@ -6,9 +6,6 @@ import pandas as pd
 import MGSurvE as srv
 import matplotlib.pyplot as plt
 
-from MGSurvE.optimization import mutateChromosome
-
-
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
