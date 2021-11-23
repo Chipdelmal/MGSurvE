@@ -238,10 +238,14 @@ class Landscape:
     # Fitness Function
     ###########################################################################
     def calcFundamentalMatrix(self):
+        """Calculates the Markov fundamental matrix on the landscape.
+        """
         self.fundamentalMatrix = opt.getFundamentalMatrix(
             self.trapsMigration, self.pointNumber, self.trapsNumber
         )
     def getDaysTillTrapped(self, fitFuns={'outer': np.mean, 'inner': np.max}):
+        """Gets the number of timesteps until a walker falls into a trap
+        """
         if self.fundamentalMatrix is None:
             raise Exception(
                 '''Calculate the Fundamental Matrix first! 
