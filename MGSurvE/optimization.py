@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import random
 import numpy as np
 import numpy.random as rand
 from deap import base, creator, algorithms, tools
@@ -142,9 +143,9 @@ def cxBlend(
         alpha=.5
     ):
     # https://github.com/DEAP/deap/blob/master/deap/tools/crossover.py
-    # Add IF clause with mask
     for i, (x1, x2) in enumerate(zip(ind1, ind2)):
-        gamma = (1. + 2. * alpha) * random.random() - alpha
-        ind1[i] = (1. - gamma) * x1 + gamma * x2
-        ind2[i] = gamma * x1 + (1. - gamma) * x2
+        if fixedTrapsMask[i]:
+            gamma = (1. + 2. * alpha) * random.random() - alpha
+            ind1[i] = (1. - gamma) * x1 + gamma * x2
+            ind2[i] = gamma * x1 + (1. - gamma) * x2
     return ind1, ind2

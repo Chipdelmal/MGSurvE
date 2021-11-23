@@ -20,7 +20,7 @@ traps = pd.DataFrame({
     'x': [0.5, 3.0, 2.0], 
     'y': [0.0, 0.0, 2.0], 
     't': [0, 1, 0],
-    'f': [0, 0, 0]
+    'f': [1, 1, 0]
 })
 tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .30, 'b': 2}},
@@ -36,4 +36,13 @@ lnd.getDaysTillTrapped()
 chrom = srv.initChromosome(lnd.trapsNumber, coordsRange=((0, 5), (0, 5)))
 fxdTrpsMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 mut = srv.mutateChromosome(chrom, fxdTrpsMsk)
-mut
+
+chrom, mut
+
+(pre1, pre2) = (chrom.copy(), mut.copy())
+(ind1, ind2) = srv.cxBlend(chrom, mut, fxdTrpsMsk)
+
+[np.isclose(a, b) for (a, b) in zip(pre1, ind1)]
+[np.isclose(a, b) for (a, b) in zip(pre2, ind2)]
+
+
