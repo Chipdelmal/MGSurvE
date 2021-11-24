@@ -148,4 +148,4 @@ def cxBlend(
             gamma = (1. + 2. * alpha) * random.random() - alpha
             ind1[i] = (1. - gamma) * x1 + gamma * x2
             ind2[i] = gamma * x1 + (1. - gamma) * x2
-    return ind1, ind2
+    return (ind1, ind2)

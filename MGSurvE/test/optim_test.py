@@ -5,118 +5,69 @@ import numpy as np
 import pandas as pd
 import MGSurvE as srv
 
-###############################################################################
-# Define landscape for tests
-###############################################################################
-points = pd.DataFrame({
-    'x': [0, 0, 1],
-    'y': [0, 2, 1],
-    't': [0, 1, 0]
-})
-msk = [
-    [.9, .1],
-    [.1, .9]
-]
-# Traps info ------------------------------------------------------------------
-traps = pd.DataFrame({
-    'x': [0, 1],
-    'y': [2, 2],
-    't': ['b', 'a']
-})
-tker = {
-    'a': {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
-    'b': {'kernel': srv.exponentialDecay, 'params': {'A': 0.1, 'b': 0.5}} 
-}
-# Generating landscape --------------------------------------------------------
-lnd = srv.Landscape(
-    points, maskingMatrix=msk, 
-    traps=traps, trapsKernels=tker
-)
-
 
 def test_SelectiveMutation():
-    # Fix all traps -----------------------------------------------------------
-    trapsNew = pd.DataFrame({
-        'x': [0, 0, 1, 1], 'y': [1, 1, 0, 0],
-        't': [1, 0, 1, 0], 'f': [1, 1, 1, 1]
-    })
-    tkerNew = {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': 100000, 'b': 0}},
-        1: {'kernel': srv.exponentialDecay, 'params': {'A': 0, 'b': 0}} 
-    }
-    lnd.updateTraps(trapsNew, tkerNew)
-    chrom = srv.initChromosome(lnd.trapsNumber, coordsRange=((0, 5), (0, 5)))
-    fxdTrpsMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
-    mut = srv.mutateChromosome(chrom, fxdTrpsMsk)
-    noMutation = all(np.equal(chrom, mut))
-    # Move all traps ----------------------------------------------------------
-    trapsNew = pd.DataFrame({
-        'x': [0, 0, 1, 1], 'y': [1, 1, 0, 0],
-        't': [1, 0, 1, 0], 'f': [0, 0, 0, 0]
-    })
-    tkerNew = {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': 100000, 'b': 0}},
-        1: {'kernel': srv.exponentialDecay, 'params': {'A': 0, 'b': 0}} 
-    }
-    lnd.updateTraps(trapsNew, tkerNew)
-    chrom = srv.initChromosome(lnd.trapsNumber, coordsRange=((0, 5), (0, 5)))
-    fxdTrpsMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
-    mut = srv.mutateChromosome(chrom, fxdTrpsMsk)
-    mutation = any(np.equal(chrom, mut))
-    # Move one trap -----------------------------------------------------------
-    trapsNew = pd.DataFrame({
-        'x': [0, 0, 1, 1], 'y': [1, 1, 0, 0],
-        't': [1, 0, 1, 0], 'f': [0, 1, 0, 0]
-    })
-    tkerNew = {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': 100000, 'b': 0}},
-        1: {'kernel': srv.exponentialDecay, 'params': {'A': 0, 'b': 0}} 
-    }
-    lnd.updateTraps(trapsNew, tkerNew)
-    chrom = srv.initChromosome(lnd.trapsNumber, coordsRange=((0, 5), (0, 5)))
-    fxdTrpsMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
-    mut = srv.mutateChromosome(chrom, fxdTrpsMsk)
-    mutationOne = any(np.equal(chrom, mut))
+    (trpsNum, dims) = (12, 2)
+    trpsFxd = [0]*trpsNum
+    initChrom = srv.initChromosome(trpsNum, coordsRange=((0, 5), (0, 5)))
+    # Test one shift mask -----------------------------------------------------
+    results = []
+    for i in range(trpsNum):
+        trpsFxd = [0]*trpsNum
+        trpsFxd[i] = 1
+        fxdTrpsMsk = srv.genFixedTrapsMask(trpsFxd)
+        mutChrom = srv.mutateChromosome(initChrom, fxdTrpsMsk)
+        resSum = np.sum(np.isclose(initChrom, mutChrom))
+        results.extend([resSum == dims])
+    testShift = all(results)
+    # Test cumulative on mask -------------------------------------------------
+    (trpsFxd, results, total) = ([0]*trpsNum, [], 0)
+    for i in range(trpsNum):
+        total = total + (i+1)
+        trpsFxd[i] = 1
+        fxdTrpsMsk = srv.genFixedTrapsMask(trpsFxd)
+        mutChrom = srv.mutateChromosome(initChrom, fxdTrpsMsk)
+        resSum = np.sum(np.isclose(initChrom, mutChrom))
+        results.extend([resSum])
+    testCumsum = (np.sum(results)//2 == total)
     # Combine tests -----------------------------------------------------------
-    assert (noMutation and not(mutation) and mutationOne)
+    assert (testShift and testCumsum)
 
 
 def test_selectiveCrossover():
-    # Fix all traps -----------------------------------------------------------
-    trapsNew = pd.DataFrame({
-        'x': [0, 0, 1, 1], 'y': [1, 1, 0, 0],
-        't': [0, 0, 0, 0], 'f': [1, 1, 1, 1]
-    })
-    tkerNew = {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': 0.5}}
-    }
-    lnd.updateTraps(trapsNew, tkerNew)
-    chrom = srv.initChromosome(lnd.trapsNumber, coordsRange=((0, 5), (0, 5)))
-    fxdTrpsMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
-    mut = srv.mutateChromosome(chrom, fxdTrpsMsk)
-    noMutation = all(np.equal(chrom, mut))
-    (pre1, pre2) = (chrom.copy(), mut.copy())
-    (ind1, ind2) = srv.cxBlend(chrom, mut, fxdTrpsMsk)
-    fxdA = all([np.isclose(a, b) for (a, b) in zip(pre1, ind1)])
-    fxdB = all([np.isclose(a, b) for (a, b) in zip(pre2, ind2)])
-    # Move all traps ----------------------------------------------------------
-    trapsNew = pd.DataFrame({
-        'x': [0, 0, 1, 1], 'y': [1, 1, 0, 0],
-        't': [0, 0, 0, 0], 'f': [0, 0, 0, 0]
-    })
-    tkerNew = {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': 0.5}}
-    }
-    lnd.updateTraps(trapsNew, tkerNew)
-    chrom = srv.initChromosome(lnd.trapsNumber, coordsRange=((0, 5), (0, 5)))
-    fxdTrpsMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
-    mut = srv.mutateChromosome(chrom, fxdTrpsMsk)
-    (pre1, pre2) = (chrom.copy(), mut.copy())
-    (ind1, ind2) = srv.cxBlend(chrom, mut, fxdTrpsMsk)
-    movA = any([np.isclose(a, b) for (a, b) in zip(pre1, ind1)])
-    movB = any([np.isclose(a, b) for (a, b) in zip(pre2, ind2)])
+    (trpsNum, dims) = (12, 2)
+    trpsFxd = [0]*trpsNum
+    result = []
+    # Test one shift mask -----------------------------------------------------
+    for i in range(trpsNum):
+        trpsFxd = [0]*trpsNum
+        trpsFxd[i] = 1
+        fxdTrpsMsk = srv.genFixedTrapsMask(trpsFxd)
+        chromA = srv.initChromosome(trpsNum, coordsRange=((0, 5), (0, 5)))
+        chromB = srv.initChromosome(trpsNum, coordsRange=((0, 5), (0, 5)))
+        (pre1, pre2) = (chromA.copy(), chromB.copy())
+        (ind1, ind2) = srv.cxBlend(chromA, chromB, fxdTrpsMsk)
+        fxdA = (np.sum([np.isclose(a, b) for (a, b) in zip(pre1, ind1)]) == dims)
+        fxdB = (np.sum([np.isclose(a, b) for (a, b) in zip(pre2, ind2)]) == dims)
+        result.extend([fxdA and fxdB])
+    testShift = all(result)
+    # Test cumulative on mask -------------------------------------------------
+    trpsFxd = [0]*trpsNum
+    (total, result) = (0, [])
+    for i in range(trpsNum):
+        total = total + dims
+        trpsFxd[i] = 1
+        fxdTrpsMsk = srv.genFixedTrapsMask(trpsFxd)
+        chromA = srv.initChromosome(trpsNum, coordsRange=((0, 5), (0, 5)))
+        chromB = srv.initChromosome(trpsNum, coordsRange=((0, 5), (0, 5)))
+        (pre1, pre2) = (chromA.copy(), chromB.copy())
+        (ind1, ind2) = srv.cxBlend(chromA, chromB, fxdTrpsMsk)
+        fxdA = np.sum([np.isclose(a, b) for (a, b) in zip(pre1, ind1)])
+        fxdB = np.sum([np.isclose(a, b) for (a, b) in zip(pre2, ind2)])
+        result.extend([fxdA == fxdB == total])
+    testCumsum = all(result)
     # Combine tests -----------------------------------------------------------
-    assert (fxdA and fxdB) and (not (movA or movB))
+    assert (testShift and testCumsum)
 
 
 
