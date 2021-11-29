@@ -13,6 +13,7 @@
 
    .. autosummary::
    
+      cxBlend
       genFixedTrapsMask
       getFundamentalFitness
       getFundamentalMatrix
