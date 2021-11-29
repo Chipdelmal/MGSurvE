@@ -140,6 +140,25 @@ def plotTrapsNetwork(
         alphaMin=.5, alphaAmplitude=2.5,
         zorder=0, **kwargs
     ):
+    """ Plots the connectivity network of traps in the landscape.
+
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        transMtx (numpy array): Full transitions matrix.
+        traps (numpy array): Traps' coordinates.
+        sites (numpy array): Sites' coordinates.
+        lineColor (color): Color for the network's line.
+        lineWidth (float): Base width for the connections.
+        alphaMin (float): Minimum alpha value for connections.
+        alphaAmplitude (float): Multiplier for the alpha (proportional to connection).
+        zorders (tuple): Z-orders for marker and circles.
+        kwargs (dict): Matplotlib's plot-compliant kwargs.
+    
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+    """ 
+
     ptsNum = sites.shape[0]
     txMtx = transMtx[:ptsNum, ptsNum:]
     (fig, ax) = plotMigrationNetwork(
@@ -157,10 +176,29 @@ def plotMatrix(
         fig, ax,
         matrix, 
         trapsNumber=None, vmin=0, vmax=1, 
-        cmap='Purples', linecolor='#222222', linestyle=':', 
-        ticks=False, lw=.5,
+        cmap='Purples', linecolor='#222222', linestyle=':', lw=.5,
+        ticks=False, 
         **kwargs
     ):
+    """ Block matrix plot for the connection network.
+
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        trapsNumber (int): Number of traps in landscape.
+        vmin (float): Lower clipping value.
+        vmax (float): Higher clipping value.
+        cmap (matplotlib colormap): Matplotlib's colormap object.
+        lineColor (color): Color for the block's boundaries.
+        lineStyle (matplotlib linestyle): Linestyle for the block matrix' boundaries.
+        lw (float): Linewidth for block matrix boundaries.
+        ticks (bool): Imshow ticks on/off
+        zorders (tuple): Zorders for marker and circles.
+        kwargs (dict): Matplotlib's plot-compliant kwargs.
+    
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+    """ 
     ax.imshow(
         matrix, 
         cmap=cmap, vmin=vmin, vmax=vmax, aspect='equal',
@@ -177,6 +215,16 @@ def plotMatrix(
 
 
 def plotClean(fig, ax, frame=False):
+    """ Makes axes equally spaced and removes frame.
+
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        frame (bool): Flag to remove plot's frame.
+    
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+    """ 
     ax.set_aspect('equal')
     if frame is not True:
         ax.axis('off')
