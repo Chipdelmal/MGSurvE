@@ -200,6 +200,10 @@ class Landscape:
         ptsN = self.pointNumber
         self.trapsMigration[:ptsN, ptsN:] = trapProbs
         self.trapsMigration = normalize(self.trapsMigration, axis=1, norm='l1')
+    def updateTrapsCoords(self, trapsCoords):
+        self.trapsCoords = trapsCoords
+        self.calcTrapsDistances()
+        self.calcTrapsMigration()
     def updateTraps(self, traps, trapsKernels):
         """Updates the traps locations and migration matrices (in place).
 
@@ -342,3 +346,11 @@ class Landscape:
             zorder=zorder, **kwargs
         )
         return (fig, ax)
+    ###########################################################################
+    # Auxiliary Methods
+    ###########################################################################
+    def getBoundingBox(self):
+        (minX, minY) = np.apply_along_axis(min, 0, self.pointCoords)
+        (maxX, maxY) = np.apply_along_axis(max, 0, self.pointCoords)
+        retPair = ((minX, maxX), (minY, maxY))
+        return retPair

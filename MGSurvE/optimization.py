@@ -149,3 +149,29 @@ def cxBlend(
             ind1[i] = (1. - gamma) * x1 + gamma * x2
             ind2[i] = gamma * x1 + (1. - gamma) * x2
     return (ind1, ind2)
+
+
+###############################################################################
+# Fitness Functions
+###############################################################################
+
+def getDaysTillTrapped(
+        landscape,
+        fitFuns={'outer': np.mean, 'inner': np.max}
+    ):
+    funMat = getFundamentalMatrix(
+        landscape.trapsMigration, landscape.pointNumber, landscape.trapsNumber
+    )
+    daysTillTrapped = getFundamentalFitness(funMat, fitFuns=fitFuns)
+    return daysTillTrapped
+
+def calcFitness(
+        candidateTraps, 
+        trapsKernels=None, landscape=None,
+        optimFunction=getDaysTillTrapped,
+        optimFunctionArgs={'outer': np.mean, 'inner': np.max},
+    ):
+    landscape.updateTrapsCoords(candidateTraps)
+    fit = optimFunction(landscape, fitFuns=optimFunctionArgs)
+    return fit
+
