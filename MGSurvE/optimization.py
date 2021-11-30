@@ -134,8 +134,8 @@ def mutateChromosome(
     """
     randDraw = randFun(size=len(chromosome), **randArgs)
     randMsk = randDraw * fixedTrapsMask
-    mutChrom = chromosome + randMsk
-    return mutChrom
+    chromosome[:] = chromosome + randMsk
+    return (chromosome, )
 
 
 def cxBlend(
@@ -144,11 +144,13 @@ def cxBlend(
         alpha=.5
     ):
     # https://github.com/DEAP/deap/blob/master/deap/tools/crossover.py
+    (offA, offB) = (ind1[:], ind2[:])
     for i, (x1, x2) in enumerate(zip(ind1, ind2)):
         if fixedTrapsMask[i]:
             gamma = (1. + 2. * alpha) * random.random() - alpha
-            ind1[i] = (1. - gamma) * x1 + gamma * x2
-            ind2[i] = gamma * x1 + (1. - gamma) * x2
+            offA[i] = (1. - gamma) * x1 + gamma * x2
+            offB[i] = gamma * x1 + (1. - gamma) * x2
+    (ind1[:], ind2[:]) = (offA[:], offB[:])
     return (ind1, ind2)
 
 
@@ -176,5 +178,5 @@ def calcFitness(
     candidateTraps = np.reshape(chromosome, (-1, dims))
     landscape.updateTrapsCoords(candidateTraps)
     fit = optimFunction(landscape, fitFuns=optimFunctionArgs)
-    return [float(abs(fit))]
+    return (float(abs(fit)), )
 

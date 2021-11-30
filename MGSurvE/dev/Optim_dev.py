@@ -62,36 +62,31 @@ creator.create("Individual",
 toolbox.register("initChromosome", 
     srv.initChromosome, trapsNum=lndGA.trapsNumber, coordsRange=bbox
 )
-# toolbox.register("individualCreator", 
-#     tools.initIterate, creator.Individual, toolbox.initChromosome
-# )
-# toolbox.register("populationCreator", 
-#     tools.initRepeat, list, toolbox.individualCreator
-# )
-# toolbox.register("mate", 
-#     srv.cxBlend, fixedTrapsMask=trpMsk, 
-#     alpha=MAT['mate']
-# )
-# toolbox.register("mutate", 
-#     srv.mutateChromosome, fixedTrapsMask=trpMsk, 
-#     randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
-# )
-toolbox.register(
-    "individualCreator", tools.initIterate, 
-    creator.Individual, toolbox.initChromosome
+toolbox.register("individualCreator", 
+    tools.initIterate, creator.Individual, toolbox.initChromosome
 )
-toolbox.register(
-    "populationCreator", tools.initRepeat, 
-    list, toolbox.individualCreator
+toolbox.register("populationCreator", 
+    tools.initRepeat, list, toolbox.individualCreator
 )
-toolbox.register(
-    "mate", tools.cxBlend, 
+# Custom ---------------------------------------------------------------------
+toolbox.register("mate", 
+    srv.cxBlend, fixedTrapsMask=trpMsk, 
     alpha=MAT['mate']
 )
-toolbox.register(
-    "mutate", tools.mutGaussian, 
-    mu=MUT['mean'], sigma=MUT['sd'], indpb=MUT['ipb']
+toolbox.register("mutate", 
+    srv.mutateChromosome, fixedTrapsMask=trpMsk, 
+    randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
 )
+# Original --------------------------------------------------------------------
+# toolbox.register(
+#     "mate", tools.cxBlend, 
+#     alpha=MAT['mate']
+# )
+# toolbox.register(
+#     "mutate", tools.mutGaussian, 
+#     mu=MUT['mean'], sigma=MUT['sd'], indpb=MUT['ipb']
+# )
+# Select and evaluate ---------------------------------------------------------
 toolbox.register("select", 
     tools.selTournament, tournsize=SEL['tSize']
 )
@@ -129,15 +124,15 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 ###############################################################################
 # Dev
 ############################################################################### 
-srv.calcFitness(np.asarray(traps[['x', 'y']]), landscape=lnd, trapsKernels=tKernels)
-srv.calcFitness(np.asarray(traps[['x', 'y']]), landscape=lndGA, trapsKernels=tKernels)
-lndGA = deepcopy(lnd)
-traps = pd.DataFrame({
-    'x': [0.5, 3.0, 2.0], 
-    'y': [0.0, 0.0, 2.0], 
-    't': [0, 1, 0],
-    'f': [1, 1, 0]
-})
-srv.calcFitness(np.asarray(traps[['x', 'y']]), landscape=lndGA, trapsKernels=tKernels)
-srv.calcFitness(np.asarray(traps[['x', 'y']]), landscape=lnd, trapsKernels=tKernels)
-lndGA
+# srv.calcFitness(np.asarray(traps[['x', 'y']]), landscape=lnd, trapsKernels=tKernels)
+# srv.calcFitness(np.asarray(traps[['x', 'y']]), landscape=lndGA, trapsKernels=tKernels)
+# lndGA = deepcopy(lnd)
+# traps = pd.DataFrame({
+#     'x': [0.5, 3.0, 2.0], 
+#     'y': [0.0, 0.0, 2.0], 
+#     't': [0, 1, 0],
+#     'f': [1, 1, 0]
+# })
+# srv.calcFitness(np.asarray(traps[['x', 'y']]), landscape=lndGA, trapsKernels=tKernels)
+# srv.calcFitness(np.asarray(traps[['x', 'y']]), landscape=lnd, trapsKernels=tKernels)
+# lndGA
