@@ -20,14 +20,14 @@ pts = (
 points = pd.DataFrame(pts, columns=('x', 'y', 't'))
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
-    'x': [0.5, 5], 
-    'y': [10, 10], 
+    'x': [0, 2], 
+    'y': [10, 0], 
     't': [0, 1],
-    'f': [0, 1]
+    'f': [0, 0]
 })
 tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .2}},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': 1}} 
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': .75}} 
 }
 ###############################################################################
 # Defining Landscape and Traps
@@ -42,7 +42,7 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    1000,
+    2000,
     {'mate': .5, 'cxpb': 0.5}, 
     {'mean': 0, 'sd': max([i[1]-i[0] for i in bbox])/4, 'mutpb': .2, 'ipb': .2},
     {'tSize': 3}
@@ -77,15 +77,6 @@ toolbox.register("mutate", srv.mutateChromosome,
     fixedTrapsMask=trpMsk, 
     randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
 )
-# Original --------------------------------------------------------------------
-# toolbox.register(
-#     "mate", tools.cxBlend, 
-#     alpha=MAT['mate']
-# )
-# toolbox.register(
-#     "mutate", tools.mutGaussian, 
-#     mu=MUT['mean'], sigma=MUT['sd'], indpb=MUT['ipb']
-# )
 # Select and evaluate ---------------------------------------------------------
 toolbox.register("select", 
     tools.selTournament, tournsize=SEL['tSize']
@@ -123,19 +114,6 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 ###############################################################################
 # Dev
 ############################################################################### 
-# srv.calcFitness(np.asarray(traps[['x', 'y']]), landscape=lnd, trapsKernels=tKernels)
-# srv.calcFitness(np.asarray(traps[['x', 'y']]), landscape=lndGA, trapsKernels=tKernels)
-# lndGA = deepcopy(lnd)
-# traps = pd.DataFrame({
-#     'x': [0.5, 3.0, 2.0], 
-#     'y': [0.0, 0.0, 2.0], 
-#     't': [0, 1, 0],
-#     'f': [1, 1, 0]
-# })
-# srv.calcFitness(np.asarray(traps[['x', 'y']]), landscape=lndGA, trapsKernels=tKernels)
-# srv.calcFitness(np.asarray(traps[['x', 'y']]), landscape=lnd, trapsKernels=tKernels)
-# lndGA
-
 lnd.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax)

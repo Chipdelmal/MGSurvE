@@ -66,7 +66,7 @@ class Landscape:
                 'inverse': None
             }
         },
-        trapsRadii=[.1, .05, .025],
+        trapsRadii=[.3, .2, .1],
 
         repellents=None,
         repellentsKernels={
