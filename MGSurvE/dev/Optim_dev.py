@@ -112,7 +112,7 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
     "max", "avg", "best", "min", "traps"
 )
 ###############################################################################
-# Dev
+# Plot
 ############################################################################### 
 lnd.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)

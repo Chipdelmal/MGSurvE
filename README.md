@@ -8,7 +8,7 @@ MGSurvE is a project oriented towards the optimization of traps' placement in co
 
 
 
-![Git Build](https://github.com/Chipdelmal/MGSurvE/actions/workflows/main.yml/badge.svg)[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)![Travis Build](https://app.travis-ci.com/Chipdelmal/MGSurvE.svg?branch=main)
+![Git Build](https://github.com/Chipdelmal/MGSurvE/actions/workflows/main.yml/badge.svg)[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)![Travis Build](https://app.travis-ci.com/Chipdelmal/MGSurvE.svg?branch=main)[![PyPI version](https://badge.fury.io/py/MGSurvE.svg)](https://badge.fury.io/py/MGSurvE)
 
 ![landscape](https://github.com/Chipdelmal/MGSurvE/raw/main/img/demo.jpg)
 
@@ -66,8 +66,8 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
     * ~~Markov's fundamental matrix with no re-ordering~~
     * Test different fitness functions
   * ~~Code new mutation functions~~
-  * Code new crossover functions
-  * Implement full optimization loop
+  * ~~Code new crossover functions~~
+  * ~~Implement full optimization loop~~
 * Code efficiency
   * ~~Process traps movement in place~~
 * Tests

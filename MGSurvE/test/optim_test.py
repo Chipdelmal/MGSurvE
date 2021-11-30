@@ -8,12 +8,13 @@ import MGSurvE as srv
 
 
 def test_SelectiveMutation():
-    (trpsNum, dims) = (2, 2)
+    (trpsNum, dims) = (12, 2)
     trpsFxd = [0]*trpsNum
-    initChrom = srv.initChromosome(trpsNum, coordsRange=((0, 5), (0, 5)))
+    initMsk = [True] * trpsNum * dims
+    chrom = np.reshape(np.random.uniform(-10, 10, trpsNum*2), (-1, dims))
+    initChrom = srv.initChromosome(chrom, initMsk, coordsRange=((-10, 10), (-10, 10)))
     # Test one shift mask -----------------------------------------------------
     results = []
-    print(initChrom)
     for i in range(trpsNum):
         trpsFxd = [0]*trpsNum
         trpsFxd[i] = 1
@@ -41,14 +42,17 @@ def test_SelectiveMutation():
 def test_selectiveCrossover():
     (trpsNum, dims) = (12, 2)
     trpsFxd = [0]*trpsNum
+    initMsk = [True] * trpsNum * dims
     result = []
     # Test one shift mask -----------------------------------------------------
     for i in range(trpsNum):
         trpsFxd = [0]*trpsNum
         trpsFxd[i] = 1
         fxdTrpsMsk = srv.genFixedTrapsMask(trpsFxd)
-        chromA = srv.initChromosome(trpsNum, coordsRange=((0, 5), (0, 5)))
-        chromB = srv.initChromosome(trpsNum, coordsRange=((0, 5), (0, 5)))
+        chA = np.reshape(np.random.uniform(-10, 10, trpsNum*2), (-1, dims))
+        chB = np.reshape(np.random.uniform(-10, 10, trpsNum*2), (-1, dims))
+        chromA = srv.initChromosome(chA, initMsk, coordsRange=((-10, 10), (-10, 10)))
+        chromB = srv.initChromosome(chB, initMsk, coordsRange=((-10, 10), (-10, 10)))
         (pre1, pre2) = (chromA.copy(), chromB.copy())
         (ind1, ind2) = srv.cxBlend(chromA, chromB, fxdTrpsMsk)
         fxdA = (np.sum([np.isclose(a, b) for (a, b) in zip(pre1, ind1)]) == dims)
@@ -62,8 +66,10 @@ def test_selectiveCrossover():
         total = total + dims
         trpsFxd[i] = 1
         fxdTrpsMsk = srv.genFixedTrapsMask(trpsFxd)
-        chromA = srv.initChromosome(trpsNum, coordsRange=((0, 5), (0, 5)))
-        chromB = srv.initChromosome(trpsNum, coordsRange=((0, 5), (0, 5)))
+        chA = np.reshape(np.random.uniform(-10, 10, trpsNum*2), (-1, dims))
+        chB = np.reshape(np.random.uniform(-10, 10, trpsNum*2), (-1, dims))
+        chromA = srv.initChromosome(chA, initMsk, coordsRange=((-10, 10), (-10, 10)))
+        chromB = srv.initChromosome(chB, initMsk, coordsRange=((-10, 10), (-10, 10)))
         (pre1, pre2) = (chromA.copy(), chromB.copy())
         (ind1, ind2) = srv.cxBlend(chromA, chromB, fxdTrpsMsk)
         fxdA = np.sum([np.isclose(a, b) for (a, b) in zip(pre1, ind1)])
