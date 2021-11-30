@@ -85,11 +85,17 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.cxBlend" title="MGSurvE.optimization.cxBlend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cxBlend</span></code></a>(ind1, ind2, fixedTrapsMask[, alpha])</p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.calcFitness" title="MGSurvE.optimization.calcFitness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcFitness</span></code></a>(chromosome[, landscape, ...])</p></td>
+<td><p>Calculates the fitness function of the landscape given a chromosome (in place, so not thread-safe).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.genFixedTrapsMask" title="MGSurvE.optimization.genFixedTrapsMask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genFixedTrapsMask</span></code></a>(trapsFixed[, dims])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.cxBlend" title="MGSurvE.optimization.cxBlend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cxBlend</span></code></a>(ind1, ind2, fixedTrapsMask[, alpha])</p></td>
+<td><p>Mates two chromosomes by &quot;blend&quot; based on the provided mask (in place).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.genFixedTrapsMask" title="MGSurvE.optimization.genFixedTrapsMask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genFixedTrapsMask</span></code></a>(trapsFixed[, dims])</p></td>
 <td><p>Creates a mask for the fixed traps (non-movable).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getDaysTillTrapped" title="MGSurvE.optimization.getDaysTillTrapped"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getDaysTillTrapped</span></code></a>(landscape[, fitFuns])</p></td>
+<td><p>Gets the number of timesteps until a walker falls into a trap.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalFitness" title="MGSurvE.optimization.getFundamentalFitness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalFitness</span></code></a>(fundamentalMatrix[, ...])</p></td>
 <td><p>Get fitness from Markov's fundamental matrix.</p></td>
@@ -104,7 +110,7 @@
 <td><p>Generates a random uniform chromosome for GA optimization.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.mutateChromosome" title="MGSurvE.optimization.mutateChromosome"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mutateChromosome</span></code></a>(chromosome, fixedTrapsMask)</p></td>
-<td><p>Mutates a chromosome with a probability distribution based on the mutation mask.</p></td>
+<td><p>Mutates a chromosome with a probability distribution based on the mutation mask (in place).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.reshapeInCanonicalForm" title="MGSurvE.optimization.reshapeInCanonicalForm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reshapeInCanonicalForm</span></code></a>(tau, sitesN, trapsN)</p></td>
 <td><p>Reshapes a migration matrix into canonical form (deprecated).</p></td>

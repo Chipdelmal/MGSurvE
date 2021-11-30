@@ -13,8 +13,10 @@
 
    .. autosummary::
    
+      calcFitness
       cxBlend
       genFixedTrapsMask
+      getDaysTillTrapped
       getFundamentalFitness
       getFundamentalMatrix
       getMarkovAbsorbing
