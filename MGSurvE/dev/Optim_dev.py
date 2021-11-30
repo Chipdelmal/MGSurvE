@@ -20,13 +20,13 @@ pts = (
 points = pd.DataFrame(pts, columns=('x', 'y', 't'))
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
-    'x': [0.5, 2.0], 
-    'y': [0.0, 2.0], 
+    'x': [0.5, 5], 
+    'y': [10, 10], 
     't': [0, 1],
-    'f': [0, 0]
+    'f': [0, 1]
 })
 tKernels = {
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': .30, 'b': 2}},
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .2}},
     1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': 1}} 
 }
 ###############################################################################
@@ -47,7 +47,7 @@ POP_SIZE = int(10*(lnd.trapsNumber*1.25))
     {'mean': 0, 'sd': max([i[1]-i[0] for i in bbox])/4, 'mutpb': .2, 'ipb': .2},
     {'tSize': 3}
 )
-VERBOSE = True
+VERBOSE = False
 lndGA = deepcopy(lnd)
 ###############################################################################
 # Registering Functions for GA
@@ -59,22 +59,22 @@ creator.create("FitnessMin",
 creator.create("Individual", 
     list, fitness=creator.FitnessMin
 )
-toolbox.register("initChromosome", 
-    srv.initChromosome, trapsNum=lndGA.trapsNumber, coordsRange=bbox
+toolbox.register("initChromosome", srv.initChromosome, 
+    trapsCoords=lndGA.trapsCoords, 
+    fixedTrapsMask=trpMsk, coordsRange=bbox
 )
-toolbox.register("individualCreator", 
-    tools.initIterate, creator.Individual, toolbox.initChromosome
+toolbox.register("individualCreator", tools.initIterate, 
+    creator.Individual, toolbox.initChromosome
 )
-toolbox.register("populationCreator", 
-    tools.initRepeat, list, toolbox.individualCreator
+toolbox.register("populationCreator", tools.initRepeat, 
+    list, toolbox.individualCreator
 )
 # Custom ---------------------------------------------------------------------
-toolbox.register("mate", 
-    srv.cxBlend, fixedTrapsMask=trpMsk, 
-    alpha=MAT['mate']
+toolbox.register("mate", srv.cxBlend, 
+    fixedTrapsMask=trpMsk, alpha=MAT['mate']
 )
-toolbox.register("mutate", 
-    srv.mutateChromosome, fixedTrapsMask=trpMsk, 
+toolbox.register("mutate", srv.mutateChromosome, 
+    fixedTrapsMask=trpMsk, 
     randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
 )
 # Original --------------------------------------------------------------------
@@ -92,7 +92,7 @@ toolbox.register("select",
 )
 toolbox.register("evaluate", 
     srv.calcFitness, 
-    landscape=lndGA, trapsKernels=tKernels,
+    landscape=lndGA,
     optimFunction=srv.getDaysTillTrapped,
     optimFunctionArgs={'outer': np.mean, 'inner': np.max}
 )
@@ -120,7 +120,6 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 (maxFits, meanFits, bestIndx, minFits, traps) = logbook.select(
     "max", "avg", "best", "min", "traps"
 )
-
 ###############################################################################
 # Dev
 ############################################################################### 
@@ -136,3 +135,11 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 # srv.calcFitness(np.asarray(traps[['x', 'y']]), landscape=lndGA, trapsKernels=tKernels)
 # srv.calcFitness(np.asarray(traps[['x', 'y']]), landscape=lnd, trapsKernels=tKernels)
 # lndGA
+
+lnd.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+lnd.plotSites(fig, ax)
+lnd.plotMigrationNetwork(fig, ax)
+lnd.plotTraps(fig, ax)
+lnd.plotTrapsNetwork(fig, ax)
+srv.plotClean(fig, ax, frame=True)

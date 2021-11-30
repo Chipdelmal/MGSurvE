@@ -84,7 +84,7 @@ def getFundamentalFitness(
 ###############################################################################
 # GA
 ###############################################################################
-def initChromosome(trapsNum, coordsRange):
+def initChromosome(trapsCoords, fixedTrapsMask, coordsRange):
     """ Generates a random uniform chromosome for GA optimization.
     
     Parameters:
@@ -95,10 +95,18 @@ def initChromosome(trapsNum, coordsRange):
         (list): List of xy coordinates for the traps' positions.
     """
     (xRan, yRan) = coordsRange
-    xCoords = np.random.uniform(xRan[0], xRan[1], trapsNum)
-    yCoords = np.random.uniform(yRan[0], yRan[1], trapsNum)
-    chromosome = [val for pair in zip(xCoords, yCoords) for val in pair]
-    return np.asarray(chromosome)
+    trapsNum = trapsCoords.shape[0]
+    chromosome = trapsCoords.flatten()
+    for i in range(trapsNum):
+        if fixedTrapsMask[i]:
+            if (i % 2) != 0: 
+                chromosome[i] = np.random.uniform(xRan[0], xRan[1], 1)[0]
+            else:
+                chromosome[i] = np.random.uniform(yRan[0], yRan[1], 1)[0]
+    # xCoords = np.random.uniform(xRan[0], xRan[1], trapsNum)
+    # yCoords = np.random.uniform(yRan[0], yRan[1], trapsNum)
+    # chromosome = [val for pair in zip(xCoords, yCoords) for val in pair]
+    return chromosome
 
 
 def genFixedTrapsMask(trapsFixed, dims=2):
