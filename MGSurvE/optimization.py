@@ -100,6 +100,7 @@ def initChromosome(trapsNum, coordsRange):
     chromosome = [val for pair in zip(xCoords, yCoords) for val in pair]
     return np.asarray(chromosome)
 
+
 def genFixedTrapsMask(trapsFixed, dims=2):
     """ Creates a mask for the fixed traps (non-movable).
     
@@ -154,7 +155,6 @@ def cxBlend(
 ###############################################################################
 # Fitness Functions
 ###############################################################################
-
 def getDaysTillTrapped(
         landscape,
         fitFuns={'outer': np.mean, 'inner': np.max}
@@ -165,13 +165,16 @@ def getDaysTillTrapped(
     daysTillTrapped = getFundamentalFitness(funMat, fitFuns=fitFuns)
     return daysTillTrapped
 
+
 def calcFitness(
-        candidateTraps, 
+        chromosome, 
         trapsKernels=None, landscape=None,
         optimFunction=getDaysTillTrapped,
         optimFunctionArgs={'outer': np.mean, 'inner': np.max},
+        dims=2
     ):
+    candidateTraps = np.reshape(chromosome, (-1, dims))
     landscape.updateTrapsCoords(candidateTraps)
     fit = optimFunction(landscape, fitFuns=optimFunctionArgs)
-    return fit
+    return [float(abs(fit))]
 
