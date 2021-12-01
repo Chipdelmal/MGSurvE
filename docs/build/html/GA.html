@@ -76,6 +76,9 @@
              
   <section id="ga-optimization">
 <h1><span class="section-number">4. </span>GA Optimization<a class="headerlink" href="#ga-optimization" title="Permalink to this headline"></a></h1>
+<p>In this demo, we will be optimizing the traps’ positions to minimize the time it takes for a mosquito to fall into a trap.
+This is done with the <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP package</a>, as it allows much flexibility and implementation speedups.</p>
+<p>We start by defining the parameters for our genetic algorithm:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">GENS</span><span class="p">,</span> <span class="n">VERBOSE</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 <span class="n">POP_SIZE</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="p">(</span><span class="n">lnd</span><span class="o">.</span><span class="n">trapsNumber</span><span class="o">*</span><span class="mf">1.25</span><span class="p">))</span>
 <span class="n">MAT</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mate&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;cxpb&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
@@ -83,44 +86,70 @@
 <span class="n">SEL</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tSize&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lndGA</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span>
-</pre></div>
-</div>
+<p>Next, as defined by the <a class="reference external" href="https://deap.readthedocs.io/en/master/examples/index.html">DEAP docs</a>, we register all the functions and operations
+that we are going to use in our optimization cycle. For this version, we’ll be using a pretty “vanilla” GA with
+cxBlend, gaussian mutation, and tournament selection.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">toolbox</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">Toolbox</span><span class="p">()</span>
-<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;FitnessMin&quot;</span><span class="p">,</span>
-    <span class="n">base</span><span class="o">.</span><span class="n">Fitness</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="p">)</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;FitnessMin&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">Fitness</span><span class="p">,</span>
+    <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="p">)</span>
 <span class="p">)</span>
 <span class="c1"># Population creation -----------------------------------------------------</span>
-<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;Individual&quot;</span><span class="p">,</span>
-    <span class="nb">list</span><span class="p">,</span> <span class="n">fitness</span><span class="o">=</span><span class="n">creator</span><span class="o">.</span><span class="n">FitnessMin</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="s2">&quot;Individual&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span>
+    <span class="n">fitness</span><span class="o">=</span><span class="n">creator</span><span class="o">.</span><span class="n">FitnessMin</span>
 <span class="p">)</span>
-<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;initChromosome&quot;</span><span class="p">,</span> <span class="n">srv</span><span class="o">.</span><span class="n">initChromosome</span><span class="p">,</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="s2">&quot;initChromosome&quot;</span><span class="p">,</span> <span class="n">srv</span><span class="o">.</span><span class="n">initChromosome</span><span class="p">,</span>
     <span class="n">trapsCoords</span><span class="o">=</span><span class="n">lndGA</span><span class="o">.</span><span class="n">trapsCoords</span><span class="p">,</span>
     <span class="n">fixedTrapsMask</span><span class="o">=</span><span class="n">trpMsk</span><span class="p">,</span> <span class="n">coordsRange</span><span class="o">=</span><span class="n">bbox</span>
 <span class="p">)</span>
-<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;individualCreator&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initIterate</span><span class="p">,</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="s2">&quot;individualCreator&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initIterate</span><span class="p">,</span>
     <span class="n">creator</span><span class="o">.</span><span class="n">Individual</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">initChromosome</span>
 <span class="p">)</span>
-<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;populationCreator&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="s2">&quot;populationCreator&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span>
     <span class="nb">list</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">individualCreator</span>
 <span class="p">)</span>
 <span class="c1"># Mutation and Crossover --------------------------------------------------</span>
-<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mate&quot;</span><span class="p">,</span> <span class="n">srv</span><span class="o">.</span><span class="n">cxBlend</span><span class="p">,</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="s2">&quot;mate&quot;</span><span class="p">,</span> <span class="n">srv</span><span class="o">.</span><span class="n">cxBlend</span><span class="p">,</span>
     <span class="n">fixedTrapsMask</span><span class="o">=</span><span class="n">trpMsk</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">MAT</span><span class="p">[</span><span class="s1">&#39;mate&#39;</span><span class="p">]</span>
 <span class="p">)</span>
-<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">srv</span><span class="o">.</span><span class="n">mutateChromosome</span><span class="p">,</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">srv</span><span class="o">.</span><span class="n">mutateChromosome</span><span class="p">,</span>
     <span class="n">fixedTrapsMask</span><span class="o">=</span><span class="n">trpMsk</span><span class="p">,</span>
     <span class="n">randArgs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;loc&#39;</span><span class="p">:</span> <span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">],</span> <span class="s1">&#39;scale&#39;</span><span class="p">:</span> <span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;sd&#39;</span><span class="p">]}</span>
 <span class="p">)</span>
 <span class="c1"># Select and evaluate -----------------------------------------------------</span>
-<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">,</span>
-    <span class="n">tools</span><span class="o">.</span><span class="n">selTournament</span><span class="p">,</span> <span class="n">tournsize</span><span class="o">=</span><span class="n">SEL</span><span class="p">[</span><span class="s1">&#39;tSize&#39;</span><span class="p">]</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="s2">&quot;select&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">selTournament</span><span class="p">,</span>
+    <span class="n">tournsize</span><span class="o">=</span><span class="n">SEL</span><span class="p">[</span><span class="s1">&#39;tSize&#39;</span><span class="p">]</span>
 <span class="p">)</span>
-<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;evaluate&quot;</span><span class="p">,</span>
-    <span class="n">srv</span><span class="o">.</span><span class="n">calcFitness</span><span class="p">,</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="s2">&quot;evaluate&quot;</span><span class="p">,</span> <span class="n">srv</span><span class="o">.</span><span class="n">calcFitness</span><span class="p">,</span>
     <span class="n">landscape</span><span class="o">=</span><span class="n">lndGA</span><span class="p">,</span>
     <span class="n">optimFunction</span><span class="o">=</span><span class="n">srv</span><span class="o">.</span><span class="n">getDaysTillTrapped</span><span class="p">,</span>
     <span class="n">optimFunctionArgs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;outer&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;inner&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>It is important to note that we are providing custom implementations for the <code class="code docutils literal notranslate"><span class="pre">initChromosome</span></code>, <code class="code docutils literal notranslate"><span class="pre">cxBlend</span></code>, and <code class="code docutils literal notranslate"><span class="pre">mutateChromosome</span></code>; to allow immovable traps in to be laid in the landscape.</p>
+<p>We now register summary statistics for our algorithm:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pop</span> <span class="o">=</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">populationCreator</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">POP_SIZE</span><span class="p">)</span>
+<span class="n">hof</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">HallOfFame</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">Statistics</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ind</span><span class="p">:</span> <span class="n">ind</span><span class="o">.</span><span class="n">fitness</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;avg&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">fitnessValues</span><span class="p">:</span> <span class="n">fitnessValues</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">fitnessValues</span><span class="p">)))</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;traps&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">fitnessValues</span><span class="p">:</span> <span class="n">pop</span><span class="p">[</span><span class="n">fitnessValues</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">fitnessValues</span><span class="p">))])</span>
+</pre></div>
+</div>
+<p>And run our optimization cycle:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="n">logbook</span><span class="p">)</span> <span class="o">=</span> <span class="n">algorithms</span><span class="o">.</span><span class="n">eaSimple</span><span class="p">(</span>
+    <span class="n">pop</span><span class="p">,</span> <span class="n">toolbox</span><span class="p">,</span> <span class="n">cxpb</span><span class="o">=</span><span class="n">MAT</span><span class="p">[</span><span class="s1">&#39;cxpb&#39;</span><span class="p">],</span> <span class="n">mutpb</span><span class="o">=</span><span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;mutpb&#39;</span><span class="p">],</span> <span class="n">ngen</span><span class="o">=</span><span class="n">GENS</span><span class="p">,</span>
+    <span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">,</span> <span class="n">halloffame</span><span class="o">=</span><span class="n">hof</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">VERBOSE</span>
 <span class="p">)</span>
 </pre></div>
 </div>

@@ -20,21 +20,22 @@ OUT_PTH = './'
 #     (10, 5, 0),
 # )
 # points = pd.DataFrame(pts, columns=('x', 'y', 't'))
-ptsNum = 250
-bbox = ((-100, 100), (-50, 50))
+ptsNum = 375
+bbox = ((-100, 100), (-70, 70))
 # xy = srv.ptsRegularGrid(ptsNum, bbox).T
 xy = srv.ptsRandUniform(ptsNum, bbox).T
 points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
-    'x': [0, 0, 0, 0, 0], 
-    'y': [0, 0, 0, 0, 0], 
-    't': [0, 0, 0, 1, 1],
-    'f': [0, 0, 0, 0, 0]
+    'x': [0, 0, 0, 0, 0, 0], 
+    'y': [0, 0, 0, 0, 0, 0], 
+    't': [0, 0, 2, 1, 1, 1],
+    'f': [0, 0, 0, 0, 0, 0]
 })
 tKernels = {
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .15}},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': .075}} 
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .150}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': .075}},
+    2: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .030}} 
 }
 ###############################################################################
 # Defining Landscape and Traps
@@ -125,18 +126,19 @@ srv.dumpLandscape(lnd, OUT_PTH, 'LND_OPT')
 # Plot
 ############################################################################### 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax)
+lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax)
 lnd.plotTraps(fig, ax)
 # lnd.plotTrapsNetwork(fig, ax)
 srv.plotClean(fig, ax, frame=False)
 ax.text(
-    0.5, 0.5, '{:.3f}'.format(minFits[-1]),
+    0.5, 0.5, '{:.3f}'.format(min(minFits)),
     horizontalalignment='center', verticalalignment='center',
     fontsize=100, color='#00000011',
     transform=ax.transAxes, zorder=5
 )
 fig.savefig(
-    './GA.png', facecolor='w',
+    './GA2.png', facecolor='w',
     bbox_inches='tight', pad_inches=0, dpi=300
 )
+plt.close('all')
