@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
+from os import path
+from compress_pickle import dump, load
+
 ###############################################################################
 # Various auxiliary functions
 ###############################################################################
-
 def makeFolder(path):
     """Creates a folder if it doesn't already exist.
     
@@ -45,3 +48,17 @@ def isNotebook():
             return False  # Other type (?)
     except NameError:
         return False      # Probably standard Python interpreter
+
+###############################################################################
+# Dump/Load functions
+###############################################################################
+def dumpLandscape(landscape, fPath, fName, fExt='bz2'):
+    dump(
+        landscape, 
+        path.join(fPath, '{}.{}'.format(fName, fExt))
+    )
+
+def loadLandscape(fPath, fName, fExt='bz2'):
+    load(
+        path.join(fPath, '{}.{}'.format(fName, fExt))
+    )

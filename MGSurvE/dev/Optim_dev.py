@@ -7,8 +7,10 @@ from copy import deepcopy
 import matplotlib.pyplot as plt
 from deap import base, creator, algorithms, tools
 import MGSurvE as srv
+from compress_pickle import dump, load
 
 
+OUT_PTH = './'
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
@@ -33,8 +35,9 @@ tKernels = {
 # Defining Landscape and Traps
 ###############################################################################
 lnd = srv.Landscape(points, traps=traps, trapsKernels=tKernels)
-lnd.calcFundamentalMatrix()
-lnd.getDaysTillTrapped()
+srv.dumpLandscape(lnd, OUT_PTH, 'LND_ORG')
+# lnd.calcFundamentalMatrix()
+# lnd.getDaysTillTrapped()
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
@@ -111,10 +114,11 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 (maxFits, meanFits, bestIndx, minFits, traps) = logbook.select(
     "max", "avg", "best", "min", "traps"
 )
+lnd.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
+srv.dumpLandscape(lnd, OUT_PTH, 'LND_OPT')
 ###############################################################################
 # Plot
 ############################################################################### 
-lnd.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax)
 lnd.plotMigrationNetwork(fig, ax)

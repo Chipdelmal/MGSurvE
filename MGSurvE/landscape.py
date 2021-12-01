@@ -354,6 +354,3 @@ class Landscape:
         (maxX, maxY) = np.apply_along_axis(max, 0, self.pointCoords)
         retPair = ((minX, maxX), (minY, maxY))
         return retPair
-    ###########################################################################
-    # Store Landscape in Disk
-    ###########################################################################

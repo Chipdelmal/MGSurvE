@@ -61,7 +61,7 @@ dev:
 	- make clean
 	- make develop
 	- make test
-	- make develop
+	- pip install .
 
 conda:
 	- conda list -e > /conda/REQUIREMENTS.txt

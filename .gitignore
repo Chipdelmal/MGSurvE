@@ -1,3 +1,7 @@
+# Compressed Serialized Files
+*.bz2
+*.bz
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
