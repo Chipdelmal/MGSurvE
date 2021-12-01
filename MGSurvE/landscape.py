@@ -90,7 +90,6 @@ class Landscape:
         self.fundamentalMatrix = None
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
-        tpsHead = set(traps.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
             self.geometryType = 'xy'
             self.pointCoords = np.asarray(points[['x', 'y']])
@@ -135,6 +134,7 @@ class Landscape:
             self.maskedMigration = np.asarray(maskedMigration)
         # Init traps locations ------------------------------------------------
         if (traps is not None):
+            tpsHead = set(traps.columns)
             if (self.geometryType == 'xy'):
                 self.trapsCoords = np.asarray(traps[['x', 'y']])
             else:
@@ -266,7 +266,7 @@ class Landscape:
     def plotSites(self, 
             fig, ax, 
             markers=cst.MKRS, colors=cst.MCOL,
-            size=250, edgecolors='w', linewidths=1.25,
+            size=250, edgecolors='w', linewidths=2,
             zorder=5, **kwargs
         ):
         """Plots the sites coordinates.

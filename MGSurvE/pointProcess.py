@@ -23,7 +23,7 @@ def ptsRegularGrid(pointsNumber, bbox):
     return coords
 
 
-def ptsDonut(pointsNumber, radii, center):
+def ptsDonut(pointsNumber, radii, center=(0, 0)):
     """ Creates a distribution of points laid around a donut shape.
     
     Parameters:
@@ -44,7 +44,7 @@ def ptsDonut(pointsNumber, radii, center):
         x = r * math.cos(angle) + center[0]
         y = r * math.sin(angle) + center[1]
         coords.append([x, y])
-    return coords
+    return np.asarray(coords)
 
 
 def ptsRandUniform(pointsNumber, bbox):
@@ -63,4 +63,4 @@ def ptsRandUniform(pointsNumber, bbox):
         rand.uniform(*yRan, pointsNumber)
     )
     coords = list(zip(*xy))
-    return coords
+    return np.asarray(coords)
