@@ -8,6 +8,11 @@ from scipy.optimize import fsolve
 from sklearn.preprocessing import normalize
 import MGSurvE.constants as cst
 
+# https://en.wikipedia.org/wiki/Sigmoid_function
+# https://en.wikipedia.org/wiki/Logistic_function
+# https://dhemery.github.io/DHE-Modules/technical/sigmoid/
+
+
 ###############################################################################
 # Migration Kernels
 ###############################################################################
@@ -88,7 +93,7 @@ def exponentialDecay(dist, A=1, b=1):
     '''Calculates the probability of moving between points.
 
     Args:
-        dist (float): 
+        dist (float): Distance between points.
         A (float): Maximum amplitude at distance 0.
         b (float): Decay rate (higher means tighter kernel).
 
@@ -96,6 +101,22 @@ def exponentialDecay(dist, A=1, b=1):
         float: Movement probability.
     '''
     prob = A * math.exp(-b * dist)
+    return prob
+
+
+def sigmoidDecay(dist, A=1, rate=.5, x0=10):
+    '''Calculates the probability of moving between points.
+
+    Args:
+        dist (float): Distance between points.
+        A (float): Maximum amplitude at distance 0.
+        rate (float): Logistic growth rate or steepness of the curve.
+        x0 (float): The x value of the sigmoid's midpoint
+
+    Returns:
+        float: Movement probability.
+    '''
+    prob = A - A / (1 + math.e ** (-rate * (dist - x0)))
     return prob
 
 
