@@ -266,7 +266,7 @@ class Landscape:
     def plotSites(self, 
             fig, ax, 
             markers=cst.MKRS, colors=cst.MCOL,
-            size=250, edgecolors='w', linewidths=2,
+            size=200, edgecolors='w', linewidths=2,
             zorder=5, **kwargs
         ):
         """Plots the sites coordinates.
@@ -315,7 +315,7 @@ class Landscape:
             fig, ax,
             colors=cst.TRP_COLS, marker="X",
             edgecolor='w', lws=(2, 0), ls=':',
-            size=250, zorders=(25, -5),
+            size=300, zorders=(25, -5),
             **kwargs
         ):
         """Plots the traps locations.
@@ -333,7 +333,7 @@ class Landscape:
     def plotTrapsNetwork(self,
             fig, ax,
             lineColor='#f72585', lineWidth=20, 
-            alphaMin=.5, alphaAmplitude=2.5,
+            alphaMin=.5, alphaAmplitude=1.5,
             zorder=0, **kwargs
         ):
         """Plots the traps networks.

@@ -14,22 +14,27 @@ OUT_PTH = './'
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
-pts = (
-    (0, 0, 0), 
-    (5, 10, 0), 
-    (10, 5, 0),
-)
-points = pd.DataFrame(pts, columns=('x', 'y', 't'))
+# pts = (
+#     (0, 0, 0), 
+#     (5, 10, 0), 
+#     (10, 5, 0),
+# )
+# points = pd.DataFrame(pts, columns=('x', 'y', 't'))
+ptsNum = 250
+bbox = ((-100, 100), (-50, 50))
+# xy = srv.ptsRegularGrid(ptsNum, bbox).T
+xy = srv.ptsRandUniform(ptsNum, bbox).T
+points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
-    'x': [0, 2], 
-    'y': [10, 0], 
-    't': [0, 1],
-    'f': [0, 0]
+    'x': [0, 0, 0, 0, 0], 
+    'y': [0, 0, 0, 0, 0], 
+    't': [0, 0, 0, 1, 1],
+    'f': [0, 0, 0, 0, 0]
 })
 tKernels = {
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .2}},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': .75}} 
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .15}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': .075}} 
 }
 ###############################################################################
 # Defining Landscape and Traps
@@ -50,7 +55,7 @@ POP_SIZE = int(10*(lnd.trapsNumber*1.25))
     {'mean': 0, 'sd': max([i[1]-i[0] for i in bbox])/4, 'mutpb': .2, 'ipb': .2},
     {'tSize': 3}
 )
-VERBOSE = False
+VERBOSE = True
 lndGA = deepcopy(lnd)
 ###############################################################################
 # Registering Functions for GA
@@ -123,5 +128,15 @@ srv.dumpLandscape(lnd, OUT_PTH, 'LND_OPT')
 lnd.plotSites(fig, ax)
 lnd.plotMigrationNetwork(fig, ax)
 lnd.plotTraps(fig, ax)
-lnd.plotTrapsNetwork(fig, ax)
-srv.plotClean(fig, ax, frame=True)
+# lnd.plotTrapsNetwork(fig, ax)
+srv.plotClean(fig, ax, frame=False)
+ax.text(
+    0.5, 0.5, '{:.3f}'.format(minFits[-1]),
+    horizontalalignment='center', verticalalignment='center',
+    fontsize=100, color='#00000011',
+    transform=ax.transAxes, zorder=5
+)
+fig.savefig(
+    './GA.png', facecolor='w',
+    bbox_inches='tight', pad_inches=0, dpi=300
+)
