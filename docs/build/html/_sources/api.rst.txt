@@ -12,6 +12,7 @@ API
    MGSurvE.constants
    MGSurvE.plots
    MGSurvE.optimization
+   MGSurvE.pointProcess
    
    
 

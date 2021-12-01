@@ -13,7 +13,9 @@
 
    .. autosummary::
    
+      dumpLandscape
       isNotebook
+      loadLandscape
       makeFolder
       makeFolders
    

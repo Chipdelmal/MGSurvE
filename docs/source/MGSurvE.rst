@@ -68,6 +68,14 @@ MGSurvE.plots module
    :undoc-members:
    :show-inheritance:
 
+MGSurvE.pointProcess module
+---------------------------
+
+.. automodule:: MGSurvE.pointProcess
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
