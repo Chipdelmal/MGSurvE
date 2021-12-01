@@ -33,6 +33,10 @@ lnd.plotTraps(fig, ax[0])
 lnd.plotTrapsNetwork(fig, ax[0])
 srv.plotMatrix(fig, ax[1], lnd.trapsMigration, lnd.trapsNumber)
 [srv.plotClean(fig, i, frame=False) for i in ax]
+fig.savefig(
+    './demo_basicLandscape.png', facecolor='w',
+    bbox_inches='tight', pad_inches=0, dpi=300
+)
 ###############################################################################
 # Updating traps
 ###############################################################################
@@ -55,6 +59,10 @@ lnd.plotTraps(fig, ax[0])
 lnd.plotTrapsNetwork(fig, ax[0])
 srv.plotMatrix(fig, ax[1], lnd.trapsMigration, lnd.trapsNumber)
 [srv.plotClean(fig, i, frame=False) for i in ax]
+fig.savefig(
+    './demo_updatedLandscape.png', facecolor='w',
+    bbox_inches='tight', pad_inches=0, dpi=300
+)
 ###############################################################################
 # Plotting traps elements
 ###############################################################################

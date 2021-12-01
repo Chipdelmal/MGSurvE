@@ -1,30 +1,4 @@
-Usage
-=====
-
-Installation
-------------
-
-To use MGSurvE, first install it using pip:
-
-.. code-block:: console
-
-   $ pip install MGSurvE
-
-If needed, dependencies can be installed through our conda environment through its YML:
-
-.. code-block:: console
-
-   $ conda env create -f REQUIREMENTS.yml
-
-
-or TXT definitions:
-
-.. code-block:: console
-
-   $ conda create -n new MGSurvE --file REQUIREMENTS.txt
-
-
-Example
+Landscape Creation
 ------------
 
 Let's create a simple landscape with three sites, and two traps.
@@ -55,8 +29,8 @@ To add the traps, we follow a similar process, with the addition of the kernel s
 .. code-block:: python
 
    trp = (
-      (2.0, 2.0, 0),
-      (1.0, 3.0, 0)
+      (2.5, 0.75, 0, 0),
+      (0.0, 0.50, 0, 0)
    )
    traps = pd.DataFrame(trp, columns=('x', 'y', 't'))
    tKernels = {
@@ -72,4 +46,17 @@ Once with this information, we can generate our landscape instance:
       traps=traps, trapsKernels=tKernels
    )
 
-And that's it. We have successfully created our basic landscape.
+And that's it. We have successfully created our basic landscape, which we can plot with the following commands:
+
+.. code-block:: python
+
+   (fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
+   lnd.plotSites(fig, ax[0])
+   lnd.plotMigrationNetwork(fig, ax[0])
+   lnd.plotTraps(fig, ax[0])
+   lnd.plotTrapsNetwork(fig, ax[0])
+   srv.plotMatrix(fig, ax[1], lnd.trapsMigration, lnd.trapsNumber)
+   [srv.plotClean(fig, i, frame=False) for i in ax]
+
+.. image:: ../../img/demo_basicLandscape.jpg
+   

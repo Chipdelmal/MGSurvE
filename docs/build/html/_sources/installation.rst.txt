@@ -1,10 +1,8 @@
-Usage
+Installation
 =====
 
-Installation
-------------
 
-To use MGSurvE, first install it using pip:
+To use MGSurvE, install it using pip:
 
 .. code-block:: console
 
@@ -22,4 +20,3 @@ or TXT definitions:
 .. code-block:: console
 
    $ conda create -n new MGSurvE --file REQUIREMENTS.txt
-

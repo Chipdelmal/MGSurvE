@@ -1,3 +1,7 @@
+# Output files
+demo_out
+*.png
+
 # Compressed Serialized Files
 *.bz2
 *.bz

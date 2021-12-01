@@ -14,7 +14,8 @@ Have a look at our `github repo <https://github.com/Chipdelmal/MGSurvE>`_ and ou
    This project is under active development.
 
 .. toctree::
-   usage
+   installation
+   demos
    api
 
 
