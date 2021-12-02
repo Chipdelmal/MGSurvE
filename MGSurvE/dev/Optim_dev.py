@@ -20,8 +20,8 @@ OUT_PTH = './'
 #     (10, 5, 0),
 # )
 # points = pd.DataFrame(pts, columns=('x', 'y', 't'))
-ptsNum = 375
-bbox = ((-100, 100), (-70, 70))
+ptsNum = 300
+bbox = ((-150, 150), (-75, 75))
 # xy = srv.ptsRegularGrid(ptsNum, bbox).T
 xy = srv.ptsRandUniform(ptsNum, bbox).T
 points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
@@ -29,13 +29,13 @@ points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 traps = pd.DataFrame({
     'x': [0, 0, 0, 0, 0, 0], 
     'y': [0, 0, 0, 0, 0, 0], 
-    't': [0, 0, 2, 1, 1, 1],
+    't': [0, 1, 0, 1, 0, 1],
     'f': [0, 0, 0, 0, 0, 0]
 })
 tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .150}},
     1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': .075}},
-    2: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .030}} 
+    2: {'kernel': srv.sigmoidDecay, 'params': {'A': .2, 'rate': 2.5, 'x0': 2}} 
 }
 ###############################################################################
 # Defining Landscape and Traps
@@ -51,9 +51,9 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    2000,
+    250,
     {'mate': .5, 'cxpb': 0.5}, 
-    {'mean': 0, 'sd': max([i[1]-i[0] for i in bbox])/4, 'mutpb': .2, 'ipb': .2},
+    {'mean': 0, 'sd': max([i[1]-i[0] for i in bbox])/5, 'mutpb': .15, 'ipb': .2},
     {'tSize': 3}
 )
 VERBOSE = True
@@ -142,3 +142,4 @@ fig.savefig(
     bbox_inches='tight', pad_inches=0, dpi=300
 )
 plt.close('all')
+print("Done!")

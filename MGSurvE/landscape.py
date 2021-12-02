@@ -350,6 +350,8 @@ class Landscape:
     # Auxiliary Methods
     ###########################################################################
     def getBoundingBox(self):
+        """Returns the landscape's ((minX, maxX), (minY, maxY)).
+        """
         (minX, minY) = np.apply_along_axis(min, 0, self.pointCoords)
         (maxX, maxY) = np.apply_along_axis(max, 0, self.pointCoords)
         retPair = ((minX, maxX), (minY, maxY))
