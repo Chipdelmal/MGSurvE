@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import math
 import numpy as np
 import pandas as pd
 from copy import deepcopy
@@ -20,27 +21,32 @@ OUT_PTH = './'
 #     (10, 5, 0),
 # )
 # points = pd.DataFrame(pts, columns=('x', 'y', 't'))
-ptsNum = 300
-bbox = ((-150, 150), (-75, 75))
-# xy = srv.ptsRegularGrid(ptsNum, bbox).T
-xy = srv.ptsRandUniform(ptsNum, bbox).T
+# ptsNum = 300
+# bbox = ((-150, 150), (-75, 75))
+# xy = srv.ptsRandUniform(ptsNum, bbox).T
+ptsNum = 15
+bbox = ((-100, 100), (-100, 100))
+xy = srv.ptsRegularGrid(ptsNum, bbox).T
 points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
-    'x': [0, 0, 0, 0, 0, 0], 
-    'y': [0, 0, 0, 0, 0, 0], 
-    't': [0, 1, 0, 1, 0, 1],
-    'f': [0, 0, 0, 0, 0, 0]
+    'x': [0, 0, 0, 0, 0], 
+    'y': [0, 0, 0, 0, 0], 
+    't': [0, 0, 1, 0, 0],
+    'f': [0, 0, 0, 0, 0]
 })
 tKernels = {
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .150}},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': .075}},
-    2: {'kernel': srv.sigmoidDecay, 'params': {'A': .2, 'rate': 2.5, 'x0': 2}} 
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .05}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .04}},
+    2: {'kernel': srv.sigmoidDecay, 'params': {'A': .2, 'rate': 1.5, 'x0': 1}} 
 }
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
-lnd = srv.Landscape(points, traps=traps, trapsKernels=tKernels)
+lnd = srv.Landscape(
+    points, kernelParams={'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75},
+    traps=traps, trapsKernels=tKernels
+)
 srv.dumpLandscape(lnd, OUT_PTH, 'LND_ORG')
 # lnd.calcFundamentalMatrix()
 # lnd.getDaysTillTrapped()
@@ -51,9 +57,9 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    250,
-    {'mate': .5, 'cxpb': 0.5}, 
-    {'mean': 0, 'sd': max([i[1]-i[0] for i in bbox])/5, 'mutpb': .15, 'ipb': .2},
+    1000,
+    {'mate': .3, 'cxpb': 0.5}, 
+    {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .35, 'ipb': .5},
     {'tSize': 3}
 )
 VERBOSE = True
@@ -79,12 +85,20 @@ toolbox.register("populationCreator", tools.initRepeat,
     list, toolbox.individualCreator
 )
 # Custom ---------------------------------------------------------------------
-toolbox.register("mate", srv.cxBlend, 
-    fixedTrapsMask=trpMsk, alpha=MAT['mate']
+# toolbox.register("mate", srv.cxBlend, 
+#     fixedTrapsMask=trpMsk, alpha=MAT['mate']
+# )
+# toolbox.register("mutate", srv.mutateChromosome, 
+#     fixedTrapsMask=trpMsk, 
+#     randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
+# )
+toolbox.register(
+    "mate", tools.cxBlend, 
+    alpha=MAT['mate']
 )
-toolbox.register("mutate", srv.mutateChromosome, 
-    fixedTrapsMask=trpMsk, 
-    randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
+toolbox.register(
+    "mutate", tools.mutGaussian, 
+    mu=MUT['mean'], sigma=MUT['sd'], indpb=MUT['ipb']
 )
 # Select and evaluate ---------------------------------------------------------
 toolbox.register("select", 
@@ -138,7 +152,7 @@ ax.text(
     transform=ax.transAxes, zorder=5
 )
 fig.savefig(
-    './GA2.png', facecolor='w',
+    './GA_Grid.png', facecolor='w',
     bbox_inches='tight', pad_inches=0, dpi=300
 )
 plt.close('all')

@@ -108,10 +108,10 @@ def plotTraps(
 
     """
     (cNum, tNum) = (len(colors), len(trapsTypes))
-    if (cNum-tNum) < 0:
-        raise Exception(
-            'Less colors ({}) than trap types ({})!'.format(cNum, tNum)
-        )
+    # if (cNum-tNum) < 0:
+    #     raise Exception(
+    #         'Less colors ({}) than trap types ({})!'.format(cNum, tNum)
+    #     )
     for (i, trap) in enumerate(trapsCoords):
         tType = trapsTypes[i]
         (col, ec) = (colors[tType], edgecolors[0])
