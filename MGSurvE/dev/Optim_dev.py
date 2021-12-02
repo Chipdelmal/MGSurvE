@@ -4,29 +4,27 @@
 import math
 import numpy as np
 import pandas as pd
+from os import path
 from copy import deepcopy
 import matplotlib.pyplot as plt
 from deap import base, creator, algorithms, tools
-import MGSurvE as srv
 from compress_pickle import dump, load
+import MGSurvE as srv
 
 
-OUT_PTH = './'
+(OUT_PTH, ID) = ('./Lands', '001')
+LND_TYPE = 'GRID'
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
-# pts = (
-#     (0, 0, 0), 
-#     (5, 10, 0), 
-#     (10, 5, 0),
-# )
-# points = pd.DataFrame(pts, columns=('x', 'y', 't'))
-# ptsNum = 300
-# bbox = ((-150, 150), (-75, 75))
-# xy = srv.ptsRandUniform(ptsNum, bbox).T
-ptsNum = 15
-bbox = ((-100, 100), (-100, 100))
-xy = srv.ptsRegularGrid(ptsNum, bbox).T
+if LND_TYPE == 'UNIF':
+    ptsNum = 300
+    bbox = ((-175, 175), (-100, 100))
+    xy = srv.ptsRandUniform(ptsNum, bbox).T
+elif LND_TYPE == 'GRID':
+    ptsNum = 15
+    bbox = ((-100, 100), (-100, 100))
+    xy = srv.ptsRegularGrid(ptsNum, bbox).T
 points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
@@ -37,7 +35,7 @@ traps = pd.DataFrame({
 })
 tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .05}},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .04}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .35, 'b': .04}},
     2: {'kernel': srv.sigmoidDecay, 'params': {'A': .2, 'rate': 1.5, 'x0': 1}} 
 }
 ###############################################################################
@@ -47,11 +45,23 @@ lnd = srv.Landscape(
     points, kernelParams={'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75},
     traps=traps, trapsKernels=tKernels
 )
-srv.dumpLandscape(lnd, OUT_PTH, 'LND_ORG')
+srv.dumpLandscape(lnd, OUT_PTH, '{}_{}_CLN'.format(LND_TYPE, ID))
 # lnd.calcFundamentalMatrix()
 # lnd.getDaysTillTrapped()
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
+###############################################################################
+# Plot Landscape
+###############################################################################
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+lnd.plotSites(fig, ax, size=100)
+lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=50)
+srv.plotClean(fig, ax, frame=False)
+fig.savefig(
+    path.join(OUT_PTH, '{}_{}_CLN.png'.format(LND_TYPE, ID)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0, dpi=300
+)
+plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 
@@ -135,15 +145,15 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
     "max", "avg", "best", "min", "traps"
 )
 lnd.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
-srv.dumpLandscape(lnd, OUT_PTH, 'LND_OPT')
+srv.dumpLandscape(lnd, OUT_PTH, '{}_{}_TRP'.format(LND_TYPE, ID))
+srv.dumpLandscape(logbook, OUT_PTH, '{}_{}_LOG'.format(LND_TYPE, ID))
 ###############################################################################
 # Plot
 ############################################################################### 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=100)
-lnd.plotMigrationNetwork(fig, ax)
+lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
-# lnd.plotTrapsNetwork(fig, ax)
 srv.plotClean(fig, ax, frame=False)
 ax.text(
     0.5, 0.5, '{:.3f}'.format(min(minFits)),
@@ -152,8 +162,8 @@ ax.text(
     transform=ax.transAxes, zorder=5
 )
 fig.savefig(
-    './GA_Grid.png', facecolor='w',
-    bbox_inches='tight', pad_inches=0, dpi=300
+    path.join(OUT_PTH, '{}_{}_TRP.png'.format(LND_TYPE, ID)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0, dpi=300
 )
 plt.close('all')
 print("Done!")
