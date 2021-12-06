@@ -5,7 +5,7 @@ import math
 import numpy as np
 import pandas as pd
 from os import path
-from os import argv
+from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
 from deap import base, creator, algorithms, tools
