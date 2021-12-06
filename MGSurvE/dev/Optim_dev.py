@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from deap import base, creator, algorithms, tools
 from compress_pickle import dump, load
 import MGSurvE as srv
+# scp -r lab:/home/hector/MGSurvE/MGSurvE/dev/Lands/* '/home/chipdelmal/Documents/GitHub/MGSurvE/MGSurvE/dev/Lands'
 
 
 (OUT_PTH, ID) = ('./Lands', 'S07')
@@ -23,7 +24,7 @@ if LND_TYPE == 'UNIF':
     xy = srv.ptsRandUniform(ptsNum, bbox).T
 elif LND_TYPE == 'GRID':
     ptsNum = 15
-    bbox = ((-100, 100), (-100, 100))
+    bbox = ((-125, 125), (-125, 125))
     xy = srv.ptsRegularGrid(ptsNum, bbox).T
 points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Traps info ------------------------------------------------------------------
