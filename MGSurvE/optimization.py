@@ -3,7 +3,9 @@
 
 import random
 import numpy as np
+import pandas as pd
 import numpy.random as rand
+from os import path
 from deap import base, creator, algorithms, tools
 
 
@@ -218,3 +220,19 @@ def calcFitness(
     fit = optimFunction(landscape, fitFuns=optimFunctionArgs)
     return (float(abs(fit)), )
 
+
+def exportLog(
+        logbook,
+        OUT_PTH,
+        F_NAME
+    ):
+    log = pd.DataFrame(logbook)
+    log.to_csv(path.join(OUT_PTH, F_NAME)+'.csv', index=False)
+
+
+def importLog(
+        OUT_PTH,
+        F_NAME
+    ):
+    df = pd.read_csv(path.join(OUT_PTH, F_NAME+'.csv'))
+    return df
