@@ -7,6 +7,8 @@ import scipy.stats as stats
 from scipy.optimize import fsolve
 from sklearn.preprocessing import normalize
 import MGSurvE.constants as cst
+import warnings
+warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 # https://en.wikipedia.org/wiki/Sigmoid_function
 # https://en.wikipedia.org/wiki/Logistic_function

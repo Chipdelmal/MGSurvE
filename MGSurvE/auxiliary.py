@@ -59,6 +59,7 @@ def dumpLandscape(landscape, fPath, fName, fExt='bz2'):
     )
 
 def loadLandscape(fPath, fName, fExt='bz2'):
-    load(
+    lnd = load(
         path.join(fPath, '{}.{}'.format(fName, fExt))
     )
+    return lnd

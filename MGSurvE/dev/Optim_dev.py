@@ -13,7 +13,7 @@ from compress_pickle import dump, load
 import MGSurvE as srv
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
-# scp -r lab:/home/hector/MGSurvE/MGSurvE/dev/Lands/* '/home/chipdelmal/Documents/GitHub/MGSurvE/MGSurvE/dev/Lands'
+# scp -r lab:/RAID5/marshallShare/MGS_Demos/* '/home/chipdelmal/Documents/GitHub/MGSurvE/MGSurvE/dev/Lands'
 
 if srv.isNotebook():
     (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'UNIF', 'D01')
@@ -30,6 +30,10 @@ elif LND_TYPE == 'GRID':
     ptsNum = 15
     bbox = ((-125, 125), (-125, 125))
     xy = srv.ptsRegularGrid(ptsNum, bbox).T
+elif LND_TYPE == 'DONT':
+    ptsNum = 300
+    radii = (100, 150)
+    xy = ptsDonut(ptsNum, radii).T
 points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
@@ -162,6 +166,8 @@ lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=False)
+ax.set_xlim(*bbox[0])
+ax.set_ylim(*bbox[1])
 ax.text(
     0.5, 0.5, '{:.3f}'.format(min(minFits)),
     horizontalalignment='center', verticalalignment='center',
