@@ -16,14 +16,14 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 # scp -r lab:/home/hector/MGSurvE/MGSurvE/dev/Lands/* '/home/chipdelmal/Documents/GitHub/MGSurvE/MGSurvE/dev/Lands'
 
 if srv.isNotebook():
-    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'UNIF', 'S07')
+    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'UNIF', 'D01')
 else:
     (OUT_PTH, LND_TYPE, ID) = (argv[1], argv[2], argv[3].zfill(3))
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
 if LND_TYPE == 'UNIF':
-    ptsNum = 400
+    ptsNum = 100
     bbox = ((-225, 225), (-175, 175))
     xy = srv.ptsRandUniform(ptsNum, bbox).T
 elif LND_TYPE == 'GRID':
@@ -73,12 +73,12 @@ plt.close('all')
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    500,
+    25,
     {'mate': .3, 'cxpb': 0.5}, 
     {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .35, 'ipb': .5},
     {'tSize': 3}
 )
-VERBOSE = False
+VERBOSE = True
 lndGA = deepcopy(lnd)
 ###############################################################################
 # Registering Functions for GA
@@ -152,7 +152,7 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 )
 lnd.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
 srv.dumpLandscape(lnd, OUT_PTH, '{}_{}_TRP'.format(LND_TYPE, ID))
-srv.dumpLandscape(logbook, OUT_PTH, '{}_{}_LOG'.format(LND_TYPE, ID))
+srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(LND_TYPE, ID))
 ###############################################################################
 # Plot
 ############################################################################### 

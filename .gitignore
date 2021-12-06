@@ -1,6 +1,7 @@
 # Output files
 demo_out
 *.png
+*.csv
 
 # Compressed Serialized Files
 *.bz2
