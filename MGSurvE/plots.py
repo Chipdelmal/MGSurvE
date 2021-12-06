@@ -229,3 +229,26 @@ def plotClean(fig, ax, frame=False):
     if frame is not True:
         ax.axis('off')
     return (fig, ax)
+
+
+def plotGAEvolution(
+        fig, ax,
+        gaLog,
+        colors={'mean': '#ffffff', 'envelope': '#1565c0'},
+        alphas={'mean': .75, 'envelope': 0.5},
+        aspect=1/3
+    ):
+    dta = gaLog
+    x = range(dta.shape[0])    
+    plt.plot(
+        x, dta['avg'], 
+        lw=2, color=colors['mean'], alpha=alphas['mean']
+    )
+    ax.fill_between(
+        x, dta['min'], dta['max'], 
+        alpha=alphas['envelope'], color=colors['envelope'], lw=0
+    )
+    ax.set_xlim(0, max(x))
+    # ax.set_ylim(0, 5*minFits[-1])
+    ax.set_aspect(aspect/ax.get_data_ratio())
+    return (fig, ax)

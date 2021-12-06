@@ -23,7 +23,7 @@ else:
 # Defining Landscape and Traps
 ###############################################################################
 if LND_TYPE == 'UNIF':
-    ptsNum = 100
+    ptsNum = 400
     bbox = ((-225, 225), (-175, 175))
     xy = srv.ptsRandUniform(ptsNum, bbox).T
 elif LND_TYPE == 'GRID':
@@ -33,16 +33,16 @@ elif LND_TYPE == 'GRID':
 points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
-    'x': [0, 0, 0, 0, 0, 0, 0],
-    'y': [0, 0, 0, 0, 0, 0, 0],
-    't': [3, 0, 1, 0, 1, 0, 2],
-    'f': [0, 0, 0, 0, 0, 0, 0]
+    'x': [0, 0, 0, 0, 0, 0],
+    'y': [0, 0, 0, 0, 0, 0],
+    't': [3, 0, 1, 0, 0, 2],
+    'f': [0, 0, 0, 0, 0, 0]
 })
 tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .05}},
     1: {'kernel': srv.exponentialDecay, 'params': {'A': .35, 'b': .04}},
     2: {'kernel': srv.exponentialDecay, 'params': {'A': .25,  'b': .025}} ,
-    3: {'kernel': srv.sigmoidDecay, 'params': {'A': .2, 'rate': 1, 'x0': 3}}
+    3: {'kernel': srv.sigmoidDecay, 'params': {'A': .2, 'rate': .5, 'x0': 1}}
 }
 ###############################################################################
 # Defining Landscape and Traps
@@ -73,7 +73,7 @@ plt.close('all')
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    25,
+    20,
     {'mate': .3, 'cxpb': 0.5}, 
     {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .35, 'ipb': .5},
     {'tSize': 3}
@@ -152,9 +152,10 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 )
 lnd.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
 srv.dumpLandscape(lnd, OUT_PTH, '{}_{}_TRP'.format(LND_TYPE, ID))
+dta = pd.DataFrame(logbook)
 srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(LND_TYPE, ID))
 ###############################################################################
-# Plot
+# Plot Landscape
 ############################################################################### 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=100)
@@ -173,3 +174,16 @@ fig.savefig(
 )
 plt.close('all')
 print("Done!")
+###############################################################################
+# Plot GA
+############################################################################### 
+(fig, ax) = plt.subplots(figsize=(15, 15))
+(fig, ax) = srv.plotGAEvolution(fig, ax, dta)
+# srv.plotClean(fig, ax)
+pthSave = path.join(
+    OUT_PTH, '{}_{}_GAP'.format(LND_TYPE, ID)
+)
+fig.savefig(
+    pthSave,
+    facecolor='w', bbox_inches='tight', pad_inches=0, dpi=300
+)
