@@ -12,14 +12,14 @@ from compress_pickle import dump, load
 import MGSurvE as srv
 
 
-(OUT_PTH, ID) = ('./Lands', '001')
-LND_TYPE = 'GRID'
+(OUT_PTH, ID) = ('./Lands', 'S07')
+LND_TYPE = 'UNIF'
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
 if LND_TYPE == 'UNIF':
-    ptsNum = 300
-    bbox = ((-175, 175), (-100, 100))
+    ptsNum = 400
+    bbox = ((-225, 225), (-175, 175))
     xy = srv.ptsRandUniform(ptsNum, bbox).T
 elif LND_TYPE == 'GRID':
     ptsNum = 15
@@ -28,15 +28,16 @@ elif LND_TYPE == 'GRID':
 points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
-    'x': [0, 0, 0, 0, 0], 
-    'y': [0, 0, 0, 0, 0], 
-    't': [0, 0, 1, 0, 0],
-    'f': [0, 0, 0, 0, 0]
+    'x': [0, 0, 0, 0, 0, 0, 0],
+    'y': [0, 0, 0, 0, 0, 0, 0],
+    't': [3, 0, 1, 0, 1, 0, 2],
+    'f': [0, 0, 0, 0, 0, 0, 0]
 })
 tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .05}},
     1: {'kernel': srv.exponentialDecay, 'params': {'A': .35, 'b': .04}},
-    2: {'kernel': srv.sigmoidDecay, 'params': {'A': .2, 'rate': 1.5, 'x0': 1}} 
+    2: {'kernel': srv.exponentialDecay, 'params': {'A': .25,  'b': .025}} ,
+    3: {'kernel': srv.sigmoidDecay, 'params': {'A': .2, 'rate': 1, 'x0': 3}}
 }
 ###############################################################################
 # Defining Landscape and Traps
@@ -67,7 +68,7 @@ plt.close('all')
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    1000,
+    5000,
     {'mate': .3, 'cxpb': 0.5}, 
     {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .35, 'ipb': .5},
     {'tSize': 3}
