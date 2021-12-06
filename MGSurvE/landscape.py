@@ -10,6 +10,8 @@ import MGSurvE.constants as cst
 import MGSurvE.kernels as krn
 import MGSurvE.plots as plt
 import MGSurvE.optimization as opt
+import warnings
+warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 class Landscape:
     """ Stores the information for a mosquito landscape. Works with different point-types in the form of matrices and coordinates.
