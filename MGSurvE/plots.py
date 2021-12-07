@@ -241,6 +241,18 @@ def plotGAEvolution(
         alphas={'mean': .75, 'envelope': 0.5},
         aspect=1/3
     ):
+    """ Makes axes equally spaced and removes frame.
+
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        gaLog (pandas dataframe): Flag to remove plot's frame.
+        colors (dict): Mean and envelope colors
+        alphas (dict): Mean and envelope alphas
+    
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+    """ 
     dta = gaLog
     x = range(dta.shape[0])    
     plt.plot(

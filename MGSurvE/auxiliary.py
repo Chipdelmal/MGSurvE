@@ -65,17 +65,15 @@ def loadLandscape(fPath, fName, fExt='bz2'):
     return lnd
 
 
+###############################################################################
+# Paths functions
+###############################################################################
 def makeFolder(path):
     """Crates a folder in the specified directory.
 
-    Parameters
-    ----------
-    path : string
-        Path of the folder than needs to be created.
+    Args:
+        path (string): Path of the folder than needs to be created.
 
-    Returns
-    -------
-    NA
     """
     if not os.path.exists(path):
         try:
