@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import csv
 import math
 import numpy as np
 import pandas as pd
@@ -15,9 +16,15 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
-(TRP_NUM, PTS_NUM, REP) = (2, 100, 1)
-PTH_O = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks'
-GENS = 20
+if srv.isNotebook():
+    (TRP_NUM, PTS_NUM, REP) = (2, 100, 1)
+    PTH_O = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks'
+    GENS = 20
+else:
+    (TRP_NUM, PTS_NUM, REP, GENS)  = [
+        int(i) for i in argv[1:-1]
+    ]
+    PTH_O = argv[-1]
 ###############################################################################
 # IDs and Timers
 ###############################################################################
@@ -73,12 +80,8 @@ timers['plt_init'] = (timer()-timers['start'])+(timers['setup'])
 # Registering Functions for GA
 ############################################################################### 
 toolbox = base.Toolbox()
-creator.create("FitnessMin", 
-    base.Fitness, weights=(-1.0, )
-)
-creator.create("Individual", 
-    list, fitness=creator.FitnessMin
-)
+creator.create("FitnessMin", base.Fitness, weights=(-1.0, ))
+creator.create("Individual", list, fitness=creator.FitnessMin)
 toolbox.register("initChromosome", srv.initChromosome, 
     trapsCoords=lndGA.trapsCoords, 
     fixedTrapsMask=srv.genFixedTrapsMask(lnd.trapsFixed), coordsRange=bbox
@@ -118,13 +121,16 @@ stats.register("max", np.max)
 stats.register("best", lambda fitnessValues: fitnessValues.index(min(fitnessValues)))
 stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnessValues))])
 ###############################################################################
-# Optimization Cycle
+# Optimization
 ############################################################################### 
 (pop, logbook) = algorithms.eaSimple(
     pop, toolbox, cxpb=MAT['cxpb'], mutpb=MUT['mutpb'], ngen=GENS, 
     stats=stats, halloffame=hof, verbose=VERBOSE
 )
-minFits = logbook.select("min")
+(dta, minFits) = (pd.DataFrame(logbook), logbook.select("min"))
+lnd.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
+srv.dumpLandscape(lnd, PTH_O, expID+'_TRP')
+srv.exportLog(dta, PTH_O, expID+'_LOG')
 # Timing ----------------------------------------------------------------------
 timers['ga'] = (timer()-timers['start'])+(timers['setup']+timers['plt_init'])
 ###############################################################################
@@ -135,5 +141,19 @@ srv.plotClean(fig, ax, frame=False, bbox=bbox)
 srv.plotFitness(fig, ax, min(minFits))
 srv.saveFig(fig, ax, PTH_O, expID+'_TRP')
 plt.close('all')
+(fig, ax) = plt.subplots(figsize=(15, 15))
+(fig, ax) = srv.plotGAEvolution(fig, ax, dta)
+srv.saveFig(fig, ax, PTH_O, expID+'_GA')
 # Timing ----------------------------------------------------------------------
-timers['plt_trp'] = (timer()-timers['start'])+(timers['setup']+timers['plt_init'])
+timers['plt_trap'] = (timer()-timers['start'])+(
+    timers['setup']+timers['plt_init']+timers['ga']
+)
+###############################################################################
+# Log Timer
+############################################################################### 
+del timers['start']
+with open(path.join(PTH_O, expID+'_TIM.csv'), 'w') as csv_file:  
+    writer = csv.writer(csv_file)
+    writer.writerow(['event', 'time'])
+    for key, value in timers.items():
+       writer.writerow([key, value])
