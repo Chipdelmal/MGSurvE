@@ -165,9 +165,7 @@ srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(LND_TYPE, ID))
 lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
-srv.plotClean(fig, ax, frame=False)
-ax.set_xlim(*bbox[0])
-ax.set_ylim(*bbox[1])
+srv.plotClean(fig, ax, frame=False, bbox=bbox)
 ax.text(
     0.5, 0.5, '{:.3f}'.format(min(minFits)),
     horizontalalignment='center', verticalalignment='center',
