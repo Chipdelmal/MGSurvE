@@ -2,7 +2,7 @@
 
 N=2
 PTH_O='/RAID5/marshallShare/MGS_Demos'
-LND='DNUT'
+LND='GRID'
 
 LG='\033[1;34m'
 NC='\033[0m'

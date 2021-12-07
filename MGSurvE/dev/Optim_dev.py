@@ -27,8 +27,8 @@ if LND_TYPE == 'UNIF':
     bbox = ((-225, 225), (-175, 175))
     xy = srv.ptsRandUniform(ptsNum, bbox).T
 elif LND_TYPE == 'GRID':
-    ptsNum = 15
-    bbox = ((-125, 125), (-125, 125))
+    ptsNum = 20
+    bbox = ((-225, 225), (-225, 225))
     xy = srv.ptsRegularGrid(ptsNum, bbox).T
 elif LND_TYPE == 'DNUT':
     ptsNum = 300
@@ -39,7 +39,7 @@ points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 traps = pd.DataFrame({
     'x': [0, 0, 0, 0, 0],
     'y': [0, 0, 0, 0, 0],
-    't': [2, 0, 0, 0, 2],
+    't': [0, 0, 0, 0, 0],
     'f': [0, 0, 0, 0, 0]
 })
 tKernels = {
