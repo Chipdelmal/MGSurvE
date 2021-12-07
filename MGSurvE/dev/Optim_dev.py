@@ -16,7 +16,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 # scp -r lab:/RAID5/marshallShare/MGS_Demos/* '/home/chipdelmal/Documents/GitHub/MGSurvE/MGSurvE/dev/Lands'
 
 if srv.isNotebook():
-    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'UNIF', 'D01')
+    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'DNUT', 'D01')
 else:
     (OUT_PTH, LND_TYPE, ID) = (argv[1], argv[2], argv[3].zfill(3))
 ###############################################################################
@@ -30,17 +30,17 @@ elif LND_TYPE == 'GRID':
     ptsNum = 15
     bbox = ((-125, 125), (-125, 125))
     xy = srv.ptsRegularGrid(ptsNum, bbox).T
-elif LND_TYPE == 'DONT':
+elif LND_TYPE == 'DNUT':
     ptsNum = 300
     radii = (100, 150)
-    xy = ptsDonut(ptsNum, radii).T
+    xy = srv.ptsDonut(ptsNum, radii).T
 points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
-    'x': [0, 0, 0, 0, 0, 0],
-    'y': [0, 0, 0, 0, 0, 0],
-    't': [3, 0, 1, 0, 0, 2],
-    'f': [0, 0, 0, 0, 0, 0]
+    'x': [0, 0, 0, 0, 0],
+    'y': [0, 0, 0, 0, 0],
+    't': [0, 1, 0, 0, 2],
+    'f': [0, 0, 0, 0, 0]
 })
 tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .05}},
@@ -77,7 +77,7 @@ plt.close('all')
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    2000,
+    5,
     {'mate': .3, 'cxpb': 0.5}, 
     {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .35, 'ipb': .5},
     {'tSize': 3}
@@ -165,9 +165,7 @@ srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(LND_TYPE, ID))
 lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
-srv.plotClean(fig, ax, frame=False)
-ax.set_xlim(*bbox[0])
-ax.set_ylim(*bbox[1])
+srv.plotClean(fig, ax, frame=False, bbox=bbox)
 ax.text(
     0.5, 0.5, '{:.3f}'.format(min(minFits)),
     horizontalalignment='center', verticalalignment='center',

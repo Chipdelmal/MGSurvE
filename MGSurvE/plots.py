@@ -214,7 +214,7 @@ def plotMatrix(
     return (fig, ax)
 
 
-def plotClean(fig, ax, frame=False):
+def plotClean(fig, ax, frame=False, bbox=None):
     """ Makes axes equally spaced and removes frame.
 
     Parameters:
@@ -228,6 +228,9 @@ def plotClean(fig, ax, frame=False):
     ax.set_aspect('equal')
     if frame is not True:
         ax.axis('off')
+    if bbox is not None:
+        ax.set_xlim(*bbox[0])
+        ax.set_ylim(*bbox[1])
     return (fig, ax)
 
 
