@@ -14,7 +14,7 @@ import MGSurvE as srv
 from PIL import Image
 
 
-(OUT_PTH, LND_TYPE, ID) = ('./Lands', 'UNIF', '0D1')
+(OUT_PTH, LND_TYPE, ID) = ('./Lands', 'DNUT', '0S1')
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
 srv.makeFolder(IMG_PTH)
@@ -59,7 +59,7 @@ for i in range(gens):
     fig.savefig(
         pthSave, 
         dpi=DPI, bbox_inches='tight', 
-        pad_inches=.1, transparent=True
+        pad_inches=0, transparent=True
     )
     plt.close('all')
     ###########################################################################

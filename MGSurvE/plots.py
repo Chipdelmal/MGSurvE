@@ -1,4 +1,5 @@
 
+from os import path
 from math import log
 import matplotlib.pyplot as plt
 import MGSurvE.constants as cst
@@ -234,6 +235,24 @@ def plotClean(fig, ax, frame=False, bbox=None):
     return (fig, ax)
 
 
+def plotFitness(
+        fig, ax,
+        fitness,
+        pos=(0.5, 0.5),
+        fmt='{:.2f}',
+        fontSize=125,
+        color='#00000011',
+        zorder=5
+    ):
+    ax.text(
+        pos[0], pos[1], fmt.format(fitness),
+        horizontalalignment='center', verticalalignment='center',
+        fontsize=fontSize, color=color,
+        transform=ax.transAxes, zorder=zorder
+    )
+    return (fig, ax)
+
+
 def plotGAEvolution(
         fig, ax,
         gaLog,
@@ -241,6 +260,18 @@ def plotGAEvolution(
         alphas={'mean': .75, 'envelope': 0.5},
         aspect=1/3
     ):
+    """ Makes axes equally spaced and removes frame.
+
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        gaLog (pandas dataframe): Flag to remove plot's frame.
+        colors (dict): Mean and envelope colors
+        alphas (dict): Mean and envelope alphas
+    
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+    """ 
     dta = gaLog
     x = range(dta.shape[0])    
     plt.plot(
@@ -255,3 +286,19 @@ def plotGAEvolution(
     # ax.set_ylim(0, 5*minFits[-1])
     ax.set_aspect(aspect/ax.get_data_ratio())
     return (fig, ax)
+
+
+def saveFig(
+        fig, ax,
+        PTH_O, filename,
+        dpi=300,
+        facecolor='w',
+        transparent=False,
+        bbox_inches='tight',
+        pad_inches=0
+    ):
+    fig.savefig(
+        path.join(PTH_O, filename), dpi=dpi,
+        facecolor=facecolor, bbox_inches=bbox_inches, 
+        pad_inches=pad_inches, transparent=transparent
+    )

@@ -94,20 +94,26 @@
 <tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.cxBlend" title="MGSurvE.optimization.cxBlend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cxBlend</span></code></a>(ind1, ind2, fixedTrapsMask[, alpha])</p></td>
 <td><p>Mates two chromosomes by &quot;blend&quot; based on the provided mask (in place).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.genFixedTrapsMask" title="MGSurvE.optimization.genFixedTrapsMask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genFixedTrapsMask</span></code></a>(trapsFixed[, dims])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.exportLog" title="MGSurvE.optimization.exportLog"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exportLog</span></code></a>(logbook, outPath, filename)</p></td>
+<td><p>Dumps a dataframe with the report of the GA's history.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.genFixedTrapsMask" title="MGSurvE.optimization.genFixedTrapsMask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genFixedTrapsMask</span></code></a>(trapsFixed[, dims])</p></td>
 <td><p>Creates a mask for the fixed traps (non-movable).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getDaysTillTrapped" title="MGSurvE.optimization.getDaysTillTrapped"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getDaysTillTrapped</span></code></a>(landscape[, fitFuns])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getDaysTillTrapped" title="MGSurvE.optimization.getDaysTillTrapped"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getDaysTillTrapped</span></code></a>(landscape[, fitFuns])</p></td>
 <td><p>Gets the number of timesteps until a walker falls into a trap.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalFitness" title="MGSurvE.optimization.getFundamentalFitness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalFitness</span></code></a>(fundamentalMatrix[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalFitness" title="MGSurvE.optimization.getFundamentalFitness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalFitness</span></code></a>(fundamentalMatrix[, ...])</p></td>
 <td><p>Get fitness from Markov's fundamental matrix.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalMatrix" title="MGSurvE.optimization.getFundamentalMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalMatrix</span></code></a>(tau, sitesN, trapsN)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalMatrix" title="MGSurvE.optimization.getFundamentalMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalMatrix</span></code></a>(tau, sitesN, trapsN)</p></td>
 <td><p>Get Markov's fundamental matrix.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getMarkovAbsorbing" title="MGSurvE.optimization.getMarkovAbsorbing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getMarkovAbsorbing</span></code></a>(tauCan, trapsN)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getMarkovAbsorbing" title="MGSurvE.optimization.getMarkovAbsorbing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getMarkovAbsorbing</span></code></a>(tauCan, trapsN)</p></td>
 <td><p>Get Markov's absorbing states (deprecated).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.importLog" title="MGSurvE.optimization.importLog"><code class="xref py py-obj docutils literal notranslate"><span class="pre">importLog</span></code></a>(outPath, filename)</p></td>
+<td><p>Gets the number of timesteps until a walker falls into a trap.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.initChromosome" title="MGSurvE.optimization.initChromosome"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initChromosome</span></code></a>(trapsCoords, fixedTrapsMask, ...)</p></td>
 <td><p>Generates a random uniform chromosome for GA optimization.</p></td>
