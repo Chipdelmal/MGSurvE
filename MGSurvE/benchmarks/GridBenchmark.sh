@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# scp -r lab:/RAID5/marshallShare/MGS_Benchmarks/Grid/* /home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/Grid
+
 # PTH_O='/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks'
 PTH_O=/RAID5/marshallShare/MGS_Benchmarks/Grid
 GENS=2000

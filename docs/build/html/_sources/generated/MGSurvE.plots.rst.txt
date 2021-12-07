@@ -14,6 +14,7 @@
    .. autosummary::
    
       plotClean
+      plotFitness
       plotGAEvolution
       plotMatrix
       plotMigrationNetwork

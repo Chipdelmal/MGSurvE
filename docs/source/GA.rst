@@ -1,7 +1,7 @@
 GA Optimization
 ------------
 
-In this demo, we will be optimizing the traps' positions to minimize the time it takes for a mosquito to fall into a trap.
+In this demo, we will be optimizing the traps' positions to minimize the time it takes for a mosquito to get caught.
 This is done with the `DEAP package <https://deap.readthedocs.io/en/master/>`_, as it allows much flexibility and implementation speedups.
 
 We start by defining the parameters for our genetic algorithm:
@@ -11,7 +11,7 @@ We start by defining the parameters for our genetic algorithm:
     (GENS, VERBOSE) = (2000, True)
     POP_SIZE = int(10*(lnd.trapsNumber*1.25))
     MAT = {'mate': .5, 'cxpb': 0.5}, 
-    MUT = {'mean': 0, 'sd': max([i[1]-i[0] for i in bbox])/4, 'mutpb': .2, 'ipb': .2},
+    MUT = {'mean': 0, 'sd': max([i[1]-i[0] for i in bbox])/4, 'mutpb': .5, 'ipb': .5},
     SEL = {'tSize': 3}
 
 
@@ -65,7 +65,8 @@ cxBlend, gaussian mutation, and tournament selection.
         optimFunctionArgs={'outer': np.mean, 'inner': np.max}
     )
 
-It is important to note that we are providing custom implementations for the :code:`initChromosome`, :code:`cxBlend`, and :code:`mutateChromosome`; to allow immovable traps in to be laid in the landscape.
+It is important to note that we provide custom implementations for the :code:`initChromosome`, :code:`cxBlend`, and :code:`mutateChromosome`; 
+to allow immovable traps to be laid in the landscape, but we will stick to `DEAP's' <https://deap.readthedocs.io/en/master/>`_ implementations for this first exercise.
 
 We now register summary statistics for our algorithm:
 
@@ -77,11 +78,19 @@ We now register summary statistics for our algorithm:
     stats.register("min", np.min)
     stats.register("avg", np.mean)
     stats.register("max", np.max)
-    stats.register("best", lambda fitnessValues: fitnessValues.index(min(fitnessValues)))
     stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnessValues))])
+    stats.register("best", lambda fitnessValues: fitnessValues.index(min(fitnessValues)))
 
 
-And run our optimization cycle:
+Where the statistics go as follow (more stats can be added as needed):
+
+* min: Traps' population minimum fitness (best in generation).
+* avg: Traps' population average fitness.
+* max: Traps' population maximum fitness (worst in generation).
+* traps: Best traps positions in the current generation.
+* best: Best fitness across populations.
+
+Now, we run our optimization cycle:
 
 .. code-block:: python
 
@@ -89,3 +98,10 @@ And run our optimization cycle:
         pop, toolbox, cxpb=MAT['cxpb'], mutpb=MUT['mutpb'], ngen=GENS, 
         stats=stats, halloffame=hof, verbose=VERBOSE
     )
+
+This will take some time depending on the number of generations and the size of the landscape/traps but once it's done running, we can get our resulting optimized positions by running:
+
+.. code-block:: python
+
+    bestChromosome = hof[0]
+    bestPositions = np.reshape(bestChromosome, (-1, 2))

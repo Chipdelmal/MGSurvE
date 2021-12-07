@@ -76,13 +76,13 @@
              
   <section id="ga-optimization">
 <h1><span class="section-number">4. </span>GA Optimization<a class="headerlink" href="#ga-optimization" title="Permalink to this headline"></a></h1>
-<p>In this demo, we will be optimizing the traps’ positions to minimize the time it takes for a mosquito to fall into a trap.
+<p>In this demo, we will be optimizing the traps’ positions to minimize the time it takes for a mosquito to get caught.
 This is done with the <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP package</a>, as it allows much flexibility and implementation speedups.</p>
 <p>We start by defining the parameters for our genetic algorithm:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">GENS</span><span class="p">,</span> <span class="n">VERBOSE</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 <span class="n">POP_SIZE</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="p">(</span><span class="n">lnd</span><span class="o">.</span><span class="n">trapsNumber</span><span class="o">*</span><span class="mf">1.25</span><span class="p">))</span>
 <span class="n">MAT</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mate&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;cxpb&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
-<span class="n">MUT</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span> <span class="nb">max</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bbox</span><span class="p">])</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;mutpb&#39;</span><span class="p">:</span> <span class="mf">.2</span><span class="p">,</span> <span class="s1">&#39;ipb&#39;</span><span class="p">:</span> <span class="mf">.2</span><span class="p">},</span>
+<span class="n">MUT</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span> <span class="nb">max</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bbox</span><span class="p">])</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;mutpb&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;ipb&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">},</span>
 <span class="n">SEL</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tSize&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
 </pre></div>
 </div>
@@ -134,7 +134,8 @@ cxBlend, gaussian mutation, and tournament selection.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>It is important to note that we are providing custom implementations for the <code class="code docutils literal notranslate"><span class="pre">initChromosome</span></code>, <code class="code docutils literal notranslate"><span class="pre">cxBlend</span></code>, and <code class="code docutils literal notranslate"><span class="pre">mutateChromosome</span></code>; to allow immovable traps in to be laid in the landscape.</p>
+<p>It is important to note that we provide custom implementations for the <code class="code docutils literal notranslate"><span class="pre">initChromosome</span></code>, <code class="code docutils literal notranslate"><span class="pre">cxBlend</span></code>, and <code class="code docutils literal notranslate"><span class="pre">mutateChromosome</span></code>;
+to allow immovable traps to be laid in the landscape, but we will stick to <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP’s’</a> implementations for this first exercise.</p>
 <p>We now register summary statistics for our algorithm:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pop</span> <span class="o">=</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">populationCreator</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">POP_SIZE</span><span class="p">)</span>
 <span class="n">hof</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">HallOfFame</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -142,15 +143,28 @@ cxBlend, gaussian mutation, and tournament selection.</p>
 <span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">)</span>
 <span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;avg&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
 <span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
-<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">fitnessValues</span><span class="p">:</span> <span class="n">fitnessValues</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">fitnessValues</span><span class="p">)))</span>
 <span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;traps&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">fitnessValues</span><span class="p">:</span> <span class="n">pop</span><span class="p">[</span><span class="n">fitnessValues</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">fitnessValues</span><span class="p">))])</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">fitnessValues</span><span class="p">:</span> <span class="n">fitnessValues</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">fitnessValues</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p>And run our optimization cycle:</p>
+<p>Where the statistics go as follow (more stats can be added as needed):</p>
+<ul class="simple">
+<li><p>min: Traps’ population minimum fitness (best in generation).</p></li>
+<li><p>avg: Traps’ population average fitness.</p></li>
+<li><p>max: Traps’ population maximum fitness (worst in generation).</p></li>
+<li><p>traps: Best traps positions in the current generation.</p></li>
+<li><p>best: Best fitness across populations.</p></li>
+</ul>
+<p>Now, we run our optimization cycle:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="n">logbook</span><span class="p">)</span> <span class="o">=</span> <span class="n">algorithms</span><span class="o">.</span><span class="n">eaSimple</span><span class="p">(</span>
     <span class="n">pop</span><span class="p">,</span> <span class="n">toolbox</span><span class="p">,</span> <span class="n">cxpb</span><span class="o">=</span><span class="n">MAT</span><span class="p">[</span><span class="s1">&#39;cxpb&#39;</span><span class="p">],</span> <span class="n">mutpb</span><span class="o">=</span><span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;mutpb&#39;</span><span class="p">],</span> <span class="n">ngen</span><span class="o">=</span><span class="n">GENS</span><span class="p">,</span>
     <span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">,</span> <span class="n">halloffame</span><span class="o">=</span><span class="n">hof</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">VERBOSE</span>
 <span class="p">)</span>
+</pre></div>
+</div>
+<p>This will take some time depending on the number of generations and the size of the landscape/traps but once it’s done running, we can get our resulting optimized positions by running:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bestChromosome</span> <span class="o">=</span> <span class="n">hof</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">bestPositions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">bestChromosome</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
