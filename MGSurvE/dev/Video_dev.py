@@ -4,6 +4,7 @@
 import time
 import numpy as np
 import pandas as pd
+import os
 from os import path
 from sys import argv
 from copy import deepcopy
@@ -13,10 +14,10 @@ import MGSurvE as srv
 from PIL import Image
 
 
-(OUT_PTH, LND_TYPE, ID) = ('./Lands', 'UNIF', '050')
+(OUT_PTH, LND_TYPE, ID) = ('./Lands', 'UNIF', '0D1')
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
-
+srv.makeFolder(IMG_PTH)
 DPI = 300
 
 lnd = srv.loadLandscape(OUT_PTH, fPat+'TRP')

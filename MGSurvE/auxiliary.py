@@ -63,3 +63,24 @@ def loadLandscape(fPath, fName, fExt='bz2'):
         path.join(fPath, '{}.{}'.format(fName, fExt))
     )
     return lnd
+
+
+def makeFolder(path):
+    """Crates a folder in the specified directory.
+
+    Parameters
+    ----------
+    path : string
+        Path of the folder than needs to be created.
+
+    Returns
+    -------
+    NA
+    """
+    if not os.path.exists(path):
+        try:
+            os.mkdir(path)
+        except OSError:
+            raise OSError(
+                    "Can't create destination directory (%s)!" % (path)
+                )
