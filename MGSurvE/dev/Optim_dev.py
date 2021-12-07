@@ -16,7 +16,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 # scp -r lab:/RAID5/marshallShare/MGS_Demos/* '/home/chipdelmal/Documents/GitHub/MGSurvE/MGSurvE/dev/Lands'
 
 if srv.isNotebook():
-    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'UNIF', 'D01')
+    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'DNUT', 'S01')
 else:
     (OUT_PTH, LND_TYPE, ID) = (argv[1], argv[2], argv[3].zfill(3))
 ###############################################################################
@@ -30,17 +30,17 @@ elif LND_TYPE == 'GRID':
     ptsNum = 15
     bbox = ((-125, 125), (-125, 125))
     xy = srv.ptsRegularGrid(ptsNum, bbox).T
-elif LND_TYPE == 'DONT':
+elif LND_TYPE == 'DNUT':
     ptsNum = 300
     radii = (100, 150)
-    xy = ptsDonut(ptsNum, radii).T
+    xy = srv.ptsDonut(ptsNum, radii).T
 points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
-    'x': [0, 0, 0, 0, 0, 0],
-    'y': [0, 0, 0, 0, 0, 0],
-    't': [2, 0, 1, 0, 0, 2],
-    'f': [0, 0, 0, 0, 0, 0]
+    'x': [0, 0, 0, 0, 0],
+    'y': [0, 0, 0, 0, 0],
+    't': [2, 0, 0, 0, 2],
+    'f': [0, 0, 0, 0, 0]
 })
 tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .05}},
@@ -191,5 +191,5 @@ pthSave = path.join(
 )
 fig.savefig(
     pthSave,
-    facecolor='w', bbox_inches='tight', pad_inches=0, dpi=300
+    facecolor='w', bbox_inches='tight', pad_inches=.1, dpi=300
 )
