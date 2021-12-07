@@ -16,7 +16,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 # scp -r lab:/RAID5/marshallShare/MGS_Demos/* '/home/chipdelmal/Documents/GitHub/MGSurvE/MGSurvE/dev/Lands'
 
 if srv.isNotebook():
-    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'DNUT', 'S01')
+    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'DNUT', 'D01')
 else:
     (OUT_PTH, LND_TYPE, ID) = (argv[1], argv[2], argv[3].zfill(3))
 ###############################################################################
@@ -46,7 +46,7 @@ tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .05}},
     1: {'kernel': srv.exponentialDecay, 'params': {'A': .35, 'b': .04}},
     2: {'kernel': srv.exponentialDecay, 'params': {'A': .25,  'b': .025}} ,
-    3: {'kernel': srv.sigmoidDecay, 'params': {'A': .2, 'rate': .5, 'x0': 1}}
+    3: {'kernel': srv.sigmoidDecay,     'params': {'A': .2, 'rate': .5, 'x0': 1}}
 }
 ###############################################################################
 # Defining Landscape and Traps
@@ -77,7 +77,7 @@ plt.close('all')
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    1500,
+    25,
     {'mate': .3, 'cxpb': 0.5}, 
     {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .35, 'ipb': .5},
     {'tSize': 3}
@@ -166,12 +166,7 @@ lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=False, bbox=bbox)
-ax.text(
-    0.5, 0.5, '{:.3f}'.format(min(minFits)),
-    horizontalalignment='center', verticalalignment='center',
-    fontsize=100, color='#00000011',
-    transform=ax.transAxes, zorder=5
-)
+srv.plotFitness(fig, ax, min(minFits))
 fig.savefig(
     path.join(OUT_PTH, '{}_{}_TRP.png'.format(LND_TYPE, ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0, dpi=300
