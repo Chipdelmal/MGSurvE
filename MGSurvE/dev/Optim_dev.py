@@ -37,10 +37,10 @@ elif LND_TYPE == 'DNUT':
 points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
-    'x': [0, 0, 0, 0, 0],
-    'y': [0, 0, 0, 0, 0],
-    't': [0, 1, 0, 0, 2],
-    'f': [0, 0, 0, 0, 0]
+    'x': [0, 0, 0, 0, 0, 0],
+    'y': [0, 0, 0, 0, 0, 0],
+    't': [2, 0, 1, 0, 0, 2],
+    'f': [0, 0, 0, 0, 0, 0]
 })
 tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .05}},
@@ -77,7 +77,7 @@ plt.close('all')
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    5,
+    1500,
     {'mate': .3, 'cxpb': 0.5}, 
     {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .35, 'ipb': .5},
     {'tSize': 3}
