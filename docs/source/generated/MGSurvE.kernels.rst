@@ -15,6 +15,7 @@
    
       exponentialDecay
       nSolveKernel
+      sigmoidDecay
       truncatedExponential
       zeroInflatedExponentialKernel
       zeroInflatedLinearMigrationKernel

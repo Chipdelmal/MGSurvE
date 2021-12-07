@@ -15,11 +15,13 @@
    
       calcFitness
       cxBlend
+      exportLog
       genFixedTrapsMask
       getDaysTillTrapped
       getFundamentalFitness
       getFundamentalMatrix
       getMarkovAbsorbing
+      importLog
       initChromosome
       mutateChromosome
       reshapeInCanonicalForm
