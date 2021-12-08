@@ -40,7 +40,7 @@ yRange = (0, 30)
 ###############################################################################
 # Scaling on Points
 ###############################################################################
-(fig, ax) = plt.subplots(figsize=(15, 15))
+(fig, ax) = plt.subplots(figsize=(10, 10))
 points = sorted(set([i[0] for i in uniqueExps]))
 traps = sorted(set([i[1] for i in uniqueExps]))
 cols = [cmap(i) for i in np.arange(0, 1, 1/(len(traps)-1))]
@@ -56,7 +56,7 @@ for (ix, trap) in enumerate(traps):
 ###############################################################################
 # Scaling on Traps
 ###############################################################################
-(fig, ax) = plt.subplots(figsize=(15, 15))
+(fig, ax) = plt.subplots(figsize=(10, 10))
 cols = [cmap(i) for i in np.arange(0, 1, 1/(len(points)-1))]
 for (ix, point) in enumerate(points):
     depen = [results[(point, i)] for i in traps]
