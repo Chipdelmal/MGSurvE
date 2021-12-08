@@ -150,9 +150,7 @@ timers['plt_trap'] = (timer()-timers['start'])
 # Log Timer
 ###############################################################################
 # Timing ----------------------------------------------------------------------
-timers['total'] = (timer()-timers['start'])+(
-    timers['setup']+timers['plt_init']+timers['ga']+timers['plt_trap']
-)
+timers['total'] = (timer()-timers['start'])
 del timers['start']
 with open(path.join(PTH_O, expID+'_TIM.csv'), 'w') as csv_file:  
     writer = csv.writer(csv_file)
