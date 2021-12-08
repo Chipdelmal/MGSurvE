@@ -75,7 +75,7 @@ lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=50)
 srv.plotClean(fig, ax, frame=False, bbox=bbox)
 srv.saveFig(fig, ax, PTH_O, expID+'_CLN')
 # Timing ----------------------------------------------------------------------
-timers['plt_init'] = (timer()-timers['start'])+(timers['setup'])
+timers['plt_init'] = (timer()-timers['start'])
 ###############################################################################
 # Registering Functions for GA
 ############################################################################### 
@@ -132,7 +132,7 @@ lnd.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
 srv.dumpLandscape(lnd, PTH_O, expID+'_TRP')
 srv.exportLog(dta, PTH_O, expID+'_LOG')
 # Timing ----------------------------------------------------------------------
-timers['ga'] = (timer()-timers['start'])+(timers['setup']+timers['plt_init'])
+timers['ga'] = (timer()-timers['start'])
 ###############################################################################
 # Plot final
 ############################################################################### 
@@ -145,9 +145,7 @@ plt.close('all')
 (fig, ax) = srv.plotGAEvolution(fig, ax, dta)
 srv.saveFig(fig, ax, PTH_O, expID+'_GA')
 # Timing ----------------------------------------------------------------------
-timers['plt_trap'] = (timer()-timers['start'])+(
-    timers['setup']+timers['plt_init']+timers['ga']
-)
+timers['plt_trap'] = (timer()-timers['start'])
 ###############################################################################
 # Log Timer
 ###############################################################################
