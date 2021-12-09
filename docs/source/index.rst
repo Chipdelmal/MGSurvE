@@ -17,6 +17,7 @@ Have a look at our `github repo <https://github.com/Chipdelmal/MGSurvE>`_ and ou
    installation
    demos
    api
+   benchmarks
 
 
 
