@@ -311,7 +311,8 @@ def saveFig(
         facecolor='w',
         transparent=False,
         bbox_inches='tight',
-        pad_inches=0
+        pad_inches=0,
+        **kwargs
     ):
     """ Save figure to disk.
 

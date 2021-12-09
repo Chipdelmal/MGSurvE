@@ -6,9 +6,11 @@ from os import path
 from glob import glob
 import pandas as pd
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
 import MGSurvE as srv
-
+plt.rc('font', size=15)
+plt.rc('axes', titlesize=20)
 
 (ID, PTH_O) = ('Grid', '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks')
 ###############################################################################
