@@ -18,7 +18,6 @@ filePaths = glob(path.join(PTH_O, ID)+'/*TIM.csv')
 fileNames = [path.basename(i) for i in filePaths]
 fileExps = [tuple([int(j) for j in i.split('_')[1:3]]) for i in fileNames]
 uniqueExps = list(set(fileExps))
-
 ###############################################################################
 # Load Experiments Data
 ###############################################################################
@@ -36,14 +35,14 @@ for exp in uniqueExps:
 cmap = srv.colorPaletteFromHexList([
     '#3a86ff', '#9fa0ff', '#9d4edd', '#000814'
 ])
-yRange = (0, 30)
+yRange = (0, 60)
 ###############################################################################
 # Scaling on Points
 ###############################################################################
 (fig, ax) = plt.subplots(figsize=(10, 10))
 points = sorted(set([i[0] for i in uniqueExps]))
 traps = sorted(set([i[1] for i in uniqueExps]))
-cols = [cmap(i) for i in np.arange(0, 1, 1/(len(traps)-1))]
+cols = [cmap(i) for i in np.arange(0, 1, 1/(len(traps)))]
 for (ix, trap) in enumerate(traps):
     depen = [results[(i, trap)] for i in points]
     ax.plot(points, depen, label=trap, color=cols[ix])
@@ -57,7 +56,7 @@ for (ix, trap) in enumerate(traps):
 # Scaling on Traps
 ###############################################################################
 (fig, ax) = plt.subplots(figsize=(10, 10))
-cols = [cmap(i) for i in np.arange(0, 1, 1/(len(points)-1))]
+cols = [cmap(i) for i in np.arange(0, 1, 1/(len(points)))]
 for (ix, point) in enumerate(points):
     depen = [results[(point, i)] for i in traps]
     ax.plot(traps, depen, label=point, color=cols[ix])

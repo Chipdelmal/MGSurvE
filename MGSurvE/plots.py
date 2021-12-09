@@ -242,13 +242,29 @@ def plotFitness(
         fmt='{:.2f}',
         fontSize=125,
         color='#00000011',
-        zorder=5
+        zorder=5,
+        **kwargs
     ):
+    """ Adds the fitness value to the plot.
+
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        pos (floats tuple): Position for the text.
+        fmt (string formating): String format for the fitness text.
+        fontSize (float): Text's font size.
+        color (color): Font color
+        zorder (int): Zorder for the text.
+        **kwargs: Matplotlib's text kwargs.
+
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+    """ 
     ax.text(
         pos[0], pos[1], fmt.format(fitness),
         horizontalalignment='center', verticalalignment='center',
         fontsize=fontSize, color=color,
-        transform=ax.transAxes, zorder=zorder
+        transform=ax.transAxes, zorder=zorder, **kwargs
     )
     return (fig, ax)
 
@@ -290,15 +306,34 @@ def plotGAEvolution(
 
 def saveFig(
         fig, ax,
-        PTH_O, filename,
+        filepath, filename,
         dpi=300,
         facecolor='w',
         transparent=False,
         bbox_inches='tight',
         pad_inches=0
     ):
+    """ Save figure to disk.
+
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        filepath (string): Path for figure export.
+        filename (string): Filename for the export.
+        dpi (int): Image resolution.
+        facecolor (color): Background for the plot.
+        transparent (bool): Transparent background.
+        bbox_inches (string): Bounding box inches.
+        pad_inches (float): Padding inches.
+        **kwargs: Matplotlib savefig kwargs.
+    
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+    """ 
     fig.savefig(
-        path.join(PTH_O, filename), dpi=dpi,
+        path.join(filepath, filename), dpi=dpi,
         facecolor=facecolor, bbox_inches=bbox_inches, 
-        pad_inches=pad_inches, transparent=transparent
+        pad_inches=pad_inches, transparent=transparent, 
+        **kwargs
     )
+    return (fig, ax)
