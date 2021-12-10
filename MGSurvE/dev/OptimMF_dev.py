@@ -15,12 +15,12 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
-(GENS, VERBOSE) = (1000, True)
+(GENS, VERBOSE) = (250, True)
 if srv.isNotebook():
     (OUT_PTH, LND_TYPE, ID) = (
         '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/Sex/', 
-        'UNIF', 'SX01'
-)
+        'UNIF', 'SX06'
+    )
 else:
     (OUT_PTH, LND_TYPE, ID) = (argv[1], argv[2], argv[3].zfill(3))
 ###############################################################################
@@ -31,8 +31,8 @@ if LND_TYPE == 'UNIF':
     bbox = ((-100, 100), (-80, 80))
     xy = srv.ptsRandUniform(ptsNum, bbox).T
 elif LND_TYPE == 'GRID':
-    ptsNum = 20
-    bbox = ((-225, 225), (-225, 225))
+    ptsNum = 10
+    bbox = ((-100, 100), (-100, 100))
     xy = srv.ptsRegularGrid(ptsNum, bbox).T
 elif LND_TYPE == 'DNUT':
     ptsNum = 300
@@ -43,17 +43,17 @@ points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Defining Traps
 ###############################################################################
 traps = pd.DataFrame({
-    'x': [0, 0],
-    'y': [0, 0],
-    't': [0, 0],
-    'f': [0, 0]
+    'x': [0, 0, 0, 0],
+    'y': [0, 0, 0, 0],
+    't': [0, 0, 0, 0],
+    'f': [0, 0, 0, 0]
 })
 tKernels = {
     'Male': {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .1}}
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}}
     },
     'Female': {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .075}}
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .075}}
     }
 }
 ###############################################################################
@@ -66,7 +66,7 @@ movementKernel = {
     },
     'Female': {
         'kernelFunction': srv.zeroInflatedExponentialKernel,
-        'kernelParams': {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
+        'kernelParams': {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .6}
     }
 }
 ###############################################################################
@@ -95,7 +95,7 @@ trpMsk = srv.genFixedTrapsMask(lndM.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lndM.plotSites(fig, ax, size=100)
 lndM.plotMigrationNetwork(fig, ax, alphaMin=.3, lineWidth=50, lineColor='#03045e')
-lndF.plotMigrationNetwork(fig, ax, alphaMin=.8, lineWidth=35, lineColor='#000000')
+# lndF.plotMigrationNetwork(fig, ax, alphaMin=.8, lineWidth=35, lineColor='#000000')
 srv.plotClean(fig, ax, frame=False, bbox=bbox)
 fig.savefig(
     path.join(OUT_PTH, '{}_{}_CLN.png'.format(LND_TYPE, ID)), 
@@ -146,8 +146,8 @@ toolbox.register("select",
 )
 toolbox.register("evaluate", 
     srv.calcSexFitness, 
-    landscapeMale=lndM_GA,landscapeFemale=lndM_GA,
-    maleWeight=.8, femaleWeight=1,
+    landscapeMale=lndM_GA,landscapeFemale=lndF_GA,
+    maleWeight=.75, femaleWeight=1,
     optimFunction=srv.getDaysTillTrapped,
     optimFunctionArgs={'outer': np.mean, 'inner': np.max}
 )
@@ -180,9 +180,9 @@ srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(LND_TYPE, ID))
 ###############################################################################
 # Plot traps
 ############################################################################### 
-(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+# (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lndM.plotTraps(fig, ax, colors={0: '#f7258515'})
-lndF.plotTraps(fig, ax, colors={0: '#32437615'})
+lndF.plotTraps(fig, ax, colors={0: '#f7aef825'})
 srv.plotClean(fig, ax, frame=False, bbox=bbox)
 srv.plotFitness(fig, ax, min(minFits))
 fig.savefig(

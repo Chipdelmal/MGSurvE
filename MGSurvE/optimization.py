@@ -248,9 +248,10 @@ def calcSexFitness(
     landscapeFemale.updateTrapsCoords(candidateTraps)
     fit = [
         abs(optimFunction(lnd, fitFuns=optimFunctionArgs)) for lnd in 
-        (landscapeMale*maleWeight, landscapeFemale*femaleWeight)
+        (landscapeMale, landscapeFemale)
     ]
-    return (float(np.sum(fit)), )
+    fitVal = (fit[0]*maleWeight + fit[1]*femaleWeight)
+    return (fitVal, )
 
 ###############################################################################
 # Logging results
