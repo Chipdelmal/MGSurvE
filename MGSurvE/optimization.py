@@ -226,6 +226,7 @@ def calcFitness(
 def calcSexFitness(
         chromosome, 
         landscapeMale=None, landscapeFemale=None,
+        maleWeight=1, femaleWeight=1,
         optimFunction=getDaysTillTrapped,
         optimFunctionArgs={'outer': np.mean, 'inner': np.max},
         dims=2
@@ -247,7 +248,7 @@ def calcSexFitness(
     landscapeFemale.updateTrapsCoords(candidateTraps)
     fit = [
         abs(optimFunction(lnd, fitFuns=optimFunctionArgs)) for lnd in 
-        (landscapeMale, landscapeFemale)
+        (landscapeMale*maleWeight, landscapeFemale*femaleWeight)
     ]
     return (float(np.sum(fit)), )
 

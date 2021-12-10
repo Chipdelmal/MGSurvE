@@ -15,7 +15,7 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
-(GENS, VERBOSE) = (20, True)
+(GENS, VERBOSE) = (1000, True)
 if srv.isNotebook():
     (OUT_PTH, LND_TYPE, ID) = (
         '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/Sex/', 
@@ -147,6 +147,7 @@ toolbox.register("select",
 toolbox.register("evaluate", 
     srv.calcSexFitness, 
     landscapeMale=lndM_GA,landscapeFemale=lndM_GA,
+    maleWeight=.8, femaleWeight=1,
     optimFunction=srv.getDaysTillTrapped,
     optimFunctionArgs={'outer': np.mean, 'inner': np.max}
 )
@@ -176,8 +177,12 @@ srv.dumpLandscape(lndM, OUT_PTH, '{}_{}_M_TRP'.format(LND_TYPE, ID))
 srv.dumpLandscape(lndF, OUT_PTH, '{}_{}_F_TRP'.format(LND_TYPE, ID))
 dta = pd.DataFrame(logbook)
 srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(LND_TYPE, ID))
-lndM.plotTraps(fig, ax)
-lndF.plotTraps(fig, ax, colors={0: '#a0c4ff11'})
+###############################################################################
+# Plot traps
+############################################################################### 
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+lndM.plotTraps(fig, ax, colors={0: '#f7258515'})
+lndF.plotTraps(fig, ax, colors={0: '#32437615'})
 srv.plotClean(fig, ax, frame=False, bbox=bbox)
 srv.plotFitness(fig, ax, min(minFits))
 fig.savefig(
