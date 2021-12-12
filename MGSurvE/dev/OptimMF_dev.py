@@ -15,11 +15,11 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
-(GENS, VERBOSE) = (250, True)
+(GENS, VERBOSE) = (500, True)
 if srv.isNotebook():
     (OUT_PTH, LND_TYPE, ID) = (
         '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/Sex/', 
-        'UNIF', 'SX06'
+        'UNIF', 'SX10'
     )
 else:
     (OUT_PTH, LND_TYPE, ID) = (argv[1], argv[2], argv[3].zfill(3))
@@ -43,8 +43,8 @@ points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Defining Traps
 ###############################################################################
 traps = pd.DataFrame({
-    'x': [0, 0, 0, 0],
-    'y': [0, 0, 0, 0],
+    'x': [-1, 0, 2, 0],
+    'y': [0, 1, 0, -1],
     't': [0, 0, 0, 0],
     'f': [0, 0, 0, 0]
 })
@@ -53,7 +53,7 @@ tKernels = {
         0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}}
     },
     'Female': {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .075}}
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .06}}
     }
 }
 ###############################################################################
@@ -72,17 +72,18 @@ movementKernel = {
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
+trapsRadii = [.1, ]
 lndM = srv.Landscape(
     points, traps=traps,
     kernelFunction=movementKernel['Male']['kernelFunction'],
     kernelParams=movementKernel['Male']['kernelParams'],
-    trapsKernels=tKernels['Male']
+    trapsKernels=tKernels['Male'], trapsRadii=trapsRadii
 )
 lndF = srv.Landscape(
     points, traps=traps,
     kernelFunction=movementKernel['Female']['kernelFunction'],
     kernelParams=movementKernel['Female']['kernelParams'],
-    trapsKernels=tKernels['Female']
+    trapsKernels=tKernels['Female'], trapsRadii=trapsRadii
 )
 srv.dumpLandscape(lndM, OUT_PTH, '{}_{}_M_CLN'.format(LND_TYPE, ID))
 srv.dumpLandscape(lndF, OUT_PTH, '{}_{}_F_CLN'.format(LND_TYPE, ID))
@@ -95,7 +96,7 @@ trpMsk = srv.genFixedTrapsMask(lndM.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lndM.plotSites(fig, ax, size=100)
 lndM.plotMigrationNetwork(fig, ax, alphaMin=.3, lineWidth=50, lineColor='#03045e')
-# lndF.plotMigrationNetwork(fig, ax, alphaMin=.8, lineWidth=35, lineColor='#000000')
+lndF.plotMigrationNetwork(fig, ax, alphaMin=.3, lineWidth=35, lineColor='#03045e')
 srv.plotClean(fig, ax, frame=False, bbox=bbox)
 fig.savefig(
     path.join(OUT_PTH, '{}_{}_CLN.png'.format(LND_TYPE, ID)), 
@@ -147,7 +148,7 @@ toolbox.register("select",
 toolbox.register("evaluate", 
     srv.calcSexFitness, 
     landscapeMale=lndM_GA,landscapeFemale=lndF_GA,
-    maleWeight=.75, femaleWeight=1,
+    weightMale=.75, weightFemale=1,
     optimFunction=srv.getDaysTillTrapped,
     optimFunctionArgs={'outer': np.mean, 'inner': np.max}
 )
@@ -181,10 +182,10 @@ srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(LND_TYPE, ID))
 # Plot traps
 ############################################################################### 
 # (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-lndM.plotTraps(fig, ax, colors={0: '#f7258515'})
-lndF.plotTraps(fig, ax, colors={0: '#f7aef825'})
+lndF.plotTraps(fig, ax, colors={0: '#f7258522'}, lws=(2, 0), fill=True, ls='--', zorder=(25, 4))
+lndM.plotTraps(fig, ax, colors={0: '#ffffffDD'}, lws=(2, 2), fill=False, zorder=(-5, 5))
 srv.plotClean(fig, ax, frame=False, bbox=bbox)
-srv.plotFitness(fig, ax, min(minFits))
+# srv.plotFitness(fig, ax, min(minFits))
 fig.savefig(
     path.join(OUT_PTH, '{}_{}_TRP.png'.format(LND_TYPE, ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0, dpi=300

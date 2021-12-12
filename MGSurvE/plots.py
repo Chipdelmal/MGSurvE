@@ -84,7 +84,7 @@ def plotTraps(
         trapsCoords, trapsTypes, trapsKernels, trapsFixed,
         colors=cst.TRP_COLS, marker="X",
         edgecolors=('w', 'k'), lws=(2, 0), ls=':',
-        size=350, zorders=(25, -5),
+        size=350, zorders=(25, -5), fill=True,
         **kwargs
     ):
     """ Plots the traps with the radii of effectiveness.
@@ -118,16 +118,19 @@ def plotTraps(
         (col, ec) = (colors[tType], edgecolors[0])
         if trapsFixed[i]:
             ec = edgecolors[1]
+        transp = 'DD'
+        if not fill:
+            transp = '00'
         ax.scatter(
             trap[0], trap[1], 
-            marker=marker, color=col[:-2]+'DD', 
+            marker=marker, color=col[:-2]+transp, 
             s=size, zorder=zorders[0],
             edgecolors=ec, linewidths=lws[0]
         )
         for r in trapsKernels[tType]['radii']:
             circle = plt.Circle(
                 (trap[0], trap[1]), r, 
-                color=col, fill=True, ls=ls, 
+                color=col, fill=fill, ls=ls, 
                 lw=lws[1], zorder=zorders[1]
             )
             ax.add_patch(circle)

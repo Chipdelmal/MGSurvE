@@ -18,6 +18,20 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 
 [<img src="https://pypi.org/static/images/logo-large.6bdbb439.svg" height="50px" align="middle">](https://pypi.org/project/MGSurvE/)
 
+# Features and Development
+
+- [x] Different point-types
+- [x] Random point-process landscape generators
+- [x] Customizable movement kernels
+- [x] Customizable trap attractiveness kernels
+- [x] Integrated plotting routines
+- [ ] Directed network plotting routines
+- [x] Immovable traps
+- [ ] Different attractiveness levels at specific point-type transitions
+- [x] Different movement kernels for male and female mosquitos
+- [x] Different trap attractiveness levels for male and female mosquitos 
+- [ ] Multi-threaded processing
+
 # Authors and Funders
 
 <img src="https://raw.githubusercontent.com/Chipdelmal/pyMSync/master/media/pusheen.jpg" height="130px" align="middle"><br>
