@@ -84,7 +84,7 @@ def plotTraps(
         trapsCoords, trapsTypes, trapsKernels, trapsFixed,
         colors=cst.TRP_COLS, marker="X",
         edgecolors=('w', 'k'), lws=(2, 0), ls=':',
-        size=350, zorders=(25, -5),
+        size=350, zorders=(25, -5), fill=True,
         **kwargs
     ):
     """ Plots the traps with the radii of effectiveness.
@@ -118,16 +118,19 @@ def plotTraps(
         (col, ec) = (colors[tType], edgecolors[0])
         if trapsFixed[i]:
             ec = edgecolors[1]
+        transp = 'DD'
+        if not fill:
+            transp = '00'
         ax.scatter(
             trap[0], trap[1], 
-            marker=marker, color=col[:-2]+'DD', 
+            marker=marker, color=col[:-2]+transp, 
             s=size, zorder=zorders[0],
             edgecolors=ec, linewidths=lws[0]
         )
         for r in trapsKernels[tType]['radii']:
             circle = plt.Circle(
                 (trap[0], trap[1]), r, 
-                color=col, fill=True, ls=ls, 
+                color=col, fill=fill, ls=ls, 
                 lw=lws[1], zorder=zorders[1]
             )
             ax.add_patch(circle)
@@ -242,13 +245,29 @@ def plotFitness(
         fmt='{:.2f}',
         fontSize=125,
         color='#00000011',
-        zorder=5
+        zorder=5,
+        **kwargs
     ):
+    """ Adds the fitness value to the plot.
+
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        pos (floats tuple): Position for the text.
+        fmt (string formating): String format for the fitness text.
+        fontSize (float): Text's font size.
+        color (color): Font color
+        zorder (int): Zorder for the text.
+        **kwargs: Matplotlib's text kwargs.
+
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+    """ 
     ax.text(
         pos[0], pos[1], fmt.format(fitness),
         horizontalalignment='center', verticalalignment='center',
         fontsize=fontSize, color=color,
-        transform=ax.transAxes, zorder=zorder
+        transform=ax.transAxes, zorder=zorder, **kwargs
     )
     return (fig, ax)
 
@@ -290,15 +309,35 @@ def plotGAEvolution(
 
 def saveFig(
         fig, ax,
-        PTH_O, filename,
+        filepath, filename,
         dpi=300,
         facecolor='w',
         transparent=False,
         bbox_inches='tight',
-        pad_inches=0
+        pad_inches=0,
+        **kwargs
     ):
+    """ Save figure to disk.
+
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        filepath (string): Path for figure export.
+        filename (string): Filename for the export.
+        dpi (int): Image resolution.
+        facecolor (color): Background for the plot.
+        transparent (bool): Transparent background.
+        bbox_inches (string): Bounding box inches.
+        pad_inches (float): Padding inches.
+        **kwargs: Matplotlib savefig kwargs.
+    
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+    """ 
     fig.savefig(
-        path.join(PTH_O, filename), dpi=dpi,
+        path.join(filepath, filename), dpi=dpi,
         facecolor=facecolor, bbox_inches=bbox_inches, 
-        pad_inches=pad_inches, transparent=transparent
+        pad_inches=pad_inches, transparent=transparent, 
+        **kwargs
     )
+    return (fig, ax)

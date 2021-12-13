@@ -21,6 +21,7 @@
       plotSites
       plotTraps
       plotTrapsNetwork
+      saveFig
    
    
 

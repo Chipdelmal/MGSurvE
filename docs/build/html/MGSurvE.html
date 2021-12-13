@@ -39,6 +39,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demos.html">Demos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
 </ul>
 
         </div>
@@ -902,8 +903,29 @@ Follow this link for the original code: <a class="reference external" href="http
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.plots.plotFitness">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.5,</span> <span class="pre">0.5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'{:.2f}'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">125</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#00000011'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotFitness" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.5,</span> <span class="pre">0.5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'{:.2f}'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">125</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#00000011'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotFitness" title="Permalink to this definition"></a></dt>
+<dd><p>Adds the fitness value to the plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
+<li><p><strong>pos</strong> (<em>floats tuple</em>) – Position for the text.</p></li>
+<li><p><strong>fmt</strong> (<em>string formating</em>) – String format for the fitness text.</p></li>
+<li><p><strong>fontSize</strong> (<em>float</em>) – Text’s font size.</p></li>
+<li><p><strong>color</strong> (<em>color</em>) – Font color</p></li>
+<li><p><strong>zorder</strong> (<em>int</em>) – Zorder for the text.</p></li>
+<li><p><strong>**kwargs</strong> – Matplotlib’s text kwargs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(fig, ax)</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.plots.plotGAEvolution">
@@ -1065,6 +1087,34 @@ Follow this link for the original code: <a class="reference external" href="http
 <li><p><strong>alphaAmplitude</strong> (<em>float</em>) – Multiplier for the alpha (proportional to connection).</p></li>
 <li><p><strong>zorders</strong> (<em>tuple</em>) – Z-orders for marker and circles.</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Matplotlib’s plot-compliant kwargs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(fig, ax)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.plots.saveFig">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">saveFig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facecolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox_inches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tight'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_inches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.saveFig" title="Permalink to this definition"></a></dt>
+<dd><p>Save figure to disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
+<li><p><strong>filepath</strong> (<em>string</em>) – Path for figure export.</p></li>
+<li><p><strong>filename</strong> (<em>string</em>) – Filename for the export.</p></li>
+<li><p><strong>dpi</strong> (<em>int</em>) – Image resolution.</p></li>
+<li><p><strong>facecolor</strong> (<em>color</em>) – Background for the plot.</p></li>
+<li><p><strong>transparent</strong> (<em>bool</em>) – Transparent background.</p></li>
+<li><p><strong>bbox_inches</strong> (<em>string</em>) – Bounding box inches.</p></li>
+<li><p><strong>pad_inches</strong> (<em>float</em>) – Padding inches.</p></li>
+<li><p><strong>**kwargs</strong> – Matplotlib savefig kwargs.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
