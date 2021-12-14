@@ -13,6 +13,7 @@ from compress_pickle import dump, load
 import MGSurvE as srv
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
+# scp -r lab:/RAID5/marshallShare/MGS_Benchmarks/SX_BENCH '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/'
 
 
 (GENS, VERBOSE) = (500, True)

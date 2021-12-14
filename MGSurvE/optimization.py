@@ -276,7 +276,7 @@ def exportLog(
 
 
 def importLog(
-        outPath,
+        inPath,
         filename
     ):
     """Gets the number of timesteps until a walker falls into a trap.
@@ -288,5 +288,5 @@ def importLog(
     Returns:
         (pandas dataframe): GA optimization log.
     """
-    df = pd.read_csv(path.join(LOG_PTH, filename+'.csv'))
+    df = pd.read_csv(path.join(inPath, filename+'.csv'))
     return df
