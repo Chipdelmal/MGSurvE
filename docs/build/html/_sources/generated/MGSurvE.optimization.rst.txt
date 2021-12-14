@@ -14,6 +14,7 @@
    .. autosummary::
    
       calcFitness
+      calcSexFitness
       cxBlend
       exportLog
       genFixedTrapsMask

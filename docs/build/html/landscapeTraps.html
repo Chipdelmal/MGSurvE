@@ -47,6 +47,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
 </ul>
 
         </div>
@@ -76,6 +77,57 @@
              
   <section id="sites-and-trap-types">
 <h1><span class="section-number">3. </span>Sites and Trap Types<a class="headerlink" href="#sites-and-trap-types" title="Permalink to this headline"></a></h1>
+<p>So far, we have used the same point-type and just a couple of trap-types in our landscape, but MGSurvE can handle complex landscapes with high levels of heterogeneity.
+We can imagine a landscape with two types of points:</p>
+<ul class="simple">
+<li><p>Aquatic Habitats</p></li>
+<li><p>Blood Haunts</p></li>
+</ul>
+<p>and two types of traps:</p>
+<ul class="simple">
+<li><p>Long-range, low-catch (exponential)</p></li>
+<li><p>Short-range, high-catch (sigmoid)</p></li>
+</ul>
+<p>To setup the landscape, we start by laying down the points with the <code class="code docutils literal notranslate"><span class="pre">(x,y)</span></code> coordinates and now, the last column <code class="code docutils literal notranslate"><span class="pre">t</span></code> as the point-type identifier.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mf">0.00</span><span class="p">,</span> <span class="mf">0.00</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">2.00</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">2.50</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">5.00</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">3.00</span><span class="p">,</span> <span class="mf">3.00</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">]</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Now, mosquitos don’t pick their destination equally. We can assume for now, that from an aquatic habitat, they preferentially move to a blood haunt, and then back again.
+We can encode this behavior with the following “mask”:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">msk</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Where the diagonal is the preference towards staying in the same point-type, and the off diagonals encode the probability of moving towards a different point type (in index order of point-types <code class="code docutils literal notranslate"><span class="pre">t</span></code>):</p>
+<p>For our traps, we are going to use a similar setup as we did in the previous example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trp</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mf">5.00</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="p">]</span>
+<span class="n">traps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">trp</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">])</span>
+<span class="n">tker</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">exponentialDecay</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}},</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">sigmoidDecay</span><span class="p">,</span>     <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mf">.6</span><span class="p">,</span> <span class="s1">&#39;rate&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;x0&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Where the column <code class="code docutils literal notranslate"><span class="pre">t</span></code> determines the trap kernel to be used by the trap, and the column <code class="code docutils literal notranslate"><span class="pre">f</span></code> if the trap is immovable (1) or movable (0) in the optimization cycle.
+Finally, we can setup our landscape as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lnd</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">Landscape</span><span class="p">(</span>
+    <span class="n">points</span><span class="p">,</span> <span class="n">maskingMatrix</span><span class="o">=</span><span class="n">msk</span><span class="p">,</span> <span class="n">traps</span><span class="o">=</span><span class="n">traps</span><span class="p">,</span> <span class="n">trapsKernels</span><span class="o">=</span><span class="n">tker</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 
 
