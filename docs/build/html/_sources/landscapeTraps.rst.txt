@@ -67,6 +67,19 @@ Finally, we can setup our landscape as follows:
 And that's it! We have our movable sigmoid trap (green), our two exponential-decay traps (magenta), our water sources (circles), and our blood haunts (triangles).
 We can see that inter-point type transitions are more probable, as defined by our masking matrix.
 
+.. code-block:: python
+
+    (fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
+    lnd.plotSites(fig, ax[0])
+    lnd.plotMaskedMigrationNetwork(fig, ax[0])
+    lnd.plotTraps(fig, ax[0])
+    lnd.plotTrapsNetwork(fig, ax[0])
+    srv.plotMatrix(fig, ax[1], lnd.trapsMigration, lnd.trapsNumber)
+    [srv.plotClean(fig, i, frame=False) for i in ax]
+
 .. image:: ../../img/demo_pointTypes.jpg
+
+
+
 
 In our next tutorial, we will start doing optimization of traps positions in our landscapes.

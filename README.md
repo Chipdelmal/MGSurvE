@@ -25,6 +25,7 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 - [x] Customizable movement kernels
 - [x] Customizable trap attractiveness kernels
 - [x] Integrated plotting routines
+- [x] GA Optimization routines
 - [ ] Directed network plotting routines
 - [x] Immovable traps
 - [ ] Different attractiveness levels at specific point-type transitions

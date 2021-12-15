@@ -38,7 +38,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="demos.html">Demos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Benchmarks</a></li>
 </ul>
@@ -69,6 +69,15 @@
              
   <section id="benchmarks">
 <h1>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline"></a></h1>
+<p>The size of the landscape along with the number of traps in it determine the total processing power required for the optimization of the traps’ placements.</p>
+<p>For our tests, we ran a regular square-grid landscape with an increasing number of points and traps.
+We ran this code with the base <cite>DEAP &lt;https://deap.readthedocs.io/en/master/&gt;</cite> implementation of a genetic algorithm with Gaussian mutation, blend crossover and tournament selection.
+The algorithm was run for 1000 generations (and five repetitions per scenario), in a server with 88 cores and 3GHz processors (two 22 processor sockets)</p>
+<p>The scaling on landscape size follows this behavior:</p>
+<a class="reference internal image-reference" href="_images/bench_PointsVTime.jpg"><img alt="_images/bench_PointsVTime.jpg" class="align-center" src="_images/bench_PointsVTime.jpg" style="width: 60%;" /></a>
+<p>While the scaling on traps number adheres to the following:</p>
+<a class="reference internal image-reference" href="_images/bench_TrapsVTime.jpg"><img alt="_images/bench_TrapsVTime.jpg" class="align-center" src="_images/bench_TrapsVTime.jpg" style="width: 60%;" /></a>
+<p>The code used for these benchmarks can be found <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/tree/main/MGSurvE/benchmarks">in this link</a></p>
 </section>
 
 

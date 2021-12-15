@@ -99,7 +99,7 @@ Now, we run our optimization cycle:
         stats=stats, halloffame=hof, verbose=VERBOSE
     )
 
-This will take some time depending on the number of generations and the size of the landscape/traps but once it's done running, we can get our resulting optimized positions by running:
+This will take some time depending on the number of generations and the size of the landscape/traps (check out our `benchmarks <./benchmarks.html>`_ for more info) but once it's done running, we can get our resulting optimized positions by running:
 
 .. code-block:: python
 

@@ -39,7 +39,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="demos.html">Demos</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="demos.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="landscapeCreation.html">1. Landscape Creation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="landscapeUpdate.html">2. Landscape Update</a></li>
 <li class="toctree-l2"><a class="reference internal" href="landscapeTraps.html">3. Sites and Trap Types</a></li>
@@ -47,6 +47,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
 </ul>
 
         </div>
@@ -63,7 +64,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="demos.html">Demos</a> &raquo;</li>
+          <li><a href="demos.html">Tutorials</a> &raquo;</li>
       <li><span class="section-number">4. </span>GA Optimization</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/GA.rst.txt" rel="nofollow"> View page source</a>
@@ -162,7 +163,7 @@ to allow immovable traps to be laid in the landscape, but we will stick to <a cl
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>This will take some time depending on the number of generations and the size of the landscape/traps but once it’s done running, we can get our resulting optimized positions by running:</p>
+<p>This will take some time depending on the number of generations and the size of the landscape/traps (check out our <a class="reference external" href="./benchmarks.html">benchmarks</a> for more info) but once it’s done running, we can get our resulting optimized positions by running:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bestChromosome</span> <span class="o">=</span> <span class="n">hof</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">bestPositions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">bestChromosome</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 </pre></div>
