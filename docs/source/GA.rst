@@ -178,4 +178,4 @@ We can now plot our landscape with optimized traps positions:
 .. image:: ../../img/demo_GA.jpg
 
 
-The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_XY.py>`_
+The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GA.py>`_
