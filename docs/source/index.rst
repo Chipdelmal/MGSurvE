@@ -16,9 +16,8 @@ Have a look at our `github repo <https://github.com/Chipdelmal/MGSurvE>`_ and ou
 .. toctree::
    installation
    demos
-   api
    benchmarks
-
+   api
 
 
 Indices and tables

@@ -60,3 +60,5 @@ And that's it. We have successfully created our basic landscape, which we can pl
 
 .. image:: ../../img/demo_basicLandscape.jpg
    
+
+The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_XY.py>`_

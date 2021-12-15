@@ -80,6 +80,4 @@ We can see that inter-point type transitions are more probable, as defined by ou
 .. image:: ../../img/demo_pointTypes.jpg
 
 
-
-
-In our next tutorial, we will start doing optimization of traps positions in our landscapes.
+The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_Types.py>`_

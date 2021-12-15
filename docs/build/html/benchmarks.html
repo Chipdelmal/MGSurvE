@@ -71,12 +71,13 @@
 <h1>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline"></a></h1>
 <p>The size of the landscape along with the number of traps in it determine the total processing power required for the optimization of the traps’ placements.</p>
 <p>For our tests, we ran a regular square-grid landscape with an increasing number of points and traps.
-We ran this code with the base <cite>DEAP &lt;https://deap.readthedocs.io/en/master/&gt;</cite> implementation of a genetic algorithm with Gaussian mutation, blend crossover and tournament selection.
-The algorithm was run for 1000 generations (and five repetitions per scenario), in a server with 88 cores and 3GHz processors (two 22 processor sockets)</p>
+We ran this code with the base <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a> implementation of a genetic algorithm with Gaussian mutation, blend crossover and tournament selection.
+The algorithm was run for 1000 generations (and five repetitions per scenario) in a server with 88 cores, 3GHz processors (two 22 processor sockets) and 250GB RAM.</p>
 <p>The scaling on landscape size follows this behavior:</p>
 <a class="reference internal image-reference" href="_images/bench_PointsVTime.jpg"><img alt="_images/bench_PointsVTime.jpg" class="align-center" src="_images/bench_PointsVTime.jpg" style="width: 60%;" /></a>
-<p>While the scaling on traps number adheres to the following:</p>
+<p>Whereas the scaling on traps number adheres to the following:</p>
 <a class="reference internal image-reference" href="_images/bench_TrapsVTime.jpg"><img alt="_images/bench_TrapsVTime.jpg" class="align-center" src="_images/bench_TrapsVTime.jpg" style="width: 60%;" /></a>
+<p>While these times are hardware-dependent (and we have a dedicated server to run our tests with tons of memory), the shape of the response to landscape sizes should help inform the decision on land size/traps number to be run in a general-use computer.</p>
 <p>The code used for these benchmarks can be found <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/tree/main/MGSurvE/benchmarks">in this link</a></p>
 </section>
 

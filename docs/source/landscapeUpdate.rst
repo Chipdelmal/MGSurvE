@@ -39,3 +39,5 @@ Where the traps with the black outline are immovable.
 
 
 .. image:: ../../img/demo_updatedLandscape.jpg
+
+The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_XY.py>`_
