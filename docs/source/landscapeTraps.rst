@@ -18,11 +18,11 @@ To setup the landscape, we start by laying down the points with the :code:`(x,y)
 .. code-block:: python
 
     pts = [
-        [0.00, 0.00, 0], 
-        [0.25, 2.00, 1], 
-        [2.50, 0.15, 0],
-        [5.00, 0.10, 1],
-        [3.00, 3.00, 0]
+        [-4.0, 4.00, 0], 
+        [0.25, 8.00, 1], 
+        [5.00, 0.15, 0],
+        [-1.0, 1.00, 0],
+        [3.00, 3.00, 1]
     ]
     points = pd.DataFrame(pts, columns=['x', 'y', 't'])
 
@@ -63,3 +63,10 @@ Finally, we can setup our landscape as follows:
     lnd = srv.Landscape(
         points, maskingMatrix=msk, traps=traps, trapsKernels=tker
     )
+
+And that's it! We have our movable sigmoid trap (green), our two exponential-decay traps (magenta), our water sources (circles), and our blood haunts (triangles).
+We can see that inter-point type transitions are more probable, as defined by our masking matrix.
+
+.. image:: ../../img/demo_pointTypes.jpg
+
+In our next tutorial, we will start doing optimization of traps positions in our landscapes.

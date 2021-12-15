@@ -90,11 +90,11 @@ We can imagine a landscape with two types of points:</p>
 </ul>
 <p>To setup the landscape, we start by laying down the points with the <code class="code docutils literal notranslate"><span class="pre">(x,y)</span></code> coordinates and now, the last column <code class="code docutils literal notranslate"><span class="pre">t</span></code> as the point-type identifier.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pts</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span><span class="mf">0.00</span><span class="p">,</span> <span class="mf">0.00</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">2.00</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">2.50</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">5.00</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">3.00</span><span class="p">,</span> <span class="mf">3.00</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="p">[</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.00</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">8.00</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">5.00</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">3.00</span><span class="p">,</span> <span class="mf">3.00</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 <span class="p">]</span>
 <span class="n">points</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">])</span>
 </pre></div>
@@ -128,6 +128,10 @@ Finally, we can setup our landscape as follows:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
+<p>And that’s it! We have our movable sigmoid trap (green), our two exponential-decay traps (magenta), our water sources (circles), and our blood haunts (triangles).
+We can see that inter-point type transitions are more probable, as defined by our masking matrix.</p>
+<img alt="_images/demo_pointTypes.jpg" src="_images/demo_pointTypes.jpg" />
+<p>In our next tutorial, we will start doing optimization of traps positions in our landscapes.</p>
 </section>
 
 
