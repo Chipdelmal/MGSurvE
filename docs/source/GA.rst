@@ -177,5 +177,16 @@ We can now plot our landscape with optimized traps positions:
 
 .. image:: ../../img/demo_GA.jpg
 
+With the generations (x axis) versus fitness (y axis) plot:
+
+.. code-block:: python
+
+    (fig, ax) = plt.subplots(figsize=(15, 15))
+    (fig, ax) = srv.plotGAEvolution(fig, ax, dta)
+    pthSave = path.join(
+        OUT_PTH, '{}_GAP'.format(ID)
+    )
+
+.. image:: ../../img/demo_GAT.jpg
 
 The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GA.py>`_

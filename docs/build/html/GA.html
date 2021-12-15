@@ -226,6 +226,15 @@ to allow immovable traps to be laid in the landscape, but we will stick to <a cl
 </pre></div>
 </div>
 <img alt="_images/demo_GA.jpg" src="_images/demo_GA.jpg" />
+<p>With the generations (x axis) versus fitness (y axis) plot:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
+<span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">plotGAEvolution</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">dta</span><span class="p">)</span>
+<span class="n">pthSave</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">OUT_PTH</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_GAP&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/demo_GAT.jpg" src="_images/demo_GAT.jpg" />
 <p>The code used for this tutorial can be found <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GA.py">in this link</a></p>
 </section>
 </section>

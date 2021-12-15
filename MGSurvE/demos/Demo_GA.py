@@ -132,3 +132,17 @@ fig.savefig(
     path.join(OUT_PTH, '{}_TRP.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
+plt.close('all')
+###############################################################################
+# Plot GA
+############################################################################### 
+(fig, ax) = plt.subplots(figsize=(15, 15))
+(fig, ax) = srv.plotGAEvolution(fig, ax, dta)
+pthSave = path.join(
+    OUT_PTH, '{}_GAP'.format(ID)
+)
+fig.savefig(
+    pthSave,
+    facecolor='w', bbox_inches='tight', 
+    pad_inches=.1, dpi=300
+)
