@@ -1,4 +1,5 @@
 # Output files
+scratch
 demo_out
 *.png
 *.csv

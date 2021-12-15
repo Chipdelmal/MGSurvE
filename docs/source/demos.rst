@@ -3,6 +3,7 @@ Tutorials
 
 .. toctree::
    :numbered:
+   :maxdepth: 1
 
    landscapeCreation
    landscapeUpdate
