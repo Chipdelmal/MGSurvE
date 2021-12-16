@@ -27,6 +27,7 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 - [x] Integrated plotting routines
 - [x] GA Optimization routines
 - [ ] Directed network plotting routines
+- [ ] Demos and Examples
 - [x] Immovable traps
 - [ ] Different attractiveness levels at specific point-type transitions
 - [x] Different movement kernels for male and female mosquitos
@@ -43,4 +44,4 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 
 <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/berkeley.jpg" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/IHME.jpg" height="25px"> &nbsp;  <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/IGI.png" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/DARPA.jpg" height="25px"> &nbsp; <img src="https://github.com/Chipdelmal/MGSurvE/raw/main/img/gates.jpg" height="25px">
 
-<br><br>
+<br>

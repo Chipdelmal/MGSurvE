@@ -14,15 +14,22 @@ Have a look at our `github repo <https://github.com/Chipdelmal/MGSurvE>`_ and ou
    This project is under active development.
 
 .. toctree::
+   :maxdepth: 2
+
    installation
    demos
    benchmarks
    api
 
 
-Indices and tables
-==================
+..
+   comment:: Indices and tables
+..
+   comment:: ==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+..
+   comment:: * :ref:`genindex`
+..
+   comment:: * :ref:`modindex`
+..
+   comment:: * :ref:`search`

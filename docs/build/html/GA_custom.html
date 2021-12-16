@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tutorials &mdash; MGSurvE  documentation</title>
+  <title>5. GA Custom (Immovable Traps) &mdash; MGSurvE  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Landscape Creation" href="landscapeCreation.html" />
-    <link rel="prev" title="Installation" href="installation.html" /> 
+    <link rel="next" title="6. GA Complex (Sex Kernels)" href="GA_complex.html" />
+    <link rel="prev" title="4. GA Optimization" href="GA.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -39,12 +39,18 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorials</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="demos.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="landscapeCreation.html">1. Landscape Creation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="landscapeUpdate.html">2. Landscape Update</a></li>
 <li class="toctree-l2"><a class="reference internal" href="landscapeTraps.html">3. Sites and Trap Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="GA.html">4. GA Optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="GA_custom.html">5. GA Custom (Immovable Traps)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5. GA Custom (Immovable Traps)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-traps">5.1. Setting Up Traps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#built-in-custom-functions">5.2. Built-in Custom Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#registering-ga">5.3. Registering GA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#results">5.4. Results</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="GA_complex.html">6. GA Complex (Sex Kernels)</a></li>
 </ul>
 </li>
@@ -66,9 +72,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Tutorials</li>
+          <li><a href="demos.html">Tutorials</a> &raquo;</li>
+      <li><span class="section-number">5. </span>GA Custom (Immovable Traps)</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/demos.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/GA_custom.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -76,27 +83,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="tutorials">
-<h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="landscapeCreation.html">1. Landscape Creation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="landscapeUpdate.html">2. Landscape Update</a></li>
-<li class="toctree-l1"><a class="reference internal" href="landscapeTraps.html">3. Sites and Trap Types</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GA.html">4. GA Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GA_custom.html">5. GA Custom (Immovable Traps)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GA_complex.html">6. GA Complex (Sex Kernels)</a></li>
-</ul>
-</div>
-<img alt="_images/demo_basicLandscape.jpg" src="_images/demo_basicLandscape.jpg" />
+  <section id="ga-custom-immovable-traps">
+<h1><span class="section-number">5. </span>GA Custom (Immovable Traps)<a class="headerlink" href="#ga-custom-immovable-traps" title="Permalink to this headline"></a></h1>
+<p>The combination of <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> and <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a> makes it easy to extend GA functions to accommodate specific needs.
+In this tutorial, we will show how to use custom functions to optimize landscapes with immovable traps.</p>
+<section id="setting-up-traps">
+<h2><span class="section-number">5.1. </span>Setting Up Traps<a class="headerlink" href="#setting-up-traps" title="Permalink to this headline"></a></h2>
+</section>
+<section id="built-in-custom-functions">
+<h2><span class="section-number">5.2. </span>Built-in Custom Functions<a class="headerlink" href="#built-in-custom-functions" title="Permalink to this headline"></a></h2>
+</section>
+<section id="registering-ga">
+<h2><span class="section-number">5.3. </span>Registering GA<a class="headerlink" href="#registering-ga" title="Permalink to this headline"></a></h2>
+</section>
+<section id="results">
+<h2><span class="section-number">5.4. </span>Results<a class="headerlink" href="#results" title="Permalink to this headline"></a></h2>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="landscapeCreation.html" class="btn btn-neutral float-right" title="1. Landscape Creation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="GA.html" class="btn btn-neutral float-left" title="4. GA Optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="GA_complex.html" class="btn btn-neutral float-right" title="6. GA Complex (Sex Kernels)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
