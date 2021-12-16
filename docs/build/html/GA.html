@@ -112,16 +112,17 @@ all the traps are the same type (<code class="code docutils literal notranslate"
 <span class="n">bbox</span> <span class="o">=</span> <span class="n">lnd</span><span class="o">.</span><span class="n">getBoundingBox</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>For now, our landscape looks like this:</p>
+<img alt="_images/demo_GA1.jpg" src="_images/demo_GA1.jpg" />
 </section>
 <section id="genetic-algorithm">
 <h2><span class="section-number">4.2. </span>Genetic Algorithm<a class="headerlink" href="#genetic-algorithm" title="Permalink to this headline"></a></h2>
-<p>To get started with setting up the</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">GENS</span><span class="p">,</span> <span class="n">VERBOSE</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<p>To get started with setting up the GA, we define the population size, generations (<code class="code docutils literal notranslate"><span class="pre">GENS</span></code>), mating (<code class="code docutils literal notranslate"><span class="pre">MAT</span></code>), mutation (<code class="code docutils literal notranslate"><span class="pre">MUT</span></code>) and selection (<code class="code docutils literal notranslate"><span class="pre">SEL</span></code>) parameters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">GENS</span><span class="p">,</span> <span class="n">VERBOSE</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 <span class="n">POP_SIZE</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="p">(</span><span class="n">lnd</span><span class="o">.</span><span class="n">trapsNumber</span><span class="o">*</span><span class="mf">1.25</span><span class="p">))</span>
-<span class="n">MAT</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mate&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;cxpb&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
-<span class="n">MUT</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span> <span class="nb">max</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bbox</span><span class="p">])</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;mutpb&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;ipb&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">},</span>
+<span class="n">MAT</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mate&#39;</span><span class="p">:</span> <span class="mf">.3</span><span class="p">,</span> <span class="s1">&#39;cxpb&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
+<span class="n">MUT</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span> <span class="nb">min</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bbox</span><span class="p">])</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;mutpb&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;ipb&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">},</span>
 <span class="n">SEL</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tSize&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
-<span class="n">trpMsk</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">genFixedTrapsMask</span><span class="p">(</span><span class="n">lnd</span><span class="o">.</span><span class="n">trapsFixed</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Next, as defined by the <a class="reference external" href="https://deap.readthedocs.io/en/master/examples/index.html">DEAP docs</a>, we register all the functions and operations
@@ -149,13 +150,12 @@ cxBlend, gaussian mutation, and tournament selection.</p>
 <span class="p">)</span>
 <span class="c1"># Mutation and Crossover --------------------------------------------------</span>
 <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-    <span class="s2">&quot;mate&quot;</span><span class="p">,</span> <span class="n">srv</span><span class="o">.</span><span class="n">cxBlend</span><span class="p">,</span>
-    <span class="n">fixedTrapsMask</span><span class="o">=</span><span class="n">trpMsk</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">MAT</span><span class="p">[</span><span class="s1">&#39;mate&#39;</span><span class="p">]</span>
+    <span class="s2">&quot;mate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">cxBlend</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="n">MAT</span><span class="p">[</span><span class="s1">&#39;mate&#39;</span><span class="p">]</span>
 <span class="p">)</span>
 <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-    <span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">srv</span><span class="o">.</span><span class="n">mutateChromosome</span><span class="p">,</span>
-    <span class="n">fixedTrapsMask</span><span class="o">=</span><span class="n">trpMsk</span><span class="p">,</span>
-    <span class="n">randArgs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;loc&#39;</span><span class="p">:</span> <span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">],</span> <span class="s1">&#39;scale&#39;</span><span class="p">:</span> <span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;sd&#39;</span><span class="p">]}</span>
+    <span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">mutGaussian</span><span class="p">,</span>
+    <span class="n">mu</span><span class="o">=</span><span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">],</span> <span class="n">sigma</span><span class="o">=</span><span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;sd&#39;</span><span class="p">],</span> <span class="n">indpb</span><span class="o">=</span><span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;ipb&#39;</span><span class="p">]</span>
 <span class="p">)</span>
 <span class="c1"># Select and evaluate -----------------------------------------------------</span>
 <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
@@ -189,7 +189,8 @@ to allow immovable traps to be laid in the landscape, but we will stick to <a cl
 <li><p><code class="code docutils literal notranslate"><span class="pre">avg</span></code>: Traps’ population average fitness.</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">max</span></code>: Traps’ population maximum fitness (worst in generation).</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">traps</span></code>: Best traps positions in the current generation.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">best</span></code>: Best fitness across populations.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">best</span></code>: Best fitness within populations.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">hof</span></code>: Best chromosome across generations.</p></li>
 </ul>
 <p>Now, we run our optimization cycle:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="n">logbook</span><span class="p">)</span> <span class="o">=</span> <span class="n">algorithms</span><span class="o">.</span><span class="n">eaSimple</span><span class="p">(</span>
@@ -198,7 +199,7 @@ to allow immovable traps to be laid in the landscape, but we will stick to <a cl
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>This will take some time depending on the number of generations and the size of the landscape/traps (check out our <a class="reference external" href="./benchmarks.html">benchmarks</a> for more info) but once it’s done running, we can get our resulting optimized positions by running:</p>
+<p>This will take some time depending on the number of generations and the size of the landscape/traps (check out our <a class="reference external" href="./benchmarks.html">benchmarks</a> for more info) but once it’s done running, we can get our resulting optimized positions.</p>
 </section>
 <section id="summary-and-plotting">
 <h2><span class="section-number">4.3. </span>Summary and Plotting<a class="headerlink" href="#summary-and-plotting" title="Permalink to this headline"></a></h2>

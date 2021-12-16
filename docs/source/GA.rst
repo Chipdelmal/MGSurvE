@@ -42,19 +42,24 @@ With our landscape object being setup as:
     bbox = lnd.getBoundingBox()
 
 
+For now, our landscape looks like this:
+
+.. image:: ../../img/demo_GA1.jpg
+
+
 Genetic Algorithm
 ~~~~~~~~~~~~~~~~~~~~~~
 
-To get started with setting up the 
+To get started with setting up the GA, we define the population size, generations (:code:`GENS`), mating (:code:`MAT`), mutation (:code:`MUT`) and selection (:code:`SEL`) parameters:
+
 
 .. code-block:: python
 
-    (GENS, VERBOSE) = (2000, True)
+    (GENS, VERBOSE) = (200, True)
     POP_SIZE = int(10*(lnd.trapsNumber*1.25))
-    MAT = {'mate': .5, 'cxpb': 0.5}, 
-    MUT = {'mean': 0, 'sd': max([i[1]-i[0] for i in bbox])/4, 'mutpb': .5, 'ipb': .5},
+    MAT = {'mate': .3, 'cxpb': 0.5}, 
+    MUT = {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .5, 'ipb': .5},
     SEL = {'tSize': 3}
-    trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 
 
 Next, as defined by the `DEAP docs <https://deap.readthedocs.io/en/master/examples/index.html>`_, we register all the functions and operations
@@ -85,13 +90,12 @@ cxBlend, gaussian mutation, and tournament selection.
     )
     # Mutation and Crossover --------------------------------------------------
     toolbox.register(
-        "mate", srv.cxBlend, 
-        fixedTrapsMask=trpMsk, alpha=MAT['mate']
+        "mate", tools.cxBlend, 
+        alpha=MAT['mate']
     )
     toolbox.register(
-        "mutate", srv.mutateChromosome, 
-        fixedTrapsMask=trpMsk, 
-        randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
+        "mutate", tools.mutGaussian, 
+        mu=MUT['mean'], sigma=MUT['sd'], indpb=MUT['ipb']
     )
     # Select and evaluate -----------------------------------------------------
     toolbox.register(
@@ -128,7 +132,8 @@ Where the statistics go as follow (more stats can be added as needed):
 * :code:`avg`: Traps' population average fitness.
 * :code:`max`: Traps' population maximum fitness (worst in generation).
 * :code:`traps`: Best traps positions in the current generation.
-* :code:`best`: Best fitness across populations.
+* :code:`best`: Best fitness within populations.
+* :code:`hof`: Best chromosome across generations.
 
 Now, we run our optimization cycle:
 
@@ -139,7 +144,7 @@ Now, we run our optimization cycle:
         stats=stats, halloffame=hof, verbose=VERBOSE
     )
 
-This will take some time depending on the number of generations and the size of the landscape/traps (check out our `benchmarks <./benchmarks.html>`_ for more info) but once it's done running, we can get our resulting optimized positions by running:
+This will take some time depending on the number of generations and the size of the landscape/traps (check out our `benchmarks <./benchmarks.html>`_ for more info) but once it's done running, we can get our resulting optimized positions.
 
 
 Summary and Plotting
@@ -188,5 +193,6 @@ With the generations (x axis) versus fitness (y axis) plot:
     )
 
 .. image:: ../../img/demo_GAT.jpg
+
 
 The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GA.py>`_
