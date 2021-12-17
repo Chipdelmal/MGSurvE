@@ -71,12 +71,11 @@ Registering GA
 Results
 ~~~~~~~~~~~~~~~~~~~~~~
 
+After running our landscape optimization, our landscape looks like this:
 
 .. image:: ../../img/GA_DEMO_CX_TRP.jpg
 
-
-.. image:: ../../img/GA_DEMO_CX_GAP.jpg
-
+And we can verify that our two last traps were not moved by inspecting :code:`lndGA.trapsCoords`:
 
 .. code-block:: python
 
@@ -85,4 +84,6 @@ Results
         [ 89.41336563,  54.49760029],
         [  0.        , -87.5       ],
         [  0.        ,  87.5       ]
-    ])    
+    ])
+
+The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GACustom.py>`_.

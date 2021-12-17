@@ -86,4 +86,4 @@ And we can verify that our two last traps were not moved by inspecting :code:`ln
         [  0.        ,  87.5       ]
     ])
 
-The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GA.py>`_
+The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GACustom.py>`_.
