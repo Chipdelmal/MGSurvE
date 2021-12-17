@@ -66,6 +66,52 @@ Registering GA
 ~~~~~~~~~~~~~~~~~~~~~~
 
 
+To do our optimization, we will follow the previous example's structure, but with some minor modifications. 
+The first one is to define our :code:`trpMsk` that will be needed for our custom functions (as previously mentioned):
+
+
+.. code-block:: python
+
+    lnd = srv.Landscape(
+        points, kernelParams=mKer,
+        traps=traps, trapsKernels=tKer
+    )
+    bbox = lnd.getBoundingBox()
+    trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
+
+
+With this mask in place, we can register our custom functions for use in the GA:
+
+.. code-block:: python
+
+    toolbox.register(
+        "initChromosome", srv.initChromosome, 
+        trapsCoords=lndGA.trapsCoords, 
+        fixedTrapsMask=trpMsk, coordsRange=bbox
+    )
+    toolbox.register(
+        "mate", srv.cxBlend, 
+        fixedTrapsMask=trpMsk, alpha=MAT['mate']
+    )
+    toolbox.register(
+        "mutate", srv.mutateChromosome, 
+        fixedTrapsMask=trpMsk, 
+        randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
+    )
+
+And that's it. We can use all the predefined functions for selection and stats as we did before.
+
+Optimize GA
+~~~~~~~~~~~~~~~~~~~~~~
+
+With this in place, we can use the same workflow as we did in our `previous example <https://chipdelmal.github.io/MGSurvE/build/html/GA.html>`_.
+
+.. code-block:: python
+
+    (pop, logbook) = algorithms.eaSimple(
+        pop, toolbox, cxpb=MAT['cxpb'], mutpb=MUT['mutpb'], ngen=GENS, 
+        stats=stats, halloffame=hof, verbose=VERBOSE
+    )
 
 
 Results
@@ -75,7 +121,7 @@ After running our landscape optimization, our landscape looks like this:
 
 .. image:: ../../img/GA_DEMO_CX_TRP.jpg
 
-And we can verify that our two last traps were not moved by inspecting :code:`lndGA.trapsCoords`:
+Which kept the two traps as immovable in their place. We can verify this by inspecting :code:`lndGA.trapsCoords`:
 
 .. code-block:: python
 

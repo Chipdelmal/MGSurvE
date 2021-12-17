@@ -48,7 +48,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#setting-traps-up">5.1. Setting Traps Up</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#built-in-custom-functions">5.2. Built-in Custom Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#registering-ga">5.3. Registering GA</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#results">5.4. Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optimize-ga">5.4. Optimize GA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#results">5.5. Results</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="GA_complex.html">6. GA Complex (Sex Kernels)</a></li>
@@ -130,12 +131,50 @@ Fortunately, <a class="reference external" href="https://github.com/Chipdelmal/M
 </section>
 <section id="registering-ga">
 <h2><span class="section-number">5.3. </span>Registering GA<a class="headerlink" href="#registering-ga" title="Permalink to this headline"></a></h2>
+<p>To do our optimization, we will follow the previous example’s structure, but with some minor modifications.
+The first one is to define our <code class="code docutils literal notranslate"><span class="pre">trpMsk</span></code> that will be needed for our custom functions (as previously mentioned):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lnd</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">Landscape</span><span class="p">(</span>
+    <span class="n">points</span><span class="p">,</span> <span class="n">kernelParams</span><span class="o">=</span><span class="n">mKer</span><span class="p">,</span>
+    <span class="n">traps</span><span class="o">=</span><span class="n">traps</span><span class="p">,</span> <span class="n">trapsKernels</span><span class="o">=</span><span class="n">tKer</span>
+<span class="p">)</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="n">lnd</span><span class="o">.</span><span class="n">getBoundingBox</span><span class="p">()</span>
+<span class="n">trpMsk</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">genFixedTrapsMask</span><span class="p">(</span><span class="n">lnd</span><span class="o">.</span><span class="n">trapsFixed</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With this mask in place, we can register our custom functions for use in the GA:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="s2">&quot;initChromosome&quot;</span><span class="p">,</span> <span class="n">srv</span><span class="o">.</span><span class="n">initChromosome</span><span class="p">,</span>
+    <span class="n">trapsCoords</span><span class="o">=</span><span class="n">lndGA</span><span class="o">.</span><span class="n">trapsCoords</span><span class="p">,</span>
+    <span class="n">fixedTrapsMask</span><span class="o">=</span><span class="n">trpMsk</span><span class="p">,</span> <span class="n">coordsRange</span><span class="o">=</span><span class="n">bbox</span>
+<span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="s2">&quot;mate&quot;</span><span class="p">,</span> <span class="n">srv</span><span class="o">.</span><span class="n">cxBlend</span><span class="p">,</span>
+    <span class="n">fixedTrapsMask</span><span class="o">=</span><span class="n">trpMsk</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">MAT</span><span class="p">[</span><span class="s1">&#39;mate&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">srv</span><span class="o">.</span><span class="n">mutateChromosome</span><span class="p">,</span>
+    <span class="n">fixedTrapsMask</span><span class="o">=</span><span class="n">trpMsk</span><span class="p">,</span>
+    <span class="n">randArgs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;loc&#39;</span><span class="p">:</span> <span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">],</span> <span class="s1">&#39;scale&#39;</span><span class="p">:</span> <span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;sd&#39;</span><span class="p">]}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>And that’s it. We can use all the predefined functions for selection and stats as we did before.</p>
+</section>
+<section id="optimize-ga">
+<h2><span class="section-number">5.4. </span>Optimize GA<a class="headerlink" href="#optimize-ga" title="Permalink to this headline"></a></h2>
+<p>With this in place, we can use the same workflow as we did in our <a class="reference external" href="https://chipdelmal.github.io/MGSurvE/build/html/GA.html">previous example</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="n">logbook</span><span class="p">)</span> <span class="o">=</span> <span class="n">algorithms</span><span class="o">.</span><span class="n">eaSimple</span><span class="p">(</span>
+    <span class="n">pop</span><span class="p">,</span> <span class="n">toolbox</span><span class="p">,</span> <span class="n">cxpb</span><span class="o">=</span><span class="n">MAT</span><span class="p">[</span><span class="s1">&#39;cxpb&#39;</span><span class="p">],</span> <span class="n">mutpb</span><span class="o">=</span><span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;mutpb&#39;</span><span class="p">],</span> <span class="n">ngen</span><span class="o">=</span><span class="n">GENS</span><span class="p">,</span>
+    <span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">,</span> <span class="n">halloffame</span><span class="o">=</span><span class="n">hof</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">VERBOSE</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="results">
-<h2><span class="section-number">5.4. </span>Results<a class="headerlink" href="#results" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.5. </span>Results<a class="headerlink" href="#results" title="Permalink to this headline"></a></h2>
 <p>After running our landscape optimization, our landscape looks like this:</p>
 <img alt="_images/GA_DEMO_CX_TRP.jpg" src="_images/GA_DEMO_CX_TRP.jpg" />
-<p>And we can verify that our two last traps were not moved by inspecting <code class="code docutils literal notranslate"><span class="pre">lndGA.trapsCoords</span></code>:</p>
+<p>Which kept the two traps as immovable in their place. We can verify this by inspecting <code class="code docutils literal notranslate"><span class="pre">lndGA.trapsCoords</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span>
     <span class="p">[</span><span class="o">-</span><span class="mf">64.97048981</span><span class="p">,</span> <span class="o">-</span><span class="mf">16.77172602</span><span class="p">],</span>
     <span class="p">[</span> <span class="mf">89.41336563</span><span class="p">,</span>  <span class="mf">54.49760029</span><span class="p">],</span>
