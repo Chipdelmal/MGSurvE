@@ -14,7 +14,7 @@ import MGSurvE as srv
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-(ID, OUT_PTH) = ('GA_DEMO', './scratch/')
+(ID, OUT_PTH) = ('GA_DEMO_CX', './scratch/')
 ###############################################################################
 # Defining Landscape
 ###############################################################################
@@ -26,12 +26,16 @@ mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
 ###############################################################################
 # Defining Traps
 ###############################################################################
-nullTraps = [0, 0, 0, 0]
 traps = pd.DataFrame({
-    'x': nullTraps, 'y': nullTraps,
-    't': nullTraps, 'f': nullTraps
+    'x': [0, 0, 0, 0], 
+    'y': [0, 0, 0, 87.5, -87.5],
+    't': [0, 1, 0, 1], 
+    'f': [0, 0, 1, 1]
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}}}
+tKer = {
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .05}}
+}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
@@ -55,7 +59,7 @@ fig.savefig(
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    200,
+    100,
     {'mate': .3, 'cxpb': 0.5}, 
     {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .5, 'ipb': .5},
     {'tSize': 3}
@@ -83,13 +87,12 @@ toolbox.register("populationCreator", tools.initRepeat,
     list, toolbox.individualCreator
 )
 # Mate and mutate -------------------------------------------------------------
-toolbox.register(
-    "mate", tools.cxBlend, 
-    alpha=MAT['mate']
+toolbox.register("mate", srv.cxBlend, 
+    fixedTrapsMask=trpMsk, alpha=MAT['mate']
 )
-toolbox.register(
-    "mutate", tools.mutGaussian, 
-    mu=MUT['mean'], sigma=MUT['sd'], indpb=MUT['ipb']
+toolbox.register("mutate", srv.mutateChromosome, 
+    fixedTrapsMask=trpMsk, 
+    randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
 )
 # Select and evaluate ---------------------------------------------------------
 toolbox.register("select", 

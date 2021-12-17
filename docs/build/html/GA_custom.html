@@ -45,7 +45,7 @@
 <li class="toctree-l2"><a class="reference internal" href="landscapeTraps.html">3. Sites and Trap Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="GA.html">4. GA Optimization</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">5. GA Custom (Immovable Traps)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#setting-up-traps">5.1. Setting Up Traps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-traps-up">5.1. Setting Traps Up</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#built-in-custom-functions">5.2. Built-in Custom Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#registering-ga">5.3. Registering GA</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#results">5.4. Results</a></li>
@@ -86,18 +86,63 @@
   <section id="ga-custom-immovable-traps">
 <h1><span class="section-number">5. </span>GA Custom (Immovable Traps)<a class="headerlink" href="#ga-custom-immovable-traps" title="Permalink to this headline"></a></h1>
 <p>The combination of <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> and <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a> makes it easy to extend GA functions to accommodate specific needs.
-In this tutorial, we will show how to use custom functions to optimize landscapes with immovable traps.</p>
-<section id="setting-up-traps">
-<h2><span class="section-number">5.1. </span>Setting Up Traps<a class="headerlink" href="#setting-up-traps" title="Permalink to this headline"></a></h2>
+In this tutorial, we will show how to use custom functions to optimize landscapes with immovable traps with different attractiveness levels.</p>
+<section id="setting-traps-up">
+<h2><span class="section-number">5.1. </span>Setting Traps Up<a class="headerlink" href="#setting-traps-up" title="Permalink to this headline"></a></h2>
+<p>In this example, we will use two types of traps: one with high trapping efficacy but short radius (0), and one with lower trapping efficacy but wider radius (1):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tKer</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">exponentialDecay</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mf">.1</span><span class="p">}},</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">exponentialDecay</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mf">.25</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mf">.05</span><span class="p">}}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To define our traps in the landscape, we setup all the movable traps in <code class="code docutils literal notranslate"><span class="pre">(0,0)</span></code> (just for convenience), and we will assume we need one trap located at the top of our ring environment <code class="code docutils literal notranslate"><span class="pre">(0,87.5)</span></code>, and one on the bottom <code class="code docutils literal notranslate"><span class="pre">(0,-87.5)</span></code> (both of which are immovable):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">traps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">87.5</span><span class="p">,</span> <span class="mf">87.5</span><span class="p">],</span>
+    <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>Our landscape now looks like this:</p>
+<img alt="_images/GA_DEMO_CX_TRP1.jpg" src="_images/GA_DEMO_CX_TRP1.jpg" />
+<p>Where the traps with outlined X marks, are immovable.</p>
 </section>
 <section id="built-in-custom-functions">
 <h2><span class="section-number">5.2. </span>Built-in Custom Functions<a class="headerlink" href="#built-in-custom-functions" title="Permalink to this headline"></a></h2>
+<p>Now, if we used <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP’s</a> built-in creation, mutation, and crossover functions, all the traps would be moved to find the optimum traps’ distribution.
+As we want two of our traps to stay fixed in their positions, we are going to have to use different operators for these processes.
+Fortunately, <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> provides functions to do this: <code class="code docutils literal notranslate"><span class="pre">initChromosome</span></code>, <code class="code docutils literal notranslate"><span class="pre">cxBlend</span></code>, <code class="code docutils literal notranslate"><span class="pre">mutateChromosome</span></code>; which are based on <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP’s</a> original ones.</p>
+<p>Taking a peek at <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE’s</a> <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/optimization.py">mutateChromosome</a>’s definition, we can see that it uses a “mask” to cover for the traps that are not going to be moved for optimization:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mutateChromosome</span><span class="p">(</span>
+        <span class="n">chromosome</span><span class="p">,</span> <span class="n">fixedTrapsMask</span><span class="p">,</span>
+        <span class="n">randFun</span><span class="o">=</span><span class="n">rand</span><span class="o">.</span><span class="n">normal</span><span class="p">,</span>
+        <span class="n">randArgs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;loc&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;scale&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">}</span>
+    <span class="p">):</span>
+    <span class="n">randDraw</span> <span class="o">=</span> <span class="n">randFun</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">chromosome</span><span class="p">),</span> <span class="o">**</span><span class="n">randArgs</span><span class="p">)</span>
+    <span class="n">randMsk</span> <span class="o">=</span> <span class="n">randDraw</span> <span class="o">*</span> <span class="n">fixedTrapsMask</span>
+    <span class="n">chromosome</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">chromosome</span> <span class="o">+</span> <span class="n">randMsk</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">chromosome</span><span class="p">,</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>With <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/optimization.py">initChromosome</a> and <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/optimization.py">cxBlend</a> having similar extensions for this case.</p>
 </section>
 <section id="registering-ga">
 <h2><span class="section-number">5.3. </span>Registering GA<a class="headerlink" href="#registering-ga" title="Permalink to this headline"></a></h2>
 </section>
 <section id="results">
 <h2><span class="section-number">5.4. </span>Results<a class="headerlink" href="#results" title="Permalink to this headline"></a></h2>
+<img alt="_images/GA_DEMO_CX_TRP.jpg" src="_images/GA_DEMO_CX_TRP.jpg" />
+<img alt="_images/GA_DEMO_CX_GAP.jpg" src="_images/GA_DEMO_CX_GAP.jpg" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="o">-</span><span class="mf">64.97048981</span><span class="p">,</span> <span class="o">-</span><span class="mf">16.77172602</span><span class="p">],</span>
+    <span class="p">[</span> <span class="mf">89.41336563</span><span class="p">,</span>  <span class="mf">54.49760029</span><span class="p">],</span>
+    <span class="p">[</span>  <span class="mf">0.</span>        <span class="p">,</span> <span class="o">-</span><span class="mf">87.5</span>       <span class="p">],</span>
+    <span class="p">[</span>  <span class="mf">0.</span>        <span class="p">,</span>  <span class="mf">87.5</span>       <span class="p">]</span>
+<span class="p">])</span>
+</pre></div>
+</div>
 </section>
 </section>
 
