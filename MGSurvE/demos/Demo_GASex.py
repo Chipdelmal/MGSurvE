@@ -14,7 +14,7 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
-(OUT_PTH, LND_TYPE, ID, TRPS_NUM) = ('./scratch/', 'UNIF', 'SX01', 6)
+(OUT_PTH, LND_TYPE, ID, TRPS_NUM) = ('./scratch/', 'UNIF', 'SX01', 4)
 ###############################################################################
 # Generating Pointsets
 ###############################################################################
@@ -82,13 +82,18 @@ fig.savefig(
 ############################################################################### 
 (weightMale, weightFemale) = (.5, 1)
 POP_SIZE = int(10*(lndM.trapsNumber*1.25))
-(MAT, MUT, SEL) = (
+(GENS, MAT, MUT, SEL, VERBOSE) = (
+    150,
     {'mate': .3, 'cxpb': 0.5}, 
     {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .4, 'ipb': .5},
-    {'tSize': 3}
+    {'tSize': 3},
+    True
 )
 lndM_GA = deepcopy(lndM)
 lndF_GA = deepcopy(lndF)
+# Needed auxiliary variables --------------------------------------------------
+bbox = lndM.getBoundingBox()
+trpMsk = srv.genFixedTrapsMask(lndM.trapsFixed)
 ###############################################################################
 # Registering Functions for GA
 ############################################################################### 
@@ -150,7 +155,22 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 minFits= logbook.select("min")
 lndM.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
 lndF.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
-srv.dumpLandscape(lndM, OUT_PTH, '{}_{}_M_TRP'.format(LND_TYPE, ID))
-srv.dumpLandscape(lndF, OUT_PTH, '{}_{}_F_TRP'.format(LND_TYPE, ID))
 dta = pd.DataFrame(logbook)
-srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(LND_TYPE, ID))
+###############################################################################
+# Plot traps
+############################################################################### 
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+lndM.plotSites(fig, ax, size=100)
+# Plot Networks ---------------------------------------------------------------
+lndM.plotMigrationNetwork(fig, ax, alphaMin=.3, lineWidth=50, lineColor='#03045e')
+lndF.plotMigrationNetwork(fig, ax, alphaMin=.3, lineWidth=35, lineColor='#03045e')
+lndF.plotTraps(fig, ax, colors={0: '#f7258522'}, lws=(2, 0), fill=True, ls='--', zorder=(25, 4))
+lndM.plotTraps(fig, ax, colors={0: '#a06cd522'}, lws=(2, 0), fill=True, ls=':', zorder=(25, 4))
+# Other Stuff -----------------------------------------------------------------
+srv.plotFitness(fig, ax, min(minFits), zorder=30)
+srv.plotClean(fig, ax, frame=True, bbox=bbox, labels=False)
+fig.savefig(
+    path.join(OUT_PTH, '{}_{}_TRP.png'.format(LND_TYPE, ID)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.05, dpi=300
+)
+plt.close('all')
