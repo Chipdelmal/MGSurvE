@@ -28,11 +28,15 @@ points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 movementKernel = {
     'Male': {
         'kernelFunction': srv.zeroInflatedExponentialKernel,
-        'kernelParams': {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .5}
+        'kernelParams': {
+            'params': [.050, 1.0e-10, math.inf], 'zeroInflation': .5
+        }
     },
     'Female': {
         'kernelFunction': srv.zeroInflatedExponentialKernel,
-        'kernelParams': {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .6}
+        'kernelParams': {
+            'params': [.025, 1.0e-10, math.inf], 'zeroInflation': .7
+        }
     }
 }
 ###############################################################################
@@ -40,14 +44,14 @@ movementKernel = {
 ###############################################################################
 nullTraps = [0] * TRPS_NUM
 traps = pd.DataFrame({
-    'x': nullTraps, 'y': nullTraps, 'f': nullTraps, 't': nullTraps
+    'x': nullTraps, 'y': nullTraps, 'f': nullTraps, 't': nullTraps,
 })
 tKernels = {
     'Male': {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}}
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .06}}
     },
     'Female': {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .06}}
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .04}}
     }
 }
 ###############################################################################
@@ -168,7 +172,7 @@ lndF.plotTraps(fig, ax, colors={0: '#f7258522'}, lws=(2, 0), fill=True, ls='--',
 lndM.plotTraps(fig, ax, colors={0: '#a06cd522'}, lws=(2, 0), fill=True, ls=':', zorder=(25, 4))
 # Other Stuff -----------------------------------------------------------------
 srv.plotFitness(fig, ax, min(minFits), zorder=30)
-srv.plotClean(fig, ax, frame=True, bbox=bbox, labels=False)
+srv.plotClean(fig, ax, frame=False, bbox=bbox, labels=False)
 fig.savefig(
     path.join(OUT_PTH, '{}_{}_TRP.png'.format(LND_TYPE, ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.05, dpi=300

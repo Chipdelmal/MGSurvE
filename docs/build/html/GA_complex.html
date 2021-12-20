@@ -46,7 +46,17 @@
 <li class="toctree-l2"><a class="reference internal" href="GA.html">4. GA Optimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="GA_custom.html">5. GA with Immovable Traps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="GA_sites.html">6. GA Custom with Multi-Point Type</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">7. GA with Sex Kernels</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7. GA with Sex Kernels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-workflow">7.1. The Workflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#defining-movement">7.2. Defining Movement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#defining-traps">7.3. Defining Traps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-landscape-up">7.4. Setting Landscape Up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-ga-up">7.5. Setting GA Up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-optimizer">7.6. Run Optimizer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#results">7.7. Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#another-example">7.8. Another Example</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
@@ -80,6 +90,165 @@
              
   <section id="ga-with-sex-kernels">
 <h1><span class="section-number">7. </span>GA with Sex Kernels<a class="headerlink" href="#ga-with-sex-kernels" title="Permalink to this headline"></a></h1>
+<p><a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> can be used to optimize movement kernels that depend on the sex of individuals.
+In this tutorial, we will show an example of this by optimizing a landscape with males and females, and showing how encoding this information changes the result of the GA algorithm.</p>
+<section id="the-workflow">
+<h2><span class="section-number">7.1. </span>The Workflow<a class="headerlink" href="#the-workflow" title="Permalink to this headline"></a></h2>
+<p>The way <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> encodes sex-based information is by generating different landscapes and combining the information in the GA fitness function.
+This can be summarized in the following diagram:</p>
+<img alt="_images/MGSurvEDiag-Multi-Sex.png" src="_images/MGSurvEDiag-Multi-Sex.png" />
+<p>In which the information of the movement mask, traps kernels, and migration kernels; are sex-based, while the rest of the information is common to both landscapes.</p>
+</section>
+<section id="defining-movement">
+<h2><span class="section-number">7.2. </span>Defining Movement<a class="headerlink" href="#defining-movement" title="Permalink to this headline"></a></h2>
+<p>We will use a random uniform points placement for our landscape:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ptsNum</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="p">((</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+<span class="n">xy</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">ptsRandUniform</span><span class="p">(</span><span class="n">ptsNum</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">xy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]})</span>
+</pre></div>
+</div>
+<p>with two types of movement kernels. We will define males as being more mobile than females for testing purposes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">movementKernel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Male&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;kernelFunction&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">zeroInflatedExponentialKernel</span><span class="p">,</span>
+        <span class="s1">&#39;kernelParams&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">.050</span><span class="p">,</span> <span class="mf">1.0e-10</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span> <span class="s1">&#39;zeroInflation&#39;</span><span class="p">:</span> <span class="mf">.5</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;Female&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;kernelFunction&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">zeroInflatedExponentialKernel</span><span class="p">,</span>
+        <span class="s1">&#39;kernelParams&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">.025</span><span class="p">,</span> <span class="mf">1.0e-10</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span> <span class="s1">&#39;zeroInflation&#39;</span><span class="p">:</span> <span class="mf">.7</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="defining-traps">
+<h2><span class="section-number">7.3. </span>Defining Traps<a class="headerlink" href="#defining-traps" title="Permalink to this headline"></a></h2>
+<p>For our traps, we will definte male traps to be less efficient at capturing individuals than females:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nullTraps</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">TRPS_NUM</span>
+<span class="n">traps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">nullTraps</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">nullTraps</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">nullTraps</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="n">nullTraps</span><span class="p">})</span>
+<span class="n">tKernels</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Male&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">exponentialDecay</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mf">.06</span><span class="p">}}</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;Female&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">exponentialDecay</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mf">.75</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mf">.04</span><span class="p">}}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>both in terms of radius and actual trapping efficiency.</p>
+</section>
+<section id="setting-landscape-up">
+<h2><span class="section-number">7.4. </span>Setting Landscape Up<a class="headerlink" href="#setting-landscape-up" title="Permalink to this headline"></a></h2>
+<p>With that in place, we can define our male and female landscapes independently:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lndM</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">Landscape</span><span class="p">(</span>
+    <span class="n">points</span><span class="p">,</span> <span class="n">traps</span><span class="o">=</span><span class="n">traps</span><span class="p">,</span>
+    <span class="n">kernelFunction</span><span class="o">=</span><span class="n">movementKernel</span><span class="p">[</span><span class="s1">&#39;Male&#39;</span><span class="p">][</span><span class="s1">&#39;kernelFunction&#39;</span><span class="p">],</span>
+    <span class="n">kernelParams</span><span class="o">=</span><span class="n">movementKernel</span><span class="p">[</span><span class="s1">&#39;Male&#39;</span><span class="p">][</span><span class="s1">&#39;kernelParams&#39;</span><span class="p">],</span>
+    <span class="n">trapsKernels</span><span class="o">=</span><span class="n">tKernels</span><span class="p">[</span><span class="s1">&#39;Male&#39;</span><span class="p">],</span> <span class="n">trapsRadii</span><span class="o">=</span><span class="p">[</span><span class="mf">.1</span><span class="p">,</span> <span class="p">]</span>
+<span class="p">)</span>
+<span class="n">lndF</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">Landscape</span><span class="p">(</span>
+    <span class="n">points</span><span class="p">,</span> <span class="n">traps</span><span class="o">=</span><span class="n">traps</span><span class="p">,</span>
+    <span class="n">kernelFunction</span><span class="o">=</span><span class="n">movementKernel</span><span class="p">[</span><span class="s1">&#39;Female&#39;</span><span class="p">][</span><span class="s1">&#39;kernelFunction&#39;</span><span class="p">],</span>
+    <span class="n">kernelParams</span><span class="o">=</span><span class="n">movementKernel</span><span class="p">[</span><span class="s1">&#39;Female&#39;</span><span class="p">][</span><span class="s1">&#39;kernelParams&#39;</span><span class="p">],</span>
+    <span class="n">trapsKernels</span><span class="o">=</span><span class="n">tKernels</span><span class="p">[</span><span class="s1">&#39;Female&#39;</span><span class="p">],</span> <span class="n">trapsRadii</span><span class="o">=</span><span class="p">[</span><span class="mf">.1</span><span class="p">,</span> <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>As mentioned before, we are going to create two separate landscapes and “link them” together through the optimizer.</p>
+<img alt="_images/UNIF_SX01_CLN.jpg" src="_images/UNIF_SX01_CLN.jpg" />
+</section>
+<section id="setting-ga-up">
+<h2><span class="section-number">7.5. </span>Setting GA Up<a class="headerlink" href="#setting-ga-up" title="Permalink to this headline"></a></h2>
+<p>In terms of the GA, most of the code remains the same, except that in the <code class="code docutils literal notranslate"><span class="pre">calcSexFitness</span></code> function,
+we might want to define which sex should take priority in terms of catches for the optimizer. We do this
+by defining a “weight” for each one:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">weightMale</span><span class="p">,</span> <span class="n">weightFemale</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">POP_SIZE</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="p">(</span><span class="n">lndM</span><span class="o">.</span><span class="n">trapsNumber</span><span class="o">*</span><span class="mf">1.25</span><span class="p">))</span>
+<span class="p">(</span><span class="n">MAT</span><span class="p">,</span> <span class="n">MUT</span><span class="p">,</span> <span class="n">SEL</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">{</span><span class="s1">&#39;mate&#39;</span><span class="p">:</span> <span class="mf">.3</span><span class="p">,</span> <span class="s1">&#39;cxpb&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span> <span class="nb">min</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bbox</span><span class="p">])</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;mutpb&#39;</span><span class="p">:</span> <span class="mf">.4</span><span class="p">,</span> <span class="s1">&#39;ipb&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;tSize&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">lndM_GA</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">lndM</span><span class="p">)</span>
+<span class="n">lndF_GA</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">lndF</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We register the same functions as we did before for everything except the fitness function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">toolbox</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">Toolbox</span><span class="p">()</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;FitnessMin&quot;</span><span class="p">,</span>
+    <span class="n">base</span><span class="o">.</span><span class="n">Fitness</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">creator</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;Individual&quot;</span><span class="p">,</span>
+    <span class="nb">list</span><span class="p">,</span> <span class="n">fitness</span><span class="o">=</span><span class="n">creator</span><span class="o">.</span><span class="n">FitnessMin</span>
+<span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;initChromosome&quot;</span><span class="p">,</span> <span class="n">srv</span><span class="o">.</span><span class="n">initChromosome</span><span class="p">,</span>
+    <span class="n">trapsCoords</span><span class="o">=</span><span class="n">lndM_GA</span><span class="o">.</span><span class="n">trapsCoords</span><span class="p">,</span>
+    <span class="n">fixedTrapsMask</span><span class="o">=</span><span class="n">trpMsk</span><span class="p">,</span> <span class="n">coordsRange</span><span class="o">=</span><span class="n">bbox</span>
+<span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;individualCreator&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initIterate</span><span class="p">,</span>
+    <span class="n">creator</span><span class="o">.</span><span class="n">Individual</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">initChromosome</span>
+<span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;populationCreator&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">initRepeat</span><span class="p">,</span>
+    <span class="nb">list</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">.</span><span class="n">individualCreator</span>
+<span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="s2">&quot;mate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">cxBlend</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="n">MAT</span><span class="p">[</span><span class="s1">&#39;mate&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">tools</span><span class="o">.</span><span class="n">mutGaussian</span><span class="p">,</span>
+    <span class="n">mu</span><span class="o">=</span><span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">],</span> <span class="n">sigma</span><span class="o">=</span><span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;sd&#39;</span><span class="p">],</span> <span class="n">indpb</span><span class="o">=</span><span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;ipb&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">.</span><span class="n">selTournament</span><span class="p">,</span> <span class="n">tournsize</span><span class="o">=</span><span class="n">SEL</span><span class="p">[</span><span class="s1">&#39;tSize&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The reason why we can use the same mutation, selection, and crossover functions is because the traps’ positions are common to both landscapes,
+so we can modify them and just calculate the combined fitness of both.</p>
+<p>For the fitness, we will use <code class="code docutils literal notranslate"><span class="pre">calcSexFitness</span></code> defined in <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a>’s implementation.
+This function takes the two landscapes and calculates the fitness as a weighted average of the calculations of the two separate optimization functions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;evaluate&quot;</span><span class="p">,</span>
+    <span class="n">srv</span><span class="o">.</span><span class="n">calcSexFitness</span><span class="p">,</span>
+    <span class="n">landscapeMale</span><span class="o">=</span><span class="n">lndM_GA</span><span class="p">,</span><span class="n">landscapeFemale</span><span class="o">=</span><span class="n">lndF_GA</span><span class="p">,</span>
+    <span class="n">weightMale</span><span class="o">=</span><span class="n">weightMale</span><span class="p">,</span> <span class="n">weightFemale</span><span class="o">=</span><span class="n">weightFemale</span><span class="p">,</span>
+    <span class="n">optimFunction</span><span class="o">=</span><span class="n">srv</span><span class="o">.</span><span class="n">getDaysTillTrapped</span><span class="p">,</span>
+    <span class="n">optimFunctionArgs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;outer&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;inner&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>For the code on the optimization function, have a look at this <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/optimization.py">link</a>.</p>
+</section>
+<section id="run-optimizer">
+<h2><span class="section-number">7.6. </span>Run Optimizer<a class="headerlink" href="#run-optimizer" title="Permalink to this headline"></a></h2>
+<p>We are now ready to run our optimizer as we have done in previous examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="n">logbook</span><span class="p">)</span> <span class="o">=</span> <span class="n">algorithms</span><span class="o">.</span><span class="n">eaSimple</span><span class="p">(</span>
+    <span class="n">pop</span><span class="p">,</span> <span class="n">toolbox</span><span class="p">,</span> <span class="n">cxpb</span><span class="o">=</span><span class="n">MAT</span><span class="p">[</span><span class="s1">&#39;cxpb&#39;</span><span class="p">],</span> <span class="n">mutpb</span><span class="o">=</span><span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;mutpb&#39;</span><span class="p">],</span> <span class="n">ngen</span><span class="o">=</span><span class="n">GENS</span><span class="p">,</span>
+    <span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">,</span> <span class="n">halloffame</span><span class="o">=</span><span class="n">hof</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">VERBOSE</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="results">
+<h2><span class="section-number">7.7. </span>Results<a class="headerlink" href="#results" title="Permalink to this headline"></a></h2>
+<p>After our code was run, we get the following result:</p>
+<img alt="_images/UNIF_SX01_TRP.jpg" src="_images/UNIF_SX01_TRP.jpg" />
+<p>where the traps’ effectiveness radii for male (purple) and female (magenta), are highlighted and the combined fitness is displayed in text.</p>
+<p>As a final note, we want to highlight that this is a simple way to combine the information on both kernels, but different implementations involving multi-objective optimizations can be implemented and used within both <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> and <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a>.</p>
+</section>
+<section id="another-example">
+<h2><span class="section-number">7.8. </span>Another Example<a class="headerlink" href="#another-example" title="Permalink to this headline"></a></h2>
+<p>In our previous example, it was a bit difficult to see the difference in using the two kernels for movement and traps, but
+we have coded a <a class="reference external" href="https://github.com/Chipdelmal/MoNeT_DA/tree/main/NET/MGS">pipeline</a> that exports the male (left top), female (left bottom), and combined landscapes (right) to compare the differences:</p>
+<img alt="_images/SM1-005-TRP.jpg" src="_images/SM1-005-TRP.jpg" />
+<p>For the full code used in this demo, follow this <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/optimization.py">link</a>.</p>
+</section>
 </section>
 
 
