@@ -11,7 +11,7 @@ The Workflow
 The way `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ encodes sex-based information is by generating different landscapes and combining the information in the GA fitness function.
 This can be summarized in the following diagram:
 
-.. image:: ../../img/MGSurvEDiagMultiSex.png
+.. image:: ../../img/MGSurvEDiagMultiSex.jpg
 
 In which the information of the movement mask, traps kernels, and migration kernels; are sex-based, while the rest of the information is common to both landscapes.
 
