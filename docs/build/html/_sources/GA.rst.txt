@@ -5,6 +5,15 @@ In this demo, we will be optimizing the traps' positions to minimize the time it
 This is done with the `DEAP package <https://deap.readthedocs.io/en/master/>`_, as it allows much flexibility and implementation speedups.
 
 
+The Workflow
+~~~~~~~~~~~~~~~~~~~~~~
+
+The way `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ and `DEAP <https://deap.readthedocs.io/en/master/>`_ communicate to each other is through the traps' positions and the fitness function.
+Our landscape object contains the information we need to calculate the migration and trapping metrics on our environment, and our optimizer should be able to modify the traps' locations to test which positions are the best ones given a cost function.
+For this to happen, we will create a copy of our landscape object (as it will be modified in place), which will be constantly updated through the traps' positions by the `DEAP framework <https://deap.readthedocs.io/en/master/>`_:
+
+.. image:: ../../img/MGSurvEDiag-Single-Sex.png
+
 Landscape and Traps
 ~~~~~~~~~~~~~~~~~~~~~~
 
