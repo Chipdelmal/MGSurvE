@@ -6,6 +6,11 @@
 MGSurvE's documentation!
 ===================================
 
+`MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ is a python package designed to optimize the location of mosquito traps in complex spatially-heterogeneous environments.
+
+.. image:: ../../img/demo.jpg
+
+
 Have a look at our `github repo <https://github.com/Chipdelmal/MGSurvE>`_ and our `pypi package <https://pypi.org/project/MGSurvE/>`_ for news and developments.
 
 
@@ -14,7 +19,6 @@ Have a look at our `github repo <https://github.com/Chipdelmal/MGSurvE>`_ and ou
    This project is under active development.
 
 
-.. image:: ../../img/demo_pointTypes.jpg
 
 
 ------------
@@ -27,6 +31,7 @@ Site's Map
    :maxdepth: 2
 
    installation
+   breakdown
    demos
    benchmarks
    api

@@ -32,8 +32,9 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 - [ ] Different attractiveness levels at specific point-type transitions
 - [x] Different movement kernels for male and female mosquitos
 - [x] Different trap attractiveness levels for male and female mosquitos 
-- [ ] Multi-threaded processing
 - [ ] Thorough timing benchmarks
+- [ ] Incorporate landscape aggregator into aux functions
+- [ ] Multi-threaded processing
 
 # Authors and Funders
 
