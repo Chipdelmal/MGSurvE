@@ -15,7 +15,6 @@ For this to happen, we will create a copy of our landscape object (as it will be
 .. image:: ../../img/MGSurvEDiagSingleSex.jpg
 
 
-
 Landscape and Traps
 ~~~~~~~~~~~~~~~~~~~~~~
 
