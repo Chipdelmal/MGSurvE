@@ -12,8 +12,7 @@ The way `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ and `DEAP <https://de
 Our landscape object contains the information we need to calculate the migration and trapping metrics on our environment, and our optimizer should be able to modify the traps' locations to test which positions are the best ones given a cost function.
 For this to happen, we will create a copy of our landscape object (as it will be modified in place), which will be constantly updated through the traps' positions by the `DEAP framework <https://deap.readthedocs.io/en/master/>`_:
 
-.. image:: ../../img/MGSurvEDiagSingleSex.png
-
+.. image:: ../../img/MGSurvEDiagSingleSex.jpg
 
 
 Landscape and Traps
