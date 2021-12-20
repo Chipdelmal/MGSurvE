@@ -19,14 +19,14 @@ plt.rc('axes', titlesize=20)
 filePaths = glob(path.join(PTH_O, ID)+'/*TIM.csv')
 fileNames = [path.basename(i) for i in filePaths]
 fileExps = [tuple([int(j) for j in i.split('_')[1:3]]) for i in fileNames]
-uniqueExps = list(set(fileExps))
+uniqueExps = sorted(list(set(fileExps)))
 ###############################################################################
 # Load Experiments Data
 ###############################################################################
 exp = uniqueExps[0]
 results = {}
 for exp in uniqueExps:
-    expPat = 'GB_{:02d}_{:05d}*TIM*'.format(*exp)
+    expPat = 'GB_{:03d}_{:05d}*TIM*'.format(*exp)
     expPaths = glob(path.join(path.join(PTH_O, ID), expPat))
     dta = [pd.read_csv(i).iloc[-1]['time']/60 for i in expPaths]
     summary = np.mean(dta)
@@ -37,7 +37,7 @@ for exp in uniqueExps:
 cmap = srv.colorPaletteFromHexList([
     '#3a86ff', '#9fa0ff', '#9d4edd', '#000814'
 ])
-yRange = (0, 60)
+yRange = (0, 180)
 ###############################################################################
 # Scaling on Points
 ###############################################################################
@@ -50,10 +50,10 @@ for (ix, trap) in enumerate(traps):
     ax.plot(points, depen, label=trap, color=cols[ix])
     ax.set_ylim(*yRange)
     ax.set_xlim(min(points), max(points))
-    plt.legend(title='Traps')
-    plt.xlabel("Number of Sites")
+    plt.legend(title='Sites')
+    plt.xlabel("Number of Traps")
     plt.ylabel("Time (minutes)")
-    srv.saveFig(fig, ax, path.join(PTH_O, ID), 'PointsVTime')
+    srv.saveFig(fig, ax, path.join(PTH_O, ID), 'TrapsVTime')
 ###############################################################################
 # Scaling on Traps
 ###############################################################################
@@ -64,7 +64,7 @@ for (ix, point) in enumerate(points):
     ax.plot(traps, depen, label=point, color=cols[ix])
     ax.set_ylim(*yRange)
     ax.set_xlim(min(traps), max(traps))
-    plt.legend(title='Sites')
-    plt.xlabel("Number of Traps")
+    plt.legend(title='Traps')
+    plt.xlabel("Number of Sites")
     plt.ylabel("Time (minutes)")
-    srv.saveFig(fig, ax, path.join(PTH_O, ID), 'TrapsVTime')
+    srv.saveFig(fig, ax, path.join(PTH_O, ID), 'PointsVTime')

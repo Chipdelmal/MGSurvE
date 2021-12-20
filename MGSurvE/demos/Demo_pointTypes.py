@@ -16,7 +16,7 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (ID, OUT_PTH) = ('GA_DEMO_PT', './scratch/')
-(PTS_NUM, PTS_TYPE, LND) = (150, 3, 'HET')
+(PTS_NUM, PTS_TYPE, LND) = (150, 3, 'HOM')
 ###############################################################################
 # Generate Sites
 ###############################################################################
@@ -32,9 +32,9 @@ points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': pType})
 # Setup Points Movement
 ###############################################################################
 msk = [
-    [0.050, 0.950, 0.000],
-    [0.025, 0.025, 0.950],
-    [0.090, 0.050, 0.050],
+    [0.100, 0.700, 0.200],
+    [0.100, 0.100, 0.800],
+    [0.750, 0.125, 0.125],
 ]
 movKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
 ###############################################################################
@@ -65,7 +65,7 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 (fig, ax) = plt.subplots(1, 1, figsize=(10, 10), sharey=False)
 lnd.plotSites(fig, ax, size=100)
-lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 srv.plotClean(fig, ax, frame=False)
 fig.savefig(
     path.join(OUT_PTH, '{}_{}.png'.format(ID, LND)), 
@@ -79,7 +79,7 @@ POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
     500,
     {'mate': .3, 'cxpb': 0.5}, 
-    {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .5, 'ipb': .5},
+    {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .4, 'ipb': .5},
     {'tSize': 3}
 )
 VERBOSE = True
@@ -154,7 +154,7 @@ srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(ID, LND))
 ############################################################################### 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=100)
-lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=False)
 srv.plotFitness(fig, ax, min(dta['min']))

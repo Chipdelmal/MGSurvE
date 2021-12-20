@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6. GA Custom (Multi Point-Type) &mdash; MGSurvE  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="7. GA Complex (Sex Kernels)" href="GA_complex.html" />
+    <link rel="prev" title="5. GA Custom (Immovable Traps)" href="GA_custom.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> MGSurvE
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="demos.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="landscapeCreation.html">1. Landscape Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landscapeUpdate.html">2. Landscape Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landscapeTraps.html">3. Sites and Trap Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA.html">4. GA Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA_custom.html">5. GA Custom (Immovable Traps)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6. GA Custom (Multi Point-Type)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setting-landscape-up">6.1. Setting Landscape Up</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="GA_complex.html">7. GA Complex (Sex Kernels)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MGSurvE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="demos.html">Tutorials</a> &raquo;</li>
+      <li><span class="section-number">6. </span>GA Custom (Multi Point-Type)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/GA_sites.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ga-custom-multi-point-type">
+<h1><span class="section-number">6. </span>GA Custom (Multi Point-Type)<a class="headerlink" href="#ga-custom-multi-point-type" title="Permalink to this headline"></a></h1>
+<p>Another feature of <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> is that it can handle multiple point-types
+(as we saw in our <a class="reference external" href="https://chipdelmal.github.io/MGSurvE/build/html/landscapeTraps.html">sites and trap types tutorial</a>).</p>
+<p>In this tutorial, we are going to optimize over a regular landscape with heterogeneous point-types.</p>
+<section id="setting-landscape-up">
+<h2><span class="section-number">6.1. </span>Setting Landscape Up<a class="headerlink" href="#setting-landscape-up" title="Permalink to this headline"></a></h2>
+<p>As we mentioned, we are going to use a regular grid for this landscape. We define it by running:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bside</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">PTS_NUM</span><span class="p">)</span><span class="o">*</span><span class="mf">11.25</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="p">((</span><span class="o">-</span><span class="n">bside</span><span class="p">,</span> <span class="n">bside</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="n">bside</span><span class="p">,</span> <span class="n">bside</span><span class="p">))</span>
+<span class="n">xy</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">ptsRegularGrid</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">PTS_NUM</span><span class="p">)),</span> <span class="n">bbox</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">pType</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">PTS_TYPE</span><span class="p">,</span> <span class="n">xy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="n">pType</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>Where we assign a random point-type in the <code class="code docutils literal notranslate"><span class="pre">pType</span></code> variable.</p>
+<p>With out point-types setup, we can define the <code class="code docutils literal notranslate"><span class="pre">masking</span></code> matrix.
+This matrix is responsible for defining the probabilities of individuals moving from one point-type to another:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">msk</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mf">0.100</span><span class="p">,</span> <span class="mf">0.700</span><span class="p">,</span> <span class="mf">0.200</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.100</span><span class="p">,</span> <span class="mf">0.100</span><span class="p">,</span> <span class="mf">0.800</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.750</span><span class="p">,</span> <span class="mf">0.125</span><span class="p">,</span> <span class="mf">0.125</span><span class="p">],</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>This means that from point-type 1, we have a set of 10%-70%-20% probabilities of landing in a point-type 1, 2, and 3 respectively.
+The second row encodes the probabilities of landing in point-type 1, 2, and 3 respectively (starting from point-type 2); and so forth.</p>
+<p>Now, with this and our traps, we are ready to setup our landscape as we usually do. The only difference being that we add our <code class="code docutils literal notranslate"><span class="pre">msk</span></code> to the landscape generation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lnd</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">Landscape</span><span class="p">(</span>
+    <span class="n">points</span><span class="p">,</span> <span class="n">maskingMatrix</span><span class="o">=</span><span class="n">msk</span><span class="p">,</span> <span class="n">traps</span><span class="o">=</span><span class="n">traps</span><span class="p">,</span> <span class="n">trapsKernels</span><span class="o">=</span><span class="n">tker</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>We can see the difference between a homogeneous and heterogeneous version of the landscape in the following images:</p>
+<a class="reference internal image-reference" href="_images/GA_DEMO_PT_HOM.jpg"><img alt="_images/GA_DEMO_PT_HOM.jpg" src="_images/GA_DEMO_PT_HOM.jpg" style="width: 49%;" /></a>
+<a class="reference internal image-reference" href="_images/GA_DEMO_PT_HET.jpg"><img alt="_images/GA_DEMO_PT_HET.jpg" src="_images/GA_DEMO_PT_HET.jpg" style="width: 49%;" /></a>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="GA_custom.html" class="btn btn-neutral float-left" title="5. GA Custom (Immovable Traps)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="GA_complex.html" class="btn btn-neutral float-right" title="7. GA Complex (Sex Kernels)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Hector M. Sanchez C..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
