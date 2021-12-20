@@ -13,7 +13,7 @@ Our landscape object contains the information we need to calculate the migration
 For this to happen, we will create a copy of our landscape object (as it will be modified in place), which will be constantly updated through the traps' positions by the `DEAP framework <https://deap.readthedocs.io/en/master/>`_:
 
 
-.. image:: ../../img/MGSurvEDiag-Single-Sex.png
+.. image:: ../../img/MGSurvEDiag-Multi-Sex.png
 
 
 
