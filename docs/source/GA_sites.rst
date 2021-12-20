@@ -1,4 +1,4 @@
-GA Custom (Multi Point-Type)
+GA Custom with Multi-Point Type
 ------------
 
 Another feature of `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ is that it can handle multiple point-types 
@@ -61,4 +61,16 @@ Optimization and Results
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Now, the optimization part of the algorithm remains the same as in our previous examples.
-The full code for this demo can be found `here <https://github.com/Chipdelmal/MGSurvE>`_
+
+
+Our results after running the algorithm for 500 generations are:
+
+.. image:: ../../img/GA_DEMO_PT_HOM_TRP.jpg
+    :width: 49%
+
+.. image:: ../../img/GA_DEMO_PT_HET_TRP.jpg
+    :width: 49%
+
+where we can see the impact of encoding the point-type information into the landscape for optimization.
+
+The full code for this demo can be found `here <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_pointTypes.py>`_.

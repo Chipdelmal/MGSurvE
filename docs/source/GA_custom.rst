@@ -1,4 +1,4 @@
-GA Custom (Immovable Traps)
+GA with Immovable Traps
 ------------
 
 

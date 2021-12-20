@@ -1,2 +1,2 @@
-GA Complex (Sex Kernels)
+GA with Sex Kernels
 ------------
