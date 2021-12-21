@@ -53,7 +53,7 @@ def plotMigrationNetwork(
         ax (matplotlib): Matplotlib ax object.
         transMtx (numpy matrix): Transitions matrix.
         sitesB (numpy array): Coordinates of the vertices origins (sites/traps).
-        sitesA (numpy array): Coordinates of the vertices origins (sites).
+        sitesA (numpy array): Coordinates of the vertices desinations (sites/traps).
         lineColor (color): Color for the network.
         lineWidth (float): Amplitude for the linewidth.
         alphaMin (float): Minimum alpha value allowed.
