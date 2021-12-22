@@ -34,6 +34,7 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 - [x] Different trap attractiveness levels for male and female mosquitos 
 - [ ] Thorough timing benchmarks
 - [ ] Incorporate landscape aggregator into aux functions
+- [ ] Lumpability aggregation algorithm
 - [ ] Multi-threaded processing
 
 # Authors and Funders

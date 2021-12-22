@@ -1,8 +1,10 @@
 
 import math
+import time
 import random
 import numpy as np
 import numpy.random as rand
+from sklearn.cluster import KMeans
 
 
 def ptsRegularGrid(pointsNumber, bbox):
@@ -64,3 +66,59 @@ def ptsRandUniform(pointsNumber, bbox):
     )
     coords = list(zip(*xy))
     return np.asarray(coords)
+
+
+###############################################################################
+# Clustering and Aggregating Landscape
+###############################################################################
+
+def clusterLandscape(
+        pointsCoords, clustersNumber, 
+        randomState=time.time(), clusterAlgorithm=KMeans
+    ):
+    """ .
+    
+    Parameters:
+        pointsCoords (np array): 
+        clustersNumber (int):
+        randomState (int):
+        clusterAlgorithm (function):
+
+    Returns:
+        (dict): 
+    """
+    clObj = clusterAlgorithm(
+        n_clusters=clustersNumber,
+        random_state=int(randomState)
+    )
+    clustersObj = clObj.fit(pointsCoords)
+    (clusters, centroids) = (
+        clustersObj.labels_,
+        clustersObj.cluster_centers_
+    )
+    return {'clusters': clusters, 'centroids': centroids}
+
+
+def aggregateLandscape(migrationMatrix, clusters):
+    """ .
+    
+    Parameters:
+        migrationMatrix (np matrix): 
+        clusters (list): 
+
+    Returns:
+        (numpy array): 
+    """
+    matrix_size = len(clusters)
+    num_clusters = len(set(clusters))
+    aggr_matrix = np.zeros([num_clusters, num_clusters], dtype=float)
+    aggr_number = [0]*num_clusters
+    for row in range(matrix_size):
+        cRow = clusters[row]
+        aggr_number[cRow] += 1
+        for col in range(matrix_size):
+            cCol = clusters[col]
+            aggr_matrix[cRow][cCol] += migrationMatrix[row][col]
+    for row in range(num_clusters):
+        aggr_matrix[row] = [x/aggr_number[row] for x in aggr_matrix[row]]
+    return aggr_matrix

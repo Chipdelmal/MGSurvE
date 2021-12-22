@@ -3,13 +3,16 @@
 
 import math
 import numpy as np
+from time import time
 import vincenty as vin
 from sklearn.preprocessing import normalize
+from sklearn.cluster import KMeans
 import MGSurvE.matrices as mat
 import MGSurvE.constants as cst
 import MGSurvE.kernels as krn
 import MGSurvE.plots as plt
 import MGSurvE.optimization as opt
+import MGSurvE.pointProcess as pts
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
@@ -262,6 +265,22 @@ class Landscape:
             self.fundamentalMatrix, fitFuns
         )
         return daysTillTrapped
+    ###########################################################################
+    # Aggregate Landscape
+    ###########################################################################
+    # def aggregateLandscape(self, 
+    #         clustersNumber, clusterAlgorithm=KMeans,
+    #         randomState=time()
+    #     ):
+    #     clst = pts.clusterLandscape(
+    #         self.pointCoords, clustersNumber,
+    #         randomState=randomState, clusterAlgorithm=clusterAlgorithm
+    #     )
+    #     migMatAgg = pts.aggregateLandscape(
+    #         self.migrationMatrix, clst['clusters']
+    #     )
+    #     self.pointCoords = clst['centroids']
+    #     return migMatAgg
     ###########################################################################
     # Plotting Methods
     ###########################################################################
