@@ -71,6 +71,7 @@ class Landscape:
                 'inverse': None
             }
         },
+        trapsMask=None,
         trapsRadii=[.25, .2, .1, .05],
 
         repellents=None,
@@ -93,6 +94,7 @@ class Landscape:
         self.trapsRadii = trapsRadii
         self.trapsFixed= None
         self.fundamentalMatrix = None
+        self.trapsMask = None
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
@@ -154,6 +156,15 @@ class Landscape:
             else:
                 self.trapsFixed = np.asarray([0]*len(self.trapsCoords))
             self.trapsNumber = len(self.trapsCoords)
+            # Init trap types -------------------------------------------------
+            if trapsMask is None:
+                mskShape = (
+                    len(set(self.trapsTypes)), 
+                    len(set(self.pointTypes))
+                )
+                self.trapsMask = np.full(mskShape, 1)
+            else:
+                self.trapsMask = trapsMask
             # Calculate trapsDistances ----------------------------------------
             self.calcTrapsDistances()
             # Generate empty traps matrix -------------------------------------

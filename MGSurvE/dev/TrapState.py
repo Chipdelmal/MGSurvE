@@ -36,8 +36,8 @@ tker = {
     1: {'kernel': srv.exponentialDecay, 'params': {'A': 0.35, 'b': .025}}
 }
 tMask = np.asarray([
-    [.9, .1, 0],
-    [0, .8, .2]
+    [1, .1, 0],
+    [0, 1, .2]
 ])
 ###############################################################################
 # Landscape
@@ -45,7 +45,7 @@ tMask = np.asarray([
 lnd = srv.Landscape(
     points, 
     kernelParams={'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75},
-    traps=traps, trapsKernels=tker
+    traps=traps, trapsKernels=tker, trapsMask=tMask
 )
 ###############################################################################
 # Masked trapping
@@ -55,7 +55,8 @@ trapsTypes = lnd.trapsTypes
 trapsKernels = lnd.trapsKernels
 trapsDistances = lnd.trapsDistances
 
-
+if tMask is None:
+    tMask = np.full((len(set(trapsTypes)), len(set(pointTypes))), 1)
 # Base unbiased probs ---------------------------------------------------------
 trapProbs = np.asarray([
     [

@@ -35,6 +35,7 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 - [ ] Thorough timing benchmarks
 - [ ] Incorporate landscape aggregator into aux functions
 - [ ] Lumpability aggregation algorithm
+- [ ] Repellency effects
 - [ ] Multi-threaded processing
 
 # Authors and Funders
