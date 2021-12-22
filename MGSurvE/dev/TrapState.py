@@ -40,32 +40,35 @@ tMask = np.asarray([
     [0, .8, .2]
 ])
 ###############################################################################
-# Landscape dev
+# Landscape
 ###############################################################################
 lnd = srv.Landscape(
     points, 
     kernelParams={'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75},
     traps=traps, trapsKernels=tker
 )
-
+###############################################################################
+# Masked trapping
+###############################################################################
 pointTypes = lnd.pointTypes
 trapsTypes = lnd.trapsTypes
 trapsKernels = lnd.trapsKernels
 trapsDistances = lnd.trapsDistances
 
 
+# Base unbiased probs ---------------------------------------------------------
 trapProbs = np.asarray([
     [
         trapsKernels[ttype]['kernel'](i, **trapsKernels[ttype]['params'])
         for (i, ttype) in zip(dist, trapsTypes)
     ] for dist in trapsDistances
 ])
-
+# Point-type to trap probs ----------------------------------------------------
 trapMask = np.asarray([
     [
         tMask[ttype][pointTypes[ix]]
         for ttype in trapsTypes
     ] for ix in range(len(trapsDistances))
 ])
-
-trapProbs*trapMask
+# Alpha -----------------------------------------------------------------------
+trapMatrix = trapProbs*trapMask
