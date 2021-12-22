@@ -211,7 +211,8 @@ class Landscape:
         """Replaces section in the trapsMigration matrix (in place).
         """
         trapProbs = mat.calcTrapsProbabilities(
-            self.trapsDistances, self.trapsTypes, self.trapsKernels
+            self.trapsDistances, self.trapsTypes, 
+            self.trapsKernels, self.trapsMask, self.pointTypes
         )
         ptsN = self.pointNumber
         self.trapsMigration[:ptsN, ptsN:] = trapProbs

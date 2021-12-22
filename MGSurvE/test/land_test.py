@@ -21,11 +21,11 @@ msk = [
 traps = pd.DataFrame({
     'x': [0, 1],
     'y': [2, 2],
-    't': ['b', 'a']
+    't': [1, 0]
 })
 tker = {
-    'a': {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
-    'b': {'kernel': srv.exponentialDecay, 'params': {'A': 0.1, 'b': 0.5}} 
+    0: {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': 0.1, 'b': 0.5}} 
 }
 # Generating landscape --------------------------------------------------------
 lnd = srv.Landscape(
