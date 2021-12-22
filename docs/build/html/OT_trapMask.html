@@ -88,13 +88,18 @@
              
   <section id="trap-masks">
 <h1><span class="section-number">8. </span>Trap Masks<a class="headerlink" href="#trap-masks" title="Permalink to this headline"></a></h1>
+<p><a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> can deal with situations in which individuals are more attracted to certain traps if they are moving from one point-type to another
+(analogous to making them more attracted towards traps that target their movement towards a particular resource).
+To do this, we setup a “trap mask” in which we define how the weight of the kernel is affected by a given point-type.</p>
 <section id="setting-point-process-up">
 <h2><span class="section-number">8.1. </span>Setting Point-Process Up<a class="headerlink" href="#setting-point-process-up" title="Permalink to this headline"></a></h2>
+<p>To begin with this example, we will setup a rectangular landscape with 200 points in it which can be one of three point types:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xy</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">ptsRandUniform</span><span class="p">(</span><span class="n">ptsNum</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 <span class="n">pType</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">PTS_TYPE</span><span class="p">,</span> <span class="n">xy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">points</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="n">pType</span><span class="p">})</span>
 </pre></div>
 </div>
+<p>And we define their <a class="reference external" href="https://chipdelmal.github.io/MGSurvE/build/html/landscapeTraps.html">movement mask</a> as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mKer</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">.075</span><span class="p">,</span> <span class="mf">1.0e-10</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span> <span class="s1">&#39;zeroInflation&#39;</span><span class="p">:</span> <span class="mf">.75</span><span class="p">}</span>
 <span class="n">mMsk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
     <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
@@ -106,6 +111,7 @@
 </section>
 <section id="setting-traps-up">
 <h2><span class="section-number">8.2. </span>Setting Traps Up<a class="headerlink" href="#setting-traps-up" title="Permalink to this headline"></a></h2>
+<p>For this demo, we will use two different traps, which we will lay down manually:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">traps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
     <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">85</span><span class="p">,</span> <span class="mi">75</span><span class="p">],</span>
     <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">75</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">75</span><span class="p">,</span> <span class="mi">75</span><span class="p">],</span>
@@ -118,19 +124,26 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>If we plotted our landscape at this stage, it would look something like this:</p>
 <img alt="_images/TRP_DEV_OR.jpg" src="_images/TRP_DEV_OR.jpg" />
+<p>Where both trap types attract individuals from every point-type equally.</p>
 </section>
 <section id="traps-mask">
 <h2><span class="section-number">8.3. </span>Traps Mask<a class="headerlink" href="#traps-mask" title="Permalink to this headline"></a></h2>
+<p>To modify the attractiveness levels for each point-type, we add our traps mask:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tMsk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span>
     <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
     <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
 <span class="p">])</span>
 </pre></div>
 </div>
+<p>Where each row represents a trap type (two in this case), and each column a point type (three for this example).
+The way to interpret each cell would be: how much does the probability of getting trapped by the row’s trap type gets affected if the individual is coming out of the point type defined by the column.
+So, for example, if a mosquito is coming out the point-type 1, and there’s a trap of type 0, the probability of getting caught by the trap’s kernel is divided by half.</p>
 </section>
 <section id="full-landscape">
 <h2><span class="section-number">8.4. </span>Full Landscape<a class="headerlink" href="#full-landscape" title="Permalink to this headline"></a></h2>
+<p>With this setup, we can now generate our landscape:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lnd</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">Landscape</span><span class="p">(</span>
     <span class="n">points</span><span class="p">,</span>
     <span class="n">kernelParams</span><span class="o">=</span><span class="n">mKer</span><span class="p">,</span> <span class="n">maskingMatrix</span><span class="o">=</span><span class="n">mMsk</span><span class="p">,</span>
@@ -138,7 +151,10 @@
 <span class="p">)</span>
 </pre></div>
 </div>
+<p>Which will look like this:</p>
 <img alt="_images/TRP_DEV.jpg" src="_images/TRP_DEV.jpg" />
+<p>Where the green traps only work on individuals coming out of triangles, whilst magenta ones work best on individuals flying out of circles and half effectively on the ones flying out of triangles.</p>
+<p>The code used for this tutorial can be found <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_TrapsComplex.py">in this link</a>.</p>
 </section>
 </section>
 

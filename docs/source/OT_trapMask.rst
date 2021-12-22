@@ -8,13 +8,16 @@ To do this, we setup a "trap mask" in which we define how the weight of the kern
 Setting Point-Process Up
 ~~~~~~~~~~~~~~~~~~~~~~
 
-To begin with this example, we will setup a 
+To begin with this example, we will setup a rectangular landscape with 200 points in it which can be one of three point types:
 
 .. code-block:: python
 
     xy = srv.ptsRandUniform(ptsNum, bbox).T
     pType = np.random.choice(PTS_TYPE, xy.shape[1])
     points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': pType})
+
+
+And we define their `movement mask <https://chipdelmal.github.io/MGSurvE/build/html/landscapeTraps.html>`_ as follows:
 
 .. code-block:: python
 
@@ -30,6 +33,7 @@ To begin with this example, we will setup a
 Setting Traps Up
 ~~~~~~~~~~~~~~~~~~~~~~
 
+For this demo, we will use two different traps, which we will lay down manually:
 
 .. code-block:: python
 
@@ -44,13 +48,17 @@ Setting Traps Up
         1: {'kernel': srv.exponentialDecay, 'params': {'A': 0.35, 'b': .050}}
     }
 
+If we plotted our landscape at this stage, it would look something like this:
 
 .. image:: ../../img/TRP_DEV_OR.jpg
 
 
+Where both trap types attract individuals from every point-type equally.
+
 Traps Mask
 ~~~~~~~~~~~~~~~~~~~~~~
 
+To modify the attractiveness levels for each point-type, we add our traps mask:
 
 .. code-block:: python
 
@@ -60,8 +68,15 @@ Traps Mask
     ])
 
 
+Where each row represents a trap type (two in this case), and each column a point type (three for this example).
+The way to interpret each cell would be: how much does the probability of getting trapped by the row's trap type gets affected if the individual is coming out of the point type defined by the column.
+So, for example, if a mosquito is coming out the point-type 1, and there's a trap of type 0, the probability of getting caught by the trap's kernel is divided by half.
+
+
 Full Landscape
 ~~~~~~~~~~~~~~~~~~~~~~
+
+With this setup, we can now generate our landscape:
 
 .. code-block:: python
 
@@ -72,7 +87,12 @@ Full Landscape
     )
 
 
+Which will look like this:
+
 .. image:: ../../img/TRP_DEV.jpg
 
 
-The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GACustom.py>`_.
+Where the green traps only work on individuals coming out of triangles, whilst magenta ones work best on individuals flying out of circles and half effectively on the ones flying out of triangles.
+
+
+The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_TrapsComplex.py>`_.
