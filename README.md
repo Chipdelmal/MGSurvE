@@ -29,11 +29,10 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 - [ ] Directed network plotting routines
 - [x] Demos and Examples
 - [x] Immovable traps
-- [ ] Different attractiveness levels at specific point-type transitions
+- [x] Different attractiveness levels at specific point-type transitions
 - [x] Different movement kernels for male and female mosquitos
 - [x] Different trap attractiveness levels for male and female mosquitos 
 - [ ] Thorough timing benchmarks
-- [ ] Incorporate landscape aggregator into aux functions
 - [ ] Lumpability aggregation algorithm
 - [ ] Repellency effects
 - [ ] Multi-threaded processing
