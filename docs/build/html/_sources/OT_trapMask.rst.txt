@@ -1,14 +1,10 @@
 Trap Masks
 ------------
 
-`MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ can deal with situations in which individuals are more attracted to certain traps if they are moving from one point-type to another
-(analogous to making them more attracted towards traps that target their movement towards a particular resource).
-To do this, we setup a "trap mask" in which we define how the weight of the kernel is affected by a given point-type.
+
 
 Setting Point-Process Up
 ~~~~~~~~~~~~~~~~~~~~~~
-
-To begin with this example, we will setup a 
 
 .. code-block:: python
 
@@ -73,6 +69,3 @@ Full Landscape
 
 
 .. image:: ../../img/TRP_DEV.jpg
-
-
-The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GACustom.py>`_.
