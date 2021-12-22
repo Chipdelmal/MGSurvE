@@ -13,6 +13,8 @@
 
    .. autosummary::
    
+      aggregateLandscape
+      clusterLandscape
       ptsDonut
       ptsRandUniform
       ptsRegularGrid
