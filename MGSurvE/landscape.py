@@ -3,13 +3,16 @@
 
 import math
 import numpy as np
+from time import time
 import vincenty as vin
 from sklearn.preprocessing import normalize
+from sklearn.cluster import KMeans
 import MGSurvE.matrices as mat
 import MGSurvE.constants as cst
 import MGSurvE.kernels as krn
 import MGSurvE.plots as plt
 import MGSurvE.optimization as opt
+import MGSurvE.pointProcess as pts
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
@@ -68,6 +71,7 @@ class Landscape:
                 'inverse': None
             }
         },
+        trapsMask=None,
         trapsRadii=[.25, .2, .1, .05],
 
         repellents=None,
@@ -90,6 +94,7 @@ class Landscape:
         self.trapsRadii = trapsRadii
         self.trapsFixed= None
         self.fundamentalMatrix = None
+        self.trapsMask = None
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
@@ -151,6 +156,15 @@ class Landscape:
             else:
                 self.trapsFixed = np.asarray([0]*len(self.trapsCoords))
             self.trapsNumber = len(self.trapsCoords)
+            # Init trap types -------------------------------------------------
+            if trapsMask is None:
+                mskShape = (
+                    len(set(self.trapsTypes)), 
+                    len(set(self.pointTypes))
+                )
+                self.trapsMask = np.full(mskShape, 1)
+            else:
+                self.trapsMask = trapsMask
             # Calculate trapsDistances ----------------------------------------
             self.calcTrapsDistances()
             # Generate empty traps matrix -------------------------------------
@@ -197,7 +211,8 @@ class Landscape:
         """Replaces section in the trapsMigration matrix (in place).
         """
         trapProbs = mat.calcTrapsProbabilities(
-            self.trapsDistances, self.trapsTypes, self.trapsKernels
+            self.trapsDistances, self.trapsTypes, 
+            self.trapsKernels, self.trapsMask, self.pointTypes
         )
         ptsN = self.pointNumber
         self.trapsMigration[:ptsN, ptsN:] = trapProbs
@@ -262,6 +277,22 @@ class Landscape:
             self.fundamentalMatrix, fitFuns
         )
         return daysTillTrapped
+    ###########################################################################
+    # Aggregate Landscape
+    ###########################################################################
+    # def aggregateLandscape(self, 
+    #         clustersNumber, clusterAlgorithm=KMeans,
+    #         randomState=time()
+    #     ):
+    #     clst = pts.clusterLandscape(
+    #         self.pointCoords, clustersNumber,
+    #         randomState=randomState, clusterAlgorithm=clusterAlgorithm
+    #     )
+    #     migMatAgg = pts.aggregateLandscape(
+    #         self.migrationMatrix, clst['clusters']
+    #     )
+    #     self.pointCoords = clst['centroids']
+    #     return migMatAgg
     ###########################################################################
     # Plotting Methods
     ###########################################################################

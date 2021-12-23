@@ -12,6 +12,7 @@ Tutorials
    GA_custom
    GA_sites
    GA_complex
+   OT_trapMask
 
 .. image:: ../../img/demo_basicLandscape.jpg
    

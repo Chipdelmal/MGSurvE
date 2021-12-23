@@ -68,24 +68,38 @@ def calcTrapsToPointsDistances(trapsCoords, pointCoords, dFun=math.dist):
     return trapDists
 
 
-def calcTrapsProbabilities(trapsDistances, trapsTypes, trapsKernels):
+def calcTrapsProbabilities(
+        trapsDistances, trapsTypes, trapsKernels, trapsMask, pointTypes
+    ):
     """Calculates the traps probabilities given distances to points in the landscape and their effectiveness kernels.
     
     Args:
         trapsDistances (numpy array): Distances to all points.
         trapsTypes (numpy array): Types of the traps.
         trapsKernels (function): Kernels functions and params for trap types.
+        trapsMask (np array): Traps' catching bias mask (with shape: trapTypes, pointTypes)
+        pointTypes (list): 
     
     Returns:
         (numpy array): Traps probabilities
     """
+    # Base unbiased probs -----------------------------------------------------
     trapProbs = np.asarray([
         [
             trapsKernels[ttype]['kernel'](i, **trapsKernels[ttype]['params']) 
             for (i, ttype) in zip(dist, trapsTypes)
         ] for dist in trapsDistances
     ])
-    return trapProbs
+    # Point-type to trap probs ------------------------------------------------
+    trapMask = np.asarray([
+        [
+            trapsMask[ttype][pointTypes[ix]]
+            for ttype in trapsTypes
+        ] for ix in range(len(trapsDistances))
+    ])
+    # Alpha -------------------------------------------------------------------
+    trapMatrix = trapProbs*trapMask
+    return trapMatrix
 
 
 def genVoidFullMigrationMatrix(migrationMatrix, trapsNumber):
