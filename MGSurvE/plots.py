@@ -3,7 +3,9 @@ from os import path
 from math import log
 import matplotlib.pyplot as plt
 import MGSurvE.constants as cst
-
+import networkx as nx
+from sklearn.preprocessing import normalize
+import numpy as np
 
 def plotSites(
         fig, ax, 
@@ -309,6 +311,58 @@ def plotGAEvolution(
     ax.set_aspect(aspect/ax.get_data_ratio())
     return (fig, ax)
 
+def plotDirectedNetwork(
+        fig, ax, 
+        sites, pTypes, transMtx,
+        markers=cst.MKRS, colors=cst.MCOL,
+        edgecolors='w', linewidths=1.25,
+        zorder=5, **kwargs
+    ):
+    """ Plots edge and node centrality.
+    
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        sites (numpy array): Coordinates of the points.
+        pTypes (numpy array): Point types.
+        markers (list): List of marker shapes for point-types (matplotlib).
+        colors (list): List of colors for point-types (matplotlib).
+        size (float): Marker size.
+        edgecolors (color): Edge color for markers.
+        zorder (int): Matplotlib's zorder.
+        kwargs (dict): Matplotlib's plot-compliant kwargs.
+
+        transMtx (numpy matrix): Transitions matrix.
+        alphaMin (float): Minimum alpha value allowed.
+        alphaAmplitude (float): Alpha multiplier for matrix.
+        zorder (int): Matplotlib's zorder.
+        kwargs (dict): Matplotlib's plot-compliant kwargs.
+    
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+    """
+    np.fill_diagonal(transMtx, 0)
+    transMtxN = normalize(transMtx, axis=1, norm='l2')
+    G = nx.from_numpy_matrix(transMtxN)
+    G.remove_edges_from(nx.selfloop_edges(G))
+
+    nodesNum = len(G)
+    for i in range(nodesNum):
+        keys = G[i]
+        for j in range(nodesNum):
+            prb = keys.get(j)
+            if prb is not None:
+                weight = prb['weight']
+                if weight > 0:
+                    distance = 1 / prb['weight']
+                else:
+                    distance = np.Inf
+                G[i][j]['distance'] = distance
+
+    centrality_nodes = nx.load_centrality(G, weight='distance')
+    centrality_edges = nx.edge_betweenness_centrality(G, weight='distance')
+
+    return (fig, ax)
 
 def saveFig(
         fig, ax,
