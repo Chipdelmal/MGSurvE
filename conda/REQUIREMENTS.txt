@@ -19,8 +19,10 @@ libgcc-ng=11.2.0=h1d223b6_11
 libgomp=11.2.0=h1d223b6_11
 libstdcxx-ng=11.2.0=he4da1e4_11
 libzlib=1.2.11=h36c2ea0_1013
+mgsurve=0.2.0.0=pypi_0
 ncurses=6.2=h58526e2_4
 numpy=1.21.3=pypi_0
+opencv-python=4.5.4.60=pypi_0
 openssl=3.0.0=h7f98852_1
 packaging=21.2=pypi_0
 pillow=8.4.0=pypi_0
@@ -32,6 +34,7 @@ pyparsing=2.4.7=pypi_0
 pytest=6.2.5=pypi_0
 python=3.9.7=hf930737_3_cpython
 python-dateutil=2.8.2=pypi_0
+python-docs-theme=2021.11.1=pypi_0
 python_abi=3.9=2_cp39
 pytz=2021.3=pypi_0
 pyyaml=6.0=pypi_0
