@@ -379,6 +379,18 @@ class Landscape:
             zorder=zorder, **kwargs
         )
         return (fig, ax)
+    def plotDirectedNetwork(self,
+            fig, ax, 
+            markers=cst.MKRS, colors=cst.MCOL,
+            edgecolors='black'
+        ):
+        (fig, ax)= plt.plotDirectedNetwork(
+            fig, ax,
+            sites=self.pointCoords, pTypes=self.pointTypes,
+            transMtx=self.migrationMatrix,
+            markers=markers, colors=colors, edgecolors=edgecolors
+        )
+        return (fig, ax)
     ###########################################################################
     # Auxiliary Methods
     ###########################################################################
