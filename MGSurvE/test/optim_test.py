@@ -20,7 +20,7 @@ def test_SelectiveMutation():
         trpsFxd[i] = 1
         fxdTrpsMsk = srv.genFixedTrapsMask(trpsFxd)
         mutChrom = deepcopy(initChrom)
-        srv.mutateChromosome(mutChrom, fxdTrpsMsk)
+        srv.mutateChromosome(mutChrom, fxdTrpsMsk, randArgs={'loc': 10})
         resSum = np.sum(np.isclose(initChrom, mutChrom))
         results.extend([resSum == dims])
     testShift = all(results)
@@ -31,7 +31,7 @@ def test_SelectiveMutation():
         trpsFxd[i] = 1
         fxdTrpsMsk = srv.genFixedTrapsMask(trpsFxd)
         mutChrom = deepcopy(initChrom)
-        srv.mutateChromosome(initChrom, fxdTrpsMsk)
+        srv.mutateChromosome(initChrom, fxdTrpsMsk, randArgs={'loc': 10})
         resSum = np.sum(np.isclose(initChrom, mutChrom))
         results.extend([resSum])
     testCumsum = (np.sum(results)//2 == total)

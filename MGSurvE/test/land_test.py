@@ -4,6 +4,9 @@ import unittest
 import numpy as np
 import pandas as pd
 import MGSurvE as srv
+import warnings
+warnings.filterwarnings('ignore', 'The iteration is not making good progress')
+
 
 ###############################################################################
 # Define landscape for tests
