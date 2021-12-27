@@ -7,7 +7,7 @@ from copy import deepcopy
 import MGSurvE as srv
 
 
-def test_SelectiveMutation():
+def test_SelectiveMutation_OneShift():
     (trpsNum, dims) = (12, 2)
     trpsFxd = [0]*trpsNum
     initMsk = [True] * trpsNum * dims
@@ -24,6 +24,15 @@ def test_SelectiveMutation():
         resSum = np.sum(np.isclose(initChrom, mutChrom))
         results.extend([resSum == dims])
     testShift = all(results)
+    assert testShift
+
+
+def test_SelectiveMutation_CumShift():
+    (trpsNum, dims) = (12, 2)
+    trpsFxd = [0]*trpsNum
+    initMsk = [True] * trpsNum * dims
+    chrom = np.reshape(np.random.uniform(-10, 10, trpsNum*2), (-1, dims))
+    initChrom = srv.initChromosome(chrom, initMsk, coordsRange=((-10, 10), (-10, 10)))
     # Test cumulative on mask -------------------------------------------------
     (trpsFxd, results, total) = ([0]*trpsNum, [], 0)
     for i in range(trpsNum):
@@ -35,11 +44,10 @@ def test_SelectiveMutation():
         resSum = np.sum(np.isclose(initChrom, mutChrom))
         results.extend([resSum])
     testCumsum = (np.sum(results)//2 == total)
-    # Combine tests -----------------------------------------------------------
-    assert (testShift and testCumsum)
+    assert testCumsum
 
 
-def test_selectiveCrossover():
+def test_selectiveCrossover_OneShift():
     (trpsNum, dims) = (12, 2)
     trpsFxd = [0]*trpsNum
     initMsk = [True] * trpsNum * dims
@@ -59,7 +67,14 @@ def test_selectiveCrossover():
         fxdB = (np.sum([np.isclose(a, b) for (a, b) in zip(pre2, ind2)]) == dims)
         result.extend([fxdA and fxdB])
     testShift = all(result)
-    # Test cumulative on mask -------------------------------------------------
+    assert testShift
+
+
+def test_selectiveCrossover_CumShift():
+    (trpsNum, dims) = (12, 2)
+    trpsFxd = [0]*trpsNum
+    initMsk = [True] * trpsNum * dims
+    result = []
     trpsFxd = [0]*trpsNum
     (total, result) = (0, [])
     for i in range(trpsNum):
@@ -77,7 +92,7 @@ def test_selectiveCrossover():
         result.extend([fxdA == fxdB == total])
     testCumsum = all(result)
     # Combine tests -----------------------------------------------------------
-    assert (testShift and testCumsum)
+    assert testCumsum
 
 
 ###############################################################################
