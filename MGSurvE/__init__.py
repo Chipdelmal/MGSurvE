@@ -8,3 +8,4 @@ from .matrices import *
 from .plots import *
 from .optimization import *
 from .pointProcess import *
+from .network import *
