@@ -311,6 +311,7 @@ def plotGAEvolution(
     ax.set_aspect(aspect/ax.get_data_ratio())
     return (fig, ax)
 
+
 def plotDirectedNetwork(
         fig, ax, 
         sites, pTypes, transMtx,
@@ -384,24 +385,29 @@ def plotDirectedNetwork(
 
     for shape in set(markers):
         node_list = [node for node in final_G.nodes() if final_G.nodes[node]['shape']==shape]
-        nx.draw_networkx_nodes(final_G, pos,
-                            ax=ax,
-                            nodelist=node_list,
-                            node_size=[log(1+sizeNodeAmplitude*final_G.nodes[node]['size']) for node in node_list],
-                            node_color=[final_G.nodes[node]['color'] for node in node_list],
-                            node_shape=shape,
-                            alpha=[min(alphaNodeMin, log(1+alphaNodeAmplitude*final_G.nodes[node]['size'])) for node in node_list])
+        nx.draw_networkx_nodes(
+            final_G, pos,
+            ax=ax,
+            nodelist=node_list,
+            node_size=[log(1+sizeNodeAmplitude*final_G.nodes[node]['size']) for node in node_list],
+            node_color=[final_G.nodes[node]['color'] for node in node_list],
+            node_shape=shape,
+            alpha=[min(alphaNodeMin, log(1+alphaNodeAmplitude*final_G.nodes[node]['size'])) for node in node_list]
+        )
 
     for width in edge_sizes:
         edge_list = [edge for edge in final_G.edges() if final_G.edges[edge]['weight']==width]
-        nx.draw_networkx_edges(final_G,pos,
-                            ax=ax,
-                            edgelist=edge_list,
-                            width=log(1+widthEdgeAmplitude*width),
-                            edge_color=edgecolors,
-                            alpha=min(alphaEdgeMin, log(1+alphaEdgeAmplitude*width)))
+        nx.draw_networkx_edges(
+            final_G,pos,
+            ax=ax,
+            edgelist=edge_list,
+            width=log(1+widthEdgeAmplitude*width),
+            edge_color=edgecolors,
+            alpha=min(alphaEdgeMin, log(1+alphaEdgeAmplitude*width))
+        )
 
     return (fig, ax)
+
 
 def saveFig(
         fig, ax,

@@ -11,6 +11,9 @@ import matplotlib.pyplot as plt
 from deap import base, creator, algorithms, tools
 from compress_pickle import dump, load
 import MGSurvE as srv
+import networkx as nx
+from sklearn.preprocessing import normalize
+import numpy as np
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 # scp -r lab:/RAID5/marshallShare/MGS_Demos/* '/home/chipdelmal/Documents/GitHub/MGSurvE/MGSurvE/dev/Lands'
@@ -186,3 +189,4 @@ fig.savefig(
     pthSave,
     facecolor='w', bbox_inches='tight', pad_inches=.1, dpi=300
 )
+

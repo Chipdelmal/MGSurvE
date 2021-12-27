@@ -26,13 +26,13 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 - [x] Customizable trap attractiveness kernels
 - [x] Integrated plotting routines
 - [x] GA Optimization routines
-- [ ] Directed network plotting routines
+- [x] Directed network plotting routines
 - [x] Demos and Examples
 - [x] Immovable traps
 - [x] Different attractiveness levels at specific point-type transitions
 - [x] Different movement kernels for male and female mosquitos
 - [x] Different trap attractiveness levels for male and female mosquitos 
-- [ ] Thorough timing benchmarks
+- [x] Thorough timing benchmarks
 - [ ] Lumpability aggregation algorithm
 - [ ] Repellency effects
 - [ ] Multi-threaded processing

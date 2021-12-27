@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import math
+from math import log
 import numpy as np
 import pandas as pd
 from os import path
@@ -14,16 +15,20 @@ import MGSurvE as srv
 from plots import plotDirectedNetwork
 import MGSurvE.constants as cst
 import warnings
+import networkx as nx
+from sklearn.preprocessing import normalize
+import numpy as np
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 ###############################################################################
 # Defining Landscape
 ###############################################################################
-ptsNum = 200
+(ptsNum, PTS_TYPE) = (200, 3)
 bbox = ((-225, 225), (-175, 175))
 xy = srv.ptsRandUniform(ptsNum, bbox).T
-points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
+pType = np.random.choice(PTS_TYPE, xy.shape[1])
+points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': pType})
 ###############################################################################
 # Defining Traps
 ###############################################################################
