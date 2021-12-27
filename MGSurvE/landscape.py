@@ -387,7 +387,7 @@ class Landscape:
         (fig, ax)= plt.plotDirectedNetwork(
             fig, ax,
             sites=self.pointCoords, pTypes=self.pointTypes,
-            transMtx=self.maskedMigrationMatrix,
+            transMtx=self.migrationMatrix,
             markers=markers, colors=colors, edgecolors=edgecolors
         )
         return (fig, ax)
