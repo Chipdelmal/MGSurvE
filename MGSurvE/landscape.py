@@ -95,6 +95,7 @@ class Landscape:
         self.trapsFixed= None
         self.fundamentalMatrix = None
         self.trapsMask = None
+        self.distanceFunction = distanceFunction
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
