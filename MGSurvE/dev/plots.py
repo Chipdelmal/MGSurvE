@@ -327,16 +327,19 @@ def plotDirectedNetwork(
         ax (matplotlib): Matplotlib ax object.
         sites (numpy array): Coordinates of the points.
         pTypes (numpy array): Point types.
-        transMtx (numpy matrix): Transitions matrix.
         markers (list): List of marker shapes for point-types (matplotlib).
         colors (list): List of colors for point-types (matplotlib).
-        alphaNodeMin (float): Minimum alpha value allowed for nodes.
-        alphaEdgeMin (float): Minimum alpha value allowed for edges.
-        alphaNodeAmplitude (float): Alpha multiplier for nodes of matrix.
-        alphaEdgeAmplitude (float): Alpha multiplier for edges of matrix.
-        sizeNodeAmplitude (float): Size multiplier for nodes of matrix.
-        widthEdgeAmplitude (float): Width multiplier for edges of matrix.
-        edgecolors (color): Edge color.
+        size (float): Marker size.
+        edgecolors (color): Edge color for markers.
+        kwargs (dict): Matplotlib's plot-compliant kwargs.
+
+        transMtx (numpy matrix): Transitions matrix.
+        alphaNodeMin (float): Minimum alpha value allowed.
+        alphaEdgeMin (float): Minimum alpha value allowed.
+        alphaNodeAmplitude (float): Alpha multiplier for matrix.
+        alphaEdgeAmplitude (float): Alpha multiplier for matrix.
+        sizeNodeAmplitude (float)
+        widthEdgeAmplitude (float)
         kwargs (dict): Matplotlib's plot-compliant kwargs.
     
     Returns:

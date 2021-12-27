@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 from deap import base, creator, algorithms, tools
 from compress_pickle import dump, load
 import MGSurvE as srv
+from plots import plotDirectedNetwork
+import MGSurvE.constants as cst
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
@@ -48,6 +50,7 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
+lnd.plotDirectedNetwork(fig, ax)
 srv.plotClean(fig, ax, frame=False)
 fig.savefig(
     path.join('NET_DEV.png'), 
