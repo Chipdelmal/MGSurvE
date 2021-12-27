@@ -465,6 +465,11 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.plotDirectedNetwork">
+<span class="sig-name descname"><span class="pre">plotDirectedNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('o',</span> <span class="pre">'^',</span> <span class="pre">'s',</span> <span class="pre">'p',</span> <span class="pre">'d',</span> <span class="pre">'X')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('#bdb2ff',</span> <span class="pre">'#a0c4ff',</span> <span class="pre">'#e0c3fc',</span> <span class="pre">'#ffd6a5',</span> <span class="pre">'#caffbf',</span> <span class="pre">'#d0d1ff')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'black'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.plotDirectedNetwork" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.plotMaskedMigrationNetwork">
 <span class="sig-name descname"><span class="pre">plotMaskedMigrationNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#03045e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineWidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.plotMaskedMigrationNetwork" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the base sites migration network.</p>
@@ -930,6 +935,39 @@ Follow this link for the original code: <a class="reference external" href="http
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.plots.plotDirectedNetwork">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotDirectedNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sites</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pTypes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transMtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('o',</span> <span class="pre">'^',</span> <span class="pre">'s',</span> <span class="pre">'p',</span> <span class="pre">'d',</span> <span class="pre">'X')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('#bdb2ff',</span> <span class="pre">'#a0c4ff',</span> <span class="pre">'#e0c3fc',</span> <span class="pre">'#ffd6a5',</span> <span class="pre">'#caffbf',</span> <span class="pre">'#d0d1ff')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaNodeMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaEdgeMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaNodeAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaEdgeAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizeNodeAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000000000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widthEdgeAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'black'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotDirectedNetwork" title="Permalink to this definition"></a></dt>
+<dd><p>Plots edge and node centrality.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
+<li><p><strong>sites</strong> (<em>numpy array</em>) – Coordinates of the points.</p></li>
+<li><p><strong>pTypes</strong> (<em>numpy array</em>) – Point types.</p></li>
+<li><p><strong>transMtx</strong> (<em>numpy matrix</em>) – Transitions matrix.</p></li>
+<li><p><strong>markers</strong> (<em>list</em>) – List of marker shapes for point-types (matplotlib).</p></li>
+<li><p><strong>colors</strong> (<em>list</em>) – List of colors for point-types (matplotlib).</p></li>
+<li><p><strong>alphaNodeMin</strong> (<em>float</em>) – Minimum alpha value allowed for nodes.</p></li>
+<li><p><strong>alphaEdgeMin</strong> (<em>float</em>) – Minimum alpha value allowed for edges.</p></li>
+<li><p><strong>alphaNodeAmplitude</strong> (<em>float</em>) – Alpha multiplier for nodes of matrix.</p></li>
+<li><p><strong>alphaEdgeAmplitude</strong> (<em>float</em>) – Alpha multiplier for edges of matrix.</p></li>
+<li><p><strong>sizeNodeAmplitude</strong> (<em>float</em>) – Size multiplier for nodes of matrix.</p></li>
+<li><p><strong>widthEdgeAmplitude</strong> (<em>float</em>) – Width multiplier for edges of matrix.</p></li>
+<li><p><strong>edgecolors</strong> (<em>color</em>) – Edge color.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Matplotlib’s plot-compliant kwargs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(fig, ax)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.plots.plotFitness">
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.5,</span> <span class="pre">0.5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'{:.2f}'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">125</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#00000011'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotFitness" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the fitness value to the plot.</p>
@@ -1179,7 +1217,7 @@ Follow this link for the original code: <a class="reference external" href="http
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.pointProcess.clusterLandscape">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">clusterLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pointsCoords</span></em>, <em class="sig-param"><span class="pre">clustersNumber</span></em>, <em class="sig-param"><span class="pre">randomState=1640362080.5647151</span></em>, <em class="sig-param"><span class="pre">clusterAlgorithm=&lt;class</span> <span class="pre">'sklearn.cluster._kmeans.KMeans'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.clusterLandscape" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">clusterLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pointsCoords</span></em>, <em class="sig-param"><span class="pre">clustersNumber</span></em>, <em class="sig-param"><span class="pre">randomState=1640623661.041132</span></em>, <em class="sig-param"><span class="pre">clusterAlgorithm=&lt;class</span> <span class="pre">'sklearn.cluster._kmeans.KMeans'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.clusterLandscape" title="Permalink to this definition"></a></dt>
 <dd><p>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

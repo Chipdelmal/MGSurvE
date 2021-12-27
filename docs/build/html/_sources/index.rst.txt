@@ -11,7 +11,7 @@ MGSurvE's documentation!
 .. image:: ../../img/demo.jpg
 
 
-Have a look at our `github repo <https://github.com/Chipdelmal/MGSurvE>`_ and our `pypi package <https://pypi.org/project/MGSurvE/>`_ for news and developments; or at our `tutorials <demos.html>`_ for examples on how to use our packages.
+Have a look at our `github repo <https://github.com/Chipdelmal/MGSurvE>`_ and our `pypi package <https://pypi.org/project/MGSurvE/>`_ for news and developments; or at our `tutorials <demos.html>`_ for examples on how to use our software.
 
 
 .. note::
