@@ -98,15 +98,15 @@ def initChromosome(trapsCoords, fixedTrapsMask, coordsRange):
     (xRan, yRan) = coordsRange
     trapsNum = trapsCoords.shape[0]
     chromosome = trapsCoords.flatten()
-    for i in range(trapsNum):
-        if fixedTrapsMask[i]:
-            if (i % 2) != 0: 
-                chromosome[i] = np.random.uniform(xRan[0], xRan[1], 1)[0]
-            else:
-                chromosome[i] = np.random.uniform(yRan[0], yRan[1], 1)[0]
-    # xCoords = np.random.uniform(xRan[0], xRan[1], trapsNum)
-    # yCoords = np.random.uniform(yRan[0], yRan[1], trapsNum)
-    # chromosome = [val for pair in zip(xCoords, yCoords) for val in pair]
+    # for i in range(trapsNum):
+    #     if fixedTrapsMask[i]:
+    #         if (i % 2) != 0: 
+    #             chromosome[i] = np.random.uniform(xRan[0], xRan[1], 1)[0]
+    #         else:
+    #             chromosome[i] = np.random.uniform(yRan[0], yRan[1], 1)[0]
+    xCoords = np.random.uniform(xRan[0], xRan[1], trapsNum)
+    yCoords = np.random.uniform(yRan[0], yRan[1], trapsNum)
+    chromosome = [val for pair in zip(xCoords, yCoords) for val in pair]
     return chromosome
 
 
@@ -204,7 +204,8 @@ def calcFitness(
         landscape=None,
         optimFunction=getDaysTillTrapped,
         optimFunctionArgs={'outer': np.mean, 'inner': np.max},
-        dims=2
+        dims=2,
+        clipValue=1000
     ):
     """Calculates the fitness function of the landscape given a chromosome (in place, so not thread-safe).
 

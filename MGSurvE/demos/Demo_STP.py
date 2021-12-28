@@ -20,7 +20,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 (ID, OUT_PTH) = (
     'STP', '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STP/'
 )
-TRPS_NUM = 4
+TRPS_NUM = 1
 IX_SPLIT = 27
 DIAG_VAL = 0
 ###############################################################################
@@ -32,6 +32,9 @@ SAO_TOME_LL = sites.iloc[IX_SPLIT:]
 SAO_bbox = (
     (min(SAO_TOME_LL['lon']), max(SAO_TOME_LL['lon'])),
     (min(SAO_TOME_LL['lat']), max(SAO_TOME_LL['lat']))
+)
+SAO_TOME_LL = SAO_TOME_LL .rename(
+    columns={'lon': 'x', 'lat': 'y'}
 )
 ###############################################################################
 # Load Migration Matrix
@@ -51,7 +54,7 @@ nullTraps = [0] * TRPS_NUM
     np.random.uniform(SAO_bbox[1][0], SAO_bbox[1][1], TRPS_NUM)
 )
 traps = pd.DataFrame({
-    'lon': lonTrap, 'lat': latTrap,
+    'x': lonTrap, 'y': latTrap,
     't': nullTraps, 'f': nullTraps
 })
 tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 50}}}
@@ -61,7 +64,7 @@ tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 50}}}
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
     traps=traps, trapsKernels=tKer,
-    distanceFunction=vincenty
+    distanceFunction=math.dist
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
@@ -75,7 +78,7 @@ lnd.plotMigrationNetwork(
     lineWidth=5, alphaMin=.5, alphaAmplitude=2.5,
 )
 lnd.plotTraps(fig, ax)
-srv.plotClean(fig, ax)
+srv.plotClean(fig, ax, frame=True, labels=True)
 fig.savefig(
     path.join(OUT_PTH, '{}_MIG.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
@@ -85,9 +88,13 @@ fig.savefig(
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    200,
-    {'mate': .3, 'cxpb': 0.5}, 
-    {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .5, 'ipb': .5},
+    50,
+    {'mate': .35, 'cxpb': 0.5}, 
+    {
+        'mean': 0, 
+        'sd': min([abs(i[1]-i[0]) for i in bbox])/10, 
+        'mutpb': .25, 'ipb': .5
+    },
     {'tSize': 3}
 )
 VERBOSE = True
@@ -129,7 +136,7 @@ toolbox.register("evaluate",
     srv.calcFitness, 
     landscape=lndGA,
     optimFunction=srv.getDaysTillTrapped,
-    optimFunctionArgs={'outer': np.mean, 'inner': np.max}
+    optimFunctionArgs={'outer': np.mean, 'inner': np.mean}
 )
 ###############################################################################
 # Registering GA stats
@@ -153,11 +160,11 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 # Get and Export Results
 ############################################################################### 
 bestChromosome = hof[0]
-bestTraps = np.reshape(hof[0], (-1, 2))
+bestTraps = np.reshape(bestChromosome, (-1, 2))
 lnd.updateTrapsCoords(bestTraps)
-srv.dumpLandscape(lnd, OUT_PTH, '{}_{}_TRP'.format(ID, LND))
+srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP'.format(ID))
 dta = pd.DataFrame(logbook)
-srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(ID, LND))
+srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
 ###############################################################################
 # Plot Results
 ###############################################################################
@@ -165,11 +172,41 @@ srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(ID, LND))
 lnd.plotSites(fig, ax)
 lnd.plotMigrationNetwork(
     fig, ax, 
-    lineWidth=1e3, alphaMin=.5, alphaAmplitude=50,
+    lineWidth=5, alphaMin=.5, alphaAmplitude=2.5,
 )
 lnd.plotTraps(fig, ax)
-srv.plotClean(fig, ax)
+srv.plotFitness(fig, ax, min(dta['min']))
+srv.plotClean(fig, ax, frame=True, labels=True)
 fig.savefig(
     path.join(OUT_PTH, '{}_TRP.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
+###############################################################################
+# Debug
+############################################################################### 
+# bestChromosome = [6.65, 0]
+# bestChromosome = srv.initChromosome(
+#     lndGA.trapsCoords, fixedTrapsMask=trpMsk, coordsRange=bbox
+# )
+# bestTraps = np.reshape(bestChromosome, (-1, 2))
+# fit = srv.calcFitness(
+#     bestChromosome,
+#     landscape=lnd,
+#     optimFunction=srv.getDaysTillTrapped,
+#     optimFunctionArgs={'outer': np.mean, 'inner': np.mean}
+# )
+# lnd.updateTrapsCoords(bestTraps)
+# (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+# lnd.plotSites(fig, ax)
+# lnd.plotTraps(fig, ax)
+# srv.plotFitness(fig, ax, fit[0])
+# srv.plotClean(fig, ax, frame=True, labels=True)
+# fig.savefig(
+#     path.join(OUT_PTH, '{}_DBG.png'.format(ID)), 
+#     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+# )
+
+# srv.initChromosome(
+#     lndGA.trapsCoords, fixedTrapsMask=trpMsk, coordsRange=bbox
+# )
+# bbox
