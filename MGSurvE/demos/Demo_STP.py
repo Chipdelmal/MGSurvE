@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from sys import argv
 import math
 from vincenty import vincenty
 import numpy as np
@@ -20,7 +21,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 (ID, OUT_PTH) = (
     'STP', '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STP/'
 )
-TRPS_NUM = 2
+TRPS_NUM = int(argv[1]) # 3
 IX_SPLIT = 27
 DIAG_VAL = 0
 ###############################################################################
@@ -71,24 +72,24 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 # Plot Landscape
 ###############################################################################
-(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax)
-lnd.plotMigrationNetwork(
-    fig, ax, 
-    lineWidth=5, alphaMin=.5, alphaAmplitude=2.5,
-)
-lnd.plotTraps(fig, ax)
-srv.plotClean(fig, ax, frame=True, labels=True)
-fig.savefig(
-    path.join(OUT_PTH, '{}_{:02d}_MIG.png'.format(ID, TRPS_NUM)), 
-    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-)
+# (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+# lnd.plotSites(fig, ax)
+# lnd.plotMigrationNetwork(
+#     fig, ax, 
+#     lineWidth=5, alphaMin=.5, alphaAmplitude=2.5,
+# )
+# lnd.plotTraps(fig, ax)
+# srv.plotClean(fig, ax, frame=True, labels=True)
+# fig.savefig(
+#     path.join(OUT_PTH, '{}_{:02d}_MIG.png'.format(ID, TRPS_NUM)), 
+#     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+# )
 ###############################################################################
 # GA Settings
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*.75))
 (GENS, MAT, MUT, SEL) = (
-    200,
+    500,
     {'mate': .35, 'cxpb': 0.5}, 
     {
         'mean': 0, 
@@ -172,14 +173,14 @@ srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 lnd.plotSites(fig, ax)
 lnd.plotMigrationNetwork(
     fig, ax, 
-    lineWidth=5, alphaMin=.5, alphaAmplitude=2.5,
+    lineWidth=5, alphaMin=.5, alphaAmplitude=5,
 )
-lnd.plotTraps(fig, ax)
+lnd.plotTraps(fig, ax, zorders=(25, 25))
 srv.plotFitness(fig, ax, min(dta['min']))
 srv.plotClean(fig, ax, frame=True, labels=True)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 
-    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=200
 )
 plt.close('all')
 print('Done!')
