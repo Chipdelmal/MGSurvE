@@ -89,11 +89,11 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*.75))
 (GENS, MAT, MUT, SEL) = (
-    500,
+    1000,
     {'mate': .35, 'cxpb': 0.5}, 
     {
         'mean': 0, 
-        'sd': min([abs(i[1]-i[0]) for i in bbox])/10, 
+        'sd': min([abs(i[1]-i[0]) for i in bbox])/5, 
         'mutpb': .25, 'ipb': .5
     },
     {'tSize': 3}
@@ -175,7 +175,7 @@ lnd.plotMigrationNetwork(
     fig, ax, 
     lineWidth=5, alphaMin=.5, alphaAmplitude=5,
 )
-lnd.plotTraps(fig, ax, zorders=(25, 25))
+lnd.plotTraps(fig, ax, zorders=(25, 20))
 srv.plotFitness(fig, ax, min(dta['min']))
 srv.plotClean(fig, ax, frame=True, labels=True)
 fig.savefig(
