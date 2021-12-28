@@ -20,14 +20,14 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 (ID, OUT_PTH) = (
     'STP', '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STP/'
 )
-TRPS_NUM = 1
+TRPS_NUM = 2
 IX_SPLIT = 27
 DIAG_VAL = 0
 ###############################################################################
 # Load Pointset
 ###############################################################################
 sites = pd.read_csv(path.join(OUT_PTH, 'stp_cluster_sites_pop_v5_fixed.csv'))
-sites['t'] = [0] * sites.shape[0]
+sites['t'] = [0]*sites.shape[0]
 SAO_TOME_LL = sites.iloc[IX_SPLIT:]
 SAO_bbox = (
     (min(SAO_TOME_LL['lon']), max(SAO_TOME_LL['lon'])),
@@ -48,7 +48,7 @@ SAO_TOME_MIG = normalize(msplit, axis=1, norm='l1')
 ###############################################################################
 # Defining Traps
 ###############################################################################
-nullTraps = [0] * TRPS_NUM
+nullTraps = [0]*TRPS_NUM
 (lonTrap, latTrap) = (
     np.random.uniform(SAO_bbox[0][0], SAO_bbox[0][1], TRPS_NUM),
     np.random.uniform(SAO_bbox[1][0], SAO_bbox[1][1], TRPS_NUM)
@@ -57,7 +57,7 @@ traps = pd.DataFrame({
     'x': lonTrap, 'y': latTrap,
     't': nullTraps, 'f': nullTraps
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 50}}}
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 60}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
@@ -80,15 +80,15 @@ lnd.plotMigrationNetwork(
 lnd.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=True, labels=True)
 fig.savefig(
-    path.join(OUT_PTH, '{}_MIG.png'.format(ID)), 
+    path.join(OUT_PTH, '{}_{:02d}_MIG.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 ###############################################################################
 # GA Settings
 ############################################################################### 
-POP_SIZE = int(10*(lnd.trapsNumber*1.25))
+POP_SIZE = int(10*(lnd.trapsNumber*.75))
 (GENS, MAT, MUT, SEL) = (
-    50,
+    200,
     {'mate': .35, 'cxpb': 0.5}, 
     {
         'mean': 0, 
@@ -162,9 +162,9 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 bestChromosome = hof[0]
 bestTraps = np.reshape(bestChromosome, (-1, 2))
 lnd.updateTrapsCoords(bestTraps)
-srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP'.format(ID))
+srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM))
 dta = pd.DataFrame(logbook)
-srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
+srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 ###############################################################################
 # Plot Results
 ###############################################################################
@@ -178,9 +178,11 @@ lnd.plotTraps(fig, ax)
 srv.plotFitness(fig, ax, min(dta['min']))
 srv.plotClean(fig, ax, frame=True, labels=True)
 fig.savefig(
-    path.join(OUT_PTH, '{}_TRP.png'.format(ID)), 
+    path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
+plt.close('all')
+print('Done!')
 ###############################################################################
 # Debug
 ############################################################################### 
