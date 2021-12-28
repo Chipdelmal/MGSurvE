@@ -58,7 +58,7 @@ traps = pd.DataFrame({
     'x': lonTrap, 'y': latTrap,
     't': nullTraps, 'f': nullTraps
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 60}}}
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 100}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
@@ -78,10 +78,9 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 #     fig, ax, 
 #     lineWidth=5, alphaMin=.5, alphaAmplitude=2.5,
 # )
-# lnd.plotTraps(fig, ax)
 # srv.plotClean(fig, ax, frame=True, labels=True)
 # fig.savefig(
-#     path.join(OUT_PTH, '{}_{:02d}_MIG.png'.format(ID, TRPS_NUM)), 
+#     path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
 #     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 # )
 ###############################################################################
@@ -89,14 +88,14 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*.75))
 (GENS, MAT, MUT, SEL) = (
-    1000,
+    2000,
     {'mate': .35, 'cxpb': 0.5}, 
     {
         'mean': 0, 
         'sd': min([abs(i[1]-i[0]) for i in bbox])/5, 
-        'mutpb': .25, 'ipb': .5
+        'mutpb': .35, 'ipb': .5
     },
-    {'tSize': 3}
+    {'tSize': 5}
 )
 VERBOSE = True
 lndGA = deepcopy(lnd)
@@ -176,14 +175,13 @@ lnd.plotMigrationNetwork(
     lineWidth=5, alphaMin=.5, alphaAmplitude=5,
 )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
-srv.plotFitness(fig, ax, min(dta['min']))
-srv.plotClean(fig, ax, frame=True, labels=True)
+srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.5f}')
+srv.plotClean(fig, ax, frame=False, labels=False)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=200
 )
 plt.close('all')
-print('Done!')
 ###############################################################################
 # Debug
 ############################################################################### 
@@ -208,7 +206,6 @@ print('Done!')
 #     path.join(OUT_PTH, '{}_DBG.png'.format(ID)), 
 #     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 # )
-
 # srv.initChromosome(
 #     lndGA.trapsCoords, fixedTrapsMask=trpMsk, coordsRange=bbox
 # )
