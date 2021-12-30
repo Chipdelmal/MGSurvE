@@ -14,7 +14,11 @@ import MGSurvE as srv
 from PIL import Image
 
 
-(OUT_PTH, LND_TYPE, ID) = ('./Lands', 'DNUT', '0S1')
+(OUT_PTH, LND_TYPE, ID) = (
+    '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STP', # './Lands', 
+    'STP', 
+    '05'
+)
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
 srv.makeFolder(IMG_PTH)
@@ -40,7 +44,9 @@ for i in range(gens):
         np.vstack([trapsCoords, lnd.trapsTypes, lnd.trapsFixed]).T, 
         columns=['x', 'y', 't', 'f']
     )
-    lndUp = lnd.updateTraps(trapsLocs, lnd.trapsKernels)
+    trapsLocs['t']=trapsLocs['t'].astype('int64')
+    trapsLocs['f']=trapsLocs['f'].astype('int64')
+    lnd.updateTraps(trapsLocs, lnd.trapsKernels)
     ###########################################################################
     # Plot Figure
     ###########################################################################

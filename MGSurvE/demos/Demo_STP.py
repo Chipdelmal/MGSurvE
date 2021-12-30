@@ -21,9 +21,9 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 (ID, OUT_PTH) = (
     'STP', '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STP/'
 )
-TRPS_NUM = int(argv[1]) # 3
+TRPS_NUM = 5# int(argv[1]) # 3
 IX_SPLIT = 27
-DIAG_VAL = 0
+DIAG_VAL = 0 # 0.05
 ###############################################################################
 # Load Pointset
 ###############################################################################
@@ -72,17 +72,17 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 # Plot Landscape
 ###############################################################################
-# (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-# lnd.plotSites(fig, ax)
-# lnd.plotMigrationNetwork(
-#     fig, ax, 
-#     lineWidth=5, alphaMin=.5, alphaAmplitude=2.5,
-# )
-# srv.plotClean(fig, ax, frame=True, labels=True)
-# fig.savefig(
-#     path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
-#     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-# )
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+lnd.plotSites(fig, ax)
+lnd.plotMigrationNetwork(
+    fig, ax, 
+    lineWidth=5, alphaMin=.5, alphaAmplitude=2.5,
+)
+srv.plotClean(fig, ax, frame=False, labels=False)
+fig.savefig(
+    path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+)
 ###############################################################################
 # GA Settings
 ############################################################################### 
