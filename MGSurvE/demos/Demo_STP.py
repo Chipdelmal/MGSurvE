@@ -19,7 +19,9 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
 (ID, OUT_PTH) = (
-    'STP', '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STP/'
+    'STP', 
+    '/RAID5/marshallShare/MGS_Benchmarks/STP/'
+    # '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STP/'
 )
 TRPS_NUM = int(argv[1]) # 3
 IX_SPLIT = 27
@@ -86,9 +88,9 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 # GA Settings
 ############################################################################### 
-POP_SIZE = int(10*(lnd.trapsNumber*.75))
+POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    2000,
+    5000,
     {'mate': .35, 'cxpb': 0.5}, 
     {
         'mean': 0, 
@@ -136,7 +138,7 @@ toolbox.register("evaluate",
     srv.calcFitness, 
     landscape=lndGA,
     optimFunction=srv.getDaysTillTrapped,
-    optimFunctionArgs={'outer': np.mean, 'inner': np.mean}
+    optimFunctionArgs={'outer': np.mean, 'inner': np.max}
 )
 ###############################################################################
 # Registering GA stats
