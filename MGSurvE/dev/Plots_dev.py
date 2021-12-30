@@ -86,7 +86,7 @@ ax.set_extent((6.4, 6.8, -0.045, .5), crs=ccrs.PlateCarree())
 landTuples = (
     ('110m', '#dfe7fdAA', 30), 
     ('50m', '#dfe7fdAA', 30), 
-    ('10m', '#3f37c965', 10), 
+    ('10m', '#3f37c935', 10), 
     ('10m', '#ffffffAA', 2)
 )
 

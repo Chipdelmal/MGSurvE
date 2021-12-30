@@ -79,7 +79,9 @@ class Landscape:
         repellents=None,
         repellentsKernels={
             0: {'kernel': krn.exponentialDecay, 'params': cst.BASIC_EXP_TRAP}
-        }
+        },
+
+        projection=None
     ):
         """Constructor method
         """
@@ -99,6 +101,7 @@ class Landscape:
         self.trapsMask = None
         self.distanceFunction = distanceFunction
         self.populations = populations
+        self.projection = projection
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
