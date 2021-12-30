@@ -81,25 +81,22 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
     plt.figure(figsize=(8, 12)),
     plt.axes(projection=ccrs.PlateCarree())
 )
-
-ny_lon, ny_lat = -75, 43
-delhi_lon, delhi_lat = 77.23, 28.61
-
-states_provinces = cfeature.NaturalEarthFeature(
-    category='cultural',
-    name='admin_1_states_provinces_lines',
-    scale='10m',
-    facecolor='none')
-
-# ax.add_feature(cfeature.LAND)
-ax.add_feature(
-    cfeature.COASTLINE,
-    edgecolor='red',
-    linewidth=20, 
-    zorder=-100
-)
 ax.set_extent((6.4, 6.8, -0.045, .5), crs=ccrs.PlateCarree())
-# ax.add_feature(states_provinces, edgecolor='gray')
+
+landTuples = (
+    ('110m', '#dfe7fdAA', 30), 
+    ('50m', '#dfe7fdAA', 30), 
+    ('10m', '#3f37c965', 10), 
+    ('10m', '#ffffffAA', 2)
+)
+
+lands = [
+    cfeature.NaturalEarthFeature(
+        'physical', 'land', i[0],
+        edgecolor=i[1], facecolor='#00000000', linewidth=i[2]
+    ) for i in landTuples
+]
+[ax.add_feature(i, zorder=(-100+(ix+1))) for (ix, i) in enumerate(lands)]
 
 ax.scatter(
     lnd.pointCoords[:, 0], lnd.pointCoords[:, 1],
