@@ -11,9 +11,9 @@ LG='\033[1;34m'
 NC='\033[0m'
 
 
-for pts in 50 100 200 300; do
-    for trps in 1 2 5 8 10; do
-        for rep in {1..5}; do
+for pts in 50 100 200 300 400; do
+    for trps in 1 2 5 10 15 20; do
+        for rep in {1..10}; do
             echo -e "${LG}* LND: ${trps} ${pts} ${rep} ${NC}"
             python GridOptimization.py $trps $pts $rep $GENS $PTH_O
         done
