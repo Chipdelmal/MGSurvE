@@ -74,6 +74,8 @@ class Landscape:
         trapsMask=None,
         trapsRadii=[.25, .2, .1, .05],
 
+        populations=None,
+
         repellents=None,
         repellentsKernels={
             0: {'kernel': krn.exponentialDecay, 'params': cst.BASIC_EXP_TRAP}
@@ -96,6 +98,7 @@ class Landscape:
         self.fundamentalMatrix = None
         self.trapsMask = None
         self.distanceFunction = distanceFunction
+        self.populations = populations
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
@@ -140,6 +143,14 @@ class Landscape:
             self.calcPointsMaskedMigration()
         else:
             self.maskedMigration = np.asarray(maskedMigration)
+        # Setup population sizes ----------------------------------------------
+        if (self.populations is not None):
+            if (self.populations.shape[0] != self.pointNumber):
+                raise Exception(
+                    '''Number of populations ({}) is not the same as 
+                    number of sites ({}).
+                    '''.format(self.populations.shape[0], self.pointNumber)
+                )
         # Init traps locations ------------------------------------------------
         if (traps is not None):
             tpsHead = set(traps.columns)

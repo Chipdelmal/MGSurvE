@@ -20,8 +20,8 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (ID, OUT_PTH) = (
     'STP', 
-    '/RAID5/marshallShare/MGS_Benchmarks/STP/'
-    # '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STP/'
+    # '/RAID5/marshallShare/MGS_Benchmarks/STP/'
+    '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STP/'
 )
 TRPS_NUM = 5# int(argv[1]) # 3
 IX_SPLIT = 27
