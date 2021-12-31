@@ -32,7 +32,7 @@ dat = srv.importLog(OUT_PTH, fPat+'LOG')
 (gaMin, gaTraps, gens) = (dat['min'], dat['traps'], dat.shape[0])
 bbox = lnd.getBoundingBox()
 i=10
-for i in range(gens):
+for i in range(3250, gens):
     print("* Exporting frame {:05d}".format(i), end='\r')
     ###########################################################################
     # Reshape and update traps
@@ -81,3 +81,4 @@ for i in range(gens):
     background.save(pthSave, dpi=(DPI, DPI))
     background.close()
     foreground.close()
+    plt.close('all')
