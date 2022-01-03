@@ -77,7 +77,18 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.auxiliary.dumpLandscape">
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.auxiliary.</span></span><span class="sig-name descname"><span class="pre">dumpLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fExt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bz2'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.auxiliary.dumpLandscape" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Exports a serialized landscape to disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>landscape</strong> (<em>object</em>) – Landscape object to export.</p></li>
+<li><p><strong>fPath</strong> (<em>path</em>) – Path to where the landscape will be exported.</p></li>
+<li><p><strong>fName</strong> (<em>string</em>) – Filename.</p></li>
+<li><p><strong>fExt</strong> (<em>string</em>) – File extension.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.auxiliary.isNotebook">
@@ -96,7 +107,23 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.auxiliary.loadLandscape">
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.auxiliary.</span></span><span class="sig-name descname"><span class="pre">loadLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fExt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bz2'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.auxiliary.loadLandscape" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Loads a serialized landscape from disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fPath</strong> (<em>path</em>) – Path from where the landscape will be loaded.</p></li>
+<li><p><strong>fName</strong> (<em>string</em>) – Filename.</p></li>
+<li><p><strong>fExt</strong> (<em>string</em>) – File extension.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Landscape object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(object)</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.auxiliary.makeFolder">
@@ -116,6 +143,26 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>paths</strong> (<em>list</em>) – List path to the desired directories.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.auxiliary.vincentyDistance">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.auxiliary.</span></span><span class="sig-name descname"><span class="pre">vincentyDistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.auxiliary.vincentyDistance" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the Vincenty arc distance between points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pointA</strong> (<em>tuple</em>) – First point in (lon, lat) format.</p></li>
+<li><p><strong>pointB</strong> (<em>tuple</em>) – Second point in (lon, lat) format.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Distance between points</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(float)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -211,7 +258,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.kernels.nSolveKernel">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">nSolveKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernelDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yVal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.nSolveKernel" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">nSolveKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernelDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yVal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latlon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6371</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.nSolveKernel" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the distance it takes for the kernel to match a given probability (yVar).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -315,7 +362,7 @@
 <span id="mgsurve-landscape-module"></span><h2>MGSurvE.landscape module<a class="headerlink" href="#module-MGSurvE.landscape" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="MGSurvE.landscape.Landscape">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">MGSurvE.landscape.</span></span><span class="sig-name descname"><span class="pre">Landscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">points,</span> <span class="pre">maskingMatrix=None,</span> <span class="pre">distanceMatrix=None,</span> <span class="pre">distanceFunction=None,</span> <span class="pre">migrationMatrix=None,</span> <span class="pre">kernelFunction=&lt;function</span> <span class="pre">zeroInflatedExponentialKernel&gt;,</span> <span class="pre">kernelParams={'params':</span> <span class="pre">[1,</span> <span class="pre">1e-10,</span> <span class="pre">inf],</span> <span class="pre">'zeroInflation':</span> <span class="pre">0.75},</span> <span class="pre">maskedMigrationMatrix=None,</span> <span class="pre">traps=None,</span> <span class="pre">trapsKernels={0:</span> <span class="pre">{'inverse':</span> <span class="pre">None,</span> <span class="pre">'kernel':</span> <span class="pre">&lt;function</span> <span class="pre">exponentialDecay&gt;,</span> <span class="pre">'params':</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}}},</span> <span class="pre">trapsMask=None,</span> <span class="pre">trapsRadii=[0.25,</span> <span class="pre">0.2,</span> <span class="pre">0.1,</span> <span class="pre">0.05],</span> <span class="pre">repellents=None,</span> <span class="pre">repellentsKernels={0:</span> <span class="pre">{'kernel':</span> <span class="pre">&lt;function</span> <span class="pre">exponentialDecay&gt;,</span> <span class="pre">'params':</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}}}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">MGSurvE.landscape.</span></span><span class="sig-name descname"><span class="pre">Landscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">points,</span> <span class="pre">maskingMatrix=None,</span> <span class="pre">distanceMatrix=None,</span> <span class="pre">distanceFunction=None,</span> <span class="pre">migrationMatrix=None,</span> <span class="pre">kernelFunction=&lt;function</span> <span class="pre">zeroInflatedExponentialKernel&gt;,</span> <span class="pre">kernelParams={'params':</span> <span class="pre">[1,</span> <span class="pre">1e-10,</span> <span class="pre">inf],</span> <span class="pre">'zeroInflation':</span> <span class="pre">0.75},</span> <span class="pre">maskedMigrationMatrix=None,</span> <span class="pre">traps=None,</span> <span class="pre">trapsKernels={0:</span> <span class="pre">{'inverse':</span> <span class="pre">None,</span> <span class="pre">'kernel':</span> <span class="pre">&lt;function</span> <span class="pre">exponentialDecay&gt;,</span> <span class="pre">'params':</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}}},</span> <span class="pre">trapsMask=None,</span> <span class="pre">trapsRadii=[0.25,</span> <span class="pre">0.2,</span> <span class="pre">0.1,</span> <span class="pre">0.05],</span> <span class="pre">populations=None,</span> <span class="pre">repellents=None,</span> <span class="pre">repellentsKernels={0:</span> <span class="pre">{'kernel':</span> <span class="pre">&lt;function</span> <span class="pre">exponentialDecay&gt;,</span> <span class="pre">'params':</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}}},</span> <span class="pre">projection=None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Stores the information for a mosquito landscape. Works with different point-types in the form of matrices and coordinates.</p>
 <dl class="field-list simple">
@@ -634,11 +681,19 @@
 </dd></dl>
 
 </section>
+<section id="module-MGSurvE.network">
+<span id="mgsurve-network-module"></span><h2>MGSurvE.network module<a class="headerlink" href="#module-MGSurvE.network" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.network.calculateNetworkCentralities">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.network.</span></span><span class="sig-name descname"><span class="pre">calculateNetworkCentralities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">transitionsMatrix</span></em>, <em class="sig-param"><span class="pre">nodeCentrality=&lt;function</span> <span class="pre">newman_betweenness_centrality&gt;</span></em>, <em class="sig-param"><span class="pre">edgeCentrality=&lt;function</span> <span class="pre">edge_betweenness_centrality&gt;</span></em>, <em class="sig-param"><span class="pre">weight='distance'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.network.calculateNetworkCentralities" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
 <section id="module-MGSurvE.optimization">
 <span id="mgsurve-optimization-module"></span><h2>MGSurvE.optimization module<a class="headerlink" href="#module-MGSurvE.optimization" title="Permalink to this headline"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.calcFitness">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">calcFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">chromosome</span></em>, <em class="sig-param"><span class="pre">landscape=None</span></em>, <em class="sig-param"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></em>, <em class="sig-param"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></em>, <em class="sig-param"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></em>, <em class="sig-param"><span class="pre">dims=2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.calcFitness" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">calcFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">chromosome</span></em>, <em class="sig-param"><span class="pre">landscape=None</span></em>, <em class="sig-param"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></em>, <em class="sig-param"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></em>, <em class="sig-param"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></em>, <em class="sig-param"><span class="pre">dims=2</span></em>, <em class="sig-param"><span class="pre">clipValue=1000</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.calcFitness" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the fitness function of the landscape given a chromosome (in place, so not thread-safe).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1217,7 +1272,7 @@ Follow this link for the original code: <a class="reference external" href="http
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.pointProcess.clusterLandscape">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">clusterLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pointsCoords</span></em>, <em class="sig-param"><span class="pre">clustersNumber</span></em>, <em class="sig-param"><span class="pre">randomState=1640623661.041132</span></em>, <em class="sig-param"><span class="pre">clusterAlgorithm=&lt;class</span> <span class="pre">'sklearn.cluster._kmeans.KMeans'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.clusterLandscape" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">clusterLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pointsCoords</span></em>, <em class="sig-param"><span class="pre">clustersNumber</span></em>, <em class="sig-param"><span class="pre">randomState=1641237458.2345672</span></em>, <em class="sig-param"><span class="pre">clusterAlgorithm=&lt;class</span> <span class="pre">'sklearn.cluster._kmeans.KMeans'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.clusterLandscape" title="Permalink to this definition"></a></dt>
 <dd><p>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

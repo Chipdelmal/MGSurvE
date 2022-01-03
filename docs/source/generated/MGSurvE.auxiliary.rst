@@ -18,6 +18,7 @@
       loadLandscape
       makeFolder
       makeFolders
+      vincentyDistance
    
    
 
