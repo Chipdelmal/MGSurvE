@@ -125,7 +125,7 @@ def sigmoidDecay(dist, A=1, rate=.5, x0=10):
 ###############################################################################
 # Auxiliary
 ###############################################################################
-def nSolveKernel(kernelDict, yVal, guess=0):
+def nSolveKernel(kernelDict, yVal, guess=0, latlon=False, R=6371):
     '''Calculates the distance it takes for the kernel to match a given probability (yVar).
 
     Args:
@@ -139,4 +139,8 @@ def nSolveKernel(kernelDict, yVal, guess=0):
     (kFun, kPar) = (kernelDict['kernel'], kernelDict['params'])
     func = lambda delta : yVal-kFun(delta, **kPar)
     distance = fsolve(func, guess)
-    return distance[0]
+    if latlon:
+        dist = math.atan(distance[0]/R)
+    else:
+        dist = distance[0]
+    return dist

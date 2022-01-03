@@ -103,6 +103,7 @@ class Landscape:
         self.distanceFunction = distanceFunction
         self.populations = populations
         self.projection = projection
+        self.latlon = False
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
@@ -113,6 +114,7 @@ class Landscape:
         elif ('lat' in ptsHead) and ('lon' in ptsHead):
             self.geometryType = 'll'
             self.pointCoords = np.asarray(points[['lon', 'lat']])
+            self.latlon = True
             if distanceFunction is None:
                 self.distanceFunction = aux.vincentyDistance
         else:
@@ -267,7 +269,8 @@ class Landscape:
         for k in list(tker.keys()):
             tker[k].update({
                 'radii': [
-                    krn.nSolveKernel(tker[k], d, guess=0) for d in probValues
+                    krn.nSolveKernel(tker[k], d, guess=0, latlon=self.latlon) 
+                    for d in probValues
                 ]
             })
         self.trapsKernels = tker

@@ -17,7 +17,7 @@ from PIL import Image
 
 
 (OUT_PTH, LND_TYPE, ID) = (
-    '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STP', # './Lands', 
+    '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STP/MeanMean', # './Lands', 
     'STP', '05'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
@@ -33,7 +33,7 @@ dat = srv.importLog(OUT_PTH, fPat+'LOG')
 (gaMin, gaTraps, gens) = (dat['min'], dat['traps'], dat.shape[0])
 bbox = lnd.getBoundingBox()
 i=10
-for i in range(3250, gens):
+for i in range(0, gens):
     print("* Exporting frame {:05d}".format(i), end='\r')
     ###########################################################################
     # Reshape and update traps

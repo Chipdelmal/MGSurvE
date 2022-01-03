@@ -11,6 +11,15 @@ from vincenty import vincenty
 # Vincenty distance between points
 ###############################################################################
 def vincentyDistance(pointA, pointB, meters=False):
+    """Calculates the Vincenty arc distance between points.
+    
+    Args:
+        pointA (tuple): First point in (lon, lat) format.
+        pointB (tuple): Second point in (lon, lat) format.
+
+    Returns:
+        (float): Distance between points
+    """
     distKM = vincenty(
         (pointA[1], pointA[0]), 
         (pointB[1], pointB[0])
@@ -69,12 +78,30 @@ def isNotebook():
 # Dump/Load functions
 ###############################################################################
 def dumpLandscape(landscape, fPath, fName, fExt='bz2'):
+    """Exports a serialized landscape to disk.
+
+    Args:
+        landscape (object): Landscape object to export.
+        fPath (path): Path to where the landscape will be exported.
+        fName (string): Filename.
+        fExt (string): File extension.
+    """
     dump(
         landscape, 
         path.join(fPath, '{}.{}'.format(fName, fExt))
     )
 
 def loadLandscape(fPath, fName, fExt='bz2'):
+    """Loads a serialized landscape from disk.
+
+    Args:
+        fPath (path): Path from where the landscape will be loaded.
+        fName (string): Filename.
+        fExt (string): File extension.
+
+    Returns:
+        (object): Landscape object.
+    """
     lnd = load(
         path.join(fPath, '{}.{}'.format(fName, fExt))
     )
