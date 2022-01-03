@@ -53,9 +53,8 @@ for i in range(0, gens):
     ###########################################################################
     (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
     lnd.plotTraps(fig, ax)
-    srv.plotClean(fig, ax, frame=False)
-    ax.set_xlim(*bbox[0])
-    ax.set_ylim(*bbox[1])
+    lnd.plotLandBoundary(fig, ax)
+    srv.plotClean(fig, ax, bbox=lnd.landLimits)
     ax.text(
         0.5, 0.5, '{:.3f}'.format(gaMin[i]),
         horizontalalignment='center', verticalalignment='center',
@@ -66,7 +65,7 @@ for i in range(0, gens):
     fig.savefig(
         pthSave, 
         dpi=DPI, bbox_inches='tight', 
-        pad_inches=0, transparent=True
+        pad_inches=0.1, transparent=True
     )
     plt.close('all')
     ###########################################################################

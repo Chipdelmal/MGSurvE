@@ -14,6 +14,8 @@ from deap import base, creator, algorithms, tools
 from compress_pickle import dump, load
 from sklearn.preprocessing import normalize
 import MGSurvE as srv
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
@@ -40,6 +42,7 @@ SAO_bbox = (
 SAO_TOME_LL = SAO_TOME_LL .rename(
     columns={'lon': 'x', 'lat': 'y'}
 )
+SAO_LIMITS = ((6.41, 6.79), (-0.0475, .45))
 ###############################################################################
 # Load Migration Matrix
 ###############################################################################
@@ -68,21 +71,26 @@ tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 100}}}
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
     traps=traps, trapsKernels=tKer,
-    distanceFunction=math.dist
+    projection=ccrs.PlateCarree(),
+    distanceFunction=math.dist, landLimits=SAO_LIMITS
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 # Plot Landscape
 ###############################################################################
-(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax)
+(fig, ax) = (
+    plt.figure(figsize=(8, 12)),
+    plt.axes(projection=lnd.projection)
+)
+lnd.plotSites(fig, ax, size=100)
 # lnd.plotTraps(fig, ax)
 lnd.plotMigrationNetwork(
     fig, ax, 
     lineWidth=5, alphaMin=.5, alphaAmplitude=2.5,
 )
-srv.plotClean(fig, ax, frame=False, labels=False)
+lnd.plotLandBoundary(fig, ax)
+srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
@@ -171,7 +179,10 @@ srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 ###############################################################################
 # Plot Results
 ###############################################################################
-(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+(fig, ax) = (
+    plt.figure(figsize=(8, 12)),
+    plt.axes(projection=lnd.projection)
+)
 lnd.plotSites(fig, ax)
 lnd.plotMigrationNetwork(
     fig, ax, 
@@ -179,7 +190,8 @@ lnd.plotMigrationNetwork(
 )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
 srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.5f}')
-srv.plotClean(fig, ax, frame=False, labels=False)
+lnd.plotLandBoundary(fig, ax)
+srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=200

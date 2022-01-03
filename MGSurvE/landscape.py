@@ -82,7 +82,8 @@ class Landscape:
             0: {'kernel': krn.exponentialDecay, 'params': cst.BASIC_EXP_TRAP}
         },
 
-        projection=None
+        projection=None,
+        landLimits=None
     ):
         """Constructor method
         """
@@ -104,6 +105,7 @@ class Landscape:
         self.populations = populations
         self.projection = projection
         self.latlon = False
+        self.landLimits = landLimits
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
@@ -157,6 +159,11 @@ class Landscape:
                     number of sites ({}).
                     '''.format(self.populations.shape[0], self.pointNumber)
                 )
+        # Set land limits -----------------------------------------------------
+        if self.landLimits is None:
+            self.landLimits = self.getBoundingBox()
+        else:
+            self.landLimits = landLimits
         # Init traps locations ------------------------------------------------
         if (traps is not None):
             tpsHead = set(traps.columns)
@@ -413,7 +420,7 @@ class Landscape:
         return (fig, ax)
     def plotLandBoundary(self,
             fig, ax, 
-            landTuples=plt.landTuples
+            landTuples=cst.landTuples
         ):
         (fig, ax) = plt.plotLandBoundary(fig, ax, landTuples=landTuples)
         return (fig, ax)

@@ -41,6 +41,7 @@ SAO_bbox = (
 SAO_TOME_LL = SAO_TOME_LL .rename(
     columns={'lon': 'x', 'lat': 'y'}
 )
+SAO_LIMITS = ((6.41, 6.79), (-0.0475, .45))
 ###############################################################################
 # Load Migration Matrix
 ###############################################################################
@@ -69,29 +70,21 @@ tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 100}}}
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
     traps=traps, trapsKernels=tKer, projection=ccrs.PlateCarree(),
-    distanceFunction=math.dist
+    distanceFunction=math.dist, landLimits=SAO_LIMITS
 )
-bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
-
 ###############################################################################
 # Plot
 ############################################################################### 
-landTuples = (
-    ('110m', '#dfe7fdAA', 30), ('50m', '#dfe7fdAA', 30), 
-    ('10m', '#3f37c944', 10), ('10m', '#ffffffFF', 2)
-)
 (fig, ax) = (
-    plt.figure(figsize=(8, 12)),
-    plt.axes(projection=lnd.projection)
+    plt.figure(figsize=(8, 12)), plt.axes(projection=lnd.projection)
 )
 lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax)
-lnd.plotLandBoundary(fig, ax, landTuples=landTuples)
-srv.plotClean(fig, ax)
-ax.set_extent((6.41, 6.79, -0.0475, .45), crs=lnd.projection)
+lnd.plotLandBoundary(fig, ax)
+srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
     path.join('PlotDev.png'), 
-    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+    facecolor='w', bbox_inches='tight', pad_inches=0.125, dpi=300
 )
 plt.close('all')
