@@ -411,6 +411,12 @@ class Landscape:
             transform=self.projection
         )
         return (fig, ax)
+    def plotLandBoundary(self,
+            fig, ax, 
+            landTuples=plt.landTuples
+        ):
+        (fig, ax) = plt.plotLandBoundary(fig, ax, landTuples=landTuples)
+        return (fig, ax)
     ###########################################################################
     # Auxiliary Methods
     ###########################################################################

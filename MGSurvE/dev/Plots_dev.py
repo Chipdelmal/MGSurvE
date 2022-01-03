@@ -77,45 +77,21 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 # Plot
 ############################################################################### 
+landTuples = (
+    ('110m', '#dfe7fdAA', 30), ('50m', '#dfe7fdAA', 30), 
+    ('10m', '#3f37c944', 10), ('10m', '#ffffffFF', 2)
+)
 (fig, ax) = (
     plt.figure(figsize=(8, 12)),
-    plt.axes(projection=ccrs.PlateCarree())
+    plt.axes(projection=lnd.projection)
 )
-ax.set_extent((6.4, 6.8, -0.045, .5), crs=ccrs.PlateCarree())
 lnd.plotSites(fig, ax)
-
-landTuples = (
-    ('110m', '#dfe7fdAA', 30), 
-    ('50m', '#dfe7fdAA', 30), 
-    ('10m', '#3f37c935', 10), 
-    ('10m', '#ffffffAA', 2)
+# lnd.plotMigrationNetwork(fig, ax)
+lnd.plotLandBoundary(fig, ax, landTuples=landTuples)
+srv.plotClean(fig, ax)
+ax.set_extent((6.41, 6.79, -0.045, .5), crs=lnd.projection)
+fig.savefig(
+    path.join('PlotDev.png'), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
-
-lands = [
-    cfeature.NaturalEarthFeature(
-        'physical', 'land', i[0],
-        edgecolor=i[1], facecolor='#00000000', linewidth=i[2]
-    ) for i in landTuples
-]
-[ax.add_feature(i, zorder=(-100+(ix+1))) for (ix, i) in enumerate(lands)]
-
-ax.scatter(
-    lnd.pointCoords[:, 0], lnd.pointCoords[:, 1],
-    color='gray', linestyle='--',
-    transform=ccrs.PlateCarree()
-)
-
-
-
-# import cartopy.io.shapereader as shapereader
-
-# countries = shapereader.natural_earth(resolution='110m',
-#                                       category='cultural',
-#                                       name='admin_0_countries')
-
-
-# # Find the China boundary polygon.
-# for country in shapereader.Reader(countries).records():
-#     if country.attributes['ISO_A3_EH'] == 'MEX':
-#         print("Here!")
-#         china = country.geometry
+plt.close('all')

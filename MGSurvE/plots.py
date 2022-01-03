@@ -6,6 +6,9 @@ import MGSurvE.constants as cst
 import networkx as nx
 from sklearn.preprocessing import normalize
 import numpy as np
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+
 
 def plotSites(
         fig, ax, 
@@ -176,6 +179,17 @@ def plotTrapsNetwork(
         zorder=zorder,
         **kwargs
     )
+    return (fig, ax)
+
+
+def plotLandBoundary(fig, ax, landTuples=cst.landTuples):
+    lands = [
+        cfeature.NaturalEarthFeature(
+            'physical', 'land', i[0],
+            edgecolor=i[1], facecolor='#00000000', linewidth=i[2]
+        ) for i in landTuples
+    ]
+    [ax.add_feature(i, zorder=(-100+ix)) for (ix, i) in enumerate(lands)]
     return (fig, ax)
 
 
