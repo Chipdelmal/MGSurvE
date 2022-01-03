@@ -23,10 +23,10 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
     # '/RAID5/marshallShare/MGS_Benchmarks/STP/'
     '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
 )
-TRPS_NUM = 2 # int(argv[1]) # 3
+TRPS_NUM = 3 # int(argv[1]) # 3
 IX_SPLIT = 27
-DIAG_VAL = 0.05
-GENS = 100
+DIAG_VAL = 0
+GENS = 200
 ###############################################################################
 # Load Pointset
 ###############################################################################
@@ -36,6 +36,9 @@ SAO_TOME_LL = sites.iloc[IX_SPLIT:]
 SAO_bbox = (
     (min(SAO_TOME_LL['lon']), max(SAO_TOME_LL['lon'])),
     (min(SAO_TOME_LL['lat']), max(SAO_TOME_LL['lat']))
+)
+SAO_TOME_LL = SAO_TOME_LL .rename(
+    columns={'lon': 'x', 'lat': 'y'}
 )
 ###############################################################################
 # Load Migration Matrix
@@ -55,17 +58,17 @@ nullTraps = [0]*TRPS_NUM
     np.random.uniform(SAO_bbox[1][0], SAO_bbox[1][1], TRPS_NUM)
 )
 traps = pd.DataFrame({
-    'lon': lonTrap, 'lat': latTrap,
+    'x': lonTrap, 'y': latTrap,
     't': nullTraps, 'f': nullTraps
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .01}}}
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 100}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
-    traps=traps, trapsKernels=tKer
-    # distanceFunction=math.dist
+    traps=traps, trapsKernels=tKer,
+    distanceFunction=math.dist
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
@@ -74,7 +77,7 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax)
-lnd.plotTraps(fig, ax)
+# lnd.plotTraps(fig, ax)
 lnd.plotMigrationNetwork(
     fig, ax, 
     lineWidth=5, alphaMin=.5, alphaAmplitude=2.5,
