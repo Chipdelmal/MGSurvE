@@ -85,11 +85,11 @@ landTuples = (
     plt.figure(figsize=(8, 12)),
     plt.axes(projection=lnd.projection)
 )
-lnd.plotSites(fig, ax)
-# lnd.plotMigrationNetwork(fig, ax)
+lnd.plotSites(fig, ax, size=100)
+lnd.plotMigrationNetwork(fig, ax)
 lnd.plotLandBoundary(fig, ax, landTuples=landTuples)
 srv.plotClean(fig, ax)
-ax.set_extent((6.41, 6.79, -0.045, .5), crs=lnd.projection)
+ax.set_extent((6.41, 6.79, -0.0475, .45), crs=lnd.projection)
 fig.savefig(
     path.join('PlotDev.png'), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
