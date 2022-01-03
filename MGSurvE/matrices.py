@@ -20,6 +20,7 @@ def calcDistanceMatrix(pointCoords, distFun=math.dist):
     """
     coordsNum = len(pointCoords)
     distMatrix = np.empty((coordsNum, coordsNum))
+    print(pointCoords)
     for (i, coordA) in enumerate(pointCoords):
         for (j, coordB) in enumerate(pointCoords):
             distMatrix[i][j] = distFun(coordA, coordB)

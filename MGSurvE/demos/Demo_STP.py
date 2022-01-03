@@ -23,7 +23,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
     # '/RAID5/marshallShare/MGS_Benchmarks/STP/'
     '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STP/'
 )
-TRPS_NUM = 5# int(argv[1]) # 3
+TRPS_NUM = 5 # int(argv[1]) # 3
 IX_SPLIT = 27
 DIAG_VAL = 0 # 0.05
 ###############################################################################
@@ -36,9 +36,9 @@ SAO_bbox = (
     (min(SAO_TOME_LL['lon']), max(SAO_TOME_LL['lon'])),
     (min(SAO_TOME_LL['lat']), max(SAO_TOME_LL['lat']))
 )
-SAO_TOME_LL = SAO_TOME_LL .rename(
-    columns={'lon': 'x', 'lat': 'y'}
-)
+# SAO_TOME_LL = SAO_TOME_LL .rename(
+#     columns={'lon': 'x', 'lat': 'y'}
+# )
 ###############################################################################
 # Load Migration Matrix
 ###############################################################################
@@ -57,17 +57,17 @@ nullTraps = [0]*TRPS_NUM
     np.random.uniform(SAO_bbox[1][0], SAO_bbox[1][1], TRPS_NUM)
 )
 traps = pd.DataFrame({
-    'x': lonTrap, 'y': latTrap,
+    'lon': lonTrap, 'lat': latTrap,
     't': nullTraps, 'f': nullTraps
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 100}}}
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
-    traps=traps, trapsKernels=tKer,
-    distanceFunction=math.dist
+    traps=traps, trapsKernels=tKer
+    # distanceFunction=math.dist
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)

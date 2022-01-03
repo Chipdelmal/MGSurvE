@@ -13,6 +13,7 @@ import MGSurvE.kernels as krn
 import MGSurvE.plots as plt
 import MGSurvE.optimization as opt
 import MGSurvE.pointProcess as pts
+import MGSurvE.auxiliary as aux
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
@@ -113,7 +114,7 @@ class Landscape:
             self.geometryType = 'll'
             self.pointCoords = np.asarray(points[['lon', 'lat']])
             if distanceFunction is None:
-                self.distanceFunction = vin.vincenty
+                self.distanceFunction = aux.vincentyDistance
         else:
             raise Exception(
                 '''Check the landscape type! 
@@ -145,7 +146,7 @@ class Landscape:
         if (maskedMigrationMatrix is None) and (self.pointTypes is not None):
             self.calcPointsMaskedMigration()
         else:
-            self.maskedMigration = np.asarray(maskedMigration)
+            self.maskedMigration = np.asarray(maskedMigrationMatrix)
         # Setup population sizes ----------------------------------------------
         if (self.populations is not None):
             if (self.populations.shape[0] != self.pointNumber):

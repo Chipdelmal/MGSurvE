@@ -4,6 +4,22 @@
 import os
 from os import path
 from compress_pickle import dump, load
+from vincenty import vincenty
+
+
+###############################################################################
+# Vincenty distance between points
+###############################################################################
+def vincentyDistance(pointA, pointB, meters=False):
+    distKM = vincenty(
+        (pointA[1], pointA[0]), 
+        (pointB[1], pointB[0])
+    )
+    if meters:
+        return distKM*1000
+    else:
+        return distKM
+
 
 ###############################################################################
 # Various auxiliary functions

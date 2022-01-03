@@ -13,11 +13,12 @@ from compress_pickle import dump, load
 import MGSurvE as srv
 from PIL import Image
 
+# ffmpeg -start_number START_NUMBER -r FRAMERATE -f image2 -s 1920x1080 -i STP_05_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 15 -pix_fmt yuv420p OUTPUT_PATH.mp4
+
 
 (OUT_PTH, LND_TYPE, ID) = (
     '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STP', # './Lands', 
-    'STP', 
-    '05'
+    'STP', '05'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
