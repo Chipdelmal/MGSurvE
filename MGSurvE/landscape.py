@@ -328,7 +328,7 @@ class Landscape:
             self.pointCoords, self.pointTypes,
             colors=colors, size=size, 
             edgecolors=edgecolors, linewidths=linewidths,
-            zorder=zorder, **kwargs
+            zorder=zorder, transform=self.projection, **kwargs
         )
         return (fig, ax)
     def plotMigrationNetwork(self,
@@ -344,7 +344,7 @@ class Landscape:
             self.migrationMatrix, self.pointCoords, self.pointCoords,
             lineColor=lineColor, lineWidth=lineWidth, 
             alphaMin=alphaMin, alphaAmplitude=alphaAmplitude,
-            zorder=zorder, **kwargs
+            zorder=zorder, transform=self.projection, **kwargs
         )
         return (fig, ax)
     def plotMaskedMigrationNetwork(self,
@@ -360,7 +360,7 @@ class Landscape:
             self.maskedMigration, self.pointCoords, self.pointCoords,
             lineColor=lineColor, lineWidth=lineWidth, 
             alphaMin=alphaMin, alphaAmplitude=alphaAmplitude,
-            zorder=zorder, **kwargs
+            zorder=zorder, transform=self.projection, **kwargs
         )
         return (fig, ax)
     def plotTraps(self,
@@ -378,7 +378,7 @@ class Landscape:
             self.trapsKernels, self.trapsFixed,
             colors=colors, marker=marker,
             edgecolor=edgecolor, lws=lws, ls=ls,
-            size=size, zorders=zorders,
+            size=size, zorders=zorders, transform=self.projection,
             **kwargs
         )
         return (fig, ax)
@@ -395,7 +395,7 @@ class Landscape:
             self.trapsMigration, self.trapsCoords, self.pointCoords,
             lineColor=lineColor, lineWidth=lineWidth, 
             alphaMin=alphaMin, alphaAmplitude=alphaAmplitude,
-            zorder=zorder, **kwargs
+            zorder=zorder, transform=self.projection, **kwargs
         )
         return (fig, ax)
     def plotDirectedNetwork(self,
@@ -407,7 +407,8 @@ class Landscape:
             fig, ax,
             sites=self.pointCoords, pTypes=self.pointTypes,
             transMtx=self.migrationMatrix,
-            markers=markers, colors=colors, edgecolors=edgecolors
+            markers=markers, colors=colors, edgecolors=edgecolors,
+            transform=self.projection
         )
         return (fig, ax)
     ###########################################################################

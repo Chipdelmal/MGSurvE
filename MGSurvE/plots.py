@@ -12,7 +12,7 @@ def plotSites(
         sites, pTypes,
         markers=cst.MKRS, colors=cst.MCOL,
         size=350, edgecolors='w', linewidths=1.25,
-        zorder=5, **kwargs
+        zorder=5, transform=None, **kwargs
     ):
     """ Plots a transitions matrix.
     
@@ -46,7 +46,7 @@ def plotMigrationNetwork(
         transMtx, sitesB, sitesA,
         lineColor='#03045e', lineWidth=20, 
         alphaMin=.5, alphaAmplitude=2.5,
-        zorder=0, **kwargs
+        zorder=0, transform=None, **kwargs
     ):
     """ Plots a transitions matrix.
     
@@ -87,6 +87,7 @@ def plotTraps(
         colors=cst.TRP_COLS, marker="X",
         edgecolors=('w', 'k'), lws=(2, 0), ls=':',
         size=350, zorders=(25, -5), fill=True,
+        transform=None, 
         **kwargs
     ):
     """ Plots the traps with the radii of effectiveness.
@@ -144,7 +145,7 @@ def plotTrapsNetwork(
         transMtx, traps, sites,
         lineColor='#3d0e61', lineWidth=20, 
         alphaMin=.5, alphaAmplitude=2.5,
-        zorder=0, **kwargs
+        zorder=0, transform=None, **kwargs
     ):
     """ Plots the connectivity network of traps in the landscape.
 
@@ -319,7 +320,7 @@ def plotDirectedNetwork(
         alphaNodeMin=1, alphaEdgeMin=1,
         alphaNodeAmplitude=50, alphaEdgeAmplitude=100,
         sizeNodeAmplitude=10000000000, widthEdgeAmplitude=10,
-        edgecolors='black', **kwargs
+        edgecolors='black', transform=None, **kwargs
     ):
     """ Plots edge and node centrality.
     

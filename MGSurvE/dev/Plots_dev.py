@@ -68,7 +68,7 @@ tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 100}}}
 ###############################################################################
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
-    traps=traps, trapsKernels=tKer,
+    traps=traps, trapsKernels=tKer, projection=ccrs.PlateCarree(),
     distanceFunction=math.dist
 )
 bbox = lnd.getBoundingBox()
@@ -82,6 +82,7 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
     plt.axes(projection=ccrs.PlateCarree())
 )
 ax.set_extent((6.4, 6.8, -0.045, .5), crs=ccrs.PlateCarree())
+lnd.plotSites(fig, ax)
 
 landTuples = (
     ('110m', '#dfe7fdAA', 30), 

@@ -23,7 +23,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
     # '/RAID5/marshallShare/MGS_Benchmarks/STP/'
     '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
 )
-TRPS_NUM = 3 # int(argv[1]) # 3
+TRPS_NUM = 4 # int(argv[1]) # 3
 IX_SPLIT = 27
 DIAG_VAL = 0
 GENS = 200
