@@ -29,7 +29,7 @@ setuptools.setup(
         'numpy', 'matplotlib', 'ipython',
         'jupyter', 'pandas', 'compress-pickle',
         'deap', 'scikit-learn', 'scipy', 'vincenty',
-        'pytest', 'networkx', 'Cython', 'cartopy'
+        'pytest', 'networkx'
     ],
     license='MIT',
     classifiers=[
