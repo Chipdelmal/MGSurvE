@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9. GA in a Realistic Landscape &mdash; MGSurvE  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Benchmarks" href="benchmarks.html" />
+    <link rel="prev" title="8. Trap Masks" href="OT_trapMask.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> MGSurvE
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="breakdown.html">Pkg Breakdown</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="demos.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="landscapeCreation.html">1. Landscape Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landscapeUpdate.html">2. Landscape Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landscapeTraps.html">3. Sites and Trap Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA.html">4. GA Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA_custom.html">5. GA with Immovable Traps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA_sites.html">6. GA Custom with Multi-Point Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA_complex.html">7. GA with Sex Kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OT_trapMask.html">8. Trap Masks</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9. GA in a Realistic Landscape</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reading-spatial-information">9.1. Reading Spatial Information</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MGSurvE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="demos.html">Tutorials</a> &raquo;</li>
+      <li><span class="section-number">9. </span>GA in a Realistic Landscape</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/GA_STP.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ga-in-a-realistic-landscape">
+<h1><span class="section-number">9. </span>GA in a Realistic Landscape<a class="headerlink" href="#ga-in-a-realistic-landscape" title="Permalink to this headline"></a></h1>
+<p>In this example, we will be testing some of <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a>’s capabilities to optimize realistic landscapes.
+We will use the São Tomé landscape (in equatorial Africa) to test out an optimal positioning of traps to minimize time to detection of a transgene.</p>
+<a class="reference internal image-reference" href="_images/STP_10_CLN.jpg"><img alt="_images/STP_10_CLN.jpg" class="align-center" src="_images/STP_10_CLN.jpg" style="width: 400px;" /></a>
+<section id="reading-spatial-information">
+<h2><span class="section-number">9.1. </span>Reading Spatial Information<a class="headerlink" href="#reading-spatial-information" title="Permalink to this headline"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sites</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUT_PTH</span><span class="p">,</span> <span class="s1">&#39;GEO&#39;</span><span class="p">,</span> <span class="s1">&#39;stp_cluster_sites_pop_v5_fixed.csv&#39;</span><span class="p">))</span>
+<span class="n">sites</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">sites</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">SAO_TOME_LL</span> <span class="o">=</span> <span class="n">sites</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">IX_SPLIT</span><span class="p">:]</span>
+<span class="n">SAO_bbox</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">SAO_TOME_LL</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">SAO_TOME_LL</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">])),</span>
+    <span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">SAO_TOME_LL</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">SAO_TOME_LL</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]))</span>
+<span class="p">)</span>
+<span class="n">SAO_TOME_LL</span> <span class="o">=</span> <span class="n">SAO_TOME_LL</span> <span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;lon&#39;</span><span class="p">:</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="s1">&#39;y&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">SAO_LIMITS</span> <span class="o">=</span> <span class="p">((</span><span class="mf">6.41</span><span class="p">,</span> <span class="mf">6.79</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.0475</span><span class="p">,</span> <span class="mf">.45</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="OT_trapMask.html" class="btn btn-neutral float-left" title="8. Trap Masks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="benchmarks.html" class="btn btn-neutral float-right" title="Benchmarks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Hector M. Sanchez C..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
