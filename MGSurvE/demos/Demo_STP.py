@@ -25,7 +25,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
     # '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
     '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
 )
-TRPS_NUM = int(argv[1])
+TRPS_NUM = 3# int(argv[1])
 GENS = 1000
 (IX_SPLIT, DIAG_VAL) = (27, 0)
 ###############################################################################
@@ -95,6 +95,7 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 )
 lnd.plotSites(fig, ax, size=100)
 # lnd.plotTraps(fig, ax)
+lnd.plotDirectedNetwork(fig, ax)
 lnd.plotMigrationNetwork(
     fig, ax, 
     lineWidth=5, alphaMin=.5, alphaAmplitude=2.5,
@@ -105,6 +106,23 @@ fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
+plt.close('all')
+###############################################################################
+# Plot Directed Network
+###############################################################################
+# (fig, ax) = (
+#     plt.figure(figsize=(15, 15)),
+#     plt.axes(projection=lnd.projection)
+# )
+# lnd.plotSites(fig, ax, size=100)
+# lnd.plotDirectedNetwork(fig, ax)
+# lnd.plotLandBoundary(fig, ax)
+# srv.plotClean(fig, ax, bbox=lnd.landLimits)
+# fig.savefig(
+#     path.join(OUT_PTH, '{}_{:02d}_DIR.png'.format(ID, TRPS_NUM)), 
+#     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+# )
+# plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 

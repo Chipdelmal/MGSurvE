@@ -15,5 +15,5 @@ Tutorials
    OT_trapMask
    GA_STP
 
-.. image:: ../../img/demo_basicLandscape.jpg
+.. image:: ../../img/STP_10_TRP.jpg
    
