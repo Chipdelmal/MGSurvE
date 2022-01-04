@@ -3,6 +3,7 @@ scratch
 demo_out
 *.png
 *.csv
+mailAlerts.py
 
 # Compressed Serialized Files
 *.bz2

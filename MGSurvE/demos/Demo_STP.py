@@ -26,9 +26,18 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
     # '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
 )
 TRPS_NUM = int(argv[1])
-IX_SPLIT = 27
-DIAG_VAL = 0
-GENS = 1500
+GENS = 4000
+(IX_SPLIT, DIAG_VAL) = (27, 0.01)
+###############################################################################
+# Setup email alerts
+###############################################################################
+MAIL_ALERTS = True
+if MAIL_ALERTS:
+    import time
+    import smtplib
+    import mailAlerts as mlr
+    from datetime import datetime
+    t0 = time.time()
 ###############################################################################
 # Load Pointset
 ###############################################################################
@@ -198,30 +207,19 @@ fig.savefig(
 )
 plt.close('all')
 ###############################################################################
-# Debug
+# Email Finished!
 ############################################################################### 
-# bestChromosome = [6.65, 0]
-# bestChromosome = srv.initChromosome(
-#     lndGA.trapsCoords, fixedTrapsMask=trpMsk, coordsRange=bbox
-# )
-# bestTraps = np.reshape(bestChromosome, (-1, 2))
-# fit = srv.calcFitness(
-#     bestChromosome,
-#     landscape=lnd,
-#     optimFunction=srv.getDaysTillTrapped,
-#     optimFunctionArgs={'outer': np.mean, 'inner': np.mean}
-# )
-# lnd.updateTrapsCoords(bestTraps)
-# (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-# lnd.plotSites(fig, ax)
-# lnd.plotTraps(fig, ax)
-# srv.plotFitness(fig, ax, fit[0])
-# srv.plotClean(fig, ax, frame=True, labels=True)
-# fig.savefig(
-#     path.join(OUT_PTH, '{}_DBG.png'.format(ID)), 
-#     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-# )
-# srv.initChromosome(
-#     lndGA.trapsCoords, fixedTrapsMask=trpMsk, coordsRange=bbox
-# )
-# bbox
+if MAIL_ALERTS:
+    tF = (time.time()-t0)/3600
+    fName = __file__.split('/')[-1]
+    mailStr = 'Sim finished ({}  t{:02d})\nRuntime: {}'.format(
+        fName, TRPS_NUM, tF
+    )
+    msg = EmailMessage()
+    msg['Subject'] = 'Sim finished ({} - {:02d})'.format(fName, TRPS_NUM)
+    msg['From'] = mlr.MAIL
+    msg['To'] = mlr.TARG
+    msg.set_content(mailStr)
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+        smtp.login(mlr.MAIL, mlr.PSWD)
+        smtp.send_message(msg)
