@@ -22,13 +22,13 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (ID, OUT_PTH) = (
     'STP', 
-    # '/RAID5/marshallShare/MGS_Benchmarks/STP/'
-    '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
+    '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
+    # '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
 )
-TRPS_NUM = 4 # int(argv[1]) # 3
+TRPS_NUM = int(argv[1])
 IX_SPLIT = 27
 DIAG_VAL = 0
-GENS = 200
+GENS = 1500
 ###############################################################################
 # Load Pointset
 ###############################################################################
@@ -80,7 +80,7 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 # Plot Landscape
 ###############################################################################
 (fig, ax) = (
-    plt.figure(figsize=(8, 12)),
+    plt.figure(figsize=(15, 15)),
     plt.axes(projection=lnd.projection)
 )
 lnd.plotSites(fig, ax, size=100)
@@ -180,7 +180,7 @@ srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 # Plot Results
 ###############################################################################
 (fig, ax) = (
-    plt.figure(figsize=(8, 12)),
+    plt.figure(figsize=(15, 15)),
     plt.axes(projection=lnd.projection)
 )
 lnd.plotSites(fig, ax)
@@ -189,7 +189,7 @@ lnd.plotMigrationNetwork(
     lineWidth=5, alphaMin=.5, alphaAmplitude=5,
 )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
-srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.5f}')
+srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
 lnd.plotLandBoundary(fig, ax)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
