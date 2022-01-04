@@ -1,4 +1,4 @@
-Trap Masks
+Stage-Specific Traps
 ------------
 
 `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ can deal with situations in which individuals are more attracted to certain traps if they are moving from one point-type to another
