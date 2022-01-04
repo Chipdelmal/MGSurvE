@@ -15,12 +15,31 @@ To do so, we will use an external point-set dataset, and an independently-genera
 Reading Spatial Information
 ~~~~~~~~~~~~~~~~~~~~~~
 
-This
+This time we'll be reading the coordinates from a CSV file. An excerpt of this file looks like this:
+
+.. code-block:: python
+
+    lon,lat,pop
+    7.35312,1.59888,42
+    7.37718,1.6205,93
+    7.37951,1.67867,1
+    7.38006,1.64933,144
+    7.38039,1.65644,56
+    ...
+
+We will read the coordinates and store them in a dataframe as before with all sites being the same type :code:`0`.
 
 .. code-block:: python
 
     sites = pd.read_csv('stp_cluster_sites_pop_v5_fixed.csv')
     sites['t'] = [0]*sites.shape[0]
+
+
+As our original file contains locations for both São Tomé & Príncipe, this time we will subset the sites and matrices to contain only the latter part of the elements (index controlled by :code:`IX_SPLIT`)
+For now, we will rename the :code:`lon, lat` columns to :code:`x, y` so that we can work with Euclidean geometry as the distances are quite short (in future updates we will include operators for spherical geometries):
+
+.. code-block:: python
+
     SAO_TOME_LL = sites.iloc[IX_SPLIT:]
     SAO_bbox = (
         (min(SAO_TOME_LL['lon']), max(SAO_TOME_LL['lon'])),
@@ -29,8 +48,14 @@ This
     SAO_TOME_LL = SAO_TOME_LL .rename(
         columns={'lon': 'x', 'lat': 'y'}
     )
+
+And, we define our bounding box manually for visualization purposes:
+
+.. code-block:: python
+
     SAO_LIMITS = ((6.41, 6.79), (-0.0475, .45))
 
+Finally, we load the migration matrix (generated independently), subset the desired region, set the diagonal to :code:`0`, and re-normalize:
 
 .. code-block:: python
 
@@ -42,6 +67,8 @@ This
 
 Setting Traps Up
 ~~~~~~~~~~~~~~~~~~~~~~
+
+Now, we will setup some traps in the environment (controlled by the :code:`TRPS_NUM` variable) in random uniform locations:
 
 .. code-block:: python
 
@@ -61,6 +88,7 @@ Setting Traps Up
 Defining Landscape
 ~~~~~~~~~~~~~~~~~~~~~~
 
+Now, as we'd like to plot our landscape in a coordinate system, we define our object with the :code:`ccrs.PlateCarree()` projection using `cartopy <https://scitools.org.uk/cartopy/docs/v0.15/index.html>`_:
 
 .. code-block:: python
 
@@ -68,11 +96,12 @@ Defining Landscape
         SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
         traps=traps, trapsKernels=tKer,
         projection=ccrs.PlateCarree(),
-        distanceFunction=math.dist, landLimits=SAO_LIMITS
+        landLimits=SAO_LIMITS,
     )
     bbox = lnd.getBoundingBox()
     trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 
+And now, we generate our geo axes and figure:
 
 .. code-block:: python
 
@@ -90,9 +119,15 @@ Defining Landscape
     srv.plotClean(fig, ax, bbox=lnd.landLimits)
 
 
+.. image:: ../../img/STP_10_CLN.jpg
+    :align: center
+    :width: 400px
+
 
 Setting GA Up
 ~~~~~~~~~~~~~~~~~~~~~~
+
+Next thing to do is to setup our GA's variables for optimization:
 
 .. code-block:: python
 
@@ -109,6 +144,8 @@ Setting GA Up
     VERBOSE = True
     lndGA = deepcopy(lnd)
 
+
+And to register all the optimization operators:
 
 .. code-block:: python
 
@@ -147,6 +184,8 @@ Setting GA Up
         optimFunctionArgs={'outer': np.mean, 'inner': np.max}
     )
 
+Finally, we setup our statistics:
+
 .. code-block:: python
 
     pop = toolbox.populationCreator(n=POP_SIZE)
@@ -159,8 +198,12 @@ Setting GA Up
     stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnessValues))])
 
 
+This is done the same way it has been done for previous examples, so no changes are needed in this part.
+
 Optimizing
 ~~~~~~~~~~~~~~~~~~~~~~
+
+We now run our optimization routine as we have done before, and store the results:
 
 .. code-block:: python
 
@@ -168,21 +211,17 @@ Optimizing
         pop, toolbox, cxpb=MAT['cxpb'], mutpb=MUT['mutpb'], ngen=GENS, 
         stats=stats, halloffame=hof, verbose=VERBOSE
     )
-
-
-.. code-block:: python
-
     bestChromosome = hof[0]
     bestTraps = np.reshape(bestChromosome, (-1, 2))
     lnd.updateTrapsCoords(bestTraps)
-    srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM))
     dta = pd.DataFrame(logbook)
-    srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 
 
 Plotting Results
 ~~~~~~~~~~~~~~~~~~~~~~
 
+
+Finally, we can plot our landscape with the optimized traps' locations:
 
 .. code-block:: python
 
@@ -203,3 +242,6 @@ Plotting Results
 
 .. image:: ../../img/STP_10_TRP.jpg
     :align: center
+
+
+For the full code used in this demo, follow this `link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_STP.py>`_. 
