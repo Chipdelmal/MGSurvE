@@ -22,12 +22,12 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (ID, OUT_PTH) = (
     'STP', 
-    '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
-    # '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
+    # '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
+    '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
 )
 TRPS_NUM = int(argv[1])
-GENS = 4000
-(IX_SPLIT, DIAG_VAL) = (27, 0.01)
+GENS = 1000
+(IX_SPLIT, DIAG_VAL) = (27, 0)
 ###############################################################################
 # Setup email alerts
 ###############################################################################
@@ -37,6 +37,7 @@ if MAIL_ALERTS:
     import smtplib
     import mailAlerts as mlr
     from datetime import datetime
+    from email.message import EmailMessage
     t0 = time.time()
 ###############################################################################
 # Load Pointset
@@ -216,7 +217,7 @@ if MAIL_ALERTS:
         fName, TRPS_NUM, tF
     )
     msg = EmailMessage()
-    msg['Subject'] = 'Sim finished ({} - {:02d})'.format(fName, TRPS_NUM)
+    msg['Subject'] = 'Sim finished: {} - {:02d}'.format(fName, TRPS_NUM)
     msg['From'] = mlr.MAIL
     msg['To'] = mlr.TARG
     msg.set_content(mailStr)
