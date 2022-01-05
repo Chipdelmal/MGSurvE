@@ -22,12 +22,12 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (ID, OUT_PTH) = (
     'STP', 
-    # '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
-    '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
+    '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
+    # '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
 )
 TRPS_NUM = 1# int(argv[1])
 GENS = 4000
-(IX_SPLIT, DIAG_VAL) = (27, 0.02)
+(IX_SPLIT, DIAG_VAL) = (27, 0.005)
 ###############################################################################
 # Setup email alerts
 ###############################################################################
@@ -208,7 +208,7 @@ srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 ###############################################################################
 (fig, ax) = (
     plt.figure(figsize=(15, 15)),
-    plt.axes(projection=lnd.projection)
+    plt.axes(projection=ccrs.PlateCarree())
 )
 lnd.plotSites(fig, ax)
 lnd.plotMigrationNetwork(
