@@ -82,7 +82,6 @@ class Landscape:
             0: {'kernel': krn.exponentialDecay, 'params': cst.BASIC_EXP_TRAP}
         },
 
-        projection=None,
         landLimits=None
     ):
         """Constructor method
@@ -103,7 +102,6 @@ class Landscape:
         self.trapsMask = None
         self.distanceFunction = distanceFunction
         self.populations = populations
-        self.projection = projection
         self.latlon = False
         self.landLimits = landLimits
         # Check and define coordinates ----------------------------------------
@@ -335,7 +333,7 @@ class Landscape:
             self.pointCoords, self.pointTypes,
             colors=colors, size=size, 
             edgecolors=edgecolors, linewidths=linewidths,
-            zorder=zorder, transform=self.projection, **kwargs
+            zorder=zorder, **kwargs
         )
         return (fig, ax)
     def plotMigrationNetwork(self,
@@ -351,7 +349,7 @@ class Landscape:
             self.migrationMatrix, self.pointCoords, self.pointCoords,
             lineColor=lineColor, lineWidth=lineWidth, 
             alphaMin=alphaMin, alphaAmplitude=alphaAmplitude,
-            zorder=zorder, transform=self.projection, **kwargs
+            zorder=zorder, **kwargs
         )
         return (fig, ax)
     def plotMaskedMigrationNetwork(self,
@@ -367,7 +365,7 @@ class Landscape:
             self.maskedMigration, self.pointCoords, self.pointCoords,
             lineColor=lineColor, lineWidth=lineWidth, 
             alphaMin=alphaMin, alphaAmplitude=alphaAmplitude,
-            zorder=zorder, transform=self.projection, **kwargs
+            zorder=zorder, **kwargs
         )
         return (fig, ax)
     def plotTraps(self,
@@ -385,7 +383,7 @@ class Landscape:
             self.trapsKernels, self.trapsFixed,
             colors=colors, marker=marker,
             edgecolor=edgecolor, lws=lws, ls=ls,
-            size=size, zorders=zorders, transform=self.projection,
+            size=size, zorders=zorders,
             **kwargs
         )
         return (fig, ax)
@@ -402,7 +400,7 @@ class Landscape:
             self.trapsMigration, self.trapsCoords, self.pointCoords,
             lineColor=lineColor, lineWidth=lineWidth, 
             alphaMin=alphaMin, alphaAmplitude=alphaAmplitude,
-            zorder=zorder, transform=self.projection, **kwargs
+            zorder=zorder, **kwargs
         )
         return (fig, ax)
     def plotDirectedNetwork(self,
@@ -414,8 +412,7 @@ class Landscape:
             fig, ax,
             sites=self.pointCoords, pTypes=self.pointTypes,
             transMtx=self.migrationMatrix,
-            markers=markers, colors=colors, edgecolors=edgecolors,
-            transform=self.projection
+            markers=markers, colors=colors, edgecolors=edgecolors
         )
         return (fig, ax)
     def plotLandBoundary(self,

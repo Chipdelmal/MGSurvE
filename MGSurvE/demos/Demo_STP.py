@@ -22,10 +22,10 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (ID, OUT_PTH) = (
     'STP', 
-    '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
-    # '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
+    # '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
+    '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
 )
-TRPS_NUM = int(argv[1])
+TRPS_NUM = 1# int(argv[1])
 GENS = 4000
 (IX_SPLIT, DIAG_VAL) = (27, 0.02)
 ###############################################################################
@@ -82,7 +82,6 @@ tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 100}}}
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
     traps=traps, trapsKernels=tKer,
-    projection=ccrs.PlateCarree(),
     distanceFunction=math.dist, landLimits=SAO_LIMITS
 )
 bbox = lnd.getBoundingBox()
@@ -92,11 +91,10 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 (fig, ax) = (
     plt.figure(figsize=(15, 15)),
-    plt.axes(projection=lnd.projection)
+    plt.axes(projection=ccrs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=100)
 # lnd.plotTraps(fig, ax)
-lnd.plotDirectedNetwork(fig, ax)
 lnd.plotMigrationNetwork(
     fig, ax, 
     lineWidth=5, alphaMin=.5, alphaAmplitude=2.5,

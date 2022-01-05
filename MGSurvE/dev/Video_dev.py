@@ -7,6 +7,8 @@ import pandas as pd
 import os
 from os import path
 from sys import argv
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
 from copy import deepcopy
 import matplotlib.pyplot as plt
 from compress_pickle import dump, load
@@ -17,8 +19,8 @@ from PIL import Image
 
 
 (OUT_PTH, LND_TYPE, ID) = (
-    '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STP/MeanMean', # './Lands', 
-    'STP', '05'
+    '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/', # './Lands', 
+    'STP', '01'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
@@ -59,6 +61,12 @@ for i in range(0, gens):
         0.5, 0.5, '{:.3f}'.format(gaMin[i]),
         horizontalalignment='center', verticalalignment='center',
         fontsize=100, color='#00000011',
+        transform=ax.transAxes, zorder=5
+    )
+    ax.text(
+        0.5, 0.475, '{:03d}'.format(i),
+        horizontalalignment='center', verticalalignment='center',
+        fontsize=25, color='#00000011',
         transform=ax.transAxes, zorder=5
     )
     pthSave = path.join(IMG_PTH, '{}{:05d}.png'.format(fPat, i))
