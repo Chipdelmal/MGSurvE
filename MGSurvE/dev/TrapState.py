@@ -55,6 +55,10 @@ trapsTypes = lnd.trapsTypes
 trapsKernels = lnd.trapsKernels
 trapsDistances = lnd.trapsDistances
 
+
+
+
+
 if tMask is None:
     tMask = np.full((len(set(trapsTypes)), len(set(pointTypes))), 1)
 # Base unbiased probs ---------------------------------------------------------

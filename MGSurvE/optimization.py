@@ -98,12 +98,6 @@ def initChromosome(trapsCoords, fixedTrapsMask, coordsRange):
     (xRan, yRan) = coordsRange
     trapsNum = trapsCoords.shape[0]
     chromosome = trapsCoords.flatten()
-    # for i in range(trapsNum):
-    #     if fixedTrapsMask[i]:
-    #         if (i % 2) != 0: 
-    #             chromosome[i] = np.random.uniform(xRan[0], xRan[1], 1)[0]
-    #         else:
-    #             chromosome[i] = np.random.uniform(yRan[0], yRan[1], 1)[0]
     xCoords = np.random.uniform(xRan[0], xRan[1], trapsNum)
     yCoords = np.random.uniform(yRan[0], yRan[1], trapsNum)
     chromosome = [val for pair in zip(xCoords, yCoords) for val in pair]
@@ -142,6 +136,28 @@ def mutateChromosome(
         (numpy array list): Selectively-mutated chromosome.
     """
     randDraw = randFun(size=len(chromosome), **randArgs)
+    randMsk = randDraw * fixedTrapsMask
+    chromosome[:] = chromosome + randMsk
+    return (chromosome, )
+
+
+def mutateChromosomeAsymmetric(
+        chromosome, fixedTrapsMask,
+        randFun=rand.normal, 
+        randArgs={
+            'x': {'loc': 0, 'scale': 0.1}, 
+            'y': {'loc': 0, 'scale': 0.1}
+        }
+    ):
+    cLen=len(chromosome)
+    # Draw mutations for XY chromosomes ---------------------------------------
+    randDrawX = randFun(size=int(cLen/2), **randArgs['x'])
+    randDrawY = randFun(size=int(cLen/2), **randArgs['y'])
+    # Interweave XY mutations -------------------------------------------------
+    randDraw = np.empty((cLen,))
+    randDraw[0::2] = randDrawX
+    randDraw[1::2] = randDrawY
+    # Mask and return results -------------------------------------------------
     randMsk = randDraw * fixedTrapsMask
     chromosome[:] = chromosome + randMsk
     return (chromosome, )

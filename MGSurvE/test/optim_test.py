@@ -95,6 +95,44 @@ def test_selectiveCrossover_CumShift():
     assert testCumsum
 
 
+def test_mutateChromosomeAsymmetric():
+    (trpsNum, dims) = (12, 2)
+    trpsFxd = [0]*trpsNum
+    initMsk = [True] * trpsNum * dims
+    chrom = np.random.uniform(-10, 10, trpsNum*2)
+    trpMsk = srv.genFixedTrapsMask(trpsFxd)
+
+    org = np.copy(chrom)
+    # Test mutation over X ----------------------------------------------------
+    mod = srv.mutateChromosomeAsymmetric(
+        np.copy(chrom), trpMsk, 
+        randArgs={
+            'x': {'loc': 10, 'scale': 100}, 
+            'y': {'loc': 0, 'scale': 0}
+        }
+    )
+    totalX = np.sum([org[a]!=mod[0][a] for a in range(len(org))])
+    # Test mutation over Y ----------------------------------------------------
+    mod = srv.mutateChromosomeAsymmetric(
+        np.copy(chrom), trpMsk, 
+        randArgs={
+            'x': {'loc': 0, 'scale': 0}, 
+            'y': {'loc': 10, 'scale': 100}
+        }
+    )
+    totalY = np.sum([org[a]!=mod[0][a] for a in range(len(org))])
+    # Test mutation over XY --------------------------------------------------
+    mod = srv.mutateChromosomeAsymmetric(
+        np.copy(chrom), trpMsk, 
+        randArgs={
+            'x': {'loc': 10, 'scale': 0}, 
+            'y': {'loc': 10, 'scale': 1}
+        }
+    )
+    totalXY = np.sum([org[a]!=mod[0][a] for a in range(len(org))])
+    # Combine tests -----------------------------------------------------------
+    assert ((totalX==trpsNum) and (totalY==trpsNum) and (totalXY==2*trpsNum))
+
 ###############################################################################
 # Main
 ###############################################################################

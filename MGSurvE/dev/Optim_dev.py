@@ -108,13 +108,6 @@ toolbox.register("populationCreator", tools.initRepeat,
     list, toolbox.individualCreator
 )
 # Custom ---------------------------------------------------------------------
-# toolbox.register("mate", srv.cxBlend, 
-#     fixedTrapsMask=trpMsk, alpha=MAT['mate']
-# )
-# toolbox.register("mutate", srv.mutateChromosome, 
-#     fixedTrapsMask=trpMsk, 
-#     randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
-# )
 toolbox.register(
     "mate", tools.cxBlend, 
     alpha=MAT['mate']
@@ -190,3 +183,38 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=.1, dpi=300
 )
 
+
+# (trpsNum, dims) = (12, 2)
+# trpsFxd = [0]*trpsNum
+# initMsk = [True] * trpsNum * dims
+# chrom = np.random.uniform(-10, 10, trpsNum*2)
+# trpMsk = srv.genFixedTrapsMask(trpsFxd)
+
+# org = np.copy(chrom)
+
+# mod = srv.mutateChromosomeAsymmetric(
+#     np.copy(chrom), trpMsk, 
+#     randArgs={
+#         'x': {'loc': 10, 'scale': 100}, 
+#         'y': {'loc': 0, 'scale': 0}
+#     }
+# )
+# totalX = np.sum([org[a]!=mod[0][a] for a in range(len(org))])
+
+# mod = srv.mutateChromosomeAsymmetric(
+#     np.copy(chrom), trpMsk, 
+#     randArgs={
+#         'x': {'loc': 0, 'scale': 0}, 
+#         'y': {'loc': 10, 'scale': 100}
+#     }
+# )
+# totalY = np.sum([org[a]!=mod[0][a] for a in range(len(org))])
+
+# mod = srv.mutateChromosomeAsymmetric(
+#     np.copy(chrom), trpMsk, 
+#     randArgs={
+#         'x': {'loc': 10, 'scale': 0}, 
+#         'y': {'loc': 10, 'scale': 1}
+#     }
+# )
+# totalXY = np.sum([org[a]!=mod[0][a] for a in range(len(org))])
