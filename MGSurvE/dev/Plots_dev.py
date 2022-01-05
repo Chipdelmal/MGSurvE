@@ -69,7 +69,7 @@ tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 100}}}
 ###############################################################################
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
-    traps=traps, trapsKernels=tKer, projection=ccrs.PlateCarree(),
+    traps=traps, trapsKernels=tKer,
     distanceFunction=math.dist, landLimits=SAO_LIMITS
 )
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)

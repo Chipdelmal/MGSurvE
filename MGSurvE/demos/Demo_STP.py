@@ -25,7 +25,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
     # '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
     '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
 )
-TRPS_NUM = 1# int(argv[1])
+TRPS_NUM = 10# int(argv[1])
 GENS = 4000
 (IX_SPLIT, DIAG_VAL) = (27, 0.02)
 ###############################################################################
@@ -97,7 +97,7 @@ lnd.plotSites(fig, ax, size=100)
 # lnd.plotTraps(fig, ax)
 lnd.plotMigrationNetwork(
     fig, ax, 
-    lineWidth=5, alphaMin=.5, alphaAmplitude=2.5,
+    lineWidth=5, alphaMin=.5, alphaAmplitude=10,
 )
 lnd.plotLandBoundary(fig, ax)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
@@ -213,7 +213,7 @@ srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 lnd.plotSites(fig, ax)
 lnd.plotMigrationNetwork(
     fig, ax, 
-    lineWidth=5, alphaMin=.5, alphaAmplitude=5,
+    lineWidth=5, alphaMin=.5, alphaAmplitude=10,
 )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
 srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')

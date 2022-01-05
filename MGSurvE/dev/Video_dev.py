@@ -20,7 +20,7 @@ from PIL import Image
 
 (OUT_PTH, LND_TYPE, ID) = (
     '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/', # './Lands', 
-    'STP', '01'
+    'STP', '10'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
@@ -53,9 +53,11 @@ for i in range(0, gens):
     ###########################################################################
     # Plot Figure
     ###########################################################################
-    (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-    lnd.plotTraps(fig, ax)
-    lnd.plotLandBoundary(fig, ax)
+    (fig, ax) = (
+        plt.figure(figsize=(15, 15)),
+        plt.axes(projection=ccrs.PlateCarree())
+    )
+    lnd.plotTraps(fig, ax, colors={0: '#f725850D'})
     srv.plotClean(fig, ax, bbox=lnd.landLimits)
     ax.text(
         0.5, 0.5, '{:.3f}'.format(gaMin[i]),
@@ -64,7 +66,7 @@ for i in range(0, gens):
         transform=ax.transAxes, zorder=5
     )
     ax.text(
-        0.5, 0.475, '{:03d}'.format(i),
+        0.5, 0.44, 'gens: {:04d}'.format(i),
         horizontalalignment='center', verticalalignment='center',
         fontsize=25, color='#00000011',
         transform=ax.transAxes, zorder=5
@@ -79,12 +81,12 @@ for i in range(0, gens):
     ###########################################################################
     # Overlay Brute-force
     ###########################################################################
-    time.sleep(2)
-    background = Image.open(path.join(OUT_PTH, fPat+'CLN.png'))
-    foreground = Image.open(pthSave)
+    time.sleep(1)
+    background = Image.open(path.join(OUT_PTH, fPat+'CLN.png')).convert('RGBA')
+    foreground = Image.open(pthSave).convert('RGBA')
     (w, h) = background.size
-    background = background.crop((0, 0, w, h))
-    foreground = foreground.resize((int(w/1), int(h/1)),Image.ANTIALIAS)
+    # background = background.crop((0, 0, w, h))
+    # foreground = foreground.resize((int(w/1), int(h/1)),Image.ANTIALIAS)
     background.paste(foreground, (0, 0), foreground)
     background.save(pthSave, dpi=(DPI, DPI))
     background.close()

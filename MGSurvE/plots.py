@@ -168,7 +168,6 @@ def plotTrapsNetwork(
     Returns:
         (fig, ax): Matplotlib (fig, ax) tuple.
     """ 
-
     ptsNum = sites.shape[0]
     txMtx = transMtx[:ptsNum, ptsNum:]
     (fig, ax) = plotMigrationNetwork(
@@ -182,7 +181,17 @@ def plotTrapsNetwork(
     return (fig, ax)
 
 
-def plotLandBoundary(fig, ax, landTuples=cst.landTuples):
+def plotLandBoundary(fig, ax, landTuples=cst.LAND_TUPLES):
+    """ Plots the land's boundary as a polygon.
+
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        landTuples (list of tuples): Check the constants.py file for format.
+    
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+    """ 
     lands = [
         cfeature.NaturalEarthFeature(
             'physical', 'land', i[0],

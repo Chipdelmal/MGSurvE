@@ -37,8 +37,8 @@ TRP_COLS = {
 }
 """Base colors for trap types."""
 
-landTuples = (
+LAND_TUPLES = (
     # ('110m', '#dfe7fdAA', 30), ('50m', '#dfe7fdAA', 30), 
-    ('10m', '#dfe7fd55', 30), ('10m', '#ffffffFF', 5)
+    ('10m', '#dfe7fd55', 30), ('10m', '#ffffffDD', 5)
 )
 """Base colors for land boundaries."""
