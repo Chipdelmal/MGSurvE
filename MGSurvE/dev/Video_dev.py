@@ -85,8 +85,8 @@ for i in range(0, gens):
     background = Image.open(path.join(OUT_PTH, fPat+'CLN.png')).convert('RGBA')
     foreground = Image.open(pthSave).convert('RGBA')
     (w, h) = background.size
-    # background = background.crop((0, 0, w, h))
-    # foreground = foreground.resize((int(w/1), int(h/1)),Image.ANTIALIAS)
+    background = background.crop((0, 0, w, h))
+    foreground = foreground.resize((int(w/1), int(h/1)),Image.ANTIALIAS)
     background.paste(foreground, (0, 0), foreground)
     background.save(pthSave, dpi=(DPI, DPI))
     background.close()
