@@ -203,6 +203,12 @@
 </dd></dl>
 
 <dl class="py data">
+<dt class="sig sig-object py" id="MGSurvE.constants.LAND_TUPLES">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">LAND_TUPLES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">(('10m',</span> <span class="pre">'#dfe7fd55',</span> <span class="pre">30),</span> <span class="pre">('10m',</span> <span class="pre">'#ffffffDD',</span> <span class="pre">5))</span></em><a class="headerlink" href="#MGSurvE.constants.LAND_TUPLES" title="Permalink to this definition"></a></dt>
+<dd><p>Base colors for land boundaries.</p>
+</dd></dl>
+
+<dl class="py data">
 <dt class="sig sig-object py" id="MGSurvE.constants.MCOL">
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">MCOL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('#bdb2ff',</span> <span class="pre">'#a0c4ff',</span> <span class="pre">'#e0c3fc',</span> <span class="pre">'#ffd6a5',</span> <span class="pre">'#caffbf',</span> <span class="pre">'#d0d1ff')</span></em><a class="headerlink" href="#MGSurvE.constants.MCOL" title="Permalink to this definition"></a></dt>
 <dd><p>A cute pastel colors list.</p>
@@ -230,12 +236,6 @@
 <dt class="sig sig-object py" id="MGSurvE.constants.TRP_COLS">
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">TRP_COLS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{0:</span> <span class="pre">'#f7258515',</span> <span class="pre">1:</span> <span class="pre">'#5ddeb115',</span> <span class="pre">2:</span> <span class="pre">'#fe5f5515',</span> <span class="pre">3:</span> <span class="pre">'#f038ff15',</span> <span class="pre">4:</span> <span class="pre">'#e2ef7015',</span> <span class="pre">5:</span> <span class="pre">'#9381ff15'}</span></em><a class="headerlink" href="#MGSurvE.constants.TRP_COLS" title="Permalink to this definition"></a></dt>
 <dd><p>Base colors for trap types.</p>
-</dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="MGSurvE.constants.landTuples">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.constants.</span></span><span class="sig-name descname"><span class="pre">landTuples</span></span><em class="property"> <span class="pre">=</span> <span class="pre">(('10m',</span> <span class="pre">'#dfe7fd55',</span> <span class="pre">30),</span> <span class="pre">('10m',</span> <span class="pre">'#ffffffFF',</span> <span class="pre">5))</span></em><a class="headerlink" href="#MGSurvE.constants.landTuples" title="Permalink to this definition"></a></dt>
-<dd><p>Base colors for land boundaries.</p>
 </dd></dl>
 
 </section>
@@ -368,7 +368,7 @@
 <span id="mgsurve-landscape-module"></span><h2>MGSurvE.landscape module<a class="headerlink" href="#module-MGSurvE.landscape" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="MGSurvE.landscape.Landscape">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">MGSurvE.landscape.</span></span><span class="sig-name descname"><span class="pre">Landscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">points,</span> <span class="pre">maskingMatrix=None,</span> <span class="pre">distanceMatrix=None,</span> <span class="pre">distanceFunction=None,</span> <span class="pre">migrationMatrix=None,</span> <span class="pre">kernelFunction=&lt;function</span> <span class="pre">zeroInflatedExponentialKernel&gt;,</span> <span class="pre">kernelParams={'params':</span> <span class="pre">[1,</span> <span class="pre">1e-10,</span> <span class="pre">inf],</span> <span class="pre">'zeroInflation':</span> <span class="pre">0.75},</span> <span class="pre">maskedMigrationMatrix=None,</span> <span class="pre">traps=None,</span> <span class="pre">trapsKernels={0:</span> <span class="pre">{'inverse':</span> <span class="pre">None,</span> <span class="pre">'kernel':</span> <span class="pre">&lt;function</span> <span class="pre">exponentialDecay&gt;,</span> <span class="pre">'params':</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}}},</span> <span class="pre">trapsMask=None,</span> <span class="pre">trapsRadii=[0.25,</span> <span class="pre">0.2,</span> <span class="pre">0.1,</span> <span class="pre">0.05],</span> <span class="pre">populations=None,</span> <span class="pre">repellents=None,</span> <span class="pre">repellentsKernels={0:</span> <span class="pre">{'kernel':</span> <span class="pre">&lt;function</span> <span class="pre">exponentialDecay&gt;,</span> <span class="pre">'params':</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}}},</span> <span class="pre">projection=None,</span> <span class="pre">landLimits=None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">MGSurvE.landscape.</span></span><span class="sig-name descname"><span class="pre">Landscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">points,</span> <span class="pre">maskingMatrix=None,</span> <span class="pre">distanceMatrix=None,</span> <span class="pre">distanceFunction=None,</span> <span class="pre">migrationMatrix=None,</span> <span class="pre">kernelFunction=&lt;function</span> <span class="pre">zeroInflatedExponentialKernel&gt;,</span> <span class="pre">kernelParams={'params':</span> <span class="pre">[1,</span> <span class="pre">1e-10,</span> <span class="pre">inf],</span> <span class="pre">'zeroInflation':</span> <span class="pre">0.75},</span> <span class="pre">maskedMigrationMatrix=None,</span> <span class="pre">traps=None,</span> <span class="pre">trapsKernels={0:</span> <span class="pre">{'inverse':</span> <span class="pre">None,</span> <span class="pre">'kernel':</span> <span class="pre">&lt;function</span> <span class="pre">exponentialDecay&gt;,</span> <span class="pre">'params':</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}}},</span> <span class="pre">trapsMask=None,</span> <span class="pre">trapsRadii=[0.25,</span> <span class="pre">0.2,</span> <span class="pre">0.1,</span> <span class="pre">0.05],</span> <span class="pre">populations=None,</span> <span class="pre">repellents=None,</span> <span class="pre">repellentsKernels={0:</span> <span class="pre">{'kernel':</span> <span class="pre">&lt;function</span> <span class="pre">exponentialDecay&gt;,</span> <span class="pre">'params':</span> <span class="pre">{'A':</span> <span class="pre">0.5,</span> <span class="pre">'b':</span> <span class="pre">0.15}}},</span> <span class="pre">landLimits=None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Stores the information for a mosquito landscape. Works with different point-types in the form of matrices and coordinates.</p>
 <dl class="field-list simple">
@@ -524,7 +524,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.plotLandBoundary">
-<span class="sig-name descname"><span class="pre">plotLandBoundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landTuples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(('10m',</span> <span class="pre">'#dfe7fd55',</span> <span class="pre">30),</span> <span class="pre">('10m',</span> <span class="pre">'#ffffffFF',</span> <span class="pre">5))</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.plotLandBoundary" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plotLandBoundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landTuples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(('10m',</span> <span class="pre">'#dfe7fd55',</span> <span class="pre">30),</span> <span class="pre">('10m',</span> <span class="pre">'#ffffffDD',</span> <span class="pre">5))</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.plotLandBoundary" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -958,10 +958,7 @@ Follow this link for the original code: <a class="reference external" href="http
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.mutateChromosomeAsymmetric">
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">mutateChromosomeAsymmetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">chromosome</span></em>, <em class="sig-param"><span class="pre">fixedTrapsMask</span></em>, <em class="sig-param"><span class="pre">randFun=&lt;built-in</span> <span class="pre">method</span> <span class="pre">normal</span> <span class="pre">of</span> <span class="pre">numpy.random.mtrand.RandomState</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">randArgs={'x':</span> <span class="pre">{'loc':</span> <span class="pre">0</span></em>, <em class="sig-param"><span class="pre">'scale':</span> <span class="pre">0.1}</span></em>, <em class="sig-param"><span class="pre">'y':</span> <span class="pre">{'loc':</span> <span class="pre">0</span></em>, <em class="sig-param"><span class="pre">'scale':</span> <span class="pre">0.1}}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.mutateChromosomeAsymmetric" title="Permalink to this definition"></a></dt>
-<dd><dl class="simple">
-<dt>Mutates a chromosome with a probability distribution based on the mutation</dt><dd><p>mask with different probabilities for XY elements (in place).</p>
-</dd>
-</dl>
+<dd><p>Mutates a chromosome with a probability distribution based on the mutation mask with different probabilities for XY elements (in place).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1109,8 +1106,24 @@ Follow this link for the original code: <a class="reference external" href="http
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.plots.plotLandBoundary">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotLandBoundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landTuples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(('10m',</span> <span class="pre">'#dfe7fd55',</span> <span class="pre">30),</span> <span class="pre">('10m',</span> <span class="pre">'#ffffffFF',</span> <span class="pre">5))</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotLandBoundary" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotLandBoundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landTuples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(('10m',</span> <span class="pre">'#dfe7fd55',</span> <span class="pre">30),</span> <span class="pre">('10m',</span> <span class="pre">'#ffffffDD',</span> <span class="pre">5))</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotLandBoundary" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the land’s boundary as a polygon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
+<li><p><strong>landTuples</strong> (<em>list of tuples</em>) – Check the constants.py file for format.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(fig, ax)</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.plots.plotMatrix">
@@ -1313,7 +1326,7 @@ Follow this link for the original code: <a class="reference external" href="http
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.pointProcess.clusterLandscape">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">clusterLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pointsCoords</span></em>, <em class="sig-param"><span class="pre">clustersNumber</span></em>, <em class="sig-param"><span class="pre">randomState=1641409508.7138715</span></em>, <em class="sig-param"><span class="pre">clusterAlgorithm=&lt;class</span> <span class="pre">'sklearn.cluster._kmeans.KMeans'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.clusterLandscape" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">clusterLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pointsCoords</span></em>, <em class="sig-param"><span class="pre">clustersNumber</span></em>, <em class="sig-param"><span class="pre">randomState=1641423557.350444</span></em>, <em class="sig-param"><span class="pre">clusterAlgorithm=&lt;class</span> <span class="pre">'sklearn.cluster._kmeans.KMeans'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.clusterLandscape" title="Permalink to this definition"></a></dt>
 <dd><p>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

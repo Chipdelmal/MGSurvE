@@ -35,16 +35,47 @@ A general workflow in `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ looks a
 Components 
 ------------
 
+The :code:`landscape` object contains several elements that make it easy to define, calculate, plot and export our study sites.
 
-Distances Matrix
+Point Coordinates (:code:`lnd.pointCoords`)
+~~~~~~~~~~~~~~~~~~~~~~
+
+Traps Coordinates (:code:`lnd.trapsCoords`)
+~~~~~~~~~~~~~~~~~~~~~~
+
+Kernel Function (:code:`lnd.kernelFunction`)
+~~~~~~~~~~~~~~~~~~~~~~
+
+Traps Kernels (:code:`lnd.trapsKernels`)
 ~~~~~~~~~~~~~~~~~~~~~~
 
 
-Migration Kernel
+Distances Matrix (:code:`lnd.distanceMatrix`)
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Masked Migration Kernel
+This numpy array contains the distances between all the points in the landscape in the order that they are stored in the 
+:code:`pointCoords`. This matrix is calculated point-wise by using the :code:`distance function` provided to the :code:`landscape` object.
+
+
+Migration Matrix (:code:`lnd.migrationMatrix`)
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Traps Matrix
+This matrix contains the probabilities of individuals to migrate from point :code:`a` (row) to point :code:`b` (column) across
+the landscape in a time-step. This matrix is internally calculated using the :code:`kernel function` and the distance between sites.
+
+
+Masked Migration Matrix (:code:`lnd.maskedMigration`)
 ~~~~~~~~~~~~~~~~~~~~~~
+
+Similar to the :code:`migration matrix` but this matrix takes into account the point-types for the probability of movement 
+(as provided :code:`traps mask` array). If no :code:`traps mask` is provided, this matrix is equal to the :code:`migration matrix`.
+
+
+Traps Matrix (:code:`lnd.trapsMigration`)
+~~~~~~~~~~~~~~~~~~~~~~
+
+Finally, the :code:`traps matrix` contains the probabilities of individuals moving between all the points of the landscape (including 
+the traps).
+
+
+.. image:: ../../img/demo_pointTypes.jpg

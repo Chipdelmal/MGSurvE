@@ -42,10 +42,14 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Pkg Breakdown</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#workflow">Workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#components">Components</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#distances-matrix">Distances Matrix</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#migration-kernel">Migration Kernel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#masked-migration-kernel">Masked Migration Kernel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#traps-matrix">Traps Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-coordinates-lnd-pointcoords">Point Coordinates (<code class="code docutils literal notranslate"><span class="pre">lnd.pointCoords</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#traps-coordinates-lnd-trapscoords">Traps Coordinates (<code class="code docutils literal notranslate"><span class="pre">lnd.trapsCoords</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kernel-function-lnd-kernelfunction">Kernel Function (<code class="code docutils literal notranslate"><span class="pre">lnd.kernelFunction</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#traps-kernels-lnd-trapskernels">Traps Kernels (<code class="code docutils literal notranslate"><span class="pre">lnd.trapsKernels</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#distances-matrix-lnd-distancematrix">Distances Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.distanceMatrix</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#migration-matrix-lnd-migrationmatrix">Migration Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.migrationMatrix</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#masked-migration-matrix-lnd-maskedmigration">Masked Migration Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.maskedMigration</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#traps-matrix-lnd-trapsmigration">Traps Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.trapsMigration</span></code>)</a></li>
 </ul>
 </li>
 </ul>
@@ -130,17 +134,39 @@ object which stores the information of the sites’ and traps’ positions, alon
 </section>
 <section id="components">
 <h2>Components<a class="headerlink" href="#components" title="Permalink to this headline"></a></h2>
-<section id="distances-matrix">
-<h3>Distances Matrix<a class="headerlink" href="#distances-matrix" title="Permalink to this headline"></a></h3>
+<p>The <code class="code docutils literal notranslate"><span class="pre">landscape</span></code> object contains several elements that make it easy to define, calculate, plot and export our study sites.</p>
+<section id="point-coordinates-lnd-pointcoords">
+<h3>Point Coordinates (<code class="code docutils literal notranslate"><span class="pre">lnd.pointCoords</span></code>)<a class="headerlink" href="#point-coordinates-lnd-pointcoords" title="Permalink to this headline"></a></h3>
 </section>
-<section id="migration-kernel">
-<h3>Migration Kernel<a class="headerlink" href="#migration-kernel" title="Permalink to this headline"></a></h3>
+<section id="traps-coordinates-lnd-trapscoords">
+<h3>Traps Coordinates (<code class="code docutils literal notranslate"><span class="pre">lnd.trapsCoords</span></code>)<a class="headerlink" href="#traps-coordinates-lnd-trapscoords" title="Permalink to this headline"></a></h3>
 </section>
-<section id="masked-migration-kernel">
-<h3>Masked Migration Kernel<a class="headerlink" href="#masked-migration-kernel" title="Permalink to this headline"></a></h3>
+<section id="kernel-function-lnd-kernelfunction">
+<h3>Kernel Function (<code class="code docutils literal notranslate"><span class="pre">lnd.kernelFunction</span></code>)<a class="headerlink" href="#kernel-function-lnd-kernelfunction" title="Permalink to this headline"></a></h3>
 </section>
-<section id="traps-matrix">
-<h3>Traps Matrix<a class="headerlink" href="#traps-matrix" title="Permalink to this headline"></a></h3>
+<section id="traps-kernels-lnd-trapskernels">
+<h3>Traps Kernels (<code class="code docutils literal notranslate"><span class="pre">lnd.trapsKernels</span></code>)<a class="headerlink" href="#traps-kernels-lnd-trapskernels" title="Permalink to this headline"></a></h3>
+</section>
+<section id="distances-matrix-lnd-distancematrix">
+<h3>Distances Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.distanceMatrix</span></code>)<a class="headerlink" href="#distances-matrix-lnd-distancematrix" title="Permalink to this headline"></a></h3>
+<p>This numpy array contains the distances between all the points in the landscape in the order that they are stored in the
+<code class="code docutils literal notranslate"><span class="pre">pointCoords</span></code>. This matrix is calculated point-wise by using the <code class="code docutils literal notranslate"><span class="pre">distance</span> <span class="pre">function</span></code> provided to the <code class="code docutils literal notranslate"><span class="pre">landscape</span></code> object.</p>
+</section>
+<section id="migration-matrix-lnd-migrationmatrix">
+<h3>Migration Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.migrationMatrix</span></code>)<a class="headerlink" href="#migration-matrix-lnd-migrationmatrix" title="Permalink to this headline"></a></h3>
+<p>This matrix contains the probabilities of individuals to migrate from point <code class="code docutils literal notranslate"><span class="pre">a</span></code> (row) to point <code class="code docutils literal notranslate"><span class="pre">b</span></code> (column) across
+the landscape in a time-step. This matrix is internally calculated using the <code class="code docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">function</span></code> and the distance between sites.</p>
+</section>
+<section id="masked-migration-matrix-lnd-maskedmigration">
+<h3>Masked Migration Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.maskedMigration</span></code>)<a class="headerlink" href="#masked-migration-matrix-lnd-maskedmigration" title="Permalink to this headline"></a></h3>
+<p>Similar to the <code class="code docutils literal notranslate"><span class="pre">migration</span> <span class="pre">matrix</span></code> but this matrix takes into account the point-types for the probability of movement
+(as provided <code class="code docutils literal notranslate"><span class="pre">traps</span> <span class="pre">mask</span></code> array). If no <code class="code docutils literal notranslate"><span class="pre">traps</span> <span class="pre">mask</span></code> is provided, this matrix is equal to the <code class="code docutils literal notranslate"><span class="pre">migration</span> <span class="pre">matrix</span></code>.</p>
+</section>
+<section id="traps-matrix-lnd-trapsmigration">
+<h3>Traps Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.trapsMigration</span></code>)<a class="headerlink" href="#traps-matrix-lnd-trapsmigration" title="Permalink to this headline"></a></h3>
+<p>Finally, the <code class="code docutils literal notranslate"><span class="pre">traps</span> <span class="pre">matrix</span></code> contains the probabilities of individuals moving between all the points of the landscape (including
+the traps).</p>
+<img alt="_images/demo_pointTypes.jpg" src="_images/demo_pointTypes.jpg" />
 </section>
 </section>
 </section>
