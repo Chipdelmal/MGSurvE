@@ -25,6 +25,7 @@
       importLog
       initChromosome
       mutateChromosome
+      mutateChromosomeAsymmetric
       reshapeInCanonicalForm
    
    
