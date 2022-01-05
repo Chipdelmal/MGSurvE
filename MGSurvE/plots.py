@@ -418,7 +418,8 @@ def plotDirectedNetwork(
             edgelist=edge_list,
             width=log(1+widthEdgeAmplitude*width),
             edge_color=edgecolors,
-            alpha=min(alphaEdgeMin, log(1+alphaEdgeAmplitude*width))
+            alpha=min(alphaEdgeMin, log(1+alphaEdgeAmplitude*width)),
+            connectionstyle='arc3,rad=0.2'
         )
 
     return (fig, ax)
