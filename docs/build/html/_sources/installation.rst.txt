@@ -8,7 +8,13 @@ To use MGSurvE, install it using pip:
 
    $ pip install MGSurvE
 
-If needed, dependencies can be installed through our conda environment through its YML:
+MGSurvE needs `cartopy <https://scitools.org.uk/cartopy/docs/latest/index.html>`_ installed. The easiest way to install the dependency is through `Anaconda <https://www.anaconda.com/products/individual>`_
+
+   $ conda install -c conda-forge cartopy
+
+   
+
+Alternatively, dependencies can be installed through our conda environment through its YML:
 
 .. code-block:: console
 
