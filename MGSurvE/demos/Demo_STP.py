@@ -38,6 +38,7 @@ if MAIL_ALERTS:
     import mailAlerts as mlr
     from datetime import datetime
     from email.message import EmailMessage
+    import imghdr
     t0 = time.time()
 ###############################################################################
 # Load Pointset
@@ -239,6 +240,12 @@ if MAIL_ALERTS:
     msg['From'] = mlr.MAIL
     msg['To'] = mlr.TARG
     msg.set_content(mailStr)
+    imgPath = path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM))
+    with open(imgPath, 'rb') as f:
+        image_data = f.read()
+        image_type = imghdr.what(f.name)
+        image_name = f.name
+    msg.add_attachment(image_data, maintype='image', subtype='image_type', filename=image_name)
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
         smtp.login(mlr.MAIL, mlr.PSWD)
         smtp.send_message(msg)
