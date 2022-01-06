@@ -132,6 +132,7 @@ object which stores the information of the sites’ and traps’ positions, alon
 <li><p>Update landscape and save results</p></li>
 </ol>
 </section>
+<hr class="docutils" />
 <section id="components">
 <h2>Components<a class="headerlink" href="#components" title="Permalink to this headline"></a></h2>
 <p>The <code class="code docutils literal notranslate"><span class="pre">landscape</span></code> object contains several elements that make it easy to define, calculate, plot and export our study sites.</p>
@@ -178,8 +179,21 @@ the traps).</p>
 <img alt="_images/03.png" src="_images/03.png" />
 </section>
 </section>
+<hr class="docutils" />
 <section id="genetic-algorithm">
 <h2>Genetic Algorithm<a class="headerlink" href="#genetic-algorithm" title="Permalink to this headline"></a></h2>
+<p><a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> is designed to integrate into the <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a> Genetic Algorithm framework.
+We provide some of the basic functions necessary to make the integration as seamless as possible, namely:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="./MGSurvE.html#MGSurvE.optimization.initChromosome">initChromosome</a>: to initialize chromosomes for optimization of traps’ positions <code class="code docutils literal notranslate"><span class="pre">x1,y1,x2,y2,...,xn,yn</span></code>.</p></li>
+<li><p><a class="reference external" href="./MGSurvE.html#MGSurvE.optimization.mutateChromosome">mutateChromosome</a>: performs a mutation operation but taking into account immovable traps’ flags (an extension of the <a class="reference external" href="https://deap.readthedocs.io/en/master/tutorials/basic/part2.html#mutation">mutGaussian</a> operator).</p></li>
+<li><p><a class="reference external" href="./MGSurvE.html#MGSurvE.optimization.mutateChromosomeAsymmetric">mutateChromosomeAsymmetric</a>: an extension of the <a class="reference external" href="./MGSurvE.html#MGSurvE.optimization.mutateChromosome">mutateChromosome</a> that applies two different ranges for mutation’s deviation to account for non-squared landscapes (with significant difference between <code class="code docutils literal notranslate"><span class="pre">x</span></code> and <code class="code docutils literal notranslate"><span class="pre">y</span></code> allowed ranges).</p></li>
+<li><p><a class="reference external" href="./MGSurvE.html#MGSurvE.optimization.calcFitness">calcFitness</a>: Calculates the fitness of the traps’ position as defined by Markov’s fundamental matrix to minimize the time it takes for individuals to fall into traps.</p></li>
+<li><p><a class="reference external" href="./MGSurvE.html#MGSurvE.optimization.calcSexFitness">calcSexFitness</a>: An extension of <a class="reference external" href="./MGSurvE.html#MGSurvE.optimization.calcFitness">calcFitness</a> that allows to give preference to catching one sex over the other if their movement kernels are different.</p></li>
+</ul>
+<img alt="_images/demo_GAT.jpg" src="_images/demo_GAT.jpg" />
+<p>For a thorough description of the operations, have a look at our <a class="reference external" href="./demos.html">examples</a> sections, where we describe how to setup the algorithms for the most common variations of use-cases.</p>
+<img alt="_images/SM1-005-TRP.jpg" src="_images/SM1-005-TRP.jpg" />
 </section>
 </section>
 

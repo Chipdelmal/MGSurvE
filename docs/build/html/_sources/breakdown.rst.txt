@@ -32,6 +32,9 @@ A general workflow in `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ looks a
 7. Update landscape and save results
 
 
+------------
+
+
 Components 
 ------------
 
@@ -102,6 +105,24 @@ the traps).
 .. image:: ../../img/03.png
 
 
+------------
+
+
 
 Genetic Algorithm 
 ------------
+
+`MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ is designed to integrate into the `DEAP <https://deap.readthedocs.io/en/master/>`_ Genetic Algorithm framework.
+We provide some of the basic functions necessary to make the integration as seamless as possible, namely:
+
+* `initChromosome <./MGSurvE.html#MGSurvE.optimization.initChromosome>`_: to initialize chromosomes for optimization of traps' positions :code:`x1,y1,x2,y2,...,xn,yn`.
+* `mutateChromosome <./MGSurvE.html#MGSurvE.optimization.mutateChromosome>`_: performs a mutation operation but taking into account immovable traps' flags (an extension of the `mutGaussian <https://deap.readthedocs.io/en/master/tutorials/basic/part2.html#mutation>`_ operator).
+* `mutateChromosomeAsymmetric <./MGSurvE.html#MGSurvE.optimization.mutateChromosomeAsymmetric>`_: an extension of the `mutateChromosome <./MGSurvE.html#MGSurvE.optimization.mutateChromosome>`_ that applies two different ranges for mutation's deviation to account for non-squared landscapes (with significant difference between :code:`x` and :code:`y` allowed ranges).
+* `calcFitness <./MGSurvE.html#MGSurvE.optimization.calcFitness>`_: Calculates the fitness of the traps' position as defined by Markov's fundamental matrix to minimize the time it takes for individuals to fall into traps.
+* `calcSexFitness <./MGSurvE.html#MGSurvE.optimization.calcSexFitness>`_: An extension of `calcFitness <./MGSurvE.html#MGSurvE.optimization.calcFitness>`_ that allows to give preference to catching one sex over the other if their movement kernels are different.
+
+.. image:: ../../img/demo_GAT.jpg
+
+For a thorough description of the operations, have a look at our `examples <./demos.html>`_ sections, where we describe how to setup the algorithms for the most common variations of use-cases.
+
+.. image:: ../../img/SM1-005-TRP.jpg
