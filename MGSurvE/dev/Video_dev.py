@@ -15,8 +15,7 @@ from compress_pickle import dump, load
 import MGSurvE as srv
 from PIL import Image
 
-# ffmpeg -start_number START_NUMBER -r FRAMERATE -f image2 -s 1920x1080 -i STP_05_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 15 -pix_fmt yuv420p OUTPUT_PATH.mp4
-
+# ffmpeg -start_number 0 -end_number 1000 -r 12 -f image2 -s 1920x1080 -i STP_10_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 15 -pix_fmt yuv420p OUTPUT_PATH.mp4
 
 (OUT_PTH, LND_TYPE, ID) = (
     '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/', # './Lands', 
@@ -35,7 +34,7 @@ dat = srv.importLog(OUT_PTH, fPat+'LOG')
 (gaMin, gaTraps, gens) = (dat['min'], dat['traps'], dat.shape[0])
 bbox = lnd.getBoundingBox()
 i=10
-for i in range(0, gens):
+for i in range(0, 1000):
     print("* Exporting frame {:05d}".format(i), end='\r')
     ###########################################################################
     # Reshape and update traps
