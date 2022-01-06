@@ -25,9 +25,9 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
     '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
     # '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
 )
-TRPS_NUM = 1# int(argv[1])
+TRPS_NUM = int(argv[1])
 GENS = 4000
-(IX_SPLIT, DIAG_VAL) = (27, 0.005)
+(IX_SPLIT, DIAG_VAL) = (27, 0.02)
 ###############################################################################
 # Setup email alerts
 ###############################################################################
