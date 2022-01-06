@@ -417,7 +417,7 @@ class Landscape:
         return (fig, ax)
     def plotLandBoundary(self,
             fig, ax, 
-            landTuples=cst.landTuples
+            landTuples=cst.LAND_TUPLES
         ):
         (fig, ax) = plt.plotLandBoundary(fig, ax, landTuples=landTuples)
         return (fig, ax)

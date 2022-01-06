@@ -97,7 +97,7 @@ lnd.plotSites(fig, ax, size=100)
 # lnd.plotTraps(fig, ax)
 lnd.plotMigrationNetwork(
     fig, ax, 
-    lineWidth=5, alphaMin=.5, alphaAmplitude=2.5,
+    lineWidth=5, alphaMin=.25, alphaAmplitude=10,
 )
 lnd.plotLandBoundary(fig, ax)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
@@ -213,7 +213,7 @@ srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 lnd.plotSites(fig, ax)
 lnd.plotMigrationNetwork(
     fig, ax, 
-    lineWidth=5, alphaMin=.5, alphaAmplitude=5,
+    lineWidth=5, alphaMin=.5, alphaAmplitude=10,
 )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
 srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
