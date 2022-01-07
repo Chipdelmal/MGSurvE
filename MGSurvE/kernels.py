@@ -122,6 +122,12 @@ def sigmoidDecay(dist, A=1, rate=.5, x0=10):
     return prob
 
 
+def exponentialAttractiveness(dist, A=1, k=1, s=1, gamma=1, epsilon=1):
+    expC = -k*((dist/s)**gamma)
+    prob = A*math.exp(expC)+epsilon
+    return prob
+
+
 ###############################################################################
 # Auxiliary
 ###############################################################################
