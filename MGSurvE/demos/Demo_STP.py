@@ -20,18 +20,14 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
-(ID, OUT_PTH) = (
-    'STP', 
-    '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
-    # '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty/'
-)
+MAIL_ALERTS = True
+(ID, OUT_PTH) = ('STP', '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/')
 TRPS_NUM = int(argv[1])
 GENS = 4000
 (IX_SPLIT, DIAG_VAL) = (27, 0.02)
 ###############################################################################
 # Setup email alerts
 ###############################################################################
-MAIL_ALERTS = True
 if MAIL_ALERTS:
     import time
     import smtplib
@@ -106,22 +102,6 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
-###############################################################################
-# Plot Directed Network
-###############################################################################
-# (fig, ax) = (
-#     plt.figure(figsize=(15, 15)),
-#     plt.axes(projection=lnd.projection)
-# )
-# lnd.plotSites(fig, ax, size=100)
-# lnd.plotDirectedNetwork(fig, ax)
-# lnd.plotLandBoundary(fig, ax)
-# srv.plotClean(fig, ax, bbox=lnd.landLimits)
-# fig.savefig(
-#     path.join(OUT_PTH, '{}_{:02d}_DIR.png'.format(ID, TRPS_NUM)), 
-#     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-# )
-# plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 

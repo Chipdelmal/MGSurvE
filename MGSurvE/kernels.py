@@ -92,7 +92,7 @@ def zeroInflatedExponentialKernel(
 # Exponential Decay
 ###############################################################################
 def exponentialDecay(dist, A=1, b=1):
-    '''Calculates the probability of moving between points.
+    '''Calculates the probability of moving between points as a decaying exponential.
 
     Args:
         dist (float): Distance between points.
@@ -107,7 +107,7 @@ def exponentialDecay(dist, A=1, b=1):
 
 
 def sigmoidDecay(dist, A=1, rate=.5, x0=10):
-    '''Calculates the probability of moving between points.
+    '''Calculates the probability of moving between points as a sigmod.
 
     Args:
         dist (float): Distance between points.
@@ -123,6 +123,19 @@ def sigmoidDecay(dist, A=1, rate=.5, x0=10):
 
 
 def exponentialAttractiveness(dist, A=1, k=1, s=1, gamma=1, epsilon=1):
+    '''Calculates the probability of moving between points as a complex decaying exponential.
+
+    Args:
+        dist (float): Distance between points.
+        A (float): Maximum amplitude at distance 0 (attractiveness).
+        k (float): 
+        s (float): 
+        gamma (float): 
+        epsilon (float): Error term
+
+    Returns:
+        float: Movement probability.
+    '''
     expC = -k*((dist/s)**gamma)
     prob = A*math.exp(expC)+epsilon
     return prob
