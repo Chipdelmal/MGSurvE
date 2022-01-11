@@ -3,7 +3,6 @@
 
 from sys import argv
 import math
-from vincenty import vincenty
 import numpy as np
 import pandas as pd
 from os import path
@@ -32,7 +31,6 @@ if MAIL_ALERTS:
     import time
     import smtplib
     import mailAlerts as mlr
-    from datetime import datetime
     from email.message import EmailMessage
     import imghdr
     t0 = time.time()
