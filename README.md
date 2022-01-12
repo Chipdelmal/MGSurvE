@@ -6,6 +6,12 @@ MGSurvE is a project oriented towards the optimization of traps' placement in co
 
 **Under Construction** :construction: **Please check back in a couple of weeks!**
 
+To install the package's latest stable version, run:
+
+```
+pip install MGSurvE
+conda install -c conda-forge cartopy
+```
 
 
 [![PyPI version](https://badge.fury.io/py/MGSurvE.svg)](https://badge.fury.io/py/MGSurvE)[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)![Travis Build](https://app.travis-ci.com/Chipdelmal/MGSurvE.svg?branch=main)[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
