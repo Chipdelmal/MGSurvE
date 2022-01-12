@@ -4,11 +4,12 @@ from math import log
 import matplotlib.pyplot as plt
 import MGSurvE.constants as cst
 import networkx as nx
+import graph_tool.all as gt
 from sklearn.preprocessing import normalize
 import numpy as np
 
 def plotSites(
-        fig, ax, 
+        fig, ax, g,
         sites, pTypes,
         markers=cst.MKRS, colors=cst.MCOL,
         size=350, edgecolors='w', linewidths=1.25,
@@ -38,11 +39,13 @@ def plotSites(
             marker=markers[pTypes[i]], color=colors[pTypes[i]], 
             s=size, zorder=zorder, edgecolors=edgecolors, linewidths=linewidths
         )
+
+    gt.graph_draw(g, mplfig=ax)
     return (fig, ax)
 
 
 def plotMigrationNetwork(
-        fig, ax, 
+        fig, ax, g,
         transMtx, sitesB, sitesA,
         lineColor='#03045e', lineWidth=20, 
         alphaMin=.5, alphaAmplitude=2.5,
@@ -78,11 +81,13 @@ def plotMigrationNetwork(
                 c=lineColor, zorder=zorder,
                 **kwargs
             )
+    
+    gt.graph_draw(g, mplfig=ax)
     return (fig, ax)
 
 
 def plotTraps(
-        fig, ax,
+        fig, ax, g,
         trapsCoords, trapsTypes, trapsKernels, trapsFixed,
         colors=cst.TRP_COLS, marker="X",
         edgecolors=('w', 'k'), lws=(2, 0), ls=':',
@@ -136,11 +141,12 @@ def plotTraps(
                 lw=lws[1], zorder=zorders[1]
             )
             ax.add_patch(circle)
+    gt.graph_draw(g, mplfig=ax)
     return (fig, ax)
 
 
 def plotTrapsNetwork(
-        fig, ax,
+        fig, ax, g,
         transMtx, traps, sites,
         lineColor='#3d0e61', lineWidth=20, 
         alphaMin=.5, alphaAmplitude=2.5,
@@ -168,7 +174,7 @@ def plotTrapsNetwork(
     ptsNum = sites.shape[0]
     txMtx = transMtx[:ptsNum, ptsNum:]
     (fig, ax) = plotMigrationNetwork(
-        fig, ax, 
+        fig, ax, g,
         txMtx, traps, sites,
         lineColor=lineColor, lineWidth=lineWidth,
         alphaMin=alphaMin, alphaAmplitude=alphaAmplitude,
@@ -179,7 +185,7 @@ def plotTrapsNetwork(
 
 
 def plotMatrix(
-        fig, ax,
+        fig, ax, g,
         matrix, 
         trapsNumber=None, vmin=0, vmax=1, 
         cmap='Purples', linecolor='#222222', linestyle=':', lw=.5,
@@ -217,6 +223,8 @@ def plotMatrix(
     if not ticks:
         ax.set_xticks([]) 
         ax.set_yticks([]) 
+
+    gt.graph_draw(g, mplfig=ax)
     return (fig, ax)
 
 
@@ -244,7 +252,7 @@ def plotClean(fig, ax, frame=False, bbox=None, labels=False):
 
 
 def plotFitness(
-        fig, ax,
+        fig, ax, g,
         fitness,
         pos=(0.5, 0.5),
         fmt='{:.2f}',
@@ -274,11 +282,13 @@ def plotFitness(
         fontsize=fontSize, color=color,
         transform=ax.transAxes, zorder=zorder, **kwargs
     )
+
+    gt.graph_draw(g, mplfig=ax)
     return (fig, ax)
 
 
 def plotGAEvolution(
-        fig, ax,
+        fig, ax, g,
         gaLog,
         yLim=None,
         colors={'mean': '#ffffff', 'envelope': '#1565c0'},
@@ -311,10 +321,12 @@ def plotGAEvolution(
     if yLim is not None:
         ax.set_ylim(0, dta['min'])
     ax.set_aspect(aspect/ax.get_data_ratio())
+
+    gt.graph_draw(g, mplfig=ax)
     return (fig, ax)
 
 def plotDirectedNetwork(
-        fig, ax, 
+        fig, ax, g,
         sites, pTypes, transMtx,
         markers=cst.MKRS, colors=cst.MCOL,
         alphaNodeMin=1, alphaEdgeMin=1,
@@ -406,6 +418,7 @@ def plotDirectedNetwork(
                             edge_color=edgecolors,
                             alpha=min(alphaEdgeMin, log(1+alphaEdgeAmplitude*width)))
 
+    gt.graph_draw(g, mplfig=ax)
     return (fig, ax)
 
 def saveFig(
