@@ -15,6 +15,7 @@ from compress_pickle import dump, load
 from sklearn.preprocessing import normalize
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
+from graph_tool.all import *
 import MGSurvE as srv
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
@@ -79,9 +80,10 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 (fig, ax) = (
     plt.figure(figsize=(8, 12)), plt.axes(projection=lnd.projection)
 )
-lnd.plotSites(fig, ax, size=100)
-lnd.plotMigrationNetwork(fig, ax)
-lnd.plotLandBoundary(fig, ax)
+g = Graph()
+lnd.plotSites(fig, ax, g, size=100)
+lnd.plotMigrationNetwork(fig, ax, g)
+lnd.plotLandBoundary(fig, ax, g)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
     path.join('PlotDev.png'), 

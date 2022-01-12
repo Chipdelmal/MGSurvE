@@ -369,7 +369,7 @@ class Landscape:
         )
         return (fig, ax)
     def plotTraps(self,
-            fig, ax,
+            fig, ax, 
             colors=cst.TRP_COLS, marker="X",
             edgecolor='w', lws=(2, 0), ls=':',
             size=300, zorders=(25, -5),
@@ -378,7 +378,7 @@ class Landscape:
         """Plots the traps locations.
         """
         (fig, ax) = plt.plotTraps(
-            fig, ax,
+            fig, ax, 
             self.trapsCoords, self.trapsTypes, 
             self.trapsKernels, self.trapsFixed,
             colors=colors, marker=marker,
@@ -388,7 +388,7 @@ class Landscape:
         )
         return (fig, ax)
     def plotTrapsNetwork(self,
-            fig, ax,
+            fig, ax, 
             lineColor='#f72585', lineWidth=20, 
             alphaMin=.5, alphaAmplitude=1.5,
             zorder=0, **kwargs
@@ -396,7 +396,7 @@ class Landscape:
         """Plots the traps networks.
         """
         (fig, ax) = plt.plotTrapsNetwork(
-            fig, ax,
+            fig, ax, 
             self.trapsMigration, self.trapsCoords, self.pointCoords,
             lineColor=lineColor, lineWidth=lineWidth, 
             alphaMin=alphaMin, alphaAmplitude=alphaAmplitude,
@@ -409,7 +409,7 @@ class Landscape:
             edgecolors='black'
         ):
         (fig, ax)= plt.plotDirectedNetwork(
-            fig, ax,
+            fig, ax, 
             sites=self.pointCoords, pTypes=self.pointTypes,
             transMtx=self.migrationMatrix,
             markers=markers, colors=colors, edgecolors=edgecolors
