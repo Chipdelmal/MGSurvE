@@ -59,6 +59,7 @@ if the parameters are provided (this would not pose a substantial computational 
 .. image:: ../../img/expo.png
 
 
+
 Traps Kernels (:code:`lnd.trapsKernels`)
 ~~~~~~~~~~~~~~~~~~~~~~
 
