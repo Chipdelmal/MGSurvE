@@ -56,7 +56,7 @@ between points. This :code:`kernel function` is run to calculate the :code:`lnd.
 if the parameters are provided (this would not pose a substantial computational burden as it is run only once to setup the landscape).
 
 
-.. image:: ../../img/expo.png
+.. image:: ../../img/expo.jpg
 
 
 
@@ -84,7 +84,7 @@ This matrix contains the probabilities of individuals to migrate from point :cod
 the landscape in a time-step. This matrix is internally calculated using the :code:`kernel function` and the distance between sites.
 
 
-.. image:: ../../img/01.png
+.. image:: ../../img/01.jpg
 
 
 Masked Migration Matrix (:code:`lnd.maskedMigration`)
@@ -94,7 +94,7 @@ Similar to the :code:`migration matrix` but this matrix takes into account the p
 (as provided :code:`traps mask` array). If no :code:`traps mask` is provided, this matrix is equal to the :code:`migration matrix`.
 
 
-.. image:: ../../img/02.png
+.. image:: ../../img/02.jpg
 
 
 Traps Matrix (:code:`lnd.trapsMigration`)
@@ -103,7 +103,7 @@ Traps Matrix (:code:`lnd.trapsMigration`)
 Finally, the :code:`traps matrix` contains the probabilities of individuals moving between all the points of the landscape (including 
 the traps).
 
-.. image:: ../../img/03.png
+.. image:: ../../img/03.jpg
 
 
 ------------

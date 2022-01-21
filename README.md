@@ -4,6 +4,7 @@
 MGSurvE is a project oriented towards the optimization of traps' placement in complex heterogeneous landscapes in an effort to minimize the time to detection of genetic variants of interest.
 
 
+
 **Under Construction** :construction: **Please check back in a couple of weeks!**
 
 To install the package's latest stable version, run:
@@ -50,7 +51,7 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 
 # Authors and Funders
 
-<img src="https://raw.githubusercontent.com/Chipdelmal/pyMSync/master/media/pusheen.jpg" height="130px" align="middle"><br>
+<img src="https://raw.githubusercontent.com/Chipdelmal/pyMSync/master/media/pusheen.jpg" height="125px" align="middle"><img src="https://github.com/Chipdelmal/MGSurvE/blob/main/img/MGSurvE_Logo.jpg?raw=true" height="125px" align="middle"> <br><br>
 
 * Lead and Dev: [Héctor M. Sánchez C.](https://chipdelmal.github.io/blog/)
 * Active Devs: Elijah Bartolome

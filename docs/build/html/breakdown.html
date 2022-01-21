@@ -28,6 +28,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
             <a href="index.html" class="icon icon-home"> MGSurvE
+            <img src="_static/MGSurvE_Logo.jpg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -146,7 +147,7 @@ object which stores the information of the sites’ and traps’ positions, alon
 <p>This function defines the probability for individuals to move from one point to another in a time-step. In their most basic form, they calculate a probability <code class="code docutils literal notranslate"><span class="pre">p</span></code> as a function of the distance <code class="code docutils literal notranslate"><span class="pre">d</span></code>
 between points. This <code class="code docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">function</span></code> is run to calculate the <code class="code docutils literal notranslate"><span class="pre">lnd.migrationMatrix</span></code> from the <code class="code docutils literal notranslate"><span class="pre">lnd.distanceMatrix</span></code>. It can be defined to take into account other landscape features (such as altitude)
 if the parameters are provided (this would not pose a substantial computational burden as it is run only once to setup the landscape).</p>
-<img alt="_images/expo.png" src="_images/expo.png" />
+<img alt="../../img/expo.jpg" src="../../img/expo.jpg" />
 </section>
 <section id="traps-kernels-lnd-trapskernels">
 <h3>Traps Kernels (<code class="code docutils literal notranslate"><span class="pre">lnd.trapsKernels</span></code>)<a class="headerlink" href="#traps-kernels-lnd-trapskernels" title="Permalink to this headline"></a></h3>
@@ -164,19 +165,19 @@ the more complicated they become, the more processing power that will be require
 <h3>Migration Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.migrationMatrix</span></code>)<a class="headerlink" href="#migration-matrix-lnd-migrationmatrix" title="Permalink to this headline"></a></h3>
 <p>This matrix contains the probabilities of individuals to migrate from point <code class="code docutils literal notranslate"><span class="pre">a</span></code> (row) to point <code class="code docutils literal notranslate"><span class="pre">b</span></code> (column) across
 the landscape in a time-step. This matrix is internally calculated using the <code class="code docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">function</span></code> and the distance between sites.</p>
-<img alt="_images/01.png" src="_images/01.png" />
+<img alt="_images/01.jpg" src="_images/01.jpg" />
 </section>
 <section id="masked-migration-matrix-lnd-maskedmigration">
 <h3>Masked Migration Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.maskedMigration</span></code>)<a class="headerlink" href="#masked-migration-matrix-lnd-maskedmigration" title="Permalink to this headline"></a></h3>
 <p>Similar to the <code class="code docutils literal notranslate"><span class="pre">migration</span> <span class="pre">matrix</span></code> but this matrix takes into account the point-types for the probability of movement
 (as provided <code class="code docutils literal notranslate"><span class="pre">traps</span> <span class="pre">mask</span></code> array). If no <code class="code docutils literal notranslate"><span class="pre">traps</span> <span class="pre">mask</span></code> is provided, this matrix is equal to the <code class="code docutils literal notranslate"><span class="pre">migration</span> <span class="pre">matrix</span></code>.</p>
-<img alt="_images/02.png" src="_images/02.png" />
+<img alt="_images/02.jpg" src="_images/02.jpg" />
 </section>
 <section id="traps-matrix-lnd-trapsmigration">
 <h3>Traps Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.trapsMigration</span></code>)<a class="headerlink" href="#traps-matrix-lnd-trapsmigration" title="Permalink to this headline"></a></h3>
 <p>Finally, the <code class="code docutils literal notranslate"><span class="pre">traps</span> <span class="pre">matrix</span></code> contains the probabilities of individuals moving between all the points of the landscape (including
 the traps).</p>
-<img alt="_images/03.png" src="_images/03.png" />
+<img alt="_images/03.jpg" src="_images/03.jpg" />
 </section>
 </section>
 <hr class="docutils" />
