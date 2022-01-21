@@ -1,7 +1,7 @@
 # Output files
 scratch
 demo_out
-*.png
+# *.png
 *.csv
 mailAlerts.py
 
