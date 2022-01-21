@@ -51,7 +51,7 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 
 # Authors and Funders
 
-<img src="https://raw.githubusercontent.com/Chipdelmal/pyMSync/master/media/pusheen.jpg" height="125px" align="middle"><img src="https://github.com/Chipdelmal/MGSurvE/blob/main/img/MGSurvE_Logo.jpg?raw=true" height="125px" align="middle"> <br><br>
+<img src="https://raw.githubusercontent.com/Chipdelmal/pyMSync/master/media/pusheen.jpg" height="125px" align="middle"><img src="https://github.com/Chipdelmal/MGSurvE/blob/main/img/MGSurvE_Logo.png?raw=true" height="125px" align="middle"> <br><br>
 
 * Lead and Dev: [Héctor M. Sánchez C.](https://chipdelmal.github.io/blog/)
 * Active Devs: Elijah Bartolome
