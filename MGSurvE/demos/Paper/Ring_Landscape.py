@@ -15,7 +15,7 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (ID, OUT_PTH) = ('Ring', './sims_out/')
-(ptsNum, radii, ptsTypes) = (100, (75, 100), 3)
+(ptsNum, radii, ptsTypes) = (125, (75, 100), 3)
 ###############################################################################
 # Defining Landscape
 ###############################################################################
@@ -26,35 +26,66 @@ xy = srv.ptsDonut(ptsNum, radii).T
 # Generate landscape with one point-type ......................................
 points_hom = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Duplicate dataframe and replace to multiple point-types for heterogeneity ...
-points_het = points_null.copy()
+points_het = points_hom.copy()
 points_het['t'] = np.random.choice(ptsTypes, xy.shape[1])
+msk = [
+    [0.05, 0.75, 0.15],
+    [0.25, 0.15, 0.70],
+    [0.70, 0.00, 0.30],
+]
 ###############################################################################
 # Defining Traps
 ###############################################################################
 nullTraps = [0, 0, 0, 0]
 traps = pd.DataFrame({
-    'x': nullTraps, 'y': nullTraps, 't': nullTraps, 'f': nullTraps
+    'x': nullTraps, 'y': nullTraps, 't': [0, 1, 0, 1], 'f': nullTraps
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}}}
+tKer = {
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .05}}
+}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
 lnd_hom = srv.Landscape(
-    points_hom, kernelParams=mKer, traps=traps, trapsKernels=tKer
+    points_hom, 
+    kernelParams=mKer, 
+    traps=traps, trapsKernels=tKer
 )
 lnd_het = srv.Landscape(
-    points_het, kernelParams=mKer, traps=traps, trapsKernels=tKer
+    points_het, maskingMatrix=msk, 
+    kernelParams=mKer,
+    traps=traps, trapsKernels=tKer
 )
 ###############################################################################
 # Plot Landscapes
 ###############################################################################
-# bbox = lnd.getBoundingBox()
-# trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
-# (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-# lnd.plotSites(fig, ax, size=100)
-# lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
-# lnd.plotTraps(fig, ax)
-# srv.plotClean(fig, ax, frame=False)
+# Homogeneous -----------------------------------------------------------------
+bbox = lnd_hom.getBoundingBox()
+trpMsk = srv.genFixedTrapsMask(lnd_hom.trapsFixed)
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+lnd_hom.plotSites(fig, ax, size=200)
+lnd_hom.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+lnd_hom.plotTraps(fig, ax)
+srv.plotClean(fig, ax, frame=False)
+fig.savefig(
+    path.join(OUT_PTH, '{}_LND_HOM.png'.format(ID)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0, dpi=250
+)
+plt.close('all')
+# Heterogeneous ---------------------------------------------------------------
+bbox = lnd_het.getBoundingBox()
+trpMsk = srv.genFixedTrapsMask(lnd_het.trapsFixed)
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+lnd_het.plotSites(fig, ax, size=200)
+lnd_het.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+lnd_het.plotTraps(fig, ax)
+srv.plotClean(fig, ax, frame=False)
+fig.savefig(
+    path.join(OUT_PTH, '{}_LND_HET.png'.format(ID)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0, dpi=250
+)
+plt.close('all')
 ###############################################################################
 # Dump Landscapes
 ###############################################################################
