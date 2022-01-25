@@ -1,6 +1,7 @@
 # Output files
 scratch
 demo_out
+sims_out
 # *.png
 *.csv
 mailAlerts.py

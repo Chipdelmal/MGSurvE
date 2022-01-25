@@ -14,22 +14,20 @@ import MGSurvE as srv
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-(ID, OUT_PTH) = ('RING', './scratch/')
+(ID, OUT_PTH) = ('Ring', './sims_out/')
+(ptsNum, radii, ptsTypes) = (100, (75, 100), 3)
 ###############################################################################
 # Defining Landscape
 ###############################################################################
-ptsNum = 100
-radii = (75, 100)
-ptsTypes = 3
 # Mosquito movement kernel
 mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
 # Pseudo-random landscape %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xy = srv.ptsDonut(ptsNum, radii).T
 # Generate landscape with one point-type ......................................
-points_null = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
+points_hom = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Duplicate dataframe and replace to multiple point-types for heterogeneity ...
-points_hetg = points_null.copy()
-points_hetg['t'] = np.random.choice(ptsTypes, xy.shape[1])
+points_het = points_null.copy()
+points_het['t'] = np.random.choice(ptsTypes, xy.shape[1])
 ###############################################################################
 # Defining Traps
 ###############################################################################
@@ -41,14 +39,15 @@ tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
-lnd_null = srv.Landscape(
-    points_null, kernelParams=mKer, traps=traps, trapsKernels=tKer
+lnd_hom = srv.Landscape(
+    points_hom, kernelParams=mKer, traps=traps, trapsKernels=tKer
 )
-lnd_hetg = srv.Landscape(
-    points_hetg, kernelParams=mKer, traps=traps, trapsKernels=tKer
+lnd_het = srv.Landscape(
+    points_het, kernelParams=mKer, traps=traps, trapsKernels=tKer
 )
-
-
+###############################################################################
+# Plot Landscapes
+###############################################################################
 # bbox = lnd.getBoundingBox()
 # trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 # (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
@@ -56,3 +55,8 @@ lnd_hetg = srv.Landscape(
 # lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 # lnd.plotTraps(fig, ax)
 # srv.plotClean(fig, ax, frame=False)
+###############################################################################
+# Dump Landscapes
+###############################################################################
+srv.dumpLandscape(lnd_hom, OUT_PTH, '{}_LND_HOM'.format(ID))
+srv.dumpLandscape(lnd_het, OUT_PTH, '{}_LND_HET'.format(ID))
