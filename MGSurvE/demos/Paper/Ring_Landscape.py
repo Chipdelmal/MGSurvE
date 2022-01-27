@@ -15,7 +15,7 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (ID, OUT_PTH) = ('Ring', './sims_out/')
-(ptsNum, radii, ptsTypes) = (125, (75, 100), 3)
+(ptsNum, radii, ptsTypes) = (100, (75, 100), 3)
 ###############################################################################
 # Defining Landscape
 ###############################################################################
@@ -36,13 +36,13 @@ msk = [
 ###############################################################################
 # Defining Traps
 ###############################################################################
-nullTraps = [0, 0, 0, 0]
+nullTraps = [0, 0, 0, 0, 0]
 traps = pd.DataFrame({
-    'x': nullTraps, 'y': nullTraps, 't': [0, 1, 0, 1], 'f': nullTraps
+    'x': nullTraps, 'y': nullTraps, 't': [0, 0, 0, 0, 1], 'f': nullTraps
 })
 tKer = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .05}}
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .125}}
 }
 ###############################################################################
 # Setting Landscape Up
@@ -66,7 +66,7 @@ trpMsk = srv.genFixedTrapsMask(lnd_hom.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd_hom.plotSites(fig, ax, size=200)
 lnd_hom.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
-lnd_hom.plotTraps(fig, ax)
+# lnd_hom.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=False)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_HOM.png'.format(ID)), 
@@ -79,7 +79,7 @@ trpMsk = srv.genFixedTrapsMask(lnd_het.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd_het.plotSites(fig, ax, size=200)
 lnd_het.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
-lnd_het.plotTraps(fig, ax)
+# lnd_het.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=False)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_HET.png'.format(ID)), 
