@@ -13,6 +13,7 @@
 
    .. autosummary::
    
+      exponentialAttractiveness
       exponentialDecay
       nSolveKernel
       sigmoidDecay

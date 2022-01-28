@@ -26,6 +26,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
             <a href="index.html" class="icon icon-home"> MGSurvE
+            <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -242,9 +243,33 @@
 <section id="module-MGSurvE.kernels">
 <span id="mgsurve-kernels-module"></span><h2>MGSurvE.kernels module<a class="headerlink" href="#module-MGSurvE.kernels" title="Permalink to this headline"></a></h2>
 <dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.kernels.exponentialAttractiveness">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">exponentialAttractiveness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.exponentialAttractiveness" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the probability of moving between points as a complex decaying exponential.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dist</strong> (<em>float</em>) – Distance between points.</p></li>
+<li><p><strong>A</strong> (<em>float</em>) – Maximum amplitude at distance 0 (attractiveness).</p></li>
+<li><p><strong>k</strong> (<em>float</em>) – </p></li>
+<li><p><strong>s</strong> (<em>float</em>) – </p></li>
+<li><p><strong>gamma</strong> (<em>float</em>) – </p></li>
+<li><p><strong>epsilon</strong> (<em>float</em>) – Error term</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Movement probability.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.kernels.exponentialDecay">
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">exponentialDecay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.exponentialDecay" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates the probability of moving between points.</p>
+<dd><p>Calculates the probability of moving between points as a decaying exponential.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -286,7 +311,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.kernels.sigmoidDecay">
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">sigmoidDecay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.sigmoidDecay" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates the probability of moving between points.</p>
+<dd><p>Calculates the probability of moving between points as a sigmod.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1326,7 +1351,7 @@ Follow this link for the original code: <a class="reference external" href="http
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.pointProcess.clusterLandscape">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">clusterLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pointsCoords</span></em>, <em class="sig-param"><span class="pre">clustersNumber</span></em>, <em class="sig-param"><span class="pre">randomState=1641500159.0677795</span></em>, <em class="sig-param"><span class="pre">clusterAlgorithm=&lt;class</span> <span class="pre">'sklearn.cluster._kmeans.KMeans'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.clusterLandscape" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">clusterLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pointsCoords</span></em>, <em class="sig-param"><span class="pre">clustersNumber</span></em>, <em class="sig-param"><span class="pre">randomState=1642807525.8770084</span></em>, <em class="sig-param"><span class="pre">clusterAlgorithm=&lt;class</span> <span class="pre">'sklearn.cluster._kmeans.KMeans'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.clusterLandscape" title="Permalink to this definition"></a></dt>
 <dd><p>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

@@ -4,8 +4,15 @@
 MGSurvE is a project oriented towards the optimization of traps' placement in complex heterogeneous landscapes in an effort to minimize the time to detection of genetic variants of interest.
 
 
+
 **Under Construction** :construction: **Please check back in a couple of weeks!**
 
+To install the package's latest stable version, run:
+
+```
+pip install MGSurvE
+conda install -c conda-forge cartopy
+```
 
 
 [![PyPI version](https://badge.fury.io/py/MGSurvE.svg)](https://badge.fury.io/py/MGSurvE)[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)![Travis Build](https://app.travis-ci.com/Chipdelmal/MGSurvE.svg?branch=main)[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
@@ -44,7 +51,7 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 
 # Authors and Funders
 
-<img src="https://raw.githubusercontent.com/Chipdelmal/pyMSync/master/media/pusheen.jpg" height="130px" align="middle"><br>
+<img src="https://raw.githubusercontent.com/Chipdelmal/pyMSync/master/media/pusheen.jpg" height="125px" align="middle"><img src="https://github.com/Chipdelmal/MGSurvE/blob/main/img/MGSurvE_Logo.png?raw=true" height="125px" align="middle"> <br><br>
 
 * Lead and Dev: [Héctor M. Sánchez C.](https://chipdelmal.github.io/blog/)
 * Active Devs: Elijah Bartolome
