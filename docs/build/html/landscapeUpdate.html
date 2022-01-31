@@ -92,11 +92,11 @@ Just generate a new dataframe with the traps’ information and call the <code c
     <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
     <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="p">})</span>
-<span class="n">tker</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">tKernels</span> <span class="o">=</span> <span class="p">{</span>
     <span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">exponentialDecay</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mf">.30</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}},</span>
     <span class="mi">1</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">exponentialDecay</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mf">.50</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}}</span>
 <span class="p">}</span>
-<span class="n">lnd</span><span class="o">.</span><span class="n">updateTraps</span><span class="p">(</span><span class="n">traps</span><span class="p">,</span> <span class="n">tker</span><span class="p">)</span>
+<span class="n">lnd</span><span class="o">.</span><span class="n">updateTraps</span><span class="p">(</span><span class="n">traps</span><span class="p">,</span> <span class="n">tKernels</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Doing this has the advantage (over creating a new landscape), of re-calculating only the parts of the landscape that are needed.

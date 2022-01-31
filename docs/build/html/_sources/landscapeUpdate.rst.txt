@@ -12,11 +12,11 @@ Just generate a new dataframe with the traps' information and call the :code:`ln
         't': [0, 1, 0],
         'f': [1, 0, 0]
     })
-    tker = {
+    tKernels = {
         0: {'kernel': srv.exponentialDecay, 'params': {'A': .30, 'b': 2}},
         1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': 1}} 
     }
-    lnd.updateTraps(traps, tker)
+    lnd.updateTraps(traps, tKernels)
 
 Doing this has the advantage (over creating a new landscape), of re-calculating only the parts of the landscape that are needed.
 This can save significant amounts of computation in optimization routines.

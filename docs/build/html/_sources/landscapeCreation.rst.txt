@@ -32,7 +32,7 @@ To add the traps, we follow a similar process, with the addition of the kernel s
       (2.5, 0.75, 0, 0),
       (0.0, 0.50, 0, 0)
    )
-   traps = pd.DataFrame(trp, columns=('x', 'y', 't'))
+   traps = pd.DataFrame(trp, columns=('x', 'y', 't', 'f'))
    tKernels = {
       0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 2}}
    }
