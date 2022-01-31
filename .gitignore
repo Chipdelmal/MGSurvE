@@ -4,6 +4,7 @@ demo_out
 sims_out
 # *.png
 *.csv
+/MGSurve/demos/*.png
 mailAlerts.py
 
 # Compressed Serialized Files

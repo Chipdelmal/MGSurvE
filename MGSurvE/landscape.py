@@ -266,6 +266,11 @@ class Landscape:
             self.trapsMigration = mat.genVoidFullMigrationMatrix(
                 self.maskedMigration, self.trapsNumber
             )
+            mskShape = (
+                len(set(self.trapsTypes)), 
+                len(set(self.pointTypes))
+            )
+            self.trapsMask = np.full(mskShape, 1)
         self.calcTrapsDistances()
         self.calcTrapsMigration()
         self.updateTrapsRadii(self.trapsRadii)

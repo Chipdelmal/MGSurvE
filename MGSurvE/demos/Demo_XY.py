@@ -46,11 +46,11 @@ traps = pd.DataFrame({
     't': [0, 1, 0],
     'f': [1, 0, 0]
 })
-tker = {
+tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .30, 'b': 2}},
     1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': 1}} 
 }
-lnd.updateTraps(traps, tker)
+lnd.updateTraps(traps, tKernels)
 # Plotting updated traps ------------------------------------------------------
 (fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax[0])
@@ -63,9 +63,3 @@ fig.savefig(
     './demo_updatedLandscape.png', facecolor='w',
     bbox_inches='tight', pad_inches=0, dpi=300
 )
-###############################################################################
-# Plotting traps elements
-###############################################################################
-(fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax[0])
-lnd.plotMigrationNetwork(fig, ax[0], vmax=1)
