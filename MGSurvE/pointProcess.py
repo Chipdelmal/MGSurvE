@@ -5,6 +5,7 @@ import random
 import numpy as np
 import numpy.random as rand
 from sklearn.cluster import KMeans
+from pointpats import PoissonClusterPointProcess, Window
 
 
 def ptsRegularGrid(pointsNumber, bbox):
@@ -122,3 +123,40 @@ def aggregateLandscape(migrationMatrix, clusters):
     for row in range(num_clusters):
         aggr_matrix[row] = [x/aggr_number[row] for x in aggr_matrix[row]]
     return aggr_matrix
+
+def clusterPossion(
+    pointsNumber, clustersNumber, 
+    radius, randomState=time.time(), 
+    bbox=None, polygon=None
+    ):
+    """ .
+    
+    Parameters:
+        pointsNumber (int): Number of sites
+        clustersNumber (int):
+        radius (float): Radius of the circle centered on each parent.
+        randomState (int):
+
+        bbox (tuple of tuples): Bounding box in the form ((xLo, xHi), (yLo, yHi))
+        OR
+        polygon (list of tuples): Bounding polygon represented by list of tuples
+
+    Returns:
+        (numpy array):  
+    """
+
+    if bbox:
+        xLo, xHi = bbox[0]
+        yLo, yHi = bbox[1]
+        parts = [[(xLo, yLo), (xLo, yHi), (xHi, yHi), (xHi, yLo), (xLo, yLo)]]
+        window = Window(parts)
+    elif polygon:
+        window = Window(polygon)
+
+    np.random.seed(randomState)
+    csamples = PoissonClusterPointProcess(
+        window, pointsNumber, 
+        clustersNumber, radius, 1, asPP=True, conditioning=False
+    )
+
+    return np.asarray(csamples.realize(pointsNumber))
