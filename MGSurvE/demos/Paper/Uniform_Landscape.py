@@ -37,9 +37,9 @@ msk = [
 ###############################################################################
 # Defining Traps
 ###############################################################################
-nullTraps = [0, 0, 0, 0]
+nullTraps = [0, 0, 0]
 traps = pd.DataFrame({
-    'x': nullTraps, 'y': nullTraps, 't': [0, 0, 0, 1], 'f': nullTraps
+    'x': nullTraps, 'y': nullTraps, 't': [0, 0, 1], 'f': nullTraps
 })
 tKer = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}},

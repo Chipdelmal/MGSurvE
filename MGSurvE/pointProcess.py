@@ -124,12 +124,13 @@ def aggregateLandscape(migrationMatrix, clusters):
         aggr_matrix[row] = [x/aggr_number[row] for x in aggr_matrix[row]]
     return aggr_matrix
 
+
 def clusterPossion(
     pointsNumber, clustersNumber, 
     radius, randomState=time.time(), 
     bbox=None, polygon=None
     ):
-    """ .
+    """
     
     Parameters:
         pointsNumber (int): Number of sites
@@ -153,7 +154,7 @@ def clusterPossion(
     elif polygon:
         window = Window(polygon)
 
-    np.random.seed(randomState)
+    np.random.seed(int(randomState))
     csamples = PoissonClusterPointProcess(
         window, pointsNumber, 
         clustersNumber, radius, 1, asPP=True, conditioning=False

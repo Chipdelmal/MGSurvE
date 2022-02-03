@@ -118,6 +118,7 @@ lnd.plotSites(fig, ax, size=200)
 lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=False)
+srv.plotFitness(fig, ax, min(minFits), zorder=30)
 fig.savefig(
     path.join(OUT_PTH, '{}_TRP.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0, dpi=250

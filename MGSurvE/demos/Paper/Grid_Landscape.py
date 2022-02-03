@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import math
+from time import time
 import numpy as np
 import pandas as pd
 from os import path
@@ -14,24 +15,27 @@ import MGSurvE as srv
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-(ID, OUT_PTH) = ('Ring', './sims_out/')
-(ptsNum, radii, ptsTypes) = (100, (75, 100), 3)
+
+(ID, OUT_PTH) = ('Grid', './sims_out/')
+(ptsNum, ptsTypes) = (10, 3)
 ###############################################################################
 # Defining Landscape
 ###############################################################################
 # Mosquito movement kernel
 mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
 # Pseudo-random landscape %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-xy = srv.ptsDonut(ptsNum, radii).T
+bbox = ((-80, 80), (-80, 80))
+xy = srv.ptsRegularGrid(ptsNum, bbox).T
+ptsNum = xy.shape[1]
 # Generate landscape with one point-type ......................................
 points_hom = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Duplicate dataframe and replace to multiple point-types for heterogeneity ...
 points_het = points_hom.copy()
-points_het['t'] = np.random.choice(ptsTypes, ptsNum, p=[0.02, 0.80, 0.18])
+points_het['t'] = np.random.choice(ptsTypes, ptsNum, p=[0.10, 0.70, 0.20])
 msk = [
-    [0.05, 0.75, 0.20],
-    [0.10, 0.05, 0.85],
-    [0.90, 0.00, 0.10],
+    [0.05, 0.70, 0.25],
+    [0.30, 0.10, 0.60],
+    [0.70, 0.10, 0.20],
 ]
 ###############################################################################
 # Defining Traps
@@ -80,7 +84,7 @@ trpMsk = srv.genFixedTrapsMask(lnd_het.trapsFixed)
 lnd_het.plotSites(fig, ax, size=200)
 lnd_het.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 # lnd_het.plotTraps(fig, ax)
-srv.plotClean(fig, ax, frame=False)
+srv.plotClean(fig, ax, bbox=bbox, frame=False)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_HET.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0, dpi=250
