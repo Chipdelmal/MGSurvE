@@ -1,6 +1,6 @@
 # Paper's Sims
 
-Please [install MGSurvE](https://chipdelmal.github.io/MGSurvE/build/html/installation.html) first.
+This simulations set is generated as a companion for the initial publication of our framework.
 
 # Requirements
 

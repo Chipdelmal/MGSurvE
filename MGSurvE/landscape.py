@@ -328,7 +328,7 @@ class Landscape:
     def plotSites(self, 
             fig, ax, 
             markers=cst.MKRS, colors=cst.MCOL,
-            size=200, edgecolors='w', linewidths=2,
+            size=350, edgecolors='w', linewidths=2,
             zorder=5, **kwargs
         ):
         """Plots the sites coordinates.
@@ -336,7 +336,7 @@ class Landscape:
         (fig, ax) = plt.plotSites(
             fig, ax, 
             self.pointCoords, self.pointTypes,
-            colors=colors, size=size, 
+            colors=colors, size=size, markers=markers,
             edgecolors=edgecolors, linewidths=linewidths,
             zorder=zorder, **kwargs
         )
