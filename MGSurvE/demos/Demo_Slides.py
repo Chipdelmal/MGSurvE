@@ -46,7 +46,7 @@ fitness = fitFuns['outer'](daysTillTrapped)
 # Plotting landscape
 ###############################################################################
 (fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax[0])
+lnd.plotSites(fig, ax[0], size=500)
 lnd.plotMigrationNetwork(fig, ax[0])
 srv.plotMatrix(fig, ax[1], lnd.migrationMatrix, vmax=.5)
 [srv.plotClean(fig, i, frame=False) for i in ax]
@@ -56,7 +56,7 @@ fig.savefig(
 )
 # Plotting landscape ----------------------------------------------------------
 (fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax[0])
+lnd.plotSites(fig, ax[0], size=500)
 lnd.plotMaskedMigrationNetwork(fig, ax[0])
 srv.plotMatrix(fig, ax[1], lnd.maskedMigration, vmax=.5)
 [srv.plotClean(fig, i, frame=False) for i in ax]
@@ -66,7 +66,7 @@ fig.savefig(
 )
 # Plotting traps --------------------------------------------------------------
 (fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax[0])
+lnd.plotSites(fig, ax[0], size=500)
 lnd.plotMigrationNetwork(fig, ax[0])
 lnd.plotTraps(fig, ax[0])
 lnd.plotTrapsNetwork(fig, ax[0])
@@ -78,7 +78,7 @@ fig.savefig(
 )
 # Plotting traps --------------------------------------------------------------
 (fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax[0])
+lnd.plotSites(fig, ax[0], size=500)
 lnd.plotMaskedMigrationNetwork(fig, ax[0])
 lnd.plotTraps(fig, ax[0])
 lnd.plotTrapsNetwork(fig, ax[0])
