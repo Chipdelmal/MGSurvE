@@ -17,7 +17,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (OUT_PTH, ID) = (cst.out_pth, 'SX')
 (ptsNum, trpsNum, bbox) = (200, 4, ((-100, 100), (-80, 80)))
-gens = 500
+gens = 1000
 ###############################################################################
 # Generating Pointsets
 ###############################################################################
@@ -54,21 +54,21 @@ traps = pd.DataFrame({
 tKernels = {
     'Male': {
         0: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .125}},
-        1: {'kernel': srv.exponentialDecay, 'params': {'A': .10, 'b': .150}}
+        1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .125}}
     },
     'Female': {
         0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .100}},
-        1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .110}}
+        1: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .110}}
     }
 }
 tMasks = {
     'Male': [
-        [0.25, 0.00, 0.75],
-        [0.50, 0.00, 0.50],
-        [0.80, 0.00, 0.20]
+        [0.20, 0.10, 0.70],
+        [0.40, 0.20, 0.40],
+        [0.80, 0.05, 0.15]
     ],
     'Female': [
-        [0.05, 0.70, 0.25],
+        [0.10, 0.70, 0.20],
         [0.30, 0.10, 0.60],
         [0.70, 0.10, 0.20]
     ]
@@ -90,6 +90,26 @@ lndF = srv.Landscape(
     kernelParams=movementKernel['Female']['kernelParams'],
     trapsKernels=tKernels['Female'], trapsRadii=[.1, ]
 )
+# Plotting male landscape .....................................................
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+lndM.plotSites(fig, ax)
+lndM.plotMigrationNetwork(fig, ax, alphaMin=.75, lineWidth=30)
+srv.plotClean(fig, ax, frame=True)
+fig.savefig(
+    path.join(OUT_PTH, '{}_LND_M.png'.format(ID)), 
+    facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
+)
+plt.close('all')
+# Plotting male landscape .....................................................
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+lndF.plotSites(fig, ax)
+lndF.plotMigrationNetwork(fig, ax, alphaMin=.75, lineWidth=90)
+srv.plotClean(fig, ax, frame=True)
+fig.savefig(
+    path.join(OUT_PTH, '{}_LND_F.png'.format(ID)), 
+    facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
+)
+plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 
@@ -179,8 +199,8 @@ lndM.plotSites(fig, ax, size=100)
 # Plot Networks ---------------------------------------------------------------
 lndM.plotMigrationNetwork(fig, ax, alphaMin=.3, lineWidth=50, lineColor='#03045e')
 lndF.plotMigrationNetwork(fig, ax, alphaMin=.3, lineWidth=35, lineColor='#03045e')
-lndF.plotTraps(fig, ax, colors={0: '#f7258522'}, lws=(2, 0), fill=True, ls='--', zorder=(25, 4))
-lndM.plotTraps(fig, ax, colors={0: '#a06cd522'}, lws=(2, 0), fill=True, ls=':', zorder=(25, 4))
+lndF.plotTraps(fig, ax, colors={0: '#f7258522', 1: '#f7258522'}, lws=(2, 0), fill=True, ls='--', zorder=(25, 4))
+lndM.plotTraps(fig, ax, colors={0: '#a06cd522', 1: '#a06cd522'}, lws=(2, 0), fill=True, ls=':', zorder=(25, 4))
 # Other Stuff -----------------------------------------------------------------
 srv.plotFitness(fig, ax, min(minFits), zorder=30)
 srv.plotClean(fig, ax, frame=False, bbox=bbox, labels=False)
