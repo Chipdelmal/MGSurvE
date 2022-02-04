@@ -2,6 +2,8 @@
 import math
 import MGSurvE as srv
 
+# Path for outputs
+out_pth = './sims_out/'
 # Landscape's bounding box
 bbox = ((-100, 100), (-80, 80))
 # Mosquito movement kernel
@@ -24,4 +26,11 @@ msk = [
     [0.05, 0.70, 0.25],
     [0.30, 0.10, 0.60],
     [0.70, 0.10, 0.20],
+]
+# GA Settings
+(gens, verbose) = (1000, False)
+gaParams = [
+    {'mate': .3, 'cxpb': 0.5}, 
+    {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .4, 'ipb': .5},
+    {'tSize': 3}
 ]

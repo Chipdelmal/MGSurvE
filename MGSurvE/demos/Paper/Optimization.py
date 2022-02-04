@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import warnings
 import numpy as np
 import pandas as pd
 from os import path
@@ -9,12 +10,12 @@ from copy import deepcopy
 import matplotlib.pyplot as plt
 from compress_pickle import dump, load
 from deap import base, creator, algorithms, tools
+import Constants as cst
 import MGSurvE as srv
-import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
-(GENS, VERBOSE, OUT_PTH) = (1000, True, './sims_out/')
+(GENS, VERBOSE, OUT_PTH) = (cst.gens, cst.verbose, cst.out_pth)
 if srv.isNotebook():
     ID = 'Ring_LND_HOM'
 else:
@@ -30,11 +31,7 @@ lnd = srv.loadLandscape(OUT_PTH, ID)
 ############################################################################### 
 TRPS_NUM = lnd.trapsCoords.shape[0]
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
-(MAT, MUT, SEL) = (
-    {'mate': .3, 'cxpb': 0.5}, 
-    {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .4, 'ipb': .5},
-    {'tSize': 3}
-)
+(MAT, MUT, SEL) = cst.gaParams
 lndGA = deepcopy(lnd)
 ###############################################################################
 # Registering Functions for GA
@@ -114,7 +111,7 @@ fig.savefig(
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax, size=200)
+lnd.plotSites(fig, ax)
 lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=False)
