@@ -105,19 +105,19 @@ srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
 pthSave = path.join(OUT_PTH, '{}_GAP'.format(ID))
 fig.savefig(
     pthSave,
-    facecolor='w', bbox_inches='tight', pad_inches=.1, dpi=300
+    facecolor='w', bbox_inches='tight', pad_inches=.1, dpi=cst.dpi
 )
-# Heterogeneous ---------------------------------------------------------------
+# Export plots ----------------------------------------------------------------
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax)
-lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=30)
 lnd.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=False)
 srv.plotFitness(fig, ax, min(minFits), zorder=30)
 fig.savefig(
     path.join(OUT_PTH, '{}_TRP.png'.format(ID)), 
-    facecolor='w', bbox_inches='tight', pad_inches=0, dpi=250
+    facecolor='w', bbox_inches='tight', pad_inches=0, dpi=cst.dpi
 )
 plt.close('all')

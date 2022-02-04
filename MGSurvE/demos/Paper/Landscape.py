@@ -20,7 +20,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 bbox = cst.bbox
 if ID == 'Grid':
     (ptsNum, ptsTypes) = (int(math.sqrt(cst.ptsNum)), len(cst.pTypesProb))
-    xy = srv.ptsRegularGrid(ptsNum, bbox).T
+    xy = srv.ptsRegularGrid(ptsNum, (bbox[0], bbox[0])).T
 elif ID == 'Uniform':
     (ptsNum, ptsTypes) = (cst.ptsNum, len(cst.pTypesProb))
     xy = srv.ptsRandUniform(ptsNum, bbox).T
@@ -71,12 +71,12 @@ bbox = lnd_hom.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd_hom.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd_hom.plotSites(fig, ax, size=200)
-lnd_hom.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+lnd_hom.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=30)
 # lnd_hom.plotTraps(fig, ax)
-srv.plotClean(fig, ax, frame=False)
+srv.plotClean(fig, ax, frame=True)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_HOM.png'.format(ID)), 
-    facecolor='w', bbox_inches='tight', pad_inches=0, dpi=250
+    facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')
 # Heterogeneous ---------------------------------------------------------------
@@ -84,12 +84,12 @@ bbox = lnd_het.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd_het.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd_het.plotSites(fig, ax, size=200)
-lnd_het.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+lnd_het.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=30)
 # lnd_het.plotTraps(fig, ax)
-srv.plotClean(fig, ax, frame=False)
+srv.plotClean(fig, ax, frame=True)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_HET.png'.format(ID)), 
-    facecolor='w', bbox_inches='tight', pad_inches=0, dpi=250
+    facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')
 ###############################################################################

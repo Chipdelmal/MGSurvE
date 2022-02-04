@@ -28,9 +28,11 @@ msk = [
     [0.70, 0.10, 0.20],
 ]
 # GA Settings
-(gens, verbose) = (200, False)
+(gens, verbose) = (1000, False)
 gaParams = [
     {'mate': .3, 'cxpb': 0.5}, 
     {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .4, 'ipb': .5},
     {'tSize': 3}
 ]
+# Plots 
+(dpi, pad) = (200, 0)
