@@ -264,7 +264,7 @@ def plotClean(fig, ax, frame=False, bbox=None, labels=False):
     if bbox is not None:
         ax.set_xlim(*bbox[0])
         ax.set_ylim(*bbox[1])
-    ax.set_aspect(1/ax.get_data_ratio())
+    # ax.set_aspect(1/ax.get_data_ratio())
     return (fig, ax)
 
 
