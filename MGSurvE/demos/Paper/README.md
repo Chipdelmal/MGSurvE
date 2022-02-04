@@ -12,7 +12,7 @@ This simulations set is generated as a companion for the initial publication of 
 Each landscape generator can be run independently for the desired demonstration in the following way:
 
 ```bash
-python Ring_Landscape.py
+python Landscape.py Ring
 python Optimization.py Ring_LND_HOM
 python Optimization.py Ring_LND_HET
 ```
