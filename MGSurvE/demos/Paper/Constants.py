@@ -35,4 +35,4 @@ gaParams = [
     {'tSize': 3}
 ]
 # Plots 
-(dpi, pad) = (200, 0)
+(dpi, pad) = (200, 0.05)

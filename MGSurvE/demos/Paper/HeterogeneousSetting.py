@@ -16,7 +16,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
 (OUT_PTH, ID) = (cst.out_pth, 'SX')
-(ptsNum, trpsNum, bbox) = (200, 4, ((-100, 100), (-80, 80)))
+(ptsNum, trpsNum, bbox) = (200, 6, ((-100, 100), (-80, 80)))
 gens = 1000
 ###############################################################################
 # Generating Pointsets
@@ -49,7 +49,8 @@ movementKernel = {
 nullTraps = [0]*trpsNum
 traps = pd.DataFrame({
     'x': nullTraps, 'y': nullTraps, 
-    'f': [False, False, False, True], 't': [0, 1, 0, 1],
+    'f': [False, False, False, True, False, False], 
+    't': [0, 1, 0, 1, 0, 1],
 })
 tKernels = {
     'Male': {
@@ -58,7 +59,7 @@ tKernels = {
     },
     'Female': {
         0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .100}},
-        1: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .110}}
+        1: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .075}}
     }
 }
 tMasks = {
@@ -190,6 +191,8 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 minFits= logbook.select("min")
 lndM.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
 lndF.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
+srv.exportLandscape(lndM, OUT_PTH, ID+'M')
+srv.exportLandscape(lndF, OUT_PTH, ID+'F')
 dta = pd.DataFrame(logbook)
 ###############################################################################
 # Plot traps
@@ -200,7 +203,7 @@ lndM.plotSites(fig, ax, size=100)
 lndM.plotMigrationNetwork(fig, ax, alphaMin=.3, lineWidth=50, lineColor='#03045e')
 lndF.plotMigrationNetwork(fig, ax, alphaMin=.3, lineWidth=35, lineColor='#03045e')
 lndF.plotTraps(fig, ax, colors={0: '#f7258522', 1: '#f7258522'}, lws=(2, 0), fill=True, ls='--', zorder=(25, 4))
-lndM.plotTraps(fig, ax, colors={0: '#a06cd522', 1: '#a06cd522'}, lws=(2, 0), fill=True, ls=':', zorder=(25, 4))
+lndM.plotTraps(fig, ax, colors={0: '#a06cd522', 1: '#a06cd522'}, lws=(2, 0), fill=True, ls=':', zorder=(30, 5))
 # Other Stuff -----------------------------------------------------------------
 srv.plotFitness(fig, ax, min(minFits), zorder=30)
 srv.plotClean(fig, ax, frame=False, bbox=bbox, labels=False)
