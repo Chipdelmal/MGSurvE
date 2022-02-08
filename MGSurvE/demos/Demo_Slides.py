@@ -49,6 +49,11 @@ fitness = fitFuns['outer'](daysTillTrapped)
 lnd.plotSites(fig, ax[0], size=500)
 lnd.plotMigrationNetwork(fig, ax[0])
 srv.plotMatrix(fig, ax[1], lnd.migrationMatrix, vmax=.5)
+# for ix in range(lnd.pointNumber):
+#     ax[0].text(
+#         lnd.pointCoords[ix][0], lnd.pointCoords[ix][1], str(ix+1), 
+#         zorder=50, ha='center', va='center'
+#     )
 [srv.plotClean(fig, i, frame=False) for i in ax]
 fig.savefig(
     PT_OUT+'01.png', dpi=300, bbox_inches='tight', 

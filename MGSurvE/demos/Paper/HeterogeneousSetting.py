@@ -16,8 +16,8 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
 (OUT_PTH, ID) = (cst.out_pth, 'SX')
-(ptsNum, trpsNum, bbox) = (200, 6, ((-100, 100), (-80, 80)))
-gens = 1000
+(ptsNum, trpsNum, bbox) = (200, 7, ((-100, 100), (-80, 80)))
+gens = 250
 ###############################################################################
 # Generating Pointsets
 ###############################################################################
@@ -33,15 +33,28 @@ movementKernel = {
     'Male': {
         'kernelFunction': srv.zeroInflatedExponentialKernel,
         'kernelParams': {
-            'params': [.050, 1.0e-10, math.inf], 'zeroInflation': .5
+            'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75
         }
     },
     'Female': {
         'kernelFunction': srv.zeroInflatedExponentialKernel,
         'kernelParams': {
-            'params': [.025, 1.0e-10, math.inf], 'zeroInflation': .7
+            'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75
         }
     }
+}
+mMasks = {
+    # Aquatic, Blood-Haunt, Sugar
+    'Male': [
+        [0.05, 0.35, 0.60],
+        [0.45, 0.10, 0.45],
+        [0.70, 0.10, 0.20],
+    ],
+    'Female': [
+        [0.05, 0.70, 0.25],
+        [0.30, 0.10, 0.60],
+        [0.70, 0.10, 0.20],
+    ]
 }
 ###############################################################################
 # Defining Traps
@@ -49,52 +62,55 @@ movementKernel = {
 nullTraps = [0]*trpsNum
 traps = pd.DataFrame({
     'x': nullTraps, 'y': nullTraps, 
-    'f': [False, False, False, True, False, False], 
-    't': [0, 1, 0, 1, 0, 1],
+    'f': [True, False, False, False, False, False, False], 
+    't': [0, 0, 0, 1, 1, 1, 1],
 })
+# 0: Ovitrap
+# 1: CO2
 tKernels = {
     'Male': {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .125}},
-        1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .125}}
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.20, 'b': 0.250}},
+        1: {'kernel': srv.exponentialDecay, 'params': {'A': 0.50, 'b': 0.075}}
     },
     'Female': {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .100}},
-        1: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .075}}
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.80, 'b': 0.115}},
+        1: {'kernel': srv.exponentialDecay, 'params': {'A': 0.75, 'b': 0.075}}
     }
 }
-tMasks = {
-    'Male': [
-        [0.20, 0.10, 0.70],
-        [0.40, 0.20, 0.40],
-        [0.80, 0.05, 0.15]
-    ],
-    'Female': [
-        [0.10, 0.70, 0.20],
-        [0.30, 0.10, 0.60],
-        [0.70, 0.10, 0.20]
-    ]
+tMsk = {
+    # Aquatic, Blood-Haunt, Sugar
+    'Male': np.asarray([
+        [1.0, 0.75, 0.50],
+        [0.0, 1.0, 0.0]
+    ]),
+    'Female': np.asarray([
+        [1.00, 0.50, 0.20],
+        [0.50, 1.00, 0.20]
+    ])
 }
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
 lndM = srv.Landscape(
     points, traps=traps,
-    maskingMatrix=tMasks['Male'],
+    maskingMatrix=mMasks['Male'],
     kernelFunction=movementKernel['Male']['kernelFunction'],
     kernelParams=movementKernel['Male']['kernelParams'],
-    trapsKernels=tKernels['Male'], trapsRadii=[.1, ]
+    trapsKernels=tKernels['Male'], trapsMask=tMsk['Male'],
+    trapsRadii=[.175, ]
 )
 lndF = srv.Landscape(
     points, traps=traps,
-    maskingMatrix=tMasks['Female'],
+    maskingMatrix=mMasks['Female'],
     kernelFunction=movementKernel['Female']['kernelFunction'],
     kernelParams=movementKernel['Female']['kernelParams'],
-    trapsKernels=tKernels['Female'], trapsRadii=[.1, ]
+    trapsKernels=tKernels['Female'], trapsMask=tMsk['Female'], 
+    trapsRadii=[.175, ]
 )
 # Plotting male landscape .....................................................
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lndM.plotSites(fig, ax)
-lndM.plotMigrationNetwork(fig, ax, alphaMin=.75, lineWidth=30)
+lndM.plotMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=100)
 srv.plotClean(fig, ax, frame=True)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_M.png'.format(ID)), 
@@ -104,7 +120,7 @@ plt.close('all')
 # Plotting male landscape .....................................................
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lndF.plotSites(fig, ax)
-lndF.plotMigrationNetwork(fig, ax, alphaMin=.75, lineWidth=90)
+lndF.plotMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=100)
 srv.plotClean(fig, ax, frame=True)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_F.png'.format(ID)), 
@@ -114,8 +130,8 @@ plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 
-(weightMale, weightFemale) = (.5, 1)
-POP_SIZE = int(10*(lndM.trapsNumber*1.25))
+(weightMale, weightFemale) = (0.25, 0.75)
+POP_SIZE = int(10*(lndM.trapsNumber*1.2))
 (GENS, MAT, MUT, SEL, VERBOSE) = (
     gens,
     {'mate': .3, 'cxpb': 0.5}, 
@@ -195,20 +211,31 @@ srv.exportLandscape(lndM, OUT_PTH, ID+'M')
 srv.exportLandscape(lndF, OUT_PTH, ID+'F')
 dta = pd.DataFrame(logbook)
 ###############################################################################
+# Plot GA
+############################################################################### 
+(fig, ax) = plt.subplots(figsize=(15, 15))
+(fig, ax) = srv.plotGAEvolution(fig, ax, dta)
+# srv.plotClean(fig, ax)
+pthSave = path.join(OUT_PTH, '{}_GAP'.format(ID))
+fig.savefig(
+    pthSave,
+    facecolor='w', bbox_inches='tight', pad_inches=.1, dpi=cst.dpi
+)
+###############################################################################
 # Plot traps
 ############################################################################### 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-lndM.plotSites(fig, ax, size=100)
+lndM.plotSites(fig, ax, size=150)
 # Plot Networks ---------------------------------------------------------------
-lndM.plotMigrationNetwork(fig, ax, alphaMin=.3, lineWidth=50, lineColor='#03045e')
-lndF.plotMigrationNetwork(fig, ax, alphaMin=.3, lineWidth=35, lineColor='#03045e')
-lndF.plotTraps(fig, ax, colors={0: '#f7258522', 1: '#f7258522'}, lws=(2, 0), fill=True, ls='--', zorder=(25, 4))
-lndM.plotTraps(fig, ax, colors={0: '#a06cd522', 1: '#a06cd522'}, lws=(2, 0), fill=True, ls=':', zorder=(30, 5))
+lndM.plotMigrationNetwork(fig, ax, alphaMin=.25, lineWidth=75, lineColor='#03045e')
+lndF.plotMigrationNetwork(fig, ax, alphaMin=.25, lineWidth=75, lineColor='#03045e')
+lndM.plotTraps(fig, ax, colors={0: '#3a0ca322', 1: '#a2d2ff33'}, lws=(2, 0), fill=True, ls=':', zorder=(10, 10))
+lndF.plotTraps(fig, ax, colors={0: '#F966A922', 1: '#f1c0e833'}, lws=(2, 0), fill=True, ls='--', zorder=(25, 4))
 # Other Stuff -----------------------------------------------------------------
 srv.plotFitness(fig, ax, min(minFits), zorder=30)
-srv.plotClean(fig, ax, frame=False, bbox=bbox, labels=False)
+srv.plotClean(fig, ax, frame=False, labels=False)
 fig.savefig(
     path.join(OUT_PTH, '{}_TRP.png'.format(ID)), 
-    facecolor='w', bbox_inches='tight', pad_inches=0.05, dpi=300
+    facecolor='w', bbox_inches='tight', pad_inches=0.05, dpi=400
 )
 plt.close('all')
