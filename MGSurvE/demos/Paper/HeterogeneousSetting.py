@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 import math
 import numpy as np
 import pandas as pd
 from os import path
 from sys import argv
 from copy import deepcopy
+from sklearn.preprocessing import normalize
 import matplotlib.pyplot as plt
 from deap import base, creator, algorithms, tools
 import Constants as cst
@@ -14,10 +16,15 @@ import MGSurvE as srv
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
+os.environ["OMP_NUM_THREADS"]="4"
+os.environ["OPENBLAS_NUM_THREADS"]="4"
+os.environ["MKL_NUM_THREADS"]="4"
+os.environ["VECLIB_MAXIMUM_THREADS"]="4"
+os.environ["NUMEXPR_NUM_THREADS"]="4"
 
 (OUT_PTH, ID) = (cst.out_pth, 'SX')
 (ptsNum, trpsNum, bbox) = (200, 7, ((-100, 100), (-80, 80)))
-gens = 250
+gens = 1000
 ###############################################################################
 # Generating Pointsets
 ###############################################################################
@@ -48,7 +55,7 @@ mMasks = {
     'Male': [
         [0.05, 0.35, 0.60],
         [0.45, 0.10, 0.45],
-        [0.70, 0.10, 0.20],
+        [0.10, 0.45, 0.45],
     ],
     'Female': [
         [0.05, 0.70, 0.25],
@@ -80,12 +87,12 @@ tKernels = {
 tMsk = {
     # Aquatic, Blood-Haunt, Sugar
     'Male': np.asarray([
-        [1.0, 0.75, 0.50],
-        [0.0, 1.0, 0.0]
+        [0.10, 0.75, 0.50],
+        [0.10, 1.00, 0.50]
     ]),
     'Female': np.asarray([
-        [1.00, 0.50, 0.20],
-        [0.50, 1.00, 0.20]
+        [1.00, 0.75, 0.20],
+        [0.75, 1.00, 0.20]
     ])
 }
 ###############################################################################
@@ -107,10 +114,21 @@ lndF = srv.Landscape(
     trapsKernels=tKernels['Female'], trapsMask=tMsk['Female'], 
     trapsRadii=[.175, ]
 )
+# Plot matrix -----------------------------------------------------------------
+(fig, ax) = plt.subplots(1, 3, figsize=(15, 15), sharey=False)
+srv.plotMatrix(fig, ax[0], lndM.maskedMigration, 0)
+srv.plotMatrix(fig, ax[1], lndF.maskedMigration, 0)
+srv.plotMatrix(fig, ax[2], 
+    normalize(lndF.maskedMigration-lndM.maskedMigration, axis=1, norm='l1'), 0
+)
+fig.savefig(
+    path.join(OUT_PTH, '{}_MTX.png'.format(ID)), 
+    facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
+)
 # Plotting male landscape .....................................................
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lndM.plotSites(fig, ax)
-lndM.plotMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=100)
+lndM.plotMaskedMigrationNetwork(fig, ax, alphaMin=.25, lineWidth=50, lineColor='#212529')
 srv.plotClean(fig, ax, frame=True)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_M.png'.format(ID)), 
@@ -120,7 +138,7 @@ plt.close('all')
 # Plotting male landscape .....................................................
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lndF.plotSites(fig, ax)
-lndF.plotMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=100)
+lndF.plotMaskedMigrationNetwork(fig, ax, alphaMin=.25, lineWidth=50, lineColor='#14213d')
 srv.plotClean(fig, ax, frame=True)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_F.png'.format(ID)), 
@@ -148,38 +166,42 @@ trpMsk = srv.genFixedTrapsMask(lndM.trapsFixed)
 # Registering Functions for GA
 ############################################################################### 
 toolbox = base.Toolbox()
-creator.create("FitnessMin", 
-    base.Fitness, weights=(-1.0, )
+creator.create(
+    "FitnessMin", base.Fitness, 
+    weights=(-1.0, )
 )
-creator.create("Individual", 
-    list, fitness=creator.FitnessMin
+creator.create(
+    "Individual", list, 
+    fitness=creator.FitnessMin
 )
-toolbox.register("initChromosome", srv.initChromosome, 
+toolbox.register(
+    "initChromosome", srv.initChromosome, 
     trapsCoords=lndM_GA.trapsCoords, 
     fixedTrapsMask=trpMsk, coordsRange=bbox
 )
-toolbox.register("individualCreator", tools.initIterate, 
+toolbox.register(
+    "individualCreator", tools.initIterate, 
     creator.Individual, toolbox.initChromosome
 )
-toolbox.register("populationCreator", tools.initRepeat, 
+toolbox.register(
+    "populationCreator", tools.initRepeat, 
     list, toolbox.individualCreator
 )
 toolbox.register(
     "mate", srv.cxBlend,
-    fixedTrapsMask=trpMsk,
-    alpha=MAT['mate']
+    fixedTrapsMask=trpMsk, alpha=MAT['mate']
 )
 toolbox.register(
     "mutate", srv.mutateChromosome, 
-    fixedTrapsMask=trpMsk, 
-    randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
+    fixedTrapsMask=trpMsk, randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
 )
 # Select and evaluate ---------------------------------------------------------
-toolbox.register("select", 
-    tools.selTournament, tournsize=SEL['tSize']
+toolbox.register(
+    "select", tools.selTournament, 
+    tournsize=SEL['tSize']
 )
-toolbox.register("evaluate", 
-    srv.calcSexFitness, 
+toolbox.register(
+    "evaluate", srv.calcSexFitness, 
     landscapeMale=lndM_GA,landscapeFemale=lndF_GA,
     weightMale=weightMale, weightFemale=weightFemale,
     optimFunction=srv.getDaysTillTrapped,
@@ -225,15 +247,15 @@ fig.savefig(
 # Plot traps
 ############################################################################### 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-lndM.plotSites(fig, ax, size=150)
+lndM.plotSites(fig, ax, zorder=-20)
 # Plot Networks ---------------------------------------------------------------
-lndM.plotMigrationNetwork(fig, ax, alphaMin=.25, lineWidth=75, lineColor='#03045e')
-lndF.plotMigrationNetwork(fig, ax, alphaMin=.25, lineWidth=75, lineColor='#03045e')
-lndM.plotTraps(fig, ax, colors={0: '#3a0ca322', 1: '#a2d2ff33'}, lws=(2, 0), fill=True, ls=':', zorder=(10, 10))
-lndF.plotTraps(fig, ax, colors={0: '#F966A922', 1: '#f1c0e833'}, lws=(2, 0), fill=True, ls='--', zorder=(25, 4))
+lndM.plotMaskedMigrationNetwork(fig, ax, alphaMin=.06, lineWidth=50, lineColor='#212529', zorder=-50)
+lndF.plotMaskedMigrationNetwork(fig, ax, alphaMin=.06, lineWidth=50, lineColor='#14213d', zorder=-50)
+lndM.plotTraps(fig, ax, colors={0: '#3a0ca322', 1: '#a2d2ff33'}, zorder=(75, 75))
+lndF.plotTraps(fig, ax, colors={0: '#F966A922', 1: '#f1c0e833'}, zorder=(75, 75))
 # Other Stuff -----------------------------------------------------------------
-srv.plotFitness(fig, ax, min(minFits), zorder=30)
-srv.plotClean(fig, ax, frame=False, labels=False)
+srv.plotFitness(fig, ax, min(minFits), zorder=100)
+srv.plotClean(fig, ax, frame=True, labels=False)
 fig.savefig(
     path.join(OUT_PTH, '{}_TRP.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.05, dpi=400
