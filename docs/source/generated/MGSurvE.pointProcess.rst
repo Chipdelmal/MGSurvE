@@ -15,6 +15,7 @@
    
       aggregateLandscape
       clusterLandscape
+      clusterPossion
       ptsDonut
       ptsRandUniform
       ptsRegularGrid

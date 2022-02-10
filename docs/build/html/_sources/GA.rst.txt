@@ -68,8 +68,8 @@ To get started with setting up the GA, we define the population size, generation
 
     (GENS, VERBOSE) = (200, True)
     POP_SIZE = int(10*(lnd.trapsNumber*1.25))
-    MAT = {'mate': .3, 'cxpb': 0.5}, 
-    MUT = {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .5, 'ipb': .5},
+    MAT = {'mate': .3, 'cxpb': 0.5}
+    MUT = {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .5, 'ipb': .5}
     SEL = {'tSize': 3}
 
 
@@ -206,4 +206,4 @@ With the generations (x axis) versus fitness (y axis) plot:
 .. image:: ../../img/demo_GAT.jpg
 
 
-The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GA.py>`_
+The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GA.py>`_.
