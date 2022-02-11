@@ -127,6 +127,10 @@ POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 )
 VERBOSE = True
 lndGA = deepcopy(lnd)
+# Reducing the bbox for init sampling -----------------------------------------
+redFract = .1
+reduction = [(i[1]-i[0])/2*.1 for i in bbox]
+bboxRed = [(i[0]+r, i[1]-r) for (i, r) in zip(bbox,reduction)]
 ###############################################################################
 # Registering GA functions
 ############################################################################### 
@@ -142,7 +146,7 @@ creator.create(
 toolbox.register(
     "initChromosome", srv.initChromosome, 
     trapsCoords=lndGA.trapsCoords, 
-    fixedTrapsMask=trpMsk, coordsRange=bbox
+    fixedTrapsMask=trpMsk, coordsRange=bboxRed
 )
 toolbox.register(
     "individualCreator", tools.initIterate, 

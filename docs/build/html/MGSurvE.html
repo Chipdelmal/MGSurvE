@@ -975,7 +975,7 @@ Follow this link for the original code: <a class="reference external" href="http
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.mutateChromosome">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">mutateChromosome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">chromosome</span></em>, <em class="sig-param"><span class="pre">fixedTrapsMask</span></em>, <em class="sig-param"><span class="pre">randFun=&lt;built-in</span> <span class="pre">method</span> <span class="pre">normal</span> <span class="pre">of</span> <span class="pre">numpy.random.mtrand.RandomState</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">randArgs={'loc':</span> <span class="pre">0</span></em>, <em class="sig-param"><span class="pre">'scale':</span> <span class="pre">0.1}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.mutateChromosome" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">mutateChromosome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">chromosome</span></em>, <em class="sig-param"><span class="pre">fixedTrapsMask</span></em>, <em class="sig-param"><span class="pre">randFun=&lt;built-in</span> <span class="pre">method</span> <span class="pre">normal</span> <span class="pre">of</span> <span class="pre">numpy.random.mtrand.RandomState</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">randArgs={'loc':</span> <span class="pre">0</span></em>, <em class="sig-param"><span class="pre">'scale':</span> <span class="pre">0.1}</span></em>, <em class="sig-param"><span class="pre">indpb=0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.mutateChromosome" title="Permalink to this definition"></a></dt>
 <dd><p>Mutates a chromosome with a probability distribution based on the mutation mask (in place).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -984,6 +984,7 @@ Follow this link for the original code: <a class="reference external" href="http
 <li><p><strong>fxdTrpsMsk</strong> (<em>bool numpy array</em>) – Array of bools that define which alleles can be mutated (1).</p></li>
 <li><p><strong>randFun</strong> (<em>function</em>) – Probability function for the mutation operation.</p></li>
 <li><p><strong>randArgs</strong> (<em>dict</em>) – Arguments to control the shape of the probability function.</p></li>
+<li><p><strong>indpb</strong> (<em>float</em>) – Independent probability to mutate each allele.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -997,7 +998,7 @@ Follow this link for the original code: <a class="reference external" href="http
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.mutateChromosomeAsymmetric">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">mutateChromosomeAsymmetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">chromosome</span></em>, <em class="sig-param"><span class="pre">fixedTrapsMask</span></em>, <em class="sig-param"><span class="pre">randFun=&lt;built-in</span> <span class="pre">method</span> <span class="pre">normal</span> <span class="pre">of</span> <span class="pre">numpy.random.mtrand.RandomState</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">randArgs={'x':</span> <span class="pre">{'loc':</span> <span class="pre">0</span></em>, <em class="sig-param"><span class="pre">'scale':</span> <span class="pre">0.1}</span></em>, <em class="sig-param"><span class="pre">'y':</span> <span class="pre">{'loc':</span> <span class="pre">0</span></em>, <em class="sig-param"><span class="pre">'scale':</span> <span class="pre">0.1}}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.mutateChromosomeAsymmetric" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">mutateChromosomeAsymmetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">chromosome</span></em>, <em class="sig-param"><span class="pre">fixedTrapsMask</span></em>, <em class="sig-param"><span class="pre">randFun=&lt;built-in</span> <span class="pre">method</span> <span class="pre">normal</span> <span class="pre">of</span> <span class="pre">numpy.random.mtrand.RandomState</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">randArgs={'x':</span> <span class="pre">{'loc':</span> <span class="pre">0</span></em>, <em class="sig-param"><span class="pre">'scale':</span> <span class="pre">0.1}</span></em>, <em class="sig-param"><span class="pre">'y':</span> <span class="pre">{'loc':</span> <span class="pre">0</span></em>, <em class="sig-param"><span class="pre">'scale':</span> <span class="pre">0.1}}</span></em>, <em class="sig-param"><span class="pre">indpb=0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.mutateChromosomeAsymmetric" title="Permalink to this definition"></a></dt>
 <dd><p>Mutates a chromosome with a probability distribution based on the mutation mask with different probabilities for XY elements (in place).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1006,6 +1007,7 @@ Follow this link for the original code: <a class="reference external" href="http
 <li><p><strong>fxdTrpsMsk</strong> (<em>bool numpy array</em>) – Array of bools that define which alleles can be mutated (1).</p></li>
 <li><p><strong>randFun</strong> (<em>function</em>) – Probability function for the mutation operation.</p></li>
 <li><p><strong>randArgs</strong> (<em>dict</em>) – Arguments to control the shape of the probability function (‘x’ and ‘y’ entries).</p></li>
+<li><p><strong>indpb</strong> (<em>float</em>) – Independent probability to mutate each allele.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1366,7 +1368,7 @@ Follow this link for the original code: <a class="reference external" href="http
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.pointProcess.clusterLandscape">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">clusterLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pointsCoords</span></em>, <em class="sig-param"><span class="pre">clustersNumber</span></em>, <em class="sig-param"><span class="pre">randomState=1644513138.2286263</span></em>, <em class="sig-param"><span class="pre">clusterAlgorithm=&lt;class</span> <span class="pre">'sklearn.cluster._kmeans.KMeans'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.clusterLandscape" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">clusterLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pointsCoords</span></em>, <em class="sig-param"><span class="pre">clustersNumber</span></em>, <em class="sig-param"><span class="pre">randomState=1644618317.13179</span></em>, <em class="sig-param"><span class="pre">clusterAlgorithm=&lt;class</span> <span class="pre">'sklearn.cluster._kmeans.KMeans'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.clusterLandscape" title="Permalink to this definition"></a></dt>
 <dd><p>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1388,7 +1390,7 @@ Follow this link for the original code: <a class="reference external" href="http
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.pointProcess.clusterPossion">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">clusterPossion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustersNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomState</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1644513138.228627</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.clusterPossion" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">clusterPossion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustersNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomState</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1644618317.1317918</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.clusterPossion" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1398,7 +1400,7 @@ Follow this link for the original code: <a class="reference external" href="http
 <li><p><strong>randomState</strong> (<em>int</em>) – </p></li>
 <li><p><strong>bbox</strong> (<em>tuple of tuples</em>) – Bounding box in the form ((xLo, xHi), (yLo, yHi))</p></li>
 <li><p><strong>OR</strong> – </p></li>
-<li><p><strong>polygon</strong> (<em>list of tuples</em>) – Bounding polygon represented by list of tuples</p></li>
+<li><p><strong>polygon</strong> (<em>name of shp file</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
