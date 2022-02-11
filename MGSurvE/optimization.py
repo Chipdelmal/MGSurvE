@@ -97,12 +97,12 @@ def initChromosome(trapsCoords, fixedTrapsMask, coordsRange):
     (xRan, yRan) = coordsRange
     trapsNum = trapsCoords.shape[0]
     chromosome = trapsCoords.flatten()
-    for i in range(trapsNum):
-        if fixedTrapsMask[i]:
-            if (i % 2) != 0: 
-                chromosome[i] = np.random.uniform(xRan[0], xRan[1], 1)[0]
-            else:
-                chromosome[i] = np.random.uniform(yRan[0], yRan[1], 1)[0]
+    for trap in range(trapsNum):
+        allele = 0
+        if fixedTrapsMask[allele]:
+            chromosome[allele+0] = np.random.uniform(xRan[0], xRan[1], 1)[0]
+            chromosome[allele+1] = np.random.uniform(yRan[0], yRan[1], 1)[0]
+        allele = allele + 2
     # xCoords = np.random.uniform(xRan[0], xRan[1], trapsNum)
     # yCoords = np.random.uniform(yRan[0], yRan[1], trapsNum)
     # chromosome = [val for pair in zip(xCoords, yCoords) for val in pair]
