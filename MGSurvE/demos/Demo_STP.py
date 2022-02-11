@@ -19,19 +19,19 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
-(MAIL_ALERTS, FXD_TRPS) = (False, False)
+(MAIL_ALERTS, FXD_TRPS) = (False, True)
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
 # (ID, OUT_PTH) = ('STP', '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/')
 OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
 if FXD_TRPS:
-    ID = 'STP_FXD'
+    ID = 'STP_FXD_DBG'
 else:
-    ID = 'STP_FXN_DBG'
+    ID = 'STP_FXN_BGD'
 # TRPS_NUM = int(argv[1])
 TRPS_NUM = 10
-GENS = 1000
+GENS = 500
 (IX_SPLIT, DIAG_VAL) = (27, 0.02)
 ###############################################################################
 # Setup email alerts
@@ -95,23 +95,23 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 # Plot Landscape
 ###############################################################################
-(fig, ax) = (
-    plt.figure(figsize=(15, 15)),
-    plt.axes(projection=ccrs.PlateCarree())
-)
-lnd.plotSites(fig, ax, size=100)
-lnd.plotTraps(fig, ax)
-lnd.plotMigrationNetwork(
-    fig, ax, 
-    lineWidth=10, alphaMin=.1, alphaAmplitude=2.5,
-)
-lnd.plotLandBoundary(fig, ax)
-srv.plotClean(fig, ax, bbox=lnd.landLimits)
-fig.savefig(
-    path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
-    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-)
-plt.close('all')
+# (fig, ax) = (
+#     plt.figure(figsize=(15, 15)),
+#     plt.axes(projection=ccrs.PlateCarree())
+# )
+# lnd.plotSites(fig, ax, size=100)
+# lnd.plotTraps(fig, ax)
+# lnd.plotMigrationNetwork(
+#     fig, ax, 
+#     lineWidth=10, alphaMin=.1, alphaAmplitude=2.5,
+# )
+# lnd.plotLandBoundary(fig, ax)
+# srv.plotClean(fig, ax, bbox=lnd.landLimits)
+# fig.savefig(
+#     path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
+#     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+# )
+# plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 
@@ -121,7 +121,7 @@ POP_SIZE = int(10*(lnd.trapsNumber*1.25))
     {
         'mean': 0, 
         'sd': max([abs(i[1]-i[0]) for i in bbox])/2.5, 
-        'mutpb': .35, 'ipb': .5
+        'mutpb': .35, 'indpb': .5
     },
     {'tSize': 5}
 )
@@ -153,13 +153,22 @@ toolbox.register(
     list, toolbox.individualCreator
 )
 # Mate and mutate -------------------------------------------------------------
+# toolbox.register(
+#     "mutate", tools.mutGaussian, 
+#     mu=MUT['mean'], sigma=MUT['sd'], indpb=MUT['ipb']
+# )
+# toolbox.register(
+#     "mate", tools.cxBlend, 
+#     alpha=MAT['mate']
+# )
 toolbox.register(
-    "mate", tools.cxBlend, 
-    alpha=MAT['mate']
+    "mutate", srv.mutateChromosome, 
+    fixedTrapsMask=trpMsk, indpb=MUT['indpb'],
+    randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
 )
 toolbox.register(
-    "mutate", tools.mutGaussian, 
-    mu=MUT['mean'], sigma=MUT['sd'], indpb=MUT['ipb']
+    "mate", srv.cxBlend, 
+    fixedTrapsMask=trpMsk, alpha=MAT['mate']
 )
 # Select and evaluate ---------------------------------------------------------
 toolbox.register(
@@ -208,10 +217,9 @@ srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
     plt.axes(projection=ccrs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=200)
-lnd.plotMigrationNetwork(
-    fig, ax, 
-    lineWidth=10, alphaMin=.1, alphaAmplitude=2.5,
-)
+# lnd.plotMigrationNetwork(
+#     fig, ax, lineWidth=10, alphaMin=.1, alphaAmplitude=2.5
+# )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
 srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
 lnd.plotLandBoundary(fig, ax)
