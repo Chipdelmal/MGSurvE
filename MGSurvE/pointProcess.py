@@ -5,6 +5,8 @@ import random
 import numpy as np
 import numpy.random as rand
 from sklearn.cluster import KMeans
+import libpysal as ps
+from libpysal.cg import shapely_ext
 from pointpats import PoissonClusterPointProcess, Window
 
 
@@ -139,7 +141,7 @@ def clusterPossion(
 
         bbox (tuple of tuples): Bounding box in the form ((xLo, xHi), (yLo, yHi))
         OR
-        polygon (list of tuples): Bounding polygon represented by list of tuples
+        polygon (name of shp file): 
 
     Returns:
         (numpy array):  
@@ -151,7 +153,10 @@ def clusterPossion(
         parts = [[(xLo, yLo), (xLo, yHi), (xHi, yHi), (xHi, yLo), (xLo, yLo)]]
         window = Window(parts)
     elif polygon:
-        window = Window(polygon)
+        shp_file = ps.io.open(ps.examples.get_path(polygon))
+        polys = [shp for shp in shp_file]
+        state = shapely_ext.cascaded_union(polys)
+        window = Window(state.parts)
 
     np.random.seed(randomState)
     csamples = PoissonClusterPointProcess(
