@@ -15,7 +15,6 @@ from compress_pickle import dump, load
 from sklearn.preprocessing import normalize
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
-from graph_tool.all import *
 import MGSurvE as srv
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
@@ -90,3 +89,23 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=0.125, dpi=300
 )
 plt.close('all')
+###############################################################################
+# Dev
+############################################################################### 
+landscape = lnd
+
+coords = np.concatenate(
+    (landscape.pointCoords, landscape.trapsCoords), 
+    axis=0
+)
+sitesTypes = np.concatenate(
+    (landscape.pointTypes, np.asarray(landscape.trapsNumber*[-1])),
+    axis=0
+)
+trapTypes = np.concatenate(
+    (np.asarray(landscape.pointNumber*[-1]), landscape.trapsTypes),
+    axis=0
+)
+coordsT = coords.T
+outArray = np.vstack((coordsT[0], coordsT[1], sitesTypes, trapTypes)).T
+outDF = pd.DataFrame(outArray, columns=('x', 'y', 'SitesType', 'TrapsType'))

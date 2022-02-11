@@ -14,6 +14,7 @@
    .. autosummary::
    
       dumpLandscape
+      exportLandscape
       isNotebook
       loadLandscape
       makeFolder

@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import os
+import numpy as np
+import pandas as pd
 from os import path
 from compress_pickle import dump, load
 from vincenty import vincenty
@@ -107,6 +109,42 @@ def loadLandscape(fPath, fName, fExt='bz2'):
     )
     return lnd
 
+def exportLandscape(landscape, fPath, fName):
+    """Exports a landscape to disk to CSV files (for use in MGDrivE).
+
+    Args:
+        landscape (object): Landscape object to export.
+        fPath (path): Path to where the landscape will be exported.
+        fName (string): Filename.
+
+    """
+    coords = np.concatenate(
+        (landscape.pointCoords, landscape.trapsCoords), 
+        axis=0
+    )
+    sitesTypes = np.concatenate(
+        (landscape.pointTypes, np.asarray(landscape.trapsNumber*[-1])),
+        axis=0
+    )
+    trapTypes = np.concatenate(
+        (np.asarray(landscape.pointNumber*[-1]), landscape.trapsTypes),
+        axis=0
+    )
+    coordsT = coords.T
+    outArray = np.vstack((coordsT[0], coordsT[1], sitesTypes, trapTypes)).T
+    outDF = pd.DataFrame(
+        outArray, columns=('x', 'y', 'SitesType', 'TrapsType')
+    )
+    # Export to disk
+    outDF.to_csv(
+        path.join(fPath, '{}_Sites.csv'.format(fName)),
+        index=False
+    )
+    np.savetxt(
+        path.join(fPath, '{}_Migration.csv'.format(fName)),
+        landscape.trapsMigration, 
+        delimiter=","
+    )
 
 ###############################################################################
 # Paths functions

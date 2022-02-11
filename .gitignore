@@ -2,7 +2,7 @@
 scratch
 demo_out
 sims_out
-# *.png
+*.png
 *.csv
 /MGSurve/demos/*.png
 mailAlerts.py

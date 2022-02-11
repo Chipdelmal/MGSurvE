@@ -1,52 +1,58 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
 import math
+import warnings
 import numpy as np
 import pandas as pd
 from os import path
-from sys import argv
-from copy import deepcopy
 import matplotlib.pyplot as plt
-from deap import base, creator, algorithms, tools
-from compress_pickle import dump, load
+import Constants as cst
 import MGSurvE as srv
-import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-(ID, OUT_PTH) = ('Ring', './sims_out/')
-(ptsNum, radii, ptsTypes) = (100, (75, 100), 3)
+
+(ID, OUT_PTH) = (sys.argv[1], cst.out_pth)
 ###############################################################################
-# Defining Landscape
+# Synthetic Landscape Selector
 ###############################################################################
-# Mosquito movement kernel
-mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
-# Pseudo-random landscape %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-xy = srv.ptsDonut(ptsNum, radii).T
+bbox = cst.bbox
+if ID == 'Grid':
+    (ptsNum, ptsTypes) = (int(math.sqrt(cst.ptsNum)), len(cst.pTypesProb))
+    xy = srv.ptsRegularGrid(ptsNum, (bbox[0], bbox[0])).T
+elif ID == 'Uniform':
+    (ptsNum, ptsTypes) = (cst.ptsNum, len(cst.pTypesProb))
+    xy = srv.ptsRandUniform(ptsNum, bbox).T
+elif ID == 'Ring':
+    (ptsNum, radii, ptsTypes) = (
+        cst.ptsNum, (cst.bbox[1][0], cst.bbox[0][0]), len(cst.pTypesProb)
+    )
+    xy = srv.ptsDonut(ptsNum, radii).T
+elif ID == 'Poisson':
+    (ptsNum, clsNum, radius, ptsTypes) = (
+        cst.ptsNum, cst.clsNum, cst.clsRad, len(cst.pTypesProb)
+    )
+    xy = srv.clusterPossion(
+        ptsNum, cst.clsNum, radius,
+        bbox=bbox, polygon=None
+    ).T
+ptsNum = xy.shape[1]
 # Generate landscape with one point-type ......................................
-points_hom = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
+points_hom = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*ptsNum})
 # Duplicate dataframe and replace to multiple point-types for heterogeneity ...
 points_het = points_hom.copy()
-points_het['t'] = np.random.choice(ptsTypes, xy.shape[1])
-msk = [
-    [0.05, 0.75, 0.15],
-    [0.25, 0.15, 0.70],
-    [0.70, 0.00, 0.30],
-]
+points_het['t'] = np.random.choice(ptsTypes, ptsNum, p=cst.pTypesProb)
 ###############################################################################
 # Defining Traps
 ###############################################################################
-nullTraps = [0, 0, 0, 0, 0]
-traps = pd.DataFrame({
-    'x': nullTraps, 'y': nullTraps, 't': [0, 0, 0, 0, 1], 'f': nullTraps
-})
-tKer = {
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .125}}
-}
+nullT= cst.nullTraps
+traps = pd.DataFrame({'x': nullT, 'y': nullT, 't': cst.typeTraps , 'f': nullT})
+tKer = cst.tKer
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
+(mKer, msk) = (cst.mKer, cst.msk)
 lnd_hom = srv.Landscape(
     points_hom, 
     kernelParams=mKer, 
@@ -65,12 +71,12 @@ bbox = lnd_hom.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd_hom.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd_hom.plotSites(fig, ax, size=200)
-lnd_hom.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+lnd_hom.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=30)
 # lnd_hom.plotTraps(fig, ax)
-srv.plotClean(fig, ax, frame=False)
+srv.plotClean(fig, ax, frame=True)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_HOM.png'.format(ID)), 
-    facecolor='w', bbox_inches='tight', pad_inches=0, dpi=250
+    facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')
 # Heterogeneous ---------------------------------------------------------------
@@ -78,12 +84,12 @@ bbox = lnd_het.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd_het.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd_het.plotSites(fig, ax, size=200)
-lnd_het.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+lnd_het.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=30)
 # lnd_het.plotTraps(fig, ax)
-srv.plotClean(fig, ax, frame=False)
+srv.plotClean(fig, ax, frame=True)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_HET.png'.format(ID)), 
-    facecolor='w', bbox_inches='tight', pad_inches=0, dpi=250
+    facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')
 ###############################################################################

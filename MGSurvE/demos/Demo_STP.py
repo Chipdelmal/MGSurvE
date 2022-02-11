@@ -19,10 +19,22 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
-MAIL_ALERTS = True
-(ID, OUT_PTH) = ('STP', '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/')
-TRPS_NUM = int(argv[1])
-GENS = 4000
+(MAIL_ALERTS, FXD_TRPS) = (True, True)
+# (ID, OUT_PTH) = ('STP', '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/')
+# TRPS_NUM = int(argv[1])
+###############################################################################
+# Debugging fixed traps at land masses
+#   North and South land masses: 51, 239 (zero-indexed)
+###############################################################################
+OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
+if FXD_TRPS:
+    ID = 'STP_FXD'
+else:
+    ID = 'STP'
+
+
+TRPS_NUM = 10
+GENS = 100
 (IX_SPLIT, DIAG_VAL) = (27, 0.02)
 ###############################################################################
 # Setup email alerts
@@ -48,6 +60,9 @@ SAO_TOME_LL = SAO_TOME_LL .rename(
     columns={'lon': 'x', 'lat': 'y'}
 )
 SAO_LIMITS = ((6.41, 6.79), (-0.0475, .45))
+# Get location of minor land-masses -------------------------------------------
+SAO_FIXED = [tuple(SAO_TOME_LL.loc[i][['x', 'y']]) for i in (51, 239)]
+FXD_NUM = len(SAO_FIXED)
 ###############################################################################
 # Load Migration Matrix
 ###############################################################################
@@ -60,14 +75,27 @@ SAO_TOME_MIG = normalize(msplit, axis=1, norm='l1')
 ###############################################################################
 # Defining Traps
 ###############################################################################
-nullTraps = [0]*TRPS_NUM
-(lonTrap, latTrap) = (
-    np.random.uniform(SAO_bbox[0][0], SAO_bbox[0][1], TRPS_NUM),
-    np.random.uniform(SAO_bbox[1][0], SAO_bbox[1][1], TRPS_NUM)
-)
+if FXD_TRPS:
+    nullTraps = [0]*TRPS_NUM
+    fixdTraps = [0]*(TRPS_NUM-FXD_NUM)
+    fixdTraps.extend([1,1])
+    (lonTrap, latTrap) = (
+        np.random.uniform(SAO_bbox[0][0], SAO_bbox[0][1], (TRPS_NUM)),
+        np.random.uniform(SAO_bbox[1][0], SAO_bbox[1][1], (TRPS_NUM))
+    )
+    for i in range(FXD_NUM):
+        lonTrap[lonTrap.shape[0]-i-1] = SAO_FIXED[i][0]
+        latTrap[latTrap.shape[0]-i-1] = SAO_FIXED[i][1]
+else:
+    nullTraps = [0]*TRPS_NUM
+    fixdTraps = [0]*TRPS_NUM
+    (lonTrap, latTrap) = (
+        np.random.uniform(SAO_bbox[0][0], SAO_bbox[0][1], TRPS_NUM),
+        np.random.uniform(SAO_bbox[1][0], SAO_bbox[1][1], TRPS_NUM)
+    )
 traps = pd.DataFrame({
     'x': lonTrap, 'y': latTrap,
-    't': nullTraps, 'f': nullTraps
+    't': nullTraps, 'f': fixdTraps
 })
 tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 100}}}
 ###############################################################################
@@ -88,7 +116,7 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
     plt.axes(projection=ccrs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=100)
-# lnd.plotTraps(fig, ax)
+lnd.plotTraps(fig, ax)
 lnd.plotMigrationNetwork(
     fig, ax, 
     lineWidth=5, alphaMin=.25, alphaAmplitude=10,

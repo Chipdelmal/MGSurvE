@@ -91,16 +91,21 @@ def initChromosome(trapsCoords, fixedTrapsMask, coordsRange):
     Parameters:
         trapsNum (int): Number of traps to lay down in the landscape.
         xRan (tuple of tuples of floats): XY Range for the coordinates.
-
     Returns:
         (list): List of xy coordinates for the traps' positions.
     """
     (xRan, yRan) = coordsRange
     trapsNum = trapsCoords.shape[0]
     chromosome = trapsCoords.flatten()
-    xCoords = np.random.uniform(xRan[0], xRan[1], trapsNum)
-    yCoords = np.random.uniform(yRan[0], yRan[1], trapsNum)
-    chromosome = [val for pair in zip(xCoords, yCoords) for val in pair]
+    for i in range(trapsNum):
+        if fixedTrapsMask[i]:
+            if (i % 2) != 0: 
+                chromosome[i] = np.random.uniform(xRan[0], xRan[1], 1)[0]
+            else:
+                chromosome[i] = np.random.uniform(yRan[0], yRan[1], 1)[0]
+    # xCoords = np.random.uniform(xRan[0], xRan[1], trapsNum)
+    # yCoords = np.random.uniform(yRan[0], yRan[1], trapsNum)
+    # chromosome = [val for pair in zip(xCoords, yCoords) for val in pair]
     return chromosome
 
 

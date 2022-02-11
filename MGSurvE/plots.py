@@ -47,7 +47,8 @@ def plotSites(
 def plotMigrationNetwork(
         fig, ax, 
         transMtx, sitesB, sitesA,
-        lineColor='#03045e', lineWidth=20, 
+        lineColor='#03045e', 
+        lineMin=0.025, lineWidth=20, 
         alphaMin=.5, alphaAmplitude=2.5,
         zorder=0, transform=None, **kwargs
     ):
@@ -76,7 +77,7 @@ def plotMigrationNetwork(
             snk = sitesB[i]
             ax.plot(
                 [src[0], snk[0]], [src[1], snk[1]],
-                lw=log(1+lineWidth*transMtx[j][i]),
+                lw=max(lineMin, log(1+lineWidth*transMtx[j][i])),
                 alpha=min(alphaMin, log(1+alphaAmplitude*transMtx[j][i])),
                 c=lineColor, zorder=zorder,
                 **kwargs
@@ -264,6 +265,7 @@ def plotClean(fig, ax, frame=False, bbox=None, labels=False):
     if bbox is not None:
         ax.set_xlim(*bbox[0])
         ax.set_ylim(*bbox[1])
+    # ax.set_aspect(1/ax.get_data_ratio())
     return (fig, ax)
 
 
