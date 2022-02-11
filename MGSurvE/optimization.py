@@ -127,7 +127,8 @@ def genFixedTrapsMask(trapsFixed, dims=2):
 def mutateChromosome(
         chromosome, fixedTrapsMask,
         randFun=rand.normal, 
-        randArgs={'loc': 0, 'scale': 0.1}
+        randArgs={'loc': 0, 'scale': 0.1},
+        indpb=0.5
     ):
     """ Mutates a chromosome with a probability distribution based on the mutation mask (in place).
     
@@ -136,13 +137,17 @@ def mutateChromosome(
         fxdTrpsMsk (bool numpy array): Array of bools that define which alleles can be mutated (1).
         randFun (function): Probability function for the mutation operation.
         randArgs (dict): Arguments to control the shape of the probability function.
+        indpb (float): Independent probability to mutate each allele.
 
     Returns:
         (numpy array list): Selectively-mutated chromosome.
     """
-    randDraw = randFun(size=len(chromosome), **randArgs)
-    randMsk = randDraw * fixedTrapsMask
-    chromosome[:] = chromosome + randMsk
+    cLen = len(chromosome)
+    randDraw = randFun(size=cLen, **randArgs)
+    randMsk = randDraw*fixedTrapsMask
+    for i in range(len(chromosome)):
+        if (random.random() < indpb) and (fixedTrapsMask[i]):
+            chromosome[i] = chromosome[i] + randMsk[i]
     return (chromosome, )
 
 
@@ -152,7 +157,8 @@ def mutateChromosomeAsymmetric(
         randArgs={
             'x': {'loc': 0, 'scale': 0.1}, 
             'y': {'loc': 0, 'scale': 0.1}
-        }
+        },
+        indpb=0.5
     ):
     """ Mutates a chromosome with a probability distribution based on the mutation mask with different probabilities for XY elements (in place).
     
@@ -161,6 +167,7 @@ def mutateChromosomeAsymmetric(
         fxdTrpsMsk (bool numpy array): Array of bools that define which alleles can be mutated (1).
         randFun (function): Probability function for the mutation operation.
         randArgs (dict): Arguments to control the shape of the probability function ('x' and 'y' entries).
+        indpb (float): Independent probability to mutate each allele.
 
     Returns:
         (numpy array list): Selectively-mutated chromosome.
@@ -174,8 +181,10 @@ def mutateChromosomeAsymmetric(
     randDraw[0::2] = randDrawX
     randDraw[1::2] = randDrawY
     # Mask and return results -------------------------------------------------
-    randMsk = randDraw * fixedTrapsMask
-    chromosome[:] = chromosome + randMsk
+    randMsk = randDraw*fixedTrapsMask
+    for i in range(len(chromosome)):
+        if (random.random() < indpb) and (fixedTrapsMask[i]):
+            chromosome[i] = chromosome[i] + randMsk[i]
     return (chromosome, )
 
 
