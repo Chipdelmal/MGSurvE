@@ -19,19 +19,19 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
-(MAIL_ALERTS, FXD_TRPS) = (False, True)
+MAIL_ALERTS = True
+(FXD_TRPS, TRPS_NUM) = (int(argv[2]), int(argv[1]))
+# (FXD_TRPS, TRPS_NUM) = (True, 8)
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
-# (ID, OUT_PTH) = ('STP', '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/')
-OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
+OUT_PTH = '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
+# OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
 if FXD_TRPS:
-    ID = 'STP_FXD_DBG'
+    ID = 'STP_FXD'
 else:
-    ID = 'STP_FXN_BGD'
-# TRPS_NUM = int(argv[1])
-TRPS_NUM = 10
-GENS = 500
+    ID = 'STP_FXN'
+GENS = 2500
 (IX_SPLIT, DIAG_VAL) = (27, 0.02)
 ###############################################################################
 # Setup email alerts
@@ -99,7 +99,7 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 #     plt.figure(figsize=(15, 15)),
 #     plt.axes(projection=ccrs.PlateCarree())
 # )
-# lnd.plotSites(fig, ax, size=100)
+# lnd.plotSites(fig, ax, size=250)
 # lnd.plotTraps(fig, ax)
 # lnd.plotMigrationNetwork(
 #     fig, ax, 
@@ -120,7 +120,7 @@ POP_SIZE = int(10*(lnd.trapsNumber*1.25))
     {'mate': .35, 'cxpb': 0.5}, 
     {
         'mean': 0, 
-        'sd': max([abs(i[1]-i[0]) for i in bbox])/2.5, 
+        'sd': max([abs(i[1]-i[0]) for i in bbox])/5, 
         'mutpb': .35, 'indpb': .5
     },
     {'tSize': 5}
@@ -128,8 +128,8 @@ POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 VERBOSE = True
 lndGA = deepcopy(lnd)
 # Reducing the bbox for init sampling -----------------------------------------
-redFract = .1
-reduction = [(i[1]-i[0])/2*.1 for i in bbox]
+redFract = 0
+reduction = [(i[1]-i[0])/2*redFract for i in bbox]
 bboxRed = [(i[0]+r, i[1]-r) for (i, r) in zip(bbox,reduction)]
 ###############################################################################
 # Registering GA functions
@@ -157,23 +157,25 @@ toolbox.register(
     list, toolbox.individualCreator
 )
 # Mate and mutate -------------------------------------------------------------
-# toolbox.register(
-#     "mutate", tools.mutGaussian, 
-#     mu=MUT['mean'], sigma=MUT['sd'], indpb=MUT['ipb']
-# )
-# toolbox.register(
-#     "mate", tools.cxBlend, 
-#     alpha=MAT['mate']
-# )
-toolbox.register(
-    "mutate", srv.mutateChromosome, 
-    fixedTrapsMask=trpMsk, indpb=MUT['indpb'],
-    randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
-)
-toolbox.register(
-    "mate", srv.cxBlend, 
-    fixedTrapsMask=trpMsk, alpha=MAT['mate']
-)
+if FXD_TRPS:
+    toolbox.register(
+        "mutate", srv.mutateChromosome, 
+        fixedTrapsMask=trpMsk, indpb=MUT['indpb'],
+        randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
+    )
+    toolbox.register(
+        "mate", srv.cxBlend, 
+        fixedTrapsMask=trpMsk, alpha=MAT['mate']
+    )
+else:
+    toolbox.register(
+        "mutate", tools.mutGaussian, 
+        mu=MUT['mean'], sigma=MUT['sd'], indpb=MUT['indpb']
+    )
+    toolbox.register(
+        "mate", tools.cxBlend, 
+        alpha=MAT['mate']
+    )
 # Select and evaluate ---------------------------------------------------------
 toolbox.register(
     "select", tools.selTournament, 
@@ -220,7 +222,7 @@ srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
     plt.figure(figsize=(15, 15)),
     plt.axes(projection=ccrs.PlateCarree())
 )
-lnd.plotSites(fig, ax, size=200)
+lnd.plotSites(fig, ax, size=250)
 # lnd.plotMigrationNetwork(
 #     fig, ax, lineWidth=10, alphaMin=.1, alphaAmplitude=2.5
 # )
@@ -252,7 +254,9 @@ if MAIL_ALERTS:
         image_data = f.read()
         image_type = imghdr.what(f.name)
         image_name = f.name
-    msg.add_attachment(image_data, maintype='image', subtype='image_type', filename=image_name)
+    msg.add_attachment(
+        image_data, maintype='image', subtype='image_type', filename=image_name
+    )
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
         smtp.login(mlr.MAIL, mlr.PSWD)
         smtp.send_message(msg)
