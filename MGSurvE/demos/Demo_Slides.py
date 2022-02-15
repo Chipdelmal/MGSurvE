@@ -174,3 +174,15 @@ fig.savefig(
     PT_OUT+'07.png', dpi=300, bbox_inches='tight', 
     pad_inches=0, transparent=False
 )
+###############################################################################
+# Dev
+###############################################################################
+d = np.arange(0.0, 100.0, 0.02)
+pa = srv.truncatedExponential(d, params=mKer['params'])
+pb = srv.truncatedExponential(d, params=srv.AEDES_EXP_PARAMS)
+
+plt.figure()
+plt.subplot(211)
+plt.plot(d, pa)
+plt.plot(d, pb)
+plt.show()
