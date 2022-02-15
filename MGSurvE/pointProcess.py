@@ -149,12 +149,11 @@ def clusterPossion(
     """
 
     if bbox:
-        xLo, xHi = bbox[0]
-        yLo, yHi = bbox[1]
+        ((xLo, xHi), (yLo, yHi)) = (bbox[0], bbox[1])
         parts = [[(xLo, yLo), (xLo, yHi), (xHi, yHi), (xHi, yLo), (xLo, yLo)]]
         window = Window(parts)
     elif polygon:
-        shp_file = ps.io.open(ps.examples.get_path(polygon))
+        shp_file = ps.io.open(polygon)
         polys = [shp for shp in shp_file]
         state = shapely_ext.cascaded_union(polys)
         window = Window(state.parts)
