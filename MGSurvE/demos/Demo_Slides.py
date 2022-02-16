@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import math
 import numpy as np
 import pandas as pd
 import MGSurvE as srv
@@ -10,6 +11,7 @@ import matplotlib.pyplot as plt
 PAD = 1
 (minX, maxX) = (.5, 3.25)
 (minY, maxY) = (0, 3)
+bbox = ((-0.5, 3.5), (-1, 3.5))
 ###############################################################################
 # XY Landscape with one point-type and one trap-type
 ###############################################################################
@@ -46,7 +48,7 @@ fitness = fitFuns['outer'](daysTillTrapped)
 # Plotting landscape
 ###############################################################################
 (fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax[0], size=500)
+lnd.plotSites(fig, ax[0], size=750)
 lnd.plotMigrationNetwork(fig, ax[0])
 srv.plotMatrix(fig, ax[1], lnd.migrationMatrix, vmax=.5)
 # for ix in range(lnd.pointNumber):
@@ -54,41 +56,41 @@ srv.plotMatrix(fig, ax[1], lnd.migrationMatrix, vmax=.5)
 #         lnd.pointCoords[ix][0], lnd.pointCoords[ix][1], str(ix+1), 
 #         zorder=50, ha='center', va='center'
 #     )
-[srv.plotClean(fig, i, frame=False) for i in ax]
+[srv.plotClean(fig, i, frame=False, bbox=bbox) for i in ax]
 fig.savefig(
     PT_OUT+'01.png', dpi=300, bbox_inches='tight', 
-    pad_inches=0, transparent=False
+    pad_inches=0.01, transparent=False
 )
 # Plotting landscape ----------------------------------------------------------
 (fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax[0], size=500)
+lnd.plotSites(fig, ax[0], size=750)
 lnd.plotMaskedMigrationNetwork(fig, ax[0])
 srv.plotMatrix(fig, ax[1], lnd.maskedMigration, vmax=.5)
-[srv.plotClean(fig, i, frame=False) for i in ax]
+[srv.plotClean(fig, i, frame=False, bbox=bbox) for i in ax]
 fig.savefig(
     PT_OUT+'02.png', dpi=300, bbox_inches='tight', 
     pad_inches=0, transparent=False
 )
 # Plotting traps --------------------------------------------------------------
 (fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax[0], size=500)
+lnd.plotSites(fig, ax[0], size=750)
 lnd.plotMigrationNetwork(fig, ax[0])
 lnd.plotTraps(fig, ax[0])
 lnd.plotTrapsNetwork(fig, ax[0])
 srv.plotMatrix(fig, ax[1], lnd.trapsMigration, lnd.trapsNumber)
-[srv.plotClean(fig, i, frame=False) for i in ax]
+[srv.plotClean(fig, i, frame=False, bbox=bbox) for i in ax]
 fig.savefig(
     PT_OUT+'03.png', dpi=300, bbox_inches='tight', 
     pad_inches=0, transparent=False
 )
 # Plotting traps --------------------------------------------------------------
 (fig, ax) = plt.subplots(1, 2, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax[0], size=500)
+lnd.plotSites(fig, ax[0], size=750)
 lnd.plotMaskedMigrationNetwork(fig, ax[0])
 lnd.plotTraps(fig, ax[0])
 lnd.plotTrapsNetwork(fig, ax[0])
 srv.plotMatrix(fig, ax[1], lnd.trapsMigration, lnd.trapsNumber)
-[srv.plotClean(fig, i, frame=False) for i in ax]
+[srv.plotClean(fig, i, frame=False, bbox=bbox) for i in ax]
 fig.savefig(
     PT_OUT+'04.png', dpi=300, bbox_inches='tight', 
     pad_inches=0, transparent=False
@@ -97,11 +99,11 @@ fig.savefig(
 # Plotting traps locations
 ###############################################################################
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax)
+lnd.plotSites(fig, ax, size=750)
 lnd.plotMaskedMigrationNetwork(fig, ax)
 lnd.plotTraps(fig, ax)
 lnd.plotTrapsNetwork(fig, ax)
-srv.plotClean(fig, ax, frame=False)
+srv.plotClean(fig, ax, frame=False, bbox=bbox)
 ax.set_xlim(minX-PAD, maxX+PAD)
 ax.set_ylim(minY-PAD, maxY+PAD)
 ax.text(
@@ -131,7 +133,7 @@ lnd.plotSites(fig, ax)
 lnd.plotMaskedMigrationNetwork(fig, ax)
 lnd.plotTraps(fig, ax)
 lnd.plotTrapsNetwork(fig, ax)
-srv.plotClean(fig, ax, frame=False)    
+srv.plotClean(fig, ax, frame=False, bbox=bbox)    
 ax.set_xlim(minX-PAD, maxX+PAD)
 ax.set_ylim(minY-PAD, maxY+PAD)
 ax.text(
@@ -175,14 +177,30 @@ fig.savefig(
     pad_inches=0, transparent=False
 )
 ###############################################################################
-# Dev
+# Kernels Plots
 ###############################################################################
 d = np.arange(0.0, 100.0, 0.02)
-pa = srv.truncatedExponential(d, params=mKer['params'])
+pa = srv.truncatedExponential(d, params=[.075, 1.0e-10, math.inf])
 pb = srv.truncatedExponential(d, params=srv.AEDES_EXP_PARAMS)
+pc = srv.truncatedExponential(d, params=[.025, 1, 20])
 
 plt.figure()
 plt.subplot(211)
 plt.plot(d, pa)
 plt.plot(d, pb)
+plt.plot(d, pc)
+plt.show()
+###############################################################################
+# Traps Plots
+###############################################################################
+d = np.arange(0.0, 20.0, 0.02)
+pa = [srv.exponentialDecay(i, A=1, b=1) for i in d]
+pb = [srv.sigmoidDecay(i, A=1, rate=.5, x0=10) for i in d]
+pc = [srv.exponentialAttractiveness(i, A=1, k=.1, s=.2, gamma=.8, epsilon=0) for i in d]
+
+plt.figure()
+plt.subplot(211)
+plt.plot(d, pa)
+plt.plot(d, pb)
+plt.plot(d, pc)
 plt.show()
