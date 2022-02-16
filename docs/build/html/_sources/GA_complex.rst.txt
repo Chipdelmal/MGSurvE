@@ -202,4 +202,4 @@ we have coded a `pipeline <https://github.com/Chipdelmal/MoNeT_DA/tree/main/NET/
 .. image:: ../../img/SM1-005-TRP.jpg
 
 
-For the full code used in this demo, follow this `link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/optimization.py>`_. 
+For the full code used in this demo, follow this `link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GASex.py>`_. 
