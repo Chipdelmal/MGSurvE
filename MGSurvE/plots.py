@@ -199,7 +199,7 @@ def plotLandBoundary(fig, ax, landTuples=cst.LAND_TUPLES):
             edgecolor=i[1], facecolor='#00000000', linewidth=i[2]
         ) for i in landTuples
     ]
-    [ax.add_feature(i, zorder=(-100+ix)) for (ix, i) in enumerate(lands)]
+    [ax.add_feature(i, zorder=(-50+ix)) for (ix, i) in enumerate(lands)]
     return (fig, ax)
 
 
