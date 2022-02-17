@@ -1,6 +1,6 @@
 # MGSurvE: Demos Index
 
-## Documentation's Tutorials
+## [Documentation's Tutorials](https://chipdelmal.github.io/MGSurvE/build/html/demos.html)
 
 1. [Landscape Creation](https://chipdelmal.github.io/MGSurvE/build/html/landscapeCreation.html): [./DemoXY.py](https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_XY.py)
 2. [Landscape Update](https://chipdelmal.github.io/MGSurvE/build/html/landscapeUpdate.html): [./DemoXY.py](https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_XY.py)
@@ -16,4 +16,7 @@
 ## Paper's Demos
 
 1. São Tomé: 
-2. Synthetic Landscapes:
+2. Synthetic Landscapes: [./Paper/PaperExperiments.sh](./Paper/PaperExperiments.sh)
+   1. Landscape Generation: [./Paper/Landscape.py](./Paper/Landscape.py)
+   2. Optimization: [./Paper/Optimization.py](./Paper/Optimization.py)
+3. Heterogeneity Showcase: [./Paper/HeterogeneousSetting.py](./Paper/HeterogeneousSetting.py)

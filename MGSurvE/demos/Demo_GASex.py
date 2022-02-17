@@ -87,7 +87,7 @@ fig.savefig(
 (weightMale, weightFemale) = (.5, 1)
 POP_SIZE = int(10*(lndM.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL, VERBOSE) = (
-    150,
+    500,
     {'mate': .3, 'cxpb': 0.5}, 
     {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .4, 'ipb': .5},
     {'tSize': 3},
