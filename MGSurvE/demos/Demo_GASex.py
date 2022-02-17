@@ -48,10 +48,10 @@ traps = pd.DataFrame({
 })
 tKernels = {
     'Male': {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .06}}
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .1}}
     },
     'Female': {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .04}}
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .1}}
     }
 }
 ###############################################################################

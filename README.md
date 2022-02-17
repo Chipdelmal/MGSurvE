@@ -47,7 +47,6 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 - [x] Integrated Map-plotting routines
 - [ ] Lumpability aggregation algorithm
 - [ ] Repellency effects
-- [x] Multi-threaded processing
 
 # Authors and Funders
 
