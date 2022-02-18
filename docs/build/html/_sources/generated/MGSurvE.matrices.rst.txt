@@ -13,6 +13,7 @@
 
    .. autosummary::
    
+      calcAttractiveness
       calcDistanceMatrix
       calcMaskedMigrationMatrix
       calcTrapsProbabilities
