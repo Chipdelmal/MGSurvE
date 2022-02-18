@@ -1,12 +1,14 @@
 # Output files
-GEO
 scratch
 demo_out
 sims_out
 *.png
 *.csv
-/MGSurve/demos/*.png
 mailAlerts.py
+/MGSurve/demos/*.png
+!/MGSurvE/demos/Paper/GEO/STP_LatLon.csv
+!/MGSurvE/demos/Paper/GEO/STP_Migration.csv
+
 
 # Compressed Serialized Files
 *.bz2
