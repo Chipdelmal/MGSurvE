@@ -1,3 +1,7 @@
+'''Kernel functions and operations used for movement and traps attractivenesses.
+
+'''
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 

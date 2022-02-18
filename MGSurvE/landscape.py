@@ -1,3 +1,7 @@
+'''Main object with sites, traps, and masks to optimize and visualize the landscape to be analyzed.
+
+'''
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -21,9 +25,8 @@ class Landscape:
     """ Stores the information for a mosquito landscape. Works with different point-types in the form of matrices and coordinates.
     
     Parameters:
-        points (pandas dataframe): Sites coordinates in (x, y) or (lon, lat) format.
-        pointTypes (numpy array): Sites types in the same order and length as the points coordinates.
-               
+        points (pandas dataframe): Sites coordinates with mandatory {x,y} coordinates and optional {t: type, a: attractiveness} values for each site in the landscape.
+
         kernelFunction (function): Function that determines de relationship between distances and migration probabilities.
         kernelParams (dict): Parameters required for the kernel function to determine migration probabilities.
         maskingMatrix (numpy array): Matrix that determines the probability of shifting from one point-type to another one (squared with size equal to the number of point types). If None, every point-type transition is equiprobable.
@@ -33,6 +36,13 @@ class Landscape:
         maskedMigrationMatrix (numpy array): Markov matrix that biases migration probabilities as dictated by the masking matrix. If None, it's auto-calculated (see calcPointsMaskedMigration).
 
         distanceFunction (function): Function that takes two points in the landscape and calculates the distance between them.
+
+        traps (pandas dataframe):
+        trapsKernels (dict):
+        trapsMask (numpy array):
+        trapsRadii (list):
+
+        landLimits (tuple): Landscape's bounding box.
 
     Attributes:
         pointsCoords (numpy array): 
@@ -54,7 +64,7 @@ class Landscape:
     def __init__(self, 
         points, 
         maskingMatrix=None,
-        
+
         distanceMatrix=None, 
         distanceFunction=None, 
         
@@ -74,13 +84,6 @@ class Landscape:
         },
         trapsMask=None,
         trapsRadii=[.25, .2, .1, .05],
-
-        populations=None,
-
-        repellents=None,
-        repellentsKernels={
-            0: {'kernel': krn.exponentialDecay, 'params': cst.BASIC_EXP_TRAP}
-        },
 
         landLimits=None
     ):

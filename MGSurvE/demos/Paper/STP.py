@@ -197,7 +197,3 @@ fig.savefig(
 plt.close('all')
 
 
-tau = np.asarray([[1,2,3],[4,5,6],[7,8,9]])
-msk = np.asarray([1,.5,0])
-
-srv.calcAttractiveness(tau, msk)

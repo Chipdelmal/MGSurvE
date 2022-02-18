@@ -1,3 +1,7 @@
+'''Data-Visualization functions.
+
+'''
+
 
 from os import path
 from math import log

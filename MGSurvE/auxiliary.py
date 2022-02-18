@@ -1,3 +1,8 @@
+
+'''Various functions that are serve I/O purposes or not relevant to any specific module.
+
+'''
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 

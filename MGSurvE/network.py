@@ -1,3 +1,6 @@
+'''Network-analysis operations.
+
+'''
 
 import numpy as np
 import networkx as nx

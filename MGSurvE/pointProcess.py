@@ -1,3 +1,6 @@
+'''Synthetic Landscape generation functions.
+
+'''
 
 import math
 import time

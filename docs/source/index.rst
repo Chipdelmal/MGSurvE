@@ -37,7 +37,6 @@ To this end, we have integrated the following features into our package (with mo
 * Integrated plotting routines
 * Integrated Map-plotting routines
 * GA optimization routines integration
-* Directed network plotting routines
 
 
 ------------

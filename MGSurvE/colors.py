@@ -1,3 +1,7 @@
+'''Color-related functions for alphas and cmaps.
+
+'''
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 

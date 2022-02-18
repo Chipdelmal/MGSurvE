@@ -44,15 +44,24 @@
 <li class="toctree-l1"><a class="reference internal" href="demos.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="generated/MGSurvE.landscape.html">MGSurvE.landscape</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/MGSurvE.kernels.html">MGSurvE.kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/MGSurvE.matrices.html">MGSurvE.matrices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/MGSurvE.auxiliary.html">MGSurvE.auxiliary</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/MGSurvE.colors.html">MGSurvE.colors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/MGSurvE.constants.html">MGSurvE.constants</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/MGSurvE.plots.html">MGSurvE.plots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/MGSurvE.optimization.html">MGSurvE.optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/MGSurvE.pointProcess.html">MGSurvE.pointProcess</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#landscape">Landscape</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/MGSurvE.landscape.html">MGSurvE.landscape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/MGSurvE.matrices.html">MGSurvE.matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/MGSurvE.kernels.html">MGSurvE.kernels</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#optimization">Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/MGSurvE.optimization.html">MGSurvE.optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dataviz-point-processes-and-auxiliaries">DataViz, Point-Processes and Auxiliaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/MGSurvE.auxiliary.html">MGSurvE.auxiliary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/MGSurvE.constants.html">MGSurvE.constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/MGSurvE.colors.html">MGSurvE.colors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/MGSurvE.plots.html">MGSurvE.plots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/MGSurvE.pointProcess.html">MGSurvE.pointProcess</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -83,6 +92,10 @@
              
   <section id="api">
 <h1>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h1>
+<p>Welcome to our API! We try to keep our documents as updated as possible, but if there’s any discrepancies or questions feel free to contact us!</p>
+<section id="landscape">
+<h2>Landscape<a class="headerlink" href="#landscape" title="Permalink to this headline"></a></h2>
+<p>MGSurvE’s heart and soul. These modules contain all the definitions and operations necessary to generate our landscape objects.</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -90,34 +103,59 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/MGSurvE.landscape.html#module-MGSurvE.landscape" title="MGSurvE.landscape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.landscape</span></code></a></p></td>
-<td><p></p></td>
+<td><p>Main object with sites, traps, and masks to optimize and visualize the landscape to be analyzed.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/MGSurvE.kernels.html#module-MGSurvE.kernels" title="MGSurvE.kernels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.kernels</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/MGSurvE.matrices.html#module-MGSurvE.matrices" title="MGSurvE.matrices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.matrices</span></code></a></p></td>
+<td><p>Migration and masking operations upon matrices.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/MGSurvE.matrices.html#module-MGSurvE.matrices" title="MGSurvE.matrices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.matrices</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/MGSurvE.auxiliary.html#module-MGSurvE.auxiliary" title="MGSurvE.auxiliary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.auxiliary</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/MGSurvE.colors.html#module-MGSurvE.colors" title="MGSurvE.colors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.colors</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/MGSurvE.constants.html#module-MGSurvE.constants" title="MGSurvE.constants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.constants</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/MGSurvE.plots.html#module-MGSurvE.plots" title="MGSurvE.plots"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.plots</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/MGSurvE.optimization.html#module-MGSurvE.optimization" title="MGSurvE.optimization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.optimization</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/MGSurvE.pointProcess.html#module-MGSurvE.pointProcess" title="MGSurvE.pointProcess"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.pointProcess</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/MGSurvE.kernels.html#module-MGSurvE.kernels" title="MGSurvE.kernels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.kernels</span></code></a></p></td>
+<td><p>Kernel functions and operations used for movement and traps attractivenesses.</p></td>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="optimization">
+<h2>Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline"></a></h2>
+<p>All the operations necessary to optimize traps’ positions in our landscapes.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/MGSurvE.optimization.html#module-MGSurvE.optimization" title="MGSurvE.optimization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.optimization</span></code></a></p></td>
+<td><p>Operators to calculate fitness and perform operations to search through optimization space.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dataviz-point-processes-and-auxiliaries">
+<h2>DataViz, Point-Processes and Auxiliaries<a class="headerlink" href="#dataviz-point-processes-and-auxiliaries" title="Permalink to this headline"></a></h2>
+<p>Functions to generate synthetic landscapes, visualize our analyses, and other necessary structures needed by MGSurvE.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/MGSurvE.auxiliary.html#module-MGSurvE.auxiliary" title="MGSurvE.auxiliary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.auxiliary</span></code></a></p></td>
+<td><p>Various functions that are serve I/O purposes or not relevant to any specific module.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/MGSurvE.constants.html#module-MGSurvE.constants" title="MGSurvE.constants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.constants</span></code></a></p></td>
+<td><p>Constants used across the pkg (colors, symbols, bio).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/MGSurvE.colors.html#module-MGSurvE.colors" title="MGSurvE.colors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.colors</span></code></a></p></td>
+<td><p>Color-related functions for alphas and cmaps.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/MGSurvE.plots.html#module-MGSurvE.plots" title="MGSurvE.plots"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.plots</span></code></a></p></td>
+<td><p>Data-Visualization functions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/MGSurvE.pointProcess.html#module-MGSurvE.pointProcess" title="MGSurvE.pointProcess"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MGSurvE.pointProcess</span></code></a></p></td>
+<td><p>Synthetic Landscape generation functions.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 
 

@@ -1,3 +1,7 @@
+'''Operators to calculate fitness and perform operations to search through optimization space.
+
+'''
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 

@@ -1,3 +1,7 @@
+'''Migration and masking operations upon matrices.
+
+'''
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
