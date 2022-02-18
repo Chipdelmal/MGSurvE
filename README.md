@@ -43,9 +43,7 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 - [x] Different trap attractiveness levels for male and female mosquitos 
 - [x] Thorough timing benchmarks
 - [x] Support for xy coordinate systems
-- [ ] Support for lat-lon coordinate systems
 - [x] Integrated Map-plotting routines
-- [ ] Lumpability aggregation algorithm
 - [ ] Repellency effects
 
 # Authors and Funders
