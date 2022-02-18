@@ -123,19 +123,19 @@ def genVoidFullMigrationMatrix(migrationMatrix, trapsNumber):
     return assembled
 
 
-def calcAttractiveness(migrationMtx, attractivenessVct, keepDiag=True):
-    """
+def calcAttractiveness(migrationMtx, attractivenessVct):
+    """Calculates the effects of attractiveness in the migration matrix.
     
     Args:
         migrationMtx (numpy array): Original migration matrix (Tau).
         attractivenessVct (numpy array): Relative attractiveness modifier for sites.
-        keepDiag (bool): Keep the diagonal "unmasked".
     
     Returns:
         (numpy array): Full migration matrix with attractiveness effects.
     """
     diag = np.diag(migrationMtx)
     migAtt = migrationMtx*attractivenessVct
-    if keepDiag:
-        np.fill_diagonal(migAtt, diag)
+    # if keepDiag:
+    #     np.fill_diagonal(migAtt, diag)
+    migAtt = normalize(migAtt, axis=1, norm='l1')
     return migAtt
