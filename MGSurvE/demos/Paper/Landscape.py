@@ -34,7 +34,7 @@ elif ID == 'Poisson':
     (ptsNum, clsNum, radius, ptsTypes) = (
         cst.ptsNum, cst.clsNum, cst.clsRad, len(cst.pTypesProb)
     )
-    xy = srv.clusterPossion(
+    xy = srv.ptsPossion(
         ptsNum, cst.clsNum, radius,
         bbox=bbox, polygon=None
     ).T

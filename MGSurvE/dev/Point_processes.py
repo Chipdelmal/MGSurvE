@@ -14,7 +14,7 @@ pp_pcp.plot(window=True, hull=True, title='Rectangle Clustered Point Pattern')
 
 plt.savefig('test_poly.png')
 
-tst = srv.clusterPossion(
+tst = srv.ptsPossion(
     100, 5, 100, 
     polygon="/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/Comoros/GEO/com_admbnda_adm1_cosep_ocha_20191205.shp"
 )

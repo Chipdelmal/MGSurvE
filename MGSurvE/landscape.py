@@ -25,7 +25,7 @@ class Landscape:
     """ Stores the information for a mosquito landscape. Works with different point-types in the form of matrices and coordinates.
     
     Parameters:
-        points (pandas dataframe): Sites coordinates with mandatory {x,y} coordinates and optional {t: type, a: attractiveness} values for each site in the landscape.
+        points (pandas dataframe): Sites positions with mandatory {x,y} coordinates and optional {t: type, a: attractiveness} values for each site in the landscape.
 
         kernelFunction (function): Function that determines de relationship between distances and migration probabilities.
         kernelParams (dict): Parameters required for the kernel function to determine migration probabilities.
@@ -37,10 +37,10 @@ class Landscape:
 
         distanceFunction (function): Function that takes two points in the landscape and calculates the distance between them.
 
-        traps (pandas dataframe):
-        trapsKernels (dict):
-        trapsMask (numpy array):
-        trapsRadii (list):
+        traps (pandas dataframe): Traps positions with mandatory {x,y} coordinates and optional {t: trap type integer, f: fixed bool (immovable)}.
+        trapsKernels (dict): Traps' kernels functions and parameters in dictionary form (where the indices must match the "t" values in the traps dataframe).
+        trapsMask (numpy array): Traps' masking matrix to make traps act upon mosquitos searching for a specific resource (shape: {trapsNum, sitesNum}).
+        trapsRadii (list): List of probability values at which we want rings to be plotted in dataviz functions.
 
         landLimits (tuple): Landscape's bounding box.
 

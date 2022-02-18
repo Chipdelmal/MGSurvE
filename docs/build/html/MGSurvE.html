@@ -436,7 +436,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>points</strong> (<em>pandas dataframe</em>) – Sites coordinates with mandatory {x,y} coordinates and optional {t: type, a: attractiveness} values for each site in the landscape.</p></li>
+<li><p><strong>points</strong> (<em>pandas dataframe</em>) – Sites positions with mandatory {x,y} coordinates and optional {t: type, a: attractiveness} values for each site in the landscape.</p></li>
 <li><p><strong>kernelFunction</strong> (<em>function</em>) – Function that determines de relationship between distances and migration probabilities.</p></li>
 <li><p><strong>kernelParams</strong> (<em>dict</em>) – Parameters required for the kernel function to determine migration probabilities.</p></li>
 <li><p><strong>maskingMatrix</strong> (<em>numpy array</em>) – Matrix that determines the probability of shifting from one point-type to another one (squared with size equal to the number of point types). If None, every point-type transition is equiprobable.</p></li>
@@ -444,10 +444,10 @@
 <li><p><strong>migrationMatrix</strong> (<em>numpy array</em>) – Markov matrix that determines the probability of moving from one site to another. If None, it’s auto-calculated (see calcPointsMigration).</p></li>
 <li><p><strong>maskedMigrationMatrix</strong> (<em>numpy array</em>) – Markov matrix that biases migration probabilities as dictated by the masking matrix. If None, it’s auto-calculated (see calcPointsMaskedMigration).</p></li>
 <li><p><strong>distanceFunction</strong> (<em>function</em>) – Function that takes two points in the landscape and calculates the distance between them.</p></li>
-<li><p><strong>traps</strong> (<em>pandas dataframe</em>) – </p></li>
-<li><p><strong>trapsKernels</strong> (<em>dict</em>) – </p></li>
-<li><p><strong>trapsMask</strong> (<em>numpy array</em>) – </p></li>
-<li><p><strong>trapsRadii</strong> (<em>list</em>) – </p></li>
+<li><p><strong>traps</strong> (<em>pandas dataframe</em>) – Traps positions with mandatory {x,y} coordinates and optional {t: trap type integer, f: fixed bool (immovable)}.</p></li>
+<li><p><strong>trapsKernels</strong> (<em>dict</em>) – Traps’ kernels functions and parameters in dictionary form (where the indices must match the “t” values in the traps dataframe).</p></li>
+<li><p><strong>trapsMask</strong> (<em>numpy array</em>) – Traps’ masking matrix to make traps act upon mosquitos searching for a specific resource (shape: {trapsNum, sitesNum}).</p></li>
+<li><p><strong>trapsRadii</strong> (<em>list</em>) – List of probability values at which we want rings to be plotted in dataviz functions.</p></li>
 <li><p><strong>landLimits</strong> (<em>tuple</em>) – Landscape’s bounding box.</p></li>
 </ul>
 </dd>
@@ -1398,63 +1398,6 @@ Follow this link for the original code: <a class="reference external" href="http
 <span id="mgsurve-pointprocess-module"></span><h2>MGSurvE.pointProcess module<a class="headerlink" href="#module-MGSurvE.pointProcess" title="Permalink to this headline"></a></h2>
 <p>Synthetic Landscape generation functions.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="MGSurvE.pointProcess.aggregateLandscape">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">aggregateLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">migrationMatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.aggregateLandscape" title="Permalink to this definition"></a></dt>
-<dd><p>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>migrationMatrix</strong> (<em>np matrix</em>) – </p></li>
-<li><p><strong>clusters</strong> (<em>list</em>) – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>(numpy array)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="MGSurvE.pointProcess.clusterLandscape">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">clusterLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsCoords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustersNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomState=1645212869.229922</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusterAlgorithm=&lt;class</span> <span class="pre">'sklearn.cluster._kmeans.KMeans'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.clusterLandscape" title="Permalink to this definition"></a></dt>
-<dd><p>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>pointsCoords</strong> (<em>np array</em>) – </p></li>
-<li><p><strong>clustersNumber</strong> (<em>int</em>) – </p></li>
-<li><p><strong>randomState</strong> (<em>int</em>) – </p></li>
-<li><p><strong>clusterAlgorithm</strong> (<em>function</em>) – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>(dict)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="MGSurvE.pointProcess.clusterPossion">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">clusterPossion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustersNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomState</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1645212869.2299237</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.clusterPossion" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>pointsNumber</strong> (<em>int</em>) – Number of sites</p></li>
-<li><p><strong>clustersNumber</strong> (<em>int</em>) – </p></li>
-<li><p><strong>radius</strong> (<em>float</em>) – Radius of the circle centered on each parent.</p></li>
-<li><p><strong>randomState</strong> (<em>int</em>) – </p></li>
-<li><p><strong>bbox</strong> (<em>tuple of tuples</em>) – Bounding box in the form ((xLo, xHi), (yLo, yHi))</p></li>
-<li><p><strong>OR</strong> – </p></li>
-<li><p><strong>polygon</strong> (<em>name of shp file</em>) – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>(numpy array)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.pointProcess.ptsDonut">
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsDonut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radii</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsDonut" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a distribution of points laid around a donut shape.</p>
@@ -1468,6 +1411,30 @@ Follow this link for the original code: <a class="reference external" href="http
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Points’ coordinates.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.pointProcess.ptsPossion">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsPossion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustersNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomState</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1645214086.397339</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsPossion" title="Permalink to this definition"></a></dt>
+<dd><p>Generates a synthetic landscape from a Poisson distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pointsNumber</strong> (<em>int</em>) – Number of sites.</p></li>
+<li><p><strong>clustersNumber</strong> (<em>int</em>) – Number of sites’ clusters.</p></li>
+<li><p><strong>radius</strong> (<em>float</em>) – Radius of the circle centered on each parent.</p></li>
+<li><p><strong>randomState</strong> (<em>int</em>) – Random seed.</p></li>
+<li><p><strong>bbox</strong> (<em>tuple of tuples</em>) – Bounding box in the form ((xLo, xHi), (yLo, yHi))</p></li>
+<li><p><strong>polygon</strong> (<em>name of shp file</em>) – Shape-file for the points to be generated within.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Points’ coordinates</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>(numpy array)</p>

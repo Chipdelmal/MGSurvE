@@ -14,7 +14,7 @@ from pointpats import PoissonClusterPointProcess, Window
 
 
 def ptsRegularGrid(pointsNumber, bbox):
-    """ Creates a regular grid of points.
+    """ Creates a regular grid (lattice) of points.
     
     Parameters:
         pointsNumber (int): Number of sites.
@@ -74,81 +74,24 @@ def ptsRandUniform(pointsNumber, bbox):
     return np.asarray(coords)
 
 
-###############################################################################
-# Clustering and Aggregating Landscape
-###############################################################################
-
-def clusterLandscape(
-        pointsCoords, clustersNumber, 
-        randomState=time.time(), clusterAlgorithm=KMeans
-    ):
-    """ .
-    
-    Parameters:
-        pointsCoords (np array): 
-        clustersNumber (int):
-        randomState (int):
-        clusterAlgorithm (function):
-
-    Returns:
-        (dict): 
-    """
-    clObj = clusterAlgorithm(
-        n_clusters=clustersNumber,
-        random_state=int(randomState)
-    )
-    clustersObj = clObj.fit(pointsCoords)
-    (clusters, centroids) = (
-        clustersObj.labels_,
-        clustersObj.cluster_centers_
-    )
-    return {'clusters': clusters, 'centroids': centroids}
-
-
-def aggregateLandscape(migrationMatrix, clusters):
-    """ .
-    
-    Parameters:
-        migrationMatrix (np matrix): 
-        clusters (list): 
-
-    Returns:
-        (numpy array): 
-    """
-    matrix_size = len(clusters)
-    num_clusters = len(set(clusters))
-    aggr_matrix = np.zeros([num_clusters, num_clusters], dtype=float)
-    aggr_number = [0]*num_clusters
-    for row in range(matrix_size):
-        cRow = clusters[row]
-        aggr_number[cRow] += 1
-        for col in range(matrix_size):
-            cCol = clusters[col]
-            aggr_matrix[cRow][cCol] += migrationMatrix[row][col]
-    for row in range(num_clusters):
-        aggr_matrix[row] = [x/aggr_number[row] for x in aggr_matrix[row]]
-    return aggr_matrix
-
-
-def clusterPossion(
+def ptsPossion(
     pointsNumber, clustersNumber, 
     radius, randomState=time.time(), 
     bbox=None, polygon=None
     ):
-    """
+    """Generates a synthetic landscape from a Poisson distribution.
     
     Parameters:
-        pointsNumber (int): Number of sites
-        clustersNumber (int):
+        pointsNumber (int): Number of sites.
+        clustersNumber (int): Number of sites' clusters.
         radius (float): Radius of the circle centered on each parent.
-        randomState (int):
+        randomState (int): Random seed.
 
         bbox (tuple of tuples): Bounding box in the form ((xLo, xHi), (yLo, yHi))
-        OR
-        polygon (name of shp file): 
+        polygon (name of shp file): Shape-file for the points to be generated within.
 
     Returns:
-        (numpy array):  
+        (numpy array):  Points' coordinates
     """
 
     if bbox:
@@ -168,3 +111,59 @@ def clusterPossion(
     )
 
     return np.asarray(csamples.realize(pointsNumber))
+
+
+###############################################################################
+# Clustering and Aggregating Landscape
+###############################################################################
+
+# def clusterLandscape(
+#         pointsCoords, clustersNumber, 
+#         randomState=time.time(), clusterAlgorithm=KMeans
+#     ):
+#     """ .
+    
+#     Parameters:
+#         pointsCoords (np array): 
+#         clustersNumber (int):
+#         randomState (int):
+#         clusterAlgorithm (function):
+
+#     Returns:
+#         (dict): 
+#     """
+#     clObj = clusterAlgorithm(
+#         n_clusters=clustersNumber,
+#         random_state=int(randomState)
+#     )
+#     clustersObj = clObj.fit(pointsCoords)
+#     (clusters, centroids) = (
+#         clustersObj.labels_,
+#         clustersObj.cluster_centers_
+#     )
+#     return {'clusters': clusters, 'centroids': centroids}
+
+
+# def aggregateLandscape(migrationMatrix, clusters):
+#     """ .
+    
+#     Parameters:
+#         migrationMatrix (np matrix): 
+#         clusters (list): 
+
+#     Returns:
+#         (numpy array): 
+#     """
+#     matrix_size = len(clusters)
+#     num_clusters = len(set(clusters))
+#     aggr_matrix = np.zeros([num_clusters, num_clusters], dtype=float)
+#     aggr_number = [0]*num_clusters
+#     for row in range(matrix_size):
+#         cRow = clusters[row]
+#         aggr_number[cRow] += 1
+#         for col in range(matrix_size):
+#             cCol = clusters[col]
+#             aggr_matrix[cRow][cCol] += migrationMatrix[row][col]
+#     for row in range(num_clusters):
+#         aggr_matrix[row] = [x/aggr_number[row] for x in aggr_matrix[row]]
+#     return aggr_matrix
