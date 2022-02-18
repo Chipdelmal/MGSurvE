@@ -43,20 +43,6 @@ class Landscape:
         trapsRadii (list): List of probability values at which we want rings to be plotted in dataviz functions.
 
         landLimits (tuple): Landscape's bounding box.
-
-    Attributes:
-        pointsCoords (numpy array): 
-        pointNumber (int): Number of sites present in the environment.
-        geometryType (str): Type of geometry being analyzed (cartesian "xy" or lat-lon "ll")
-
-        distanceMatrix (numpy array): Distances amongst the points in the landscape.
-        migrationMatrix (numpy array): Distance-based migration probabilities amongst the points in the landscape.
-        maskedMigrationMatrix (numpy array): Point-type based migration probabilities amongst the points in the landscape.
-
-    Methods:
-        calcPointsDistances: Calculates the distancesMatrix amongst the points (in place). Uses the distanceFunction to calculate the distanceMatrix internally.
-        calcPointsMigration: Calculates the migrationMatrix amongst the points (in place). Uses the kernelFunction and kernelParams to generate the migrationMatrix.
-        calcPointsMaskedMigration: Calculates the maskedMigrationMatrix depending on point-type (in place). Uses the maskingMatrix to bias the migrationMatrix and store the results in the maskedMigrationMatrix.
     """
     ###########################################################################
     # Initializers
@@ -104,7 +90,7 @@ class Landscape:
         self.fundamentalMatrix = None
         self.trapsMask = None
         self.distanceFunction = distanceFunction
-        self.populations = populations
+        # self.populations = populations
         self.latlon = False
         self.landLimits = landLimits
         # Check and define coordinates ----------------------------------------

@@ -452,89 +452,6 @@
 </ul>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.pointsCoords">
-<span class="sig-name descname"><span class="pre">pointsCoords</span></span><a class="headerlink" href="#MGSurvE.landscape.Landscape.pointsCoords" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>numpy array</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.pointNumber">
-<span class="sig-name descname"><span class="pre">pointNumber</span></span><a class="headerlink" href="#MGSurvE.landscape.Landscape.pointNumber" title="Permalink to this definition"></a></dt>
-<dd><p>Number of sites present in the environment.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.geometryType">
-<span class="sig-name descname"><span class="pre">geometryType</span></span><a class="headerlink" href="#MGSurvE.landscape.Landscape.geometryType" title="Permalink to this definition"></a></dt>
-<dd><p>Type of geometry being analyzed (cartesian “xy” or lat-lon “ll”)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.distanceMatrix">
-<span class="sig-name descname"><span class="pre">distanceMatrix</span></span><a class="headerlink" href="#MGSurvE.landscape.Landscape.distanceMatrix" title="Permalink to this definition"></a></dt>
-<dd><p>Distances amongst the points in the landscape.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>numpy array</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.migrationMatrix">
-<span class="sig-name descname"><span class="pre">migrationMatrix</span></span><a class="headerlink" href="#MGSurvE.landscape.Landscape.migrationMatrix" title="Permalink to this definition"></a></dt>
-<dd><p>Distance-based migration probabilities amongst the points in the landscape.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>numpy array</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.maskedMigrationMatrix">
-<span class="sig-name descname"><span class="pre">maskedMigrationMatrix</span></span><a class="headerlink" href="#MGSurvE.landscape.Landscape.maskedMigrationMatrix" title="Permalink to this definition"></a></dt>
-<dd><p>Point-type based migration probabilities amongst the points in the landscape.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>numpy array</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.calcPointsDistances">
-<span class="sig-name descname"><span class="pre">calcPointsDistances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.calcPointsDistances" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates the distancesMatrix amongst the points (in place). Uses the distanceFunction to calculate the distanceMatrix internally.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.calcPointsMigration">
-<span class="sig-name descname"><span class="pre">calcPointsMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.calcPointsMigration" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates the migrationMatrix amongst the points (in place). Uses the kernelFunction and kernelParams to generate the migrationMatrix.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.calcPointsMaskedMigration">
-<span class="sig-name descname"><span class="pre">calcPointsMaskedMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.calcPointsMaskedMigration" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates the maskedMigrationMatrix depending on point-type (in place). Uses the maskingMatrix to bias the migrationMatrix and store the results in the maskedMigrationMatrix.</p>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.calcFundamentalMatrix">
 <span class="sig-name descname"><span class="pre">calcFundamentalMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.calcFundamentalMatrix" title="Permalink to this definition"></a></dt>
@@ -542,20 +459,20 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">calcPointsDistances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.calcPointsDistances">
+<span class="sig-name descname"><span class="pre">calcPointsDistances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.calcPointsDistances" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the distancesMatrix amongst the points (in place).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">calcPointsMaskedMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#id1" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.calcPointsMaskedMigration">
+<span class="sig-name descname"><span class="pre">calcPointsMaskedMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.calcPointsMaskedMigration" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the maskedMigrationMatrix depending on point-type (in place).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">calcPointsMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#id2" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.calcPointsMigration">
+<span class="sig-name descname"><span class="pre">calcPointsMigration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.calcPointsMigration" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the migrationMatrix amongst the points (in place).</p>
 </dd></dl>
 
@@ -1420,7 +1337,7 @@ Follow this link for the original code: <a class="reference external" href="http
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.pointProcess.ptsPossion">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsPossion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustersNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomState</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1645214086.397339</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsPossion" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsPossion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustersNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomState</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1645215222.368624</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsPossion" title="Permalink to this definition"></a></dt>
 <dd><p>Generates a synthetic landscape from a Poisson distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1465,7 +1382,7 @@ Follow this link for the original code: <a class="reference external" href="http
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.pointProcess.ptsRegularGrid">
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsRegularGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsRegularGrid" title="Permalink to this definition"></a></dt>
-<dd><p>Creates a regular grid of points.</p>
+<dd><p>Creates a regular grid (lattice) of points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
