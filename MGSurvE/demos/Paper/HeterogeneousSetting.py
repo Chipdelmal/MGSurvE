@@ -6,7 +6,6 @@ import math
 import numpy as np
 import pandas as pd
 from os import path
-from sys import argv
 from copy import deepcopy
 from sklearn.preprocessing import normalize
 import matplotlib.pyplot as plt
