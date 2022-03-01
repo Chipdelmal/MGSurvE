@@ -12,9 +12,10 @@ import Constants as cst
 import MGSurvE as srv
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-
-# (ID, OUT_PTH) = (sys.argv[1], cst.out_pth)
-(ID, OUT_PTH) = ("Grid", "./sims_out/")
+if srv.isNotebook():
+    (ID, OUT_PTH) = ("Poisson", "./sims_out/")
+else:
+    (ID, OUT_PTH) = (sys.argv[1], cst.out_pth)
 ###############################################################################
 # Synthetic Landscape Selector
 ###############################################################################
@@ -72,11 +73,8 @@ bbox = lnd_hom.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd_hom.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd_hom.plotSites(fig, ax, size=200)
-# lnd_hom.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=30)
+lnd_hom.plotMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
 # lnd_hom.plotTraps(fig, ax)
-lnd_hom.plotDirectedNetwork(
-    fig, ax, edgecolors='black'
-)
 srv.plotClean(fig, ax, frame=True)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_HOM.png'.format(ID)), 
@@ -88,10 +86,7 @@ bbox = lnd_het.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd_het.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd_het.plotSites(fig, ax, size=200)
-# lnd_het.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=30)
-lnd_hom.plotDirectedNetwork(
-    fig, ax, edgecolors='black'
-)
+lnd_het.plotMaskedMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
 # lnd_het.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=True)
 fig.savefig(

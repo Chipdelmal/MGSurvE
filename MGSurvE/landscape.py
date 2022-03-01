@@ -50,6 +50,7 @@ class Landscape:
     def __init__(self, 
         points, 
         maskingMatrix=None,
+        attractionVector=None,
 
         distanceMatrix=None, 
         distanceFunction=None, 
@@ -71,13 +72,15 @@ class Landscape:
         trapsMask=None,
         trapsRadii=[.25, .2, .1, .05],
 
-        landLimits=None
+        landLimits=None,
+        populations=None
     ):
         """Constructor method
         """
         self.kernelFunction = kernelFunction
         self.kernelParams = kernelParams
         self.maskingMatrix = maskingMatrix
+        self.attractionVector = attractionVector
         self.pointNumber = len(points)
         self.trapsCoords = None
         self.trapsTypes = None
@@ -90,7 +93,7 @@ class Landscape:
         self.fundamentalMatrix = None
         self.trapsMask = None
         self.distanceFunction = distanceFunction
-        # self.populations = populations
+        self.populations = populations
         self.latlon = False
         self.landLimits = landLimits
         # Check and define coordinates ----------------------------------------
@@ -123,6 +126,12 @@ class Landscape:
             self.maskingMatrix = np.full((ptNum, ptNum), 1)
         else:
             self.maskingMatrix = np.asarray(maskingMatrix)
+        # If no attraction vector is provided, generate a dummy one -----------
+        if attractionVector is None:
+            ptNum = self.pointNumber
+            self.attractionVector = np.full(ptNum, 1)
+        else:
+            self.attractionVector = np.asarray(attractionVector)
         # Init distance matrix ------------------------------------------------
         if distanceMatrix is None:
             self.calcPointsDistances()
@@ -200,10 +209,12 @@ class Landscape:
     def calcPointsMigration(self):
         """Calculates the migrationMatrix amongst the points (in place).
         """
-        self.migrationMatrix = self.kernelFunction(
+        preAttractMigMatrix = self.kernelFunction(
             self.distanceMatrix, **self.kernelParams
         )
-
+        self.migrationMatrix = mat.calcAttractiveness(
+            preAttractMigMatrix, self.attractionVector
+        )
     def calcPointsMaskedMigration(self):
         """Calculates the maskedMigrationMatrix depending on point-type (in place).
         """

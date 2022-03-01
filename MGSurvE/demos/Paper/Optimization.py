@@ -111,9 +111,9 @@ fig.savefig(
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax)
-lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=30)
-lnd.plotTraps(fig, ax)
+lnd.plotSites(fig, ax, size=200)
+lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
+lnd.plotTraps(fig, ax, size=200)
 srv.plotClean(fig, ax, bbox=bbox, frame=True)
 srv.plotFitness(fig, ax, min(minFits), zorder=30)
 fig.savefig(

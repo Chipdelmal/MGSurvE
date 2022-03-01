@@ -566,8 +566,94 @@
 <section id="mgsurve-plots-module">
 <h2>MGSurvE.plots module<a class="headerlink" href="#mgsurve-plots-module" title="Permalink to this headline"></a></h2>
 </section>
-<section id="mgsurve-pointprocess-module">
-<h2>MGSurvE.pointProcess module<a class="headerlink" href="#mgsurve-pointprocess-module" title="Permalink to this headline"></a></h2>
+<section id="module-MGSurvE.pointProcess">
+<span id="mgsurve-pointprocess-module"></span><h2>MGSurvE.pointProcess module<a class="headerlink" href="#module-MGSurvE.pointProcess" title="Permalink to this headline"></a></h2>
+<p>Synthetic Landscape generation functions.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.pointProcess.ptsDonut">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsDonut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radii</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsDonut" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a distribution of points laid around a donut shape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pointsNumber</strong> (<em>int</em>) – Number of sites.</p></li>
+<li><p><strong>radii</strong> (<em>tuple of floats</em>) – Minimum and maximum radii for the donut shape.</p></li>
+<li><p><strong>center</strong> (<em>tuple of floats</em>) – Coordinates for the center of the donut (x, y).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Points’ coordinates.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.pointProcess.ptsPossion">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsPossion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustersNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomState</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1645741180.521563</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsPossion" title="Permalink to this definition"></a></dt>
+<dd><p>Generates a synthetic landscape from a Poisson distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pointsNumber</strong> (<em>int</em>) – Number of sites.</p></li>
+<li><p><strong>clustersNumber</strong> (<em>int</em>) – Number of sites’ clusters.</p></li>
+<li><p><strong>radius</strong> (<em>float</em>) – Radius of the circle centered on each parent.</p></li>
+<li><p><strong>randomState</strong> (<em>int</em>) – Random seed.</p></li>
+<li><p><strong>bbox</strong> (<em>tuple of tuples</em>) – Bounding box in the form ((xLo, xHi), (yLo, yHi))</p></li>
+<li><p><strong>polygon</strong> (<em>name of shp file</em>) – Shape-file for the points to be generated within.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Points’ coordinates</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.pointProcess.ptsRandUniform">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsRandUniform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsRandUniform" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a random unifor distribution of points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pointsNumber</strong> (<em>int</em>) – Number of sites</p></li>
+<li><p><strong>bbox</strong> (<em>tuple of tuples</em>) – Bounding box in the form ((xLo, xHi), (yLo, yHi))</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Points’ coordinates</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MGSurvE.pointProcess.ptsRegularGrid">
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsRegularGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsRegularGrid" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a regular grid (lattice) of points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pointsNumber</strong> (<em>int</em>) – Number of sites.</p></li>
+<li><p><strong>bbox</strong> (<em>tuple of tuples</em>) – Bounding box in the form ((xLo, xHi), (yLo, yHi)).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Points’ coordinates.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-contents">
 <h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline"></a></h2>

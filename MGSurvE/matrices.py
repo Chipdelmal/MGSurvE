@@ -127,7 +127,7 @@ def genVoidFullMigrationMatrix(migrationMatrix, trapsNumber):
     return assembled
 
 
-def calcAttractiveness(migrationMtx, attractivenessVct):
+def calcAttractiveness(migrationMtx, attractionVector):
     """Calculates the effects of attractiveness in the migration matrix.
     
     Args:
@@ -138,7 +138,7 @@ def calcAttractiveness(migrationMtx, attractivenessVct):
         (numpy array): Full migration matrix with attractiveness effects.
     """
     diag = np.diag(migrationMtx)
-    migAtt = migrationMtx*attractivenessVct
+    migAtt = migrationMtx*attractionVector
     # if keepDiag:
     #     np.fill_diagonal(migAtt, diag)
     migAtt = normalize(migAtt, axis=1, norm='l1')
