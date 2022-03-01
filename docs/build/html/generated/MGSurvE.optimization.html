@@ -17,9 +17,7 @@
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="MGSurvE.auxiliary" href="MGSurvE.auxiliary.html" />
-    <link rel="prev" title="MGSurvE.kernels" href="MGSurvE.kernels.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,20 +36,12 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../breakdown.html">Pkg Breakdown</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../demos.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../benchmarks.html">Benchmarks</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../api.html#landscape">Landscape</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#optimization">Optimization</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">MGSurvE.optimization</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#dataviz-point-processes-and-auxiliaries">DataViz, Point-Processes and Auxiliaries</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
 </ul>
 
         </div>
@@ -68,7 +58,6 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../api.html">API</a> &raquo;</li>
       <li>MGSurvE.optimization</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/generated/MGSurvE.optimization.rst.txt" rel="nofollow"> View page source</a>
@@ -79,69 +68,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-MGSurvE.optimization">
-<span id="mgsurve-optimization"></span><h1>MGSurvE.optimization<a class="headerlink" href="#module-MGSurvE.optimization" title="Permalink to this headline"></a></h1>
-<p>Operators to calculate fitness and perform operations to search through optimization space.</p>
-<p class="rubric">Functions</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.calcFitness" title="MGSurvE.optimization.calcFitness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcFitness</span></code></a>(chromosome[, landscape, ...])</p></td>
-<td><p>Calculates the fitness function of the landscape given a chromosome (in place, so not thread-safe).</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.calcSexFitness" title="MGSurvE.optimization.calcSexFitness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calcSexFitness</span></code></a>(chromosome[, landscapeMale, ...])</p></td>
-<td><p>Calculates the fitness function of a Male/Female set of landscapes with a weighted sum of the time-to catch between them.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.cxBlend" title="MGSurvE.optimization.cxBlend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cxBlend</span></code></a>(ind1, ind2, fixedTrapsMask[, alpha])</p></td>
-<td><p>Mates two chromosomes by &quot;blend&quot; based on the provided mask (in place).</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.exportLog" title="MGSurvE.optimization.exportLog"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exportLog</span></code></a>(logbook, outPath, filename)</p></td>
-<td><p>Dumps a dataframe with the report of the GA's history.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.genFixedTrapsMask" title="MGSurvE.optimization.genFixedTrapsMask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genFixedTrapsMask</span></code></a>(trapsFixed[, dims])</p></td>
-<td><p>Creates a mask for the fixed traps (non-movable).</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getDaysTillTrapped" title="MGSurvE.optimization.getDaysTillTrapped"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getDaysTillTrapped</span></code></a>(landscape[, fitFuns])</p></td>
-<td><p>Gets the number of timesteps until a walker falls into a trap.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalFitness" title="MGSurvE.optimization.getFundamentalFitness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalFitness</span></code></a>(fundamentalMatrix[, ...])</p></td>
-<td><p>Get fitness from Markov's fundamental matrix.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalMatrix" title="MGSurvE.optimization.getFundamentalMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalMatrix</span></code></a>(tau, sitesN, trapsN)</p></td>
-<td><p>Get Markov's fundamental matrix.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getMarkovAbsorbing" title="MGSurvE.optimization.getMarkovAbsorbing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getMarkovAbsorbing</span></code></a>(tauCan, trapsN)</p></td>
-<td><p>Get Markov's absorbing states (deprecated).</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.importLog" title="MGSurvE.optimization.importLog"><code class="xref py py-obj docutils literal notranslate"><span class="pre">importLog</span></code></a>(inPath, filename)</p></td>
-<td><p>Gets the number of timesteps until a walker falls into a trap.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.initChromosome" title="MGSurvE.optimization.initChromosome"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initChromosome</span></code></a>(trapsCoords, fixedTrapsMask, ...)</p></td>
-<td><p>Generates a random uniform chromosome for GA optimization.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.mutateChromosome" title="MGSurvE.optimization.mutateChromosome"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mutateChromosome</span></code></a>(chromosome, fixedTrapsMask)</p></td>
-<td><p>Mutates a chromosome with a probability distribution based on the mutation mask (in place).</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.mutateChromosomeAsymmetric" title="MGSurvE.optimization.mutateChromosomeAsymmetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mutateChromosomeAsymmetric</span></code></a>(chromosome, ...)</p></td>
-<td><p>Mutates a chromosome with a probability distribution based on the mutation mask with different probabilities for XY elements (in place).</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.reshapeInCanonicalForm" title="MGSurvE.optimization.reshapeInCanonicalForm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reshapeInCanonicalForm</span></code></a>(tau, sitesN, trapsN)</p></td>
-<td><p>Reshapes a migration matrix into canonical form (deprecated).</p></td>
-</tr>
-</tbody>
-</table>
+  <section id="mgsurve-optimization">
+<h1>MGSurvE.optimization<a class="headerlink" href="#mgsurve-optimization" title="Permalink to this headline"></a></h1>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="MGSurvE.kernels.html" class="btn btn-neutral float-left" title="MGSurvE.kernels" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="MGSurvE.auxiliary.html" class="btn btn-neutral float-right" title="MGSurvE.auxiliary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

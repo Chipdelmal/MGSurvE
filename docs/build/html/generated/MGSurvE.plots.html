@@ -17,9 +17,7 @@
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="MGSurvE.pointProcess" href="MGSurvE.pointProcess.html" />
-    <link rel="prev" title="MGSurvE.colors" href="MGSurvE.colors.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,24 +36,12 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../breakdown.html">Pkg Breakdown</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../demos.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../benchmarks.html">Benchmarks</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../api.html#landscape">Landscape</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#optimization">Optimization</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#dataviz-point-processes-and-auxiliaries">DataViz, Point-Processes and Auxiliaries</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="MGSurvE.auxiliary.html">MGSurvE.auxiliary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MGSurvE.constants.html">MGSurvE.constants</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MGSurvE.colors.html">MGSurvE.colors</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">MGSurvE.plots</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MGSurvE.pointProcess.html">MGSurvE.pointProcess</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
 </ul>
 
         </div>
@@ -72,7 +58,6 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../api.html">API</a> &raquo;</li>
       <li>MGSurvE.plots</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/generated/MGSurvE.plots.rst.txt" rel="nofollow"> View page source</a>
@@ -83,60 +68,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-MGSurvE.plots">
-<span id="mgsurve-plots"></span><h1>MGSurvE.plots<a class="headerlink" href="#module-MGSurvE.plots" title="Permalink to this headline"></a></h1>
-<p>Data-Visualization functions.</p>
-<p class="rubric">Functions</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotClean" title="MGSurvE.plots.plotClean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotClean</span></code></a>(fig, ax[, frame, bbox, labels])</p></td>
-<td><p>Makes axes equally spaced and removes frame.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotDirectedNetwork" title="MGSurvE.plots.plotDirectedNetwork"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotDirectedNetwork</span></code></a>(fig, ax, sites, pTypes, ...)</p></td>
-<td><p>Plots edge and node centrality.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotFitness" title="MGSurvE.plots.plotFitness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotFitness</span></code></a>(fig, ax, fitness[, pos, fmt, ...])</p></td>
-<td><p>Adds the fitness value to the plot.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotGAEvolution" title="MGSurvE.plots.plotGAEvolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotGAEvolution</span></code></a>(fig, ax, gaLog[, colors, ...])</p></td>
-<td><p>Makes axes equally spaced and removes frame.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotLandBoundary" title="MGSurvE.plots.plotLandBoundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotLandBoundary</span></code></a>(fig, ax[, landTuples])</p></td>
-<td><p>Plots the land's boundary as a polygon.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotMatrix" title="MGSurvE.plots.plotMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotMatrix</span></code></a>(fig, ax, matrix[, trapsNumber, ...])</p></td>
-<td><p>Block matrix plot for the connection network.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotMigrationNetwork" title="MGSurvE.plots.plotMigrationNetwork"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotMigrationNetwork</span></code></a>(fig, ax, transMtx, ...)</p></td>
-<td><p>Plots a transitions matrix.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotSites" title="MGSurvE.plots.plotSites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotSites</span></code></a>(fig, ax, sites, pTypes[, markers, ...])</p></td>
-<td><p>Plots a transitions matrix.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotTraps" title="MGSurvE.plots.plotTraps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotTraps</span></code></a>(fig, ax, trapsCoords, trapsTypes, ...)</p></td>
-<td><p>Plots the traps with the radii of effectiveness.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotTrapsNetwork" title="MGSurvE.plots.plotTrapsNetwork"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotTrapsNetwork</span></code></a>(fig, ax, transMtx, traps, sites)</p></td>
-<td><p>Plots the connectivity network of traps in the landscape.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.saveFig" title="MGSurvE.plots.saveFig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saveFig</span></code></a>(fig, ax, filepath, filename[, dpi, ...])</p></td>
-<td><p>Save figure to disk.</p></td>
-</tr>
-</tbody>
-</table>
+  <section id="mgsurve-plots">
+<h1>MGSurvE.plots<a class="headerlink" href="#mgsurve-plots" title="Permalink to this headline"></a></h1>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="MGSurvE.colors.html" class="btn btn-neutral float-left" title="MGSurvE.colors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="MGSurvE.pointProcess.html" class="btn btn-neutral float-right" title="MGSurvE.pointProcess" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 
