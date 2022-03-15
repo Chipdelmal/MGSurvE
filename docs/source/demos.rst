@@ -1,7 +1,6 @@
 Tutorials
 =====
 
-The code used in all of the tutorials can be downloaded `from this link <https://github.com/Chipdelmal/MGSurvE/tree/main/MGSurvE/demos>`_.
 
 .. toctree::
    :numbered:
@@ -16,6 +15,8 @@ The code used in all of the tutorials can be downloaded `from this link <https:/
    GA_complex
    OT_trapMask
    GA_STP
+
+Please note that the code used in all of the tutorials can be downloaded `from this link <https://github.com/Chipdelmal/MGSurvE/tree/main/MGSurvE/demos>`_.
 
 .. image:: ../../img/STP_10_TRP.jpg
    
