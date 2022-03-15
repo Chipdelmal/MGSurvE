@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -a lnds=("Uniform") # "Grid" "Uniform" "Ring" "Poisson" )
+declare -a lnds=("Grid" "Uniform" "Ring" "Poisson" )
 ###############################################################################
 # Setting landscapes up
 ###############################################################################

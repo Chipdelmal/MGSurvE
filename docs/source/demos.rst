@@ -1,6 +1,8 @@
 Tutorials
 =====
 
+The code used in all of the tutorials can be downloaded `from this link <https://github.com/Chipdelmal/MGSurvE/tree/main/MGSurvE/demos>`_.
+
 .. toctree::
    :numbered:
    :maxdepth: 1
