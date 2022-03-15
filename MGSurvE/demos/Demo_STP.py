@@ -31,7 +31,7 @@ if FXD_TRPS:
     ID = 'STP_FXD'
 else:
     ID = 'STP_FXN'
-GENS = 2500
+GENS = 5000
 (IX_SPLIT, DIAG_VAL) = (27, 0.02)
 ###############################################################################
 # Setup email alerts
@@ -223,9 +223,9 @@ srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
     plt.axes(projection=ccrs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=250)
-# lnd.plotMigrationNetwork(
-#     fig, ax, lineWidth=10, alphaMin=.1, alphaAmplitude=2.5
-# )
+lnd.plotMigrationNetwork(
+    fig, ax, lineWidth=10, alphaMin=.1, alphaAmplitude=2.5
+)
 lnd.plotTraps(fig, ax, zorders=(25, 20))
 srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
 lnd.plotLandBoundary(fig, ax)
