@@ -1,3 +1,7 @@
+'''Main object with sites, traps, and masks to optimize and visualize the landscape to be analyzed.
+
+'''
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -21,9 +25,8 @@ class Landscape:
     """ Stores the information for a mosquito landscape. Works with different point-types in the form of matrices and coordinates.
     
     Parameters:
-        points (pandas dataframe): Sites coordinates in (x, y) or (lon, lat) format.
-        pointTypes (numpy array): Sites types in the same order and length as the points coordinates.
-               
+        points (pandas dataframe): Sites positions with mandatory {x,y} coordinates and optional {t: type, a: attractiveness} values for each site in the landscape.
+
         kernelFunction (function): Function that determines de relationship between distances and migration probabilities.
         kernelParams (dict): Parameters required for the kernel function to determine migration probabilities.
         maskingMatrix (numpy array): Matrix that determines the probability of shifting from one point-type to another one (squared with size equal to the number of point types). If None, every point-type transition is equiprobable.
@@ -34,19 +37,12 @@ class Landscape:
 
         distanceFunction (function): Function that takes two points in the landscape and calculates the distance between them.
 
-    Attributes:
-        pointsCoords (numpy array): 
-        pointNumber (int): Number of sites present in the environment.
-        geometryType (str): Type of geometry being analyzed (cartesian "xy" or lat-lon "ll")
+        traps (pandas dataframe): Traps positions with mandatory {x,y} coordinates and optional {t: trap type integer, f: fixed bool (immovable)}.
+        trapsKernels (dict): Traps' kernels functions and parameters in dictionary form (where the indices must match the "t" values in the traps dataframe).
+        trapsMask (numpy array): Traps' masking matrix to make traps act upon mosquitos searching for a specific resource (shape: {trapsNum, sitesNum}).
+        trapsRadii (list): List of probability values at which we want rings to be plotted in dataviz functions.
 
-        distanceMatrix (numpy array): Distances amongst the points in the landscape.
-        migrationMatrix (numpy array): Distance-based migration probabilities amongst the points in the landscape.
-        maskedMigrationMatrix (numpy array): Point-type based migration probabilities amongst the points in the landscape.
-
-    Methods:
-        calcPointsDistances: Calculates the distancesMatrix amongst the points (in place). Uses the distanceFunction to calculate the distanceMatrix internally.
-        calcPointsMigration: Calculates the migrationMatrix amongst the points (in place). Uses the kernelFunction and kernelParams to generate the migrationMatrix.
-        calcPointsMaskedMigration: Calculates the maskedMigrationMatrix depending on point-type (in place). Uses the maskingMatrix to bias the migrationMatrix and store the results in the maskedMigrationMatrix.
+        landLimits (tuple): Landscape's bounding box.
     """
     ###########################################################################
     # Initializers
@@ -54,7 +50,8 @@ class Landscape:
     def __init__(self, 
         points, 
         maskingMatrix=None,
-        
+        attractionVector=None,
+
         distanceMatrix=None, 
         distanceFunction=None, 
         
@@ -75,20 +72,15 @@ class Landscape:
         trapsMask=None,
         trapsRadii=[.25, .2, .1, .05],
 
-        populations=None,
-
-        repellents=None,
-        repellentsKernels={
-            0: {'kernel': krn.exponentialDecay, 'params': cst.BASIC_EXP_TRAP}
-        },
-
-        landLimits=None
+        landLimits=None,
+        populations=None
     ):
         """Constructor method
         """
         self.kernelFunction = kernelFunction
         self.kernelParams = kernelParams
         self.maskingMatrix = maskingMatrix
+        self.attractionVector = attractionVector
         self.pointNumber = len(points)
         self.trapsCoords = None
         self.trapsTypes = None
@@ -134,6 +126,12 @@ class Landscape:
             self.maskingMatrix = np.full((ptNum, ptNum), 1)
         else:
             self.maskingMatrix = np.asarray(maskingMatrix)
+        # If no attraction vector is provided, generate a dummy one -----------
+        if attractionVector is None:
+            ptNum = self.pointNumber
+            self.attractionVector = np.full(ptNum, 1)
+        else:
+            self.attractionVector = np.asarray(attractionVector)
         # Init distance matrix ------------------------------------------------
         if distanceMatrix is None:
             self.calcPointsDistances()
@@ -211,10 +209,12 @@ class Landscape:
     def calcPointsMigration(self):
         """Calculates the migrationMatrix amongst the points (in place).
         """
-        self.migrationMatrix = self.kernelFunction(
+        preAttractMigMatrix = self.kernelFunction(
             self.distanceMatrix, **self.kernelParams
         )
-
+        self.migrationMatrix = mat.calcAttractiveness(
+            preAttractMigMatrix, self.attractionVector
+        )
     def calcPointsMaskedMigration(self):
         """Calculates the maskedMigrationMatrix depending on point-type (in place).
         """

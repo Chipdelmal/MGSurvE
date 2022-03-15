@@ -1,3 +1,7 @@
+'''Constants used across the pkg (colors, symbols, bio).
+
+'''
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 

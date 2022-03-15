@@ -1,3 +1,7 @@
+'''Kernel functions and operations used for movement and traps attractivenesses.
+
+'''
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -18,6 +22,21 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 ###############################################################################
 # Migration Kernels
 ###############################################################################
+def inverseLinearStep(distance, params=[.75, 1]):
+    '''Calculates the zero-inflated linear distance-based movement probability.
+
+    Args:
+        distMat (numpy array): Distances matrix.
+
+    Returns:
+        numpy array: Migration matrix.
+    '''
+    if math.isclose(distance, 0):
+        return params[0]
+    else:
+        return (1 / (distance * params[1]))
+    return True
+
 def zeroInflatedLinearMigrationKernel(distMat, params=[.75, 1]):
     '''Calculates the zero-inflated linear distance-based movement probability.
 

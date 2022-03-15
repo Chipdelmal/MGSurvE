@@ -244,4 +244,4 @@ Finally, we can plot our landscape with the optimized traps' locations:
     :align: center
 
 
-For the full code used in this demo, follow this `link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_STP.py>`_. 
+For the full code used in this demo, follow this `link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Paper/STP.py>`_. 

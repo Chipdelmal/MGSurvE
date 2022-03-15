@@ -15,6 +15,7 @@
    
       exponentialAttractiveness
       exponentialDecay
+      inverseLinearStep
       nSolveKernel
       sigmoidDecay
       truncatedExponential

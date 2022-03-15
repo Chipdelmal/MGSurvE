@@ -80,4 +80,4 @@ We can see that inter-point type transitions are more probable, as defined by ou
 .. image:: ../../img/demo_pointTypes.jpg
 
 
-The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_Types.py>`_
+The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_Types.py>`_.

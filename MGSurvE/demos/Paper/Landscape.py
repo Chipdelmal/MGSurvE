@@ -12,8 +12,10 @@ import Constants as cst
 import MGSurvE as srv
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-
-(ID, OUT_PTH) = (sys.argv[1], cst.out_pth)
+if srv.isNotebook():
+    (ID, OUT_PTH) = ("Poisson", "./sims_out/")
+else:
+    (ID, OUT_PTH) = (sys.argv[1], cst.out_pth)
 ###############################################################################
 # Synthetic Landscape Selector
 ###############################################################################
@@ -33,7 +35,7 @@ elif ID == 'Poisson':
     (ptsNum, clsNum, radius, ptsTypes) = (
         cst.ptsNum, cst.clsNum, cst.clsRad, len(cst.pTypesProb)
     )
-    xy = srv.clusterPossion(
+    xy = srv.ptsPossion(
         ptsNum, cst.clsNum, radius,
         bbox=bbox, polygon=None
     ).T
@@ -71,7 +73,7 @@ bbox = lnd_hom.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd_hom.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd_hom.plotSites(fig, ax, size=200)
-lnd_hom.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=30)
+lnd_hom.plotMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
 # lnd_hom.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=True)
 fig.savefig(
@@ -84,7 +86,7 @@ bbox = lnd_het.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd_het.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd_het.plotSites(fig, ax, size=200)
-lnd_het.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=30)
+lnd_het.plotMaskedMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
 # lnd_het.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=True)
 fig.savefig(

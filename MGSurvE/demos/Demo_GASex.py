@@ -48,10 +48,10 @@ traps = pd.DataFrame({
 })
 tKernels = {
     'Male': {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .06}}
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .1}}
     },
     'Female': {
-        0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .04}}
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .1}}
     }
 }
 ###############################################################################
@@ -87,7 +87,7 @@ fig.savefig(
 (weightMale, weightFemale) = (.5, 1)
 POP_SIZE = int(10*(lndM.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL, VERBOSE) = (
-    150,
+    500,
     {'mate': .3, 'cxpb': 0.5}, 
     {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .4, 'ipb': .5},
     {'tSize': 3},

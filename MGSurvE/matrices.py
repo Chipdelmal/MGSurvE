@@ -1,3 +1,7 @@
+'''Migration and masking operations upon matrices.
+
+'''
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -121,3 +125,21 @@ def genVoidFullMigrationMatrix(migrationMatrix, trapsNumber):
         np.hstack([void, identity])
     ])
     return assembled
+
+
+def calcAttractiveness(migrationMtx, attractionVector):
+    """Calculates the effects of attractiveness in the migration matrix.
+    
+    Args:
+        migrationMtx (numpy array): Original migration matrix (Tau).
+        attractivenessVct (numpy array): Relative attractiveness modifier for sites.
+    
+    Returns:
+        (numpy array): Full migration matrix with attractiveness effects.
+    """
+    diag = np.diag(migrationMtx)
+    migAtt = migrationMtx*attractionVector
+    # if keepDiag:
+    #     np.fill_diagonal(migAtt, diag)
+    migAtt = normalize(migAtt, axis=1, norm='l1')
+    return migAtt
