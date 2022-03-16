@@ -18,7 +18,7 @@ import cartopy.feature as cfeature
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-(FXD_TRPS, TRPS_NUM, GENS) = (False, 6, 500)
+(FXD_TRPS, TRPS_NUM, GENS) = (True, 8, 2000)
 DIAG_VAL = 0.02
 ###############################################################################
 # Debugging fixed traps at land masses
@@ -72,6 +72,24 @@ lnd = srv.Landscape(
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
+###############################################################################
+# Plot Results
+###############################################################################
+(fig, ax) = (
+    plt.figure(figsize=(15, 15)),
+    plt.axes(projection=ccrs.PlateCarree())
+)
+lnd.plotSites(fig, ax, size=250)
+lnd.plotMigrationNetwork(
+    fig, ax, lineWidth=10, alphaMin=.1, alphaAmplitude=2.5
+)
+lnd.plotLandBoundary(fig, ax)
+srv.plotClean(fig, ax, bbox=lnd.landLimits)
+fig.savefig(
+    path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=400
+)
+plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 
