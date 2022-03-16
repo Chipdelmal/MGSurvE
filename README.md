@@ -44,7 +44,7 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 - [x] Thorough timing benchmarks
 - [x] Support for xy coordinate systems
 - [x] Integrated Map-plotting routines
-- [ ] Repellency effects
+- [x] Attractiveness/repellency effects
 
 # Authors and Funders
 
