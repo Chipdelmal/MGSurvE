@@ -18,8 +18,8 @@ import cartopy.feature as cfeature
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-(FXD_TRPS, TRPS_NUM, GENS) = (True, 8, 2000)
-DIAG_VAL = 0.02
+(FXD_TRPS, TRPS_NUM, GENS) = (False, 10, 2000)
+DIAG_VAL = 0.25
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
