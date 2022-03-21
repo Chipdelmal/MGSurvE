@@ -19,7 +19,7 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (FXD_TRPS, TRPS_NUM, GENS) = (False, 10, 2000)
-DIAG_VAL = 0.25
+DIAG_VAL = 0.01
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################

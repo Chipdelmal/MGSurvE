@@ -18,13 +18,8 @@ nullTraps = [0, 0, 0, 0]
 typeTraps = [0, 0, 1, 1]
 # Traps' kernels
 tKer = {
-<<<<<<< HEAD
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .075}},
     1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .025}}
-=======
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .040}},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': .9, 'b': .065}}
->>>>>>> b85a6ac6d1f345cc49b2ca690ff4853545b8c8ca
 }
 # Transition probabilities between point-types
 msk = [
