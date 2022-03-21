@@ -54,6 +54,7 @@ class Landscape:
 
         distanceMatrix=None, 
         distanceFunction=None, 
+        distanceParams=None,
         
         migrationMatrix=None, 
         kernelFunction=krn.zeroInflatedExponentialKernel,
