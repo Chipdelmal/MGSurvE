@@ -88,14 +88,5 @@ plt.close('all')
 ###############################################################################
 # Debugging
 ###############################################################################
-srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='.pkl')
-
-
-
-
-pth = path.join(OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM))
-with open(pth+'.pkl', 'wb') as f:
-    pickle.dump(lnd, f)
-
-with open(pth+'.pkl', 'rb') as f:
-    loaded_obj = pickle.load(f)
+srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
+srv.loadLandscape(OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
