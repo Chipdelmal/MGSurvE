@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
+import dill
 import math
 import numpy as np
 import pandas as pd
@@ -83,4 +85,17 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
+###############################################################################
+# Debugging
+###############################################################################
+srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='.pkl')
 
+
+
+
+pth = path.join(OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM))
+with open(pth+'.pkl', 'wb') as f:
+    pickle.dump(lnd, f)
+
+with open(pth+'.pkl', 'rb') as f:
+    loaded_obj = pickle.load(f)

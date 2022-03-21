@@ -5,6 +5,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import dill
 import math
 import numpy as np
 from time import time

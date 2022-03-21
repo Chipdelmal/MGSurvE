@@ -198,8 +198,8 @@ fig.savefig(
 # Traps Plots
 ###############################################################################
 d = np.arange(0.0, 50.0, 0.01)
-pa = [srv.exponentialDecay(i, A=1, b=.1) for i in d]
-pb = [srv.sigmoidDecay(i, A=1, rate=.2, x0=25) for i in d]
+pa = [srv.exponentialDecay(i, A=.5, b=.2) for i in d]
+pb = [srv.sigmoidDecay(i, A=.5, rate=.25, x0=10) for i in d]
 pc = [srv.exponentialAttractiveness(i, A=1, k=.1, s=.2, gamma=.8, epsilon=0) for i in d]
 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)

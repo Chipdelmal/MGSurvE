@@ -10,6 +10,7 @@ import os
 import numpy as np
 import pandas as pd
 from os import path
+import dill as pickle
 from compress_pickle import dump, load
 from vincenty import vincenty
 
@@ -93,10 +94,15 @@ def dumpLandscape(landscape, fPath, fName, fExt='bz2'):
         fName (string): Filename.
         fExt (string): File extension.
     """
-    dump(
-        landscape, 
-        path.join(fPath, '{}.{}'.format(fName, fExt))
-    )
+    if fExt == 'bz2':
+        dump(
+            landscape, 
+            path.join(fPath, '{}.{}'.format(fName, fExt))
+        )
+    else:
+        with open(path.join(fPath, '{}.{}'.format(fName, fExt)), 'wb') as f:
+            pickle.dump(landscape, f)
+        
 
 def loadLandscape(fPath, fName, fExt='bz2'):
     """Loads a serialized landscape from disk.
@@ -109,9 +115,13 @@ def loadLandscape(fPath, fName, fExt='bz2'):
     Returns:
         (object): Landscape object.
     """
-    lnd = load(
-        path.join(fPath, '{}.{}'.format(fName, fExt))
-    )
+    if fExt == 'bz2':
+        lnd = load(
+            path.join(fPath, '{}.{}'.format(fName, fExt))
+        )
+    else:
+        with open(path.join(fPath, '{}.{}'.format(fName, fExt)), 'rb') as f:
+            lnd = pickle.load(f)
     return lnd
 
 def exportLandscape(landscape, fPath, fName):
