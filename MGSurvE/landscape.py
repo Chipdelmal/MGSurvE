@@ -8,7 +8,7 @@
 import math
 import numpy as np
 from time import time
-import vincenty as vin
+from haversine import haversine
 from sklearn.preprocessing import normalize
 from sklearn.cluster import KMeans
 import MGSurvE.matrices as mat
@@ -54,7 +54,6 @@ class Landscape:
 
         distanceMatrix=None, 
         distanceFunction=None, 
-        distanceParams=None,
         
         migrationMatrix=None, 
         kernelFunction=krn.zeroInflatedExponentialKernel,
@@ -97,6 +96,7 @@ class Landscape:
         self.populations = populations
         self.latlon = False
         self.landLimits = landLimits
+        self.reversePlot = False
         # Check and define coordinates ----------------------------------------
         ptsHead = set(points.columns)
         if ('x' in ptsHead) and ('y' in ptsHead):
@@ -108,8 +108,11 @@ class Landscape:
             self.geometryType = 'll'
             self.pointCoords = np.asarray(points[['lon', 'lat']])
             self.latlon = True
+            self.reversePlot = True
             if distanceFunction is None:
-                self.distanceFunction = aux.vincentyDistance
+                self.distanceFunction = lambda a, b: haversine(
+                    (a[1], a[0]), (b[1], b[0]), unit='m'
+                )
         else:
             raise Exception(
                 '''Check the landscape type! 
@@ -334,6 +337,9 @@ class Landscape:
         ):
         """Plots the sites coordinates.
         """
+        # pCoords = self.pointCoords
+        # if reversePlot:
+        #     pCoords = np.asarray([[i[1], i[0]] for i in self.pointCoords])
         (fig, ax) = plt.plotSites(
             fig, ax, 
             self.pointCoords, self.pointTypes,

@@ -29,7 +29,8 @@ setuptools.setup(
         'numpy', 'matplotlib', 'ipython',
         'jupyter', 'pandas', 'compress-pickle',
         'deap', 'scikit-learn', 'scipy', 'vincenty',
-        'pytest', 'networkx', 'pointpats', 'geopandas'
+        'pytest', 'networkx', 'pointpats', 'geopandas',
+        'haversine'
     ],
     license='MIT',
     classifiers=[

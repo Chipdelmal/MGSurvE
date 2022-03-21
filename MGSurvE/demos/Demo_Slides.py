@@ -185,9 +185,9 @@ pb = srv.truncatedExponential(d, params=srv.AEDES_EXP_PARAMS)
 pc = srv.truncatedExponential(d, params=[.025, 1, 20])
 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-ax.plot(d, pa, color=srv.MCOL[0], lw=6)
+# ax.plot(d, pa, color=srv.MCOL[0], lw=6)
 ax.plot(d, pb, color=srv.MCOL[1], lw=6)
-ax.plot(d, pc, color=srv.MCOL[2], lw=6)
+# ax.plot(d, pc, color=srv.MCOL[2], lw=6)
 srv.plotClean(fig, ax, frame=True, bbox=((d[0], d[-1]), (0, .1)))
 ax.set_aspect(.3/ax.get_data_ratio())
 fig.savefig(
@@ -197,17 +197,17 @@ fig.savefig(
 ###############################################################################
 # Traps Plots
 ###############################################################################
-d = np.arange(0.0, 20.0, 0.02)
-pa = [srv.exponentialDecay(i, A=1, b=1) for i in d]
-pb = [srv.sigmoidDecay(i, A=1, rate=.5, x0=10) for i in d]
+d = np.arange(0.0, 50.0, 0.01)
+pa = [srv.exponentialDecay(i, A=1, b=.1) for i in d]
+pb = [srv.sigmoidDecay(i, A=1, rate=.2, x0=25) for i in d]
 pc = [srv.exponentialAttractiveness(i, A=1, k=.1, s=.2, gamma=.8, epsilon=0) for i in d]
 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 ax.plot(d, pa, color='#f72585', lw=4)
 ax.plot(d, pb, color='#f038ff', lw=4)
 ax.plot(d, pc, color='#9381ff', lw=4)
-srv.plotClean(fig, ax, frame=True, bbox=((d[0], d[-1]), (0, 1)))
 ax.set_aspect(.3/ax.get_data_ratio())
+srv.plotClean(fig, ax, frame=True, bbox=((d[0], d[-1]), (0, 1)))
 fig.savefig(
     PT_OUT+'traps.png', dpi=300, bbox_inches='tight', 
     pad_inches=0, transparent=False

@@ -35,7 +35,7 @@ YK_BBOX = (
     (min(YK_LL['lon'])-pad, max(YK_LL['lon'])+pad),
     (min(YK_LL['lat'])-pad, max(YK_LL['lat'])+pad)
 )
-YK_LL = YK_LL.reindex(columns=['lat', 'lon'])
+# YK_LL = YK_LL.reindex(columns=['lat', 'lon'])
 # YK_CNTR = [i[0]+(i[1]-i[0])/2 for i in YK_LL]
 # Movement Kernel -------------------------------------------------------------
 mKer = {
@@ -52,15 +52,15 @@ traps = pd.DataFrame({
     't': [0, 0, 0, 0], 'f': nullTraps
 })
 tKer = {
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': 1.0, 'b': 500}},
-    1: {'kernel': srv.sigmoidDecay,     'params': {'A': 1.0, 'rate': 75, 'x0': .05}},
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': 1.0, 'b': 0.1               }},
+    1: {'kernel': srv.sigmoidDecay,     'params': {'A': 1.0, 'rate': 0.2, 'x0': 25  }},
 }
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
 lnd = srv.Landscape(
     YK_LL, 
-    distanceFunction=(lambda lat, lon: haversine(lat, lon, unit='m')),
+    # distanceFunction=(lambda lat, lon: haversine(lat, lon, unit='m')),
     kernelFunction=mKer['kernelFunction'], kernelParams=mKer['kernelParams'],
     traps=traps, trapsKernels=tKer, trapsRadii=[.20, .25, .5],
     landLimits=YK_BBOX
@@ -71,8 +71,11 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 # Plot Landscape
 ###############################################################################
 (fig, ax) = (plt.figure(figsize=(15, 15)), plt.axes(projection=crs.PlateCarree()))
-lnd.plotSites(fig, ax, size=50)
-# lnd.plotMigrationNetwork(fig, ax, lineWidth=500, alphaMin=.1, alphaAmplitude=20)
+lnd.plotSites(fig, ax, size=75)
+lnd.plotMigrationNetwork(
+    fig, ax, 
+    lineWidth=10, alphaMin=.1, alphaAmplitude=2.5,
+)
 lnd.plotTraps(fig, ax, zorders=(30, 25))
 srv.plotClean(fig, ax, bbox=YK_BBOX)
 fig.savefig(
@@ -80,3 +83,4 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
+
