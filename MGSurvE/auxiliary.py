@@ -7,6 +7,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+from math import cos, sqrt
 import numpy as np
 import pandas as pd
 from os import path
@@ -18,7 +19,7 @@ from vincenty import vincenty
 ###############################################################################
 # Vincenty distance between points
 ###############################################################################
-def vincentyDistance(pointA, pointB, meters=False):
+def vincentyDistance(pointA, pointB, meters=True):
     """Calculates the Vincenty arc distance between points.
     
     Args:
@@ -36,6 +37,26 @@ def vincentyDistance(pointA, pointB, meters=False):
         return distKM*1000
     else:
         return distKM
+
+
+# ptB = [145.72726054, -16.81220888]
+# ptA = [145.7274588, -16.81253358]
+
+def cheapRuler(pointA, pointB):
+    """Calculates the distance between two (lon,lat) points assumming flat approximations.
+        https://blog.mapbox.com/fast-geodesic-approximations-with-cheap-ruler-106f229ad016
+    """
+    (parLen, merLen) = (40074e3, 20004e3)
+    (lonA, latA) = pointA
+    (lonB, latB) = pointB
+    # Distance calculations
+    (dx, dy) = (
+        parLen*(abs(lonA-lonB)/360)*cos((latA+latB)/2),
+        merLen*(abs(latA-latB)/180)
+    )
+    distance = sqrt(dx**2+dy**2)
+    return distance
+
 
 
 ###############################################################################
