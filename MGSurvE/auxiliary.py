@@ -8,6 +8,7 @@
 
 import os
 from math import cos, sqrt
+from haversine import haversine
 import numpy as np
 import pandas as pd
 from os import path
@@ -15,6 +16,9 @@ import dill as pickle
 from compress_pickle import dump, load
 from vincenty import vincenty
 
+
+ptB = [145.72726054, -16.81220888]
+ptA = [145.7274588, -16.81253358]
 
 ###############################################################################
 # Vincenty distance between points
@@ -39,14 +43,11 @@ def vincentyDistance(pointA, pointB, meters=True):
         return distKM
 
 
-# ptB = [145.72726054, -16.81220888]
-# ptA = [145.7274588, -16.81253358]
-
 def cheapRuler(pointA, pointB):
     """Calculates the distance between two (lon,lat) points assumming flat approximations.
         https://blog.mapbox.com/fast-geodesic-approximations-with-cheap-ruler-106f229ad016
     """
-    (parLen, merLen) = (40074e3, 20004e3)
+    (parLen, merLen) = (40074.275e3, 20004.146e3)
     (lonA, latA) = pointA
     (lonB, latB) = pointB
     # Distance calculations
@@ -58,6 +59,14 @@ def cheapRuler(pointA, pointB):
     return distance
 
 
+def haversineDistance(pointA, pointB):
+    """Calculates the distance between two (lon,lat) points using the haversine approximation.
+
+    """
+    (lonA, latA) = pointA
+    (lonB, latB) = pointB
+    distance = haversine((latB, lonB), (latA, lonA), unit='m')
+    return distance
 
 ###############################################################################
 # Various auxiliary functions

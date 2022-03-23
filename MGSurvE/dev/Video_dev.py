@@ -18,15 +18,15 @@ from PIL import Image
 # ffmpeg -start_number 0 -r 4 -f image2 -s 1920x1080 -i STP_10_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 15 -pix_fmt yuv420p OUTPUT_PATH.mp4
 
 (OUT_PTH, LND_TYPE, ID) = (
-    '../demos/Paper/sims_out/', 
-    'STP_FXD', '10'
+    '/home/chipdelmal/Documents/WorkSims/MGSurvE_Yorkeys/', 
+    'YK2', '05'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
 srv.makeFolder(IMG_PTH)
-DPI = 300
+DPI = 200
 
-lnd = srv.loadLandscape(OUT_PTH, fPat+'TRP')
+lnd = srv.loadLandscape(OUT_PTH, fPat+'TRP', fExt='pkl')
 dat = srv.importLog(OUT_PTH, fPat+'LOG')
 ###############################################################################
 # Plot Loop
@@ -34,7 +34,7 @@ dat = srv.importLog(OUT_PTH, fPat+'LOG')
 (gaMin, gaTraps, gens) = (dat['min'], dat['traps'], dat.shape[0])
 bbox = lnd.getBoundingBox()
 i=10
-for i in range(0, gens):
+for i in range(1743, len(gaMin)):
     print("* Exporting frame {:05d}".format(i), end='\r')
     ###########################################################################
     # Reshape and update traps
@@ -44,7 +44,7 @@ for i in range(0, gens):
     ).T
     trapsLocs = pd.DataFrame(
         np.vstack([trapsCoords, lnd.trapsTypes, lnd.trapsFixed]).T, 
-        columns=['x', 'y', 't', 'f']
+        columns=['lon', 'lat', 't', 'f']
     )
     trapsLocs['t']=trapsLocs['t'].astype('int64')
     trapsLocs['f']=trapsLocs['f'].astype('int64')
@@ -59,13 +59,13 @@ for i in range(0, gens):
     lnd.plotTraps(fig, ax, colors={0: '#f725850D'})
     srv.plotClean(fig, ax, bbox=lnd.landLimits)
     ax.text(
-        0.5, 0.5, '{:.3f}'.format(gaMin[i]),
+        0.75, 0.15, '{:.4f}'.format(gaMin[i]),
         horizontalalignment='center', verticalalignment='center',
-        fontsize=100, color='#00000011',
+        fontsize=50, color='#00000011',
         transform=ax.transAxes, zorder=5
     )
     ax.text(
-        0.5, 0.44, 'gens: {:04d}'.format(i),
+        0.75, 0.10, 'gens: {:04d}'.format(i),
         horizontalalignment='center', verticalalignment='center',
         fontsize=25, color='#00000011',
         transform=ax.transAxes, zorder=5
@@ -80,12 +80,12 @@ for i in range(0, gens):
     ###########################################################################
     # Overlay Brute-force
     ###########################################################################
-    time.sleep(1)
+    time.sleep(1.5)
     background = Image.open(path.join(OUT_PTH, fPat+'CLN.png')).convert('RGBA')
     foreground = Image.open(pthSave).convert('RGBA')
     (w, h) = background.size
     background = background.crop((0, 0, w, h))
-    foreground = foreground.resize((int(w/1), int(h/1)),Image.ANTIALIAS)
+    foreground = foreground.resize((int(w/1), int(h/1)), Image.ANTIALIAS)
     background.paste(foreground, (0, 0), foreground)
     background.save(pthSave, dpi=(DPI, DPI))
     background.close()
