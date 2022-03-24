@@ -478,10 +478,12 @@ def saveFig(
 
 def plotTrapsKernels(
         lnd, fig=None, ax=None, 
-        colors=cst.TRP_COLS, maxSca=5, alpha=.75
+        colors=cst.TRP_COLS, maxSca=5, alpha=.75,
+        distRange=(0, 100)
     ):
     kers = lnd.trapsKernels
-    dMax = max(max([kers[i]['radii'] for i in range(len(kers))])) * maxSca
+    # dMax = max(max([kers[i]['radii'] for i in range(len(kers))])) * maxSca
+    dMax = distRange[1]
     # Generate figure
     if (fig is None) or (ax is None):
         (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
