@@ -478,7 +478,7 @@ def saveFig(
 
 def plotTrapsKernels(
         lnd, fig=None, ax=None, 
-        colors=srv.TRP_COLS, maxSca=5, alpha=.75
+        colors=cst.TRP_COLS, maxSca=5, alpha=.75
     ):
     kers = lnd.trapsKernels
     dMax = max(max([kers[i]['radii'] for i in range(len(kers))])) * maxSca
