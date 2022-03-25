@@ -19,7 +19,7 @@ from PIL import Image
 
 (OUT_PTH, LND_TYPE, ID) = (
     '/home/chipdelmal/Documents/WorkSims/MGSurvE_Yorkeys/', 
-    'YK2', '05'
+    'YKT', '05'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
@@ -34,7 +34,7 @@ dat = srv.importLog(OUT_PTH, fPat+'LOG')
 (gaMin, gaTraps, gens) = (dat['min'], dat['traps'], dat.shape[0])
 bbox = lnd.getBoundingBox()
 i=10
-for i in range(1743, len(gaMin)):
+for i in range(1700, len(gaMin)):
     print("* Exporting frame {:05d}".format(i), end='\r')
     ###########################################################################
     # Reshape and update traps
@@ -56,7 +56,10 @@ for i in range(1743, len(gaMin)):
         plt.figure(figsize=(15, 15)),
         plt.axes(projection=ccrs.PlateCarree())
     )
-    lnd.plotTraps(fig, ax, colors={0: '#f725850D'})
+    lnd.plotTraps(fig, ax, colors={
+        0: '#f7258515', 1: '#abc4ff35', 2: '#5ddeb125', 
+        3: '#f038ff15', 4: '#e2ef7015', 5: '#9381ff15', 
+    })
     srv.plotClean(fig, ax, bbox=lnd.landLimits)
     ax.text(
         0.75, 0.15, '{:.4f}'.format(gaMin[i]),
@@ -80,7 +83,7 @@ for i in range(1743, len(gaMin)):
     ###########################################################################
     # Overlay Brute-force
     ###########################################################################
-    time.sleep(1.5)
+    time.sleep(.75)
     background = Image.open(path.join(OUT_PTH, fPat+'CLN.png')).convert('RGBA')
     foreground = Image.open(pthSave).convert('RGBA')
     (w, h) = background.size
@@ -90,4 +93,3 @@ for i in range(1743, len(gaMin)):
     background.save(pthSave, dpi=(DPI, DPI))
     background.close()
     foreground.close()
-    plt.close('all')
