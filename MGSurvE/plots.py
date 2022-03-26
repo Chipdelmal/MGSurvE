@@ -477,7 +477,7 @@ def saveFig(
 
 
 def plotTrapsKernels(
-        lnd, fig=None, ax=None, 
+        fig, ax, lnd,
         colors=cst.TRP_COLS, maxSca=5, alpha=.75,
         distRange=(0, 100), aspect=.3
     ):
@@ -485,8 +485,6 @@ def plotTrapsKernels(
     # dMax = max(max([kers[i]['radii'] for i in range(len(kers))])) * maxSca
     dMax = distRange[1]
     # Generate figure
-    if (fig is None) or (ax is None):
-        (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
     for i in range(len(kers)):
         ker = kers[i]
         dists = np.arange(0, dMax, dMax/100)
