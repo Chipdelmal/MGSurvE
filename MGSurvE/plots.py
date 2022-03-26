@@ -479,7 +479,7 @@ def saveFig(
 def plotTrapsKernels(
         lnd, fig=None, ax=None, 
         colors=cst.TRP_COLS, maxSca=5, alpha=.75,
-        distRange=(0, 100)
+        distRange=(0, 100), aspect=.3
     ):
     kers = lnd.trapsKernels
     # dMax = max(max([kers[i]['radii'] for i in range(len(kers))])) * maxSca
@@ -487,14 +487,14 @@ def plotTrapsKernels(
     # Generate figure
     if (fig is None) or (ax is None):
         (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-        for i in range(len(kers)):
-            ker = kers[i]
-            dists = np.arange(0, dMax, dMax/100)
-            probs = [ker['kernel'](d, **ker['params']) for d in dists]
-            ax.plot(dists, probs, color=colors[i], lw=4, alpha=alpha)
-        ax.set_xlim(0, dMax)
-        ax.set_ylim(0, 1)
-        ax.set_aspect(.3/ax.get_data_ratio())
+    for i in range(len(kers)):
+        ker = kers[i]
+        dists = np.arange(0, dMax, dMax/100)
+        probs = [ker['kernel'](d, **ker['params']) for d in dists]
+        ax.plot(dists, probs, color=colors[i], lw=4, alpha=alpha)
+    ax.set_xlim(0, dMax)
+    ax.set_ylim(0, 1)
+    ax.set_aspect(.3/ax.get_data_ratio())
     return (fig, ax)
 
 
