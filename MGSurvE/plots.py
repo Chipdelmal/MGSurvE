@@ -2,7 +2,7 @@
 
 '''
 
-
+import matplotlib
 from os import path
 from math import log
 import matplotlib.pyplot as plt
@@ -496,3 +496,13 @@ def plotTrapsKernels(
         ax.set_ylim(0, 1)
         ax.set_aspect(.3/ax.get_data_ratio())
     return (fig, ax)
+
+
+
+def plotsClearMemory():
+    # https://stackoverflow.com/questions/28757348/how-to-clear-memory-completely-of-all-matplotlib-plots
+    allfignums = matplotlib.pyplot.get_fignums()
+    for i in allfignums:
+        fig = matplotlib.pyplot.figure(i)
+        fig.clear()
+        matplotlib.pyplot.close(fig)
