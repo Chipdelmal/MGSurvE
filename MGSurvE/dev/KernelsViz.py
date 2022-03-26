@@ -17,7 +17,7 @@ points = pd.DataFrame(pts, columns=('x', 'y', 't'))
 traps = pd.DataFrame({'x': [0, 0], 'y': [0, 0], 't': [0, 0], 'f': [0, 0]})
 tker = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': 0.045}},
-    1: {'kernel': srv.sigmoidDecay,     'params': {'A': 1, 'rate': .175, 'x0': 30}},
+    1: {'kernel': srv.sigmoidDecay,     'params': {'A': 1, 'rate': .175, 'x0': 25}},
     2: {'kernel': srv.exponentialAttractiveness, 'params': {'A': 1, 'k': .01, 's': .3, 'gamma': .975, 'epsilon': 0}}, 
 }
 # Land creation ---------------------------------------------------------------
