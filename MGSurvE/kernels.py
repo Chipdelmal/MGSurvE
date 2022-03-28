@@ -174,6 +174,7 @@ def nSolveKernel(kernelDict, yVal, guess=0, latlon=False, R=6371):
     Returns:
         float: Distance for the probability value.
     '''
+    # https://stackoverflow.com/questions/5644836/in-python-how-does-one-catch-warnings-as-if-they-were-exceptions
     (kFun, kPar) = (kernelDict['kernel'], kernelDict['params'])
     func = lambda delta : yVal-kFun(delta, **kPar)
     distance = fsolve(func, guess)
@@ -181,4 +182,8 @@ def nSolveKernel(kernelDict, yVal, guess=0, latlon=False, R=6371):
         dist = math.atan(distance[0]/R)
     else:
         dist = distance[0]
-    return dist
+    # Negative radius patch ---------------------------------------------------
+    if dist < 0:
+        return 0
+    else:
+        return dist

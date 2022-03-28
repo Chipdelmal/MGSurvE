@@ -16,9 +16,9 @@ points = pd.DataFrame(pts, columns=('x', 'y', 't'))
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({'x': [0, 0], 'y': [0, 0], 't': [0, 0], 'f': [0, 0]})
 tker = {
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': 0.045}},
-    1: {'kernel': srv.sigmoidDecay,     'params': {'A': 1, 'rate': .175, 'x0': 25}},
-    2: {'kernel': srv.exponentialAttractiveness, 'params': {'A': 1, 'k': .01, 's': .3, 'gamma': .975, 'epsilon': 0}}, 
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': 0.045}},
+    1: {'kernel': srv.sigmoidDecay,     'params': {'A': .5, 'rate': .175, 'x0': 25}},
+    2: {'kernel': srv.exponentialAttractiveness, 'params': {'A': .5, 'k': .01, 's': .3, 'gamma': .975, 'epsilon': 0}}, 
 }
 # Land creation ---------------------------------------------------------------
 lnd = srv.Landscape(points, maskingMatrix=msk, traps=traps, trapsKernels=tker)
@@ -36,3 +36,16 @@ lnd = srv.Landscape(points, maskingMatrix=msk, traps=traps, trapsKernels=tker)
 #     'YK2_06_TRP', fExt='pkl'
 # )
 # srv.plotTrapsKernels(lnd, distRange=(0, 100))
+
+###############################################################################
+# Kernel
+###############################################################################
+# import warnings
+# warnings.filterwarnings("error")
+
+lnd = srv.Landscape(
+    points, 
+    maskingMatrix=msk, traps=traps, trapsKernels=tker,
+    trapsRadii=[1, .1]
+)
+lnd.trapsKernels
