@@ -36,13 +36,9 @@ lnd = srv.Landscape(points, maskingMatrix=msk, traps=traps, trapsKernels=tker)
 #     'YK2_06_TRP', fExt='pkl'
 # )
 # srv.plotTrapsKernels(lnd, distRange=(0, 100))
-
 ###############################################################################
 # Kernel
 ###############################################################################
-# import warnings
-# warnings.filterwarnings("error")
-
 lnd = srv.Landscape(
     points, 
     maskingMatrix=msk, traps=traps, trapsKernels=tker,
