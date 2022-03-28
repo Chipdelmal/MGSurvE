@@ -23,15 +23,31 @@ matplotlib.use('agg')
 
 (OUT_PTH, LND_TYPE, ID) = (
     '/home/chipdelmal/Documents/WorkSims/MGSurvE_Yorkeys/', 
-    'YKN', '05'
+    'YKN', '08'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
 srv.makeFolder(IMG_PTH)
 DPI = 200
-
+###############################################################################
+# Load Landscape
+############################################################################### 
 lnd = srv.loadLandscape(OUT_PTH, fPat+'TRP', fExt='pkl')
 dat = srv.importLog(OUT_PTH, fPat+'LOG')
+TCOL = {
+    0: '#f7258515', 1: '#fe5f5515', 2: '#5ddeb125', 
+    3: '#f038ff15', 4: '#e2ef7015', 5: '#9381ff15', 
+}
+###############################################################################
+# Kernel Plot
+############################################################################### 
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 125), colors=TCOL)
+fig.savefig(
+    path.join(OUT_PTH, '{}{}_{}_KER.png'.format(OUT_PTH, LND_TYPE, ID)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+)
+plt.close('all')
 ###############################################################################
 # Plot Loop
 ############################################################################### 
@@ -60,10 +76,7 @@ for i in range(0, len(gaMin)):
         plt.figure(figsize=(15, 15)),
         plt.axes(projection=ccrs.PlateCarree())
     )
-    (fig, ax) = lnd.plotTraps(fig, ax, colors={
-        0: '#f7258515', 1: '#abc4ff20', 2: '#5ddeb125', 
-        3: '#f038ff15', 4: '#e2ef7015', 5: '#9381ff15', 
-    })
+    (fig, ax) = lnd.plotTraps(fig, ax, colors=TCOL)
     (fig, ax) = srv.plotClean(fig, ax, bbox=lnd.landLimits)
     ax.text(
         0.75, 0.15, '{:.4f}'.format(gaMin[i]),
