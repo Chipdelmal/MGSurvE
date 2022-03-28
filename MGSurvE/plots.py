@@ -492,7 +492,7 @@ def plotTrapsKernels(
         ax.plot(dists, probs, color=colors[i], lw=4, alpha=alpha)
     ax.set_xlim(0, dMax)
     ax.set_ylim(0, 1)
-    ax.set_aspect(.3/ax.get_data_ratio())
+    ax.set_aspect(aspect/ax.get_data_ratio())
     return (fig, ax)
 
 
