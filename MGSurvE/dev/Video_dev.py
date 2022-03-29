@@ -1,40 +1,60 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import gc
 import time
 import numpy as np
 import pandas as pd
-import os
 from os import path
 from sys import argv
 import cartopy.crs as ccrs
+import matplotlib
+from matplotlib import figure
 import cartopy.feature as cfeature
 from copy import deepcopy
 import matplotlib.pyplot as plt
 from compress_pickle import dump, load
 import MGSurvE as srv
 from PIL import Image
+matplotlib.use('agg')
+# https://github.com/matplotlib/matplotlib/issues/20067
 
 # ffmpeg -start_number 0 -r 4 -f image2 -s 1920x1080 -i STP_10_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 15 -pix_fmt yuv420p OUTPUT_PATH.mp4
 
 (OUT_PTH, LND_TYPE, ID) = (
     '/home/chipdelmal/Documents/WorkSims/MGSurvE_Yorkeys/', 
-    'YK2', '05'
+    'YKN', '08'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
 srv.makeFolder(IMG_PTH)
 DPI = 200
-
+###############################################################################
+# Load Landscape
+############################################################################### 
 lnd = srv.loadLandscape(OUT_PTH, fPat+'TRP', fExt='pkl')
 dat = srv.importLog(OUT_PTH, fPat+'LOG')
+TCOL = {
+    0: '#f7258515', 1: '#fe5f5515', 2: '#5ddeb125', 
+    3: '#f038ff15', 4: '#e2ef7015', 5: '#9381ff15', 
+}
+###############################################################################
+# Kernel Plot
+############################################################################### 
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 125), colors=TCOL)
+fig.savefig(
+    path.join(OUT_PTH, '{}{}_{}_KER.png'.format(OUT_PTH, LND_TYPE, ID)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+)
+plt.close('all')
 ###############################################################################
 # Plot Loop
 ############################################################################### 
 (gaMin, gaTraps, gens) = (dat['min'], dat['traps'], dat.shape[0])
 bbox = lnd.getBoundingBox()
 i=10
-for i in range(1743, len(gaMin)):
+for i in range(0, len(gaMin)):
     print("* Exporting frame {:05d}".format(i), end='\r')
     ###########################################################################
     # Reshape and update traps
@@ -56,8 +76,8 @@ for i in range(1743, len(gaMin)):
         plt.figure(figsize=(15, 15)),
         plt.axes(projection=ccrs.PlateCarree())
     )
-    lnd.plotTraps(fig, ax, colors={0: '#f725850D'})
-    srv.plotClean(fig, ax, bbox=lnd.landLimits)
+    (fig, ax) = lnd.plotTraps(fig, ax, colors=TCOL)
+    (fig, ax) = srv.plotClean(fig, ax, bbox=lnd.landLimits)
     ax.text(
         0.75, 0.15, '{:.4f}'.format(gaMin[i]),
         horizontalalignment='center', verticalalignment='center',
@@ -76,11 +96,15 @@ for i in range(1743, len(gaMin)):
         dpi=DPI, bbox_inches='tight', 
         pad_inches=0.1, transparent=True
     )
-    plt.close('all')
+    srv.plotsClearMemory()
+    fig.clf()
+    plt.close()
+    plt.close("all")
+    gc.collect()
     ###########################################################################
     # Overlay Brute-force
     ###########################################################################
-    time.sleep(1.5)
+    time.sleep(.75)
     background = Image.open(path.join(OUT_PTH, fPat+'CLN.png')).convert('RGBA')
     foreground = Image.open(pthSave).convert('RGBA')
     (w, h) = background.size
@@ -90,4 +114,3 @@ for i in range(1743, len(gaMin)):
     background.save(pthSave, dpi=(DPI, DPI))
     background.close()
     foreground.close()
-    plt.close('all')
