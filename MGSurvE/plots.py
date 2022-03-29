@@ -487,7 +487,7 @@ def plotTrapsKernels(
     # Generate figure
     for i in range(len(kers)):
         ker = kers[i]
-        dists = np.arange(0, dMax, dMax/100)
+        dists = np.arange(0, dMax+1, dMax/100)
         probs = [ker['kernel'](d, **ker['params']) for d in dists]
         ax.plot(dists, probs, color=colors[i], lw=4, alpha=alpha)
     ax.set_xlim(0, dMax)
