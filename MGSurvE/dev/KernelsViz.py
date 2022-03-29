@@ -21,8 +21,15 @@ tker = {
     2: {'kernel': srv.exponentialAttractiveness, 'params': {'A': 1, 'k': .025, 's': .2, 'gamma': .8, 'epsilon': 0}}, 
 }
 # Land creation ---------------------------------------------------------------
-lnd = srv.Landscape(points, maskingMatrix=msk, traps=traps, trapsKernels=tker)
+lnd = srv.Landscape(
+    points, maskingMatrix=msk, 
+    traps=traps, trapsKernels=tker,
+    trapsRadii=[.75, .5]
+)
 srv.plotTrapsKernels(lnd, distRange=(0, 100))
+
+kers = lnd.trapsKernels
+kers[2]
 ###############################################################################
 # Plot Kernel
 ###############################################################################

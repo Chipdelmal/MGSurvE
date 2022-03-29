@@ -489,9 +489,15 @@ def plotTrapsKernels(
         (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
         for i in range(len(kers)):
             ker = kers[i]
+            rad = ker['radii']
             dists = np.arange(0, dMax, dMax/100)
             probs = [ker['kernel'](d, **ker['params']) for d in dists]
             ax.plot(dists, probs, color=colors[i], lw=4, alpha=alpha)
+            ax.vlines(
+                rad, 0, 1, 
+                transform=ax.get_xaxis_transform(), 
+                lw=.75, ls='--', colors=colors[i], alpha=alpha
+            )
         ax.set_xlim(0, dMax)
         ax.set_ylim(0, 1)
         ax.set_aspect(.3/ax.get_data_ratio())
