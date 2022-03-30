@@ -7,7 +7,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from math import cos, sqrt
+from math import cos, sqrt, pi
 from haversine import haversine
 import numpy as np
 import pandas as pd
@@ -47,6 +47,8 @@ def cheapRuler(pointA, pointB):
     """Calculates the distance between two (lon,lat) points assumming flat approximations.
         https://blog.mapbox.com/fast-geodesic-approximations-with-cheap-ruler-106f229ad016
     """
+
+    """
     (parLen, merLen) = (40074.275e3, 20004.146e3)
     (lonA, latA) = pointA
     (lonB, latB) = pointB
@@ -56,6 +58,38 @@ def cheapRuler(pointA, pointB):
         merLen*(abs(latA-latB)/180)
     )
     distance = sqrt(dx**2+dy**2)
+    """
+
+    """Following code based on:
+        https://github.com/mapbox/cheap-ruler/blob/master/index.js
+    """
+    (lonA, latA) = pointA
+    (lonB, latB) = pointB
+
+    RE = 6378.137
+    FE = 1 / 298.257223563
+    E2 = FE * (2 - FE)
+    RAD = pi / 180
+
+    m = RAD * RE * 1000
+    coslat = cos(latA * RAD)
+    w2 = 1 / (1- E2 * (1 - coslat * coslat))
+    w = sqrt(w2)
+
+    kx = m * w * coslat
+    ky = m * w * w2 * (1 - E2)
+
+    deg = lonA - lonB
+
+    while (deg < -180): 
+        deg += 360
+    while (deg > 180): 
+        deg -= 360
+
+    dx = deg * kx
+    dy = (latA - latB) * ky
+    distance = sqrt(dx**2+dy**2)
+
     return distance
 
 
