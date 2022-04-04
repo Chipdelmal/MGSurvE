@@ -26,6 +26,7 @@
       initChromosome
       mutateChromosome
       mutateChromosomeAsymmetric
+      optimizeTrapsGA
       reshapeInCanonicalForm
    
    

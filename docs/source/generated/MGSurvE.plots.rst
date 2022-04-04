@@ -22,7 +22,9 @@
       plotMigrationNetwork
       plotSites
       plotTraps
+      plotTrapsKernels
       plotTrapsNetwork
+      plotsClearMemory
       saveFig
    
    

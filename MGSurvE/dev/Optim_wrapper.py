@@ -38,8 +38,8 @@ points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 traps = pd.DataFrame({
     'x': [0, 0, 0, 0, 0],
     'y': [0, 0, 0, 0, 0],
-    't': [0, 0, 0, 0, 0],
-    'f': [0, 0, 0, 0, 0]
+    't': [0, 1, 0, 2, 0],
+    'f': [0, 0, 1, 0, 0]
 })
 tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .05}},
@@ -76,26 +76,20 @@ plt.close('all')
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    25,
+    2000,
     {'mate': .3, 'cxpb': 0.5}, 
     {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .5, 'ipb': .5},
     {'tSize': 3}
 )
-VERBOSE = True
 lndGA = deepcopy(lnd)
 ###############################################################################
 # Registering Functions for GA
 ############################################################################### 
 (lndGA, logbook) = srv.optimizeTrapsGA(
-        lndGA,
-        pop_size=50, generations=100,
-        mating_params={'mate': .3, 'cxpb': 0.5}, 
-        mutation_params={'mean': 0, 'sd': 100, 'mutpb': .4, 'ipb': .5},
-        selection_params={'tSize': 3},
-        fitFuns={'outer': np.mean, 'inner': np.max},
-        verbose=True
+        lndGA, pop_size='auto', generations=GENS,
+        mating_params=MAT, mutation_params=MUT, selection_params=SEL,
+        fitFuns={'outer': np.mean, 'inner': np.max}, verbose=True
     )
-dta = pd.DataFrame(logbook)
 srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(LND_TYPE, ID))
 ###############################################################################
 # Plot Landscape
@@ -105,7 +99,7 @@ lndGA.plotSites(fig, ax, size=100)
 lndGA.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lndGA.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=False, bbox=bbox)
-# srv.plotFitness(fig, ax, min(minFits))
+srv.plotFitness(fig, ax, min(logbook['min']))
 fig.savefig(
     path.join(OUT_PTH, '{}_{}_TRP.png'.format(LND_TYPE, ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0, dpi=300

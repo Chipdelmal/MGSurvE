@@ -13,8 +13,10 @@
 
    .. autosummary::
    
+      cheapRuler
       dumpLandscape
       exportLandscape
+      haversineDistance
       isNotebook
       loadLandscape
       makeFolder

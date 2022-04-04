@@ -318,7 +318,10 @@ def exportLog(
         F_NAME (string): Filenamme (without extension).
 
     """
-    log = pd.DataFrame(logbook)
+    if not isinstance(logbook, pd.DataFrame):
+        log = pd.DataFrame(logbook)
+    else:
+        log = logbook
     log.to_csv(path.join(outPath, filename)+'.csv', index=False)
 
 
@@ -338,6 +341,7 @@ def importLog(
     df = pd.read_csv(path.join(inPath, filename+'.csv'))
     return df
 
+
 ###############################################################################
 # GA Wrapper
 ###############################################################################
@@ -348,9 +352,27 @@ def optimizeTrapsGA(
         mating_params={'mate': .3, 'cxpb': 0.5}, 
         mutation_params={'mean': 0, 'sd': 100, 'mutpb': .4, 'ipb': .5},
         selection_params={'tSize': 3},
+        optimFunction=getDaysTillTrapped, 
         fitFuns={'outer': np.mean, 'inner': np.max},
         verbose=True
     ):
+    """Optimizes the traps' positions using a simple GA algorithm.
+
+    Args:
+        landscape (object): Landscape object to use for the analysis.
+        generations (int, optional): Number of generations to run in the GA. Defaults to 1000.
+        bbox (tuple, optional): If not 'auto', tuple with the landscape's bounding box for mutation operations. Defaults to 'auto'.
+        pop_size (str, optional): If not 'auto', size of the chromosome population size in the GA. Defaults to 'auto'.
+        mating_params (dict, optional): Mating probability ('mate') and crossover blending rate ('cxpb') for mating operations. Defaults to {'mate': .3, 'cxpb': 0.5}.
+        mutation_params (dict, optional): Gaussian mean ('mean') and deviation ('sd') for mutation operations, as well as independent allele mutation probability ('ipb'). Defaults to {'mean': 0, 'sd': 100, 'mutpb': .4, 'ipb': .5}.
+        selection_params (dict, optional): Tournament size for the selection algorithm. Defaults to {'tSize': 3}.
+        optimFunction (function, optional): Fitness function to be used upon the movement matrices. Defaults to getDaysTillTrapped.
+        fitFuns (dict, optional): Fitness matrix reduction statistics (inner applied first, and outter applied to the result). Defaults to {'outer': np.mean, 'inner': np.max}.
+        verbose (bool, optional): Verbosity on the optimization. Defaults to True.
+
+    Returns:
+        (object, dataframe): Returns the landscape and logbook for the optimization.
+    """    
     if pop_size=='auto':
         pop_size = int(10*(landscape.trapsNumber*1.25))
     if bbox=='auto':
@@ -398,7 +420,7 @@ def optimizeTrapsGA(
     toolbox.register(
         "evaluate", calcFitness, 
         landscape=landscape,
-        optimFunction=getDaysTillTrapped,
+        optimFunction=optimFunction,
         optimFunctionArgs=fitFuns
     )
     ###########################################################################
@@ -430,4 +452,5 @@ def optimizeTrapsGA(
     bestChromosome = hof[0]
     bestTraps = np.reshape(bestChromosome, (-1, 2))
     landscape.updateTrapsCoords(bestTraps)
-    return (landscape, logbook)
+    logDF = pd.DataFrame(logbook)
+    return (landscape, logDF)
