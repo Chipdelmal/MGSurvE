@@ -456,112 +456,116 @@ def optimizeTrapsGA(
     return (landscape, logDF)
 
 
-# def optimizeTwoSexesTrapsGA(
-#         landscape, 
-#         generations=1000,
-#         bbox='auto',pop_size='auto',
-#         mating_params={'mate': .3, 'cxpb': 0.5}, 
-#         mutation_params={'mean': 0, 'sd': 100, 'mutpb': .4, 'ipb': .5},
-#         selection_params={'tSize': 3},
-#         optimFunction=getDaysTillTrapped, 
-#         fitFuns={'outer': np.mean, 'inner': np.max},
-#         verbose=True
-#     ):
-#     """Optimizes the traps' positions using a simple GA algorithm.
+def optimizeTwoSexesTrapsGA(
+        landscapeMale, landscapeFemale, sexWeights={'M': .5, 'F': .5},
+        generations=1000,
+        bbox='auto',pop_size='auto',
+        mating_params={'mate': .3, 'cxpb': 0.5}, 
+        mutation_params={'mean': 0, 'sd': 100, 'mutpb': .4, 'ipb': .5},
+        selection_params={'tSize': 3},
+        optimFunction=getDaysTillTrapped, 
+        fitFuns={'outer': np.mean, 'inner': np.max},
+        verbose=True
+    ):
+    """Optimizes the traps' positions using a simple GA algorithm for two-sexes kernels.
 
-#     Args:
-#         landscape (object): Landscape object to use for the analysis.
-#         generations (int, optional): Number of generations to run in the GA. Defaults to 1000.
-#         bbox (tuple, optional): If not 'auto', tuple with the landscape's bounding box for mutation operations. Defaults to 'auto'.
-#         pop_size (str, optional): If not 'auto', size of the chromosome population size in the GA. Defaults to 'auto'.
-#         mating_params (dict, optional): Mating probability ('mate') and crossover blending rate ('cxpb') for mating operations. Defaults to {'mate': .3, 'cxpb': 0.5}.
-#         mutation_params (dict, optional): Gaussian mean ('mean') and deviation ('sd') for mutation operations, as well as independent allele mutation probability ('ipb'). Defaults to {'mean': 0, 'sd': 100, 'mutpb': .4, 'ipb': .5}.
-#         selection_params (dict, optional): Tournament size for the selection algorithm. Defaults to {'tSize': 3}.
-#         optimFunction (function, optional): Fitness function to be used upon the movement matrices. Defaults to getDaysTillTrapped.
-#         fitFuns (dict, optional): Fitness matrix reduction statistics (inner applied first, and outter applied to the result). Defaults to {'outer': np.mean, 'inner': np.max}.
-#         verbose (bool, optional): Verbosity on the optimization. Defaults to True.
+    Args:
+        landscapeMale (object): Male landscape object to use for the analysis.
+        landscapeFemale (object): Female landscape object to use for the analysis.
+        sexWeights (dictionary): Male-to-Female priority dictionary.
+        generations (int, optional): Number of generations to run in the GA. Defaults to 1000.
+        bbox (tuple, optional): If not 'auto', tuple with the landscape's bounding box for mutation operations. Defaults to 'auto'.
+        pop_size (str, optional): If not 'auto', size of the chromosome population size in the GA. Defaults to 'auto'.
+        mating_params (dict, optional): Mating probability ('mate') and crossover blending rate ('cxpb') for mating operations. Defaults to {'mate': .3, 'cxpb': 0.5}.
+        mutation_params (dict, optional): Gaussian mean ('mean') and deviation ('sd') for mutation operations, as well as independent allele mutation probability ('ipb'). Defaults to {'mean': 0, 'sd': 100, 'mutpb': .4, 'ipb': .5}.
+        selection_params (dict, optional): Tournament size for the selection algorithm. Defaults to {'tSize': 3}.
+        optimFunction (function, optional): Fitness function to be used upon the movement matrices. Defaults to getDaysTillTrapped.
+        fitFuns (dict, optional): Fitness matrix reduction statistics (inner applied first, and outter applied to the result). Defaults to {'outer': np.mean, 'inner': np.max}.
+        verbose (bool, optional): Verbosity on the optimization. Defaults to True.
 
-#     Returns:
-#         (object, dataframe): Returns the landscape and logbook for the optimization.
-#     """    
-#     if pop_size=='auto':
-#         pop_size = int(10*(landscape.trapsNumber*1.25))
-#     if bbox=='auto':
-#         bbox = landscape.getBoundingBox()
-#     trapsMask = genFixedTrapsMask(landscape.trapsFixed)
-#     ###########################################################################
-#     # Register GA Functions to DEAP
-#     ###########################################################################
-#     # Cost function to minimize -----------------------------------------------
-#     toolbox = base.Toolbox()
-#     creator.create("FitnessMin", base.Fitness, weights=(-1.0, ))
-#     creator.create("Individual", list, fitness=creator.FitnessMin)
-#     # Creators ----------------------------------------------------------------
-#     toolbox.register(
-#         "initChromosome", initChromosome, 
-#         trapsCoords=landscape.trapsCoords, 
-#         fixedTrapsMask=trapsMask, 
-#         coordsRange=bbox
-#     )
-#     toolbox.register(
-#         "individualCreator", tools.initIterate, 
-#         creator.Individual, toolbox.initChromosome
-#     )
-#     toolbox.register(
-#         "populationCreator", tools.initRepeat, 
-#         list, toolbox.individualCreator
-#     )
-#     # Mating and mutation operators -------------------------------------------
-#     toolbox.register(
-#         "mate", cxBlend, 
-#         fixedTrapsMask=trapsMask,
-#         alpha=mating_params['mate']
-#     )
-#     toolbox.register(
-#         "mutate", mutateChromosome,
-#         fixedTrapsMask=trapsMask,
-#         randArgs={'loc': mutation_params['mean'], 'scale': mutation_params['sd']}, 
-#         indpb=mutation_params['ipb']
-#     )
-#     # Select and evaluate -----------------------------------------------------
-#     toolbox.register(
-#         "select", tools.selTournament, 
-#         tournsize=selection_params['tSize']
-#     )
-#     toolbox.register(
-#         "evaluate", calcFitness, 
-#         landscape=landscape,
-#         optimFunction=optimFunction,
-#         optimFunctionArgs=fitFuns
-#     )
-#     ###########################################################################
-#     # Registering GA stats
-#     ###########################################################################
-#     pop = toolbox.populationCreator(n=pop_size)
-#     hof = tools.HallOfFame(1)
-#     stats = tools.Statistics(lambda ind: ind.fitness.values)   
-#     stats.register("min", np.min)
-#     stats.register("avg", np.mean)
-#     stats.register("max", np.max)
-#     stats.register(
-#         "best", lambda fitnessValues: fitnessValues.index(min(fitnessValues))
-#     )
-#     stats.register(
-#         "traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnessValues))]
-#     )
-#     ###########################################################################
-#     # Optimization Cycle
-#     ###########################################################################
-#     (pop, logbook) = algorithms.eaSimple(
-#         pop, toolbox, ngen=generations,  
-#         cxpb=mating_params['cxpb'], mutpb=mutation_params['mutpb'],    
-#         stats=stats, halloffame=hof, verbose=verbose
-#     )
-#     ###############################################################################
-#     # Get and Export Results
-#     ############################################################################### 
-#     bestChromosome = hof[0]
-#     bestTraps = np.reshape(bestChromosome, (-1, 2))
-#     landscape.updateTrapsCoords(bestTraps)
-#     logDF = pd.DataFrame(logbook)
-#     return (landscape, logDF)
+    Returns:
+        (object, dataframe): Returns the landscape and logbook for the optimization.
+    """    
+    if pop_size=='auto':
+        pop_size = int(10*(landscapeMale.trapsNumber*1.25))
+    if bbox=='auto':
+        bbox = landscapeMale.getBoundingBox()
+    trapsMask = genFixedTrapsMask(landscapeMale.trapsFixed)
+    ###########################################################################
+    # Register GA Functions to DEAP
+    ###########################################################################
+    # Cost function to minimize -----------------------------------------------
+    toolbox = base.Toolbox()
+    creator.create("FitnessMin", base.Fitness, weights=(-1.0, ))
+    creator.create("Individual", list, fitness=creator.FitnessMin)
+    # Creators ----------------------------------------------------------------
+    toolbox.register(
+        "initChromosome", initChromosome, 
+        trapsCoords=landscapeMale.trapsCoords, 
+        fixedTrapsMask=trapsMask, 
+        coordsRange=bbox
+    )
+    toolbox.register(
+        "individualCreator", tools.initIterate, 
+        creator.Individual, toolbox.initChromosome
+    )
+    toolbox.register(
+        "populationCreator", tools.initRepeat, 
+        list, toolbox.individualCreator
+    )
+    # Mating and mutation operators -------------------------------------------
+    toolbox.register(
+        "mate", cxBlend, 
+        fixedTrapsMask=trapsMask,
+        alpha=mating_params['mate']
+    )
+    toolbox.register(
+        "mutate", mutateChromosome,
+        fixedTrapsMask=trapsMask,
+        randArgs={'loc': mutation_params['mean'], 'scale': mutation_params['sd']}, 
+        indpb=mutation_params['ipb']
+    )
+    # Select and evaluate -----------------------------------------------------
+    toolbox.register(
+        "select", tools.selTournament, 
+        tournsize=selection_params['tSize']
+    )
+    toolbox.register("evaluate", 
+        calcSexFitness, 
+        landscapeMale=landscapeMale,landscapeFemale=landscapeFemale,
+        weightMale=sexWeights['M'], weightFemale=sexWeights['F'],
+        optimFunction=optimFunction,
+        optimFunctionArgs={'outer': np.mean, 'inner': np.max}
+    )
+    ###########################################################################
+    # Registering GA stats
+    ###########################################################################
+    pop = toolbox.populationCreator(n=pop_size)
+    hof = tools.HallOfFame(1)
+    stats = tools.Statistics(lambda ind: ind.fitness.values)   
+    stats.register("min", np.min)
+    stats.register("avg", np.mean)
+    stats.register("max", np.max)
+    stats.register(
+        "best", lambda fitnessValues: fitnessValues.index(min(fitnessValues))
+    )
+    stats.register(
+        "traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnessValues))]
+    )
+    ###########################################################################
+    # Optimization Cycle
+    ###########################################################################
+    (pop, logbook) = algorithms.eaSimple(
+        pop, toolbox, ngen=generations,  
+        cxpb=mating_params['cxpb'], mutpb=mutation_params['mutpb'],    
+        stats=stats, halloffame=hof, verbose=verbose
+    )
+    ###############################################################################
+    # Get and Export Results
+    ############################################################################### 
+    bestChromosome = hof[0]
+    bestTraps = np.reshape(bestChromosome, (-1, 2))
+    landscapeMale.updateTrapsCoords(bestTraps)
+    landscapeFemale.updateTrapsCoords(bestTraps)
+    logDF = pd.DataFrame(logbook)
+    return ((landscapeMale, landscapeFemale), logDF)

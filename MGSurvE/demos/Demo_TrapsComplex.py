@@ -47,8 +47,8 @@ tKer = {
     1: {'kernel': srv.exponentialDecay, 'params': {'A': 0.35, 'b': .050}}
 }
 tMsk = np.asarray([
-    [1.0, 0.5, 0.0],
-    [0.0, 1.0, 0.0]
+    [1, 0.0, 0.0],
+    [0.0, 0.5, 0.5]
 ])
 # tMsk = np.asarray([
 #     [1.0, 1.0, 1.0],
