@@ -290,7 +290,7 @@ class Landscape:
             })
         self.trapsKernels = tker
     ###########################################################################
-    # Fitness Function
+    # Optimization
     ###########################################################################
     def calcFundamentalMatrix(self):
         """Calculates the Markov fundamental matrix on the landscape.
