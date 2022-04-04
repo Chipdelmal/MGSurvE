@@ -38,7 +38,7 @@ points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 traps = pd.DataFrame({
     'x': [0, 0, 0, 0, 0],
     'y': [0, 0, 0, 0, 0],
-    't': [0, 1, 0, 2, 0],
+    't': [2, 2, 2, 2, 2],
     'f': [0, 0, 1, 0, 0]
 })
 tKernels = {
@@ -76,7 +76,7 @@ plt.close('all')
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    2000,
+    100,
     {'mate': .3, 'cxpb': 0.5}, 
     {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .5, 'ipb': .5},
     {'tSize': 3}

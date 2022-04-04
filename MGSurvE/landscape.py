@@ -183,14 +183,28 @@ class Landscape:
                 self.trapsFixed = np.asarray([0]*len(self.trapsCoords))
             self.trapsNumber = len(self.trapsCoords)
             # Init trap types -------------------------------------------------
+            trapTypesNum = len(set(self.trapsTypes))
+            pointTypesNum = len(set(self.pointTypes))
             if trapsMask is None:
                 mskShape = (
-                    len(set(self.trapsTypes)), 
+                    max(set(self.trapsTypes))+1, 
                     len(set(self.pointTypes))
                 )
                 self.trapsMask = np.full(mskShape, 1)
             else:
                 self.trapsMask = trapsMask
+                if (self.trapsMask.shape[0] != trapTypesNum):
+                    raise Exception(
+                        '''Number of trap types in mask ({}) is not the same as 
+                        trap types in traps dictionary ({}).
+                        '''.format(self.trapsMask.shape[0], trapTypesNum)
+                    )
+                if (self.trapsMask.shape[1] != pointTypesNum):
+                    raise Exception(
+                        '''Number of point types in mask ({}) is not the same as 
+                        the ones defined in the landscape ({}).
+                        '''.format(self.trapsMask.shape[1], pointTypesNum)
+                    )
             # Calculate trapsDistances ----------------------------------------
             self.calcTrapsDistances()
             # Generate empty traps matrix -------------------------------------
