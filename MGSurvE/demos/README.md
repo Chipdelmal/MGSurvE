@@ -15,7 +15,7 @@
 
 ## Paper's Demos
 
-1. Trinity Park: [./Paper/TTP.py](./Paper/TTP.py)
+1. Trinity Park: [./Paper/YKN-Simple.py](./Paper/YKN-Simple.py)
 2. São Tomé: [./Paper/STP.py](./Paper/STP.py)
 3. Synthetic Landscapes: [./Paper/PaperExperiments.sh](./Paper/PaperExperiments.sh)
    1. Landscape Generation: [./Paper/Landscape.py](./Paper/Landscape.py)
