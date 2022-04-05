@@ -1,5 +1,6 @@
 #!/bin/bash
 
+OPT="Simple"
 declare -a lnds=("Grid" "Uniform" "Ring" "Poisson" )
 ###############################################################################
 # Setting landscapes up
@@ -14,12 +15,22 @@ done
 # Optimizing traps
 ###############################################################################
 echo "* [2/3] Optimizing landscapes"
-for lnd in ${lnds[@]}; do
-    printf "\r\tOptimizing $lnd..."
-    python Optimization.py "${lnd}_LND_HOM"
-    python Optimization.py "${lnd}_LND_HET"
-    printf "\r\033[K"
-done
+if [ $OPT == "Simple" ];
+then
+    for lnd in ${lnds[@]}; do
+        printf "\r\tOptimizing (Simple) $lnd..."
+        python Optimization.py "${lnd}_LND_HOM"
+        python Optimization.py "${lnd}_LND_HET"
+        printf "\r\033[K"
+    done
+else
+    for lnd in ${lnds[@]}; do
+        printf "\r\tOptimizing (Complex) $lnd..."
+        python Optimization.py "${lnd}_LND_HOM"
+        python Optimization.py "${lnd}_LND_HET"
+        printf "\r\033[K"
+    done
+fi
 ###############################################################################
 # Concatenating results
 ###############################################################################
