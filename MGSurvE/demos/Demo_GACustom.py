@@ -15,6 +15,7 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (ID, OUT_PTH) = ('GA_DEMO_CX', './scratch/')
+srv.makeFolder(OUT_PTH)
 ###############################################################################
 # Defining Landscape
 ###############################################################################
@@ -51,7 +52,7 @@ lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=False)
 fig.savefig(
-    path.join(OUT_PTH, '{}_TRP1.png'.format(ID)), 
+    path.join(OUT_PTH, '{}_LND.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 ###############################################################################
