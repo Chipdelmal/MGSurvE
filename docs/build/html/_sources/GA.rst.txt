@@ -206,4 +206,4 @@ With the generations (x axis) versus fitness (y axis) plot:
 .. image:: ../../img/demo_GAT.jpg
 
 
-The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GA.py>`_.
+The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GA.py>`_, with the simplified version available `here <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GA-Simple.py>`_.

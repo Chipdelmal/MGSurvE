@@ -73,4 +73,4 @@ Our results after running the algorithm for 500 generations are:
 
 where we can see the impact of encoding the point-type information into the landscape for optimization.
 
-The full code for this demo can be found `here <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_pointTypes.py>`_.
+The full code for this demo can be found `here <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_pointTypes.py>`_ with the simplified version stored in `this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_pointTypes-Simple.py>`_.

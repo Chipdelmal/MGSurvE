@@ -132,4 +132,4 @@ Which kept the two traps as immovable in their place. We can verify this by insp
         [  0.        ,  87.5       ]
     ])
 
-The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GACustom.py>`_.
+The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GACustom.py>`_, with the simplified version available `here <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GACustom-Simple.py>`_.

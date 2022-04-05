@@ -27,6 +27,7 @@
       mutateChromosome
       mutateChromosomeAsymmetric
       optimizeTrapsGA
+      optimizeTwoSexesTrapsGA
       reshapeInCanonicalForm
    
    
