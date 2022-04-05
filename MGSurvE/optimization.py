@@ -373,11 +373,21 @@ def optimizeTrapsGA(
     Returns:
         (object, dataframe): Returns the landscape and logbook for the optimization.
     """    
-    if pop_size=='auto':
-        pop_size = int(10*(landscape.trapsNumber*1.25))
-    if bbox=='auto':
-        bbox = landscape.getBoundingBox()
-    trapsMask = genFixedTrapsMask(landscape.trapsFixed)
+    if bbox == 'auto':
+        bbox = landscapeMale.getBoundingBox()
+    # GA parameters -----------------------------------------------------------
+    if pop_size == 'auto':
+        pop_size = int(10*(landscapeMale.trapsNumber*1.25))
+    if mating_params == 'auto':
+        mating_params = {'mate': .3, 'cxpb': 0.5}
+    if mutation_params == 'auto':
+        mutation_params = {
+            'mean': 0, 'sd': max([i[1]-i[0] for i in bbox])/2.5, 
+            'mutpb': .4, 'ipb': .5
+        }
+    if selection_params == 'auto':
+        selection_params = {'tSize': 3}
+    trapsMask = genFixedTrapsMask(landscapeMale.trapsFixed)
     ###########################################################################
     # Register GA Functions to DEAP
     ###########################################################################
@@ -486,10 +496,20 @@ def optimizeTwoSexesTrapsGA(
     Returns:
         (object, dataframe): Returns the landscape and logbook for the optimization.
     """    
-    if pop_size=='auto':
-        pop_size = int(10*(landscapeMale.trapsNumber*1.25))
-    if bbox=='auto':
+    if bbox == 'auto':
         bbox = landscapeMale.getBoundingBox()
+    # GA parameters -----------------------------------------------------------
+    if pop_size == 'auto':
+        pop_size = int(10*(landscapeMale.trapsNumber*1.25))
+    if mating_params == 'auto':
+        mating_params = {'mate': .3, 'cxpb': 0.5}
+    if mutation_params == 'auto':
+        mutation_params = {
+            'mean': 0, 'sd': max([i[1]-i[0] for i in bbox])/2.5, 
+            'mutpb': .4, 'ipb': .5
+        }
+    if selection_params == 'auto':
+        selection_params = {'tSize': 3}
     trapsMask = genFixedTrapsMask(landscapeMale.trapsFixed)
     ###########################################################################
     # Register GA Functions to DEAP
