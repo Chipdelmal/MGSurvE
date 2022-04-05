@@ -9,7 +9,6 @@ from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
 from compress_pickle import dump, load
-from deap import base, creator, algorithms, tools
 import Constants as cst
 import MGSurvE as srv
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')

@@ -374,10 +374,10 @@ def optimizeTrapsGA(
         (object, dataframe): Returns the landscape and logbook for the optimization.
     """    
     if bbox == 'auto':
-        bbox = landscapeMale.getBoundingBox()
+        bbox = landscape.getBoundingBox()
     # GA parameters -----------------------------------------------------------
     if pop_size == 'auto':
-        pop_size = int(10*(landscapeMale.trapsNumber*1.25))
+        pop_size = int(10*(landscape.trapsNumber*1.25))
     if mating_params == 'auto':
         mating_params = {'mate': .3, 'cxpb': 0.5}
     if mutation_params == 'auto':
@@ -387,7 +387,7 @@ def optimizeTrapsGA(
         }
     if selection_params == 'auto':
         selection_params = {'tSize': 3}
-    trapsMask = genFixedTrapsMask(landscapeMale.trapsFixed)
+    trapsMask = genFixedTrapsMask(landscape.trapsFixed)
     ###########################################################################
     # Register GA Functions to DEAP
     ###########################################################################
