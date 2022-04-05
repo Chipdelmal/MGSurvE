@@ -15,8 +15,9 @@
 
 ## Paper's Demos
 
-1. São Tomé: [./Paper/STP.sh](./Paper/STP.py)
-2. Synthetic Landscapes: [./Paper/PaperExperiments.sh](./Paper/PaperExperiments.sh)
+1. Trinity Park: [./Paper/TTP.py](./Paper/TTP.py)
+2. São Tomé: [./Paper/STP.py](./Paper/STP.py)
+3. Synthetic Landscapes: [./Paper/PaperExperiments.sh](./Paper/PaperExperiments.sh)
    1. Landscape Generation: [./Paper/Landscape.py](./Paper/Landscape.py)
    2. Optimization: [./Paper/Optimization.py](./Paper/Optimization.py)
-3. Heterogeneity Showcase: [./Paper/HeterogeneousSetting.py](./Paper/HeterogeneousSetting.py)
+4. Heterogeneity Showcase: [./Paper/HeterogeneousSetting.py](./Paper/HeterogeneousSetting.py)
