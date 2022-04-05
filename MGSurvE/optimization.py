@@ -459,7 +459,7 @@ def optimizeTrapsGA(
 def optimizeTwoSexesTrapsGA(
         landscapeMale, landscapeFemale, sexWeights={'M': .5, 'F': .5},
         generations=1000,
-        bbox='auto',pop_size='auto',
+        bbox='auto', pop_size='auto',
         mating_params={'mate': .3, 'cxpb': 0.5}, 
         mutation_params={'mean': 0, 'sd': 100, 'mutpb': .4, 'ipb': .5},
         selection_params={'tSize': 3},
@@ -535,7 +535,7 @@ def optimizeTwoSexesTrapsGA(
         landscapeMale=landscapeMale,landscapeFemale=landscapeFemale,
         weightMale=sexWeights['M'], weightFemale=sexWeights['F'],
         optimFunction=optimFunction,
-        optimFunctionArgs={'outer': np.mean, 'inner': np.max}
+        optimFunctionArgs=fitFuns
     )
     ###########################################################################
     # Registering GA stats

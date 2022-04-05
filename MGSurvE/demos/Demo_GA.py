@@ -47,7 +47,7 @@ lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 srv.plotClean(fig, ax, frame=False)
 fig.savefig(
-    path.join(OUT_PTH, '{}_LND.png'.format(ID)), 
+    path.join(OUT_PTH, '{}_CLN.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 ###############################################################################

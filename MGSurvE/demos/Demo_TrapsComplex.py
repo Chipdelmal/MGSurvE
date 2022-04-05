@@ -18,6 +18,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 (OUT_PTH, LND_TYPE, ID, PTS_TYPE) = ('./scratch/', 'AGG', '001', 3)
 ptsNum = 200
 bbox = ((-150, 150), (-100, 100))
+srv.makeFolder(OUT_PTH)
 ###############################################################################
 # Point-process
 ###############################################################################
