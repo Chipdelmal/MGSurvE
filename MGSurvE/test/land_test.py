@@ -79,7 +79,6 @@ def test_MarkovFundamentalMatrix():
     F_B = srv.getFundamentalMatrix(tau, sitesN, trapsN)
     assert np.equal(F_A, F_B).all()
 
-
 ###############################################################################
 # Main
 ###############################################################################

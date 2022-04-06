@@ -31,6 +31,7 @@ class Landscape:
         kernelFunction (function): Function that determines de relationship between distances and migration probabilities.
         kernelParams (dict): Parameters required for the kernel function to determine migration probabilities.
         maskingMatrix (numpy array): Matrix that determines the probability of shifting from one point-type to another one (squared with size equal to the number of point types). If None, every point-type transition is equiprobable.
+        attractionVector (list): Relative attraction of one site to another (does not preserve migration matrix diagonal)
 
         distanceMatrix (numpy array): Matrix with the distances between all the points in the landscape. If None, it's auto-calculated (see calcPointsDistances).
         migrationMatrix (numpy array): Markov matrix that determines the probability of moving from one site to another. If None, it's auto-calculated (see calcPointsMigration).

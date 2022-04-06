@@ -62,7 +62,7 @@ def test_selectiveCrossover_OneShift():
         chromA = srv.initChromosome(chA, initMsk, coordsRange=((-10, 10), (-10, 10)))
         chromB = srv.initChromosome(chB, initMsk, coordsRange=((-10, 10), (-10, 10)))
         (pre1, pre2) = (chromA.copy(), chromB.copy())
-        (ind1, ind2) = srv.cxBlend(chromA, chromB, fxdTrpsMsk)
+        (ind1, ind2) = srv.cxBlend(chromA, chromB, fxdTrpsMsk, alpha=1)
         fxdA = (np.sum([np.isclose(a, b) for (a, b) in zip(pre1, ind1)]) == dims)
         fxdB = (np.sum([np.isclose(a, b) for (a, b) in zip(pre2, ind2)]) == dims)
         result.extend([fxdA and fxdB])
@@ -109,8 +109,7 @@ def test_mutateChromosomeAsymmetric():
         randArgs={
             'x': {'loc': 10, 'scale': 100}, 
             'y': {'loc': 0, 'scale': 0}
-        },
-        indpb=1
+        }, indpb=1
     )
     totalX = np.sum([org[a]!=mod[0][a] for a in range(len(org))])
     # Test mutation over Y ----------------------------------------------------
@@ -119,8 +118,7 @@ def test_mutateChromosomeAsymmetric():
         randArgs={
             'x': {'loc': 0, 'scale': 0}, 
             'y': {'loc': 10, 'scale': 100}
-        },
-        indpb=1
+        }, indpb=1
     )
     totalY = np.sum([org[a]!=mod[0][a] for a in range(len(org))])
     # Test mutation over XY --------------------------------------------------
@@ -129,8 +127,7 @@ def test_mutateChromosomeAsymmetric():
         randArgs={
             'x': {'loc': 10, 'scale': 0}, 
             'y': {'loc': 10, 'scale': 1}
-        },
-        indpb=1
+        }, indpb=1
     )
     totalXY = np.sum([org[a]!=mod[0][a] for a in range(len(org))])
     # Combine tests -----------------------------------------------------------
