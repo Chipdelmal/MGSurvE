@@ -23,16 +23,20 @@ def test_LandAttractiveness():
         points, attractionVector=([HI]*(ptsNum//2)) +([LO]*(ptsNum//2))
     )
     modMig = lndMod.maskedMigration.T
-    # Test Upper-Level --------------------------------------------------------
+    # Test Higher-Level -------------------------------------------------------
     difference = not(all(np.isclose(np.sum(orgMig, axis=1), np.sum(modMig, axis=1))))
     consistency = all(np.isclose(np.sum(orgMig, axis=0), np.sum(modMig, axis=0)))
     # Test I/O ----------------------------------------------------------------
     (diff, ixSplt) = ((modMig.T - orgMig.T), ptsNum//2)
-    # Hi In-degree (all inHi are higher than original)
+    # Hi In-degree (all iHi are higher than original)
     hiIn = sum([sum(i) for i in (diff[:,:ixSplt] > 0)])
+    # Lo In-degree (all oLo are lower than original)
     loIn = sum([sum(i) for i in (diff[:,ixSplt:] < 0)])
     threshold = [i > (ptsNum*ixSplt*.9) for i in (hiIn, loIn)]
+    # Assert tests 
     assert all([consistency, difference]+threshold)
+
+
 
 ###############################################################################
 # Main

@@ -79,8 +79,31 @@ def test_MarkovFundamentalMatrix():
     F_B = srv.getFundamentalMatrix(tau, sitesN, trapsN)
     assert np.equal(F_A, F_B).all()
 
+
+def test_TrapTypeIndexMask():
+    traps = pd.DataFrame({
+        'x': [0, 1, 2, 0],
+        'y': [2, 2, 0, 1],
+        't': [1, 1, 1, 2]
+    })
+    tker = {
+        0: {'kernel': srv.exponentialDecay, 'params': srv.BASIC_EXP_TRAP},
+        1: {'kernel': srv.exponentialDecay, 'params': {'A': 0.1, 'b': 0.5}},
+        2: {'kernel': srv.exponentialDecay, 'params': {'A': 0.1, 'b': 0.5}} 
+    }
+    # Generating landscape --------------------------------------------------------
+    lnd = srv.Landscape(
+        points, maskingMatrix=msk, 
+        traps=traps, trapsKernels=tker
+    )
+    shapes = (lnd.trapsMask.shape == (max(traps['t'])+1, len(set(points['t']))))
+    assert shapes
+
 ###############################################################################
 # Main
 ###############################################################################
 if __name__ == '__main__':
     unittest.main()
+
+
+
