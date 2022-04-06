@@ -3,7 +3,7 @@ Quickstart
 
 Installing `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ in a `conda <https://docs.conda.io/en/latest/miniconda.html>`_ environment is strongly suggested, so once `conda <https://docs.conda.io/en/latest/miniconda.html>`_ is installed, simply run:
 
-.. code-block:: python
+.. code-block:: bash
 
     conda create -n MGSurvE python="3.10" -y
     conda activate MGSurvE
@@ -26,7 +26,7 @@ Looking at our code, we can see that we are defining 150 points in a dataframe w
     ptsNum = 150
     radii = (75, 100)
     xy = srv.ptsDonut(ptsNum, radii).T
-    points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
+    points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*ptsNum})
 
 
 We will now define a dataframe with four movable traps with the same exponential decay attraction kernel (more info in our `"Sites and Trap Types" <./landscapeTraps.html>`_ tutorial):
@@ -63,9 +63,9 @@ With this, we are ready to optimize our landscape!
 
     lndGA = deepcopy(lnd)
     (lnd, logbook) = srv.optimizeTrapsGA(
-        lndGA, generations=500, pop_size='auto', 
-        mating_params='auto', mutation_params='auto', selection_params='auto',
-        verbose=True
+        lndGA, generations=500, 
+        pop_size='auto', mating_params='auto', 
+        mutation_params='auto', selection_params='auto'
     )
     srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
 
@@ -75,11 +75,14 @@ With this, we are ready to optimize our landscape!
 
 And that's it! This code can be run with the following commands on the terminal (assuming we are already at the script's location):
 
-.. code-block:: python
+.. code-block:: bash
 
     conda activate MGSurvE
     python Demo_Quickstart.py
     conda deactivate
 
 
-Running this will create a folder with the before/after plots of our landscape, along with the optimization algorithm logbook.
+Running this will create a folder with the plot of our landscape, along with the optimization algorithm logbook.
+
+
+Please have a look at our more in-depth `tutorials <./demos.html>`_ for info and more applications!

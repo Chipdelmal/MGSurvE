@@ -86,11 +86,11 @@
   <section id="quickstart">
 <h1><span class="section-number">1. </span>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline"></a></h1>
 <p>Installing <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> in a <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">conda</a> environment is strongly suggested, so once <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">conda</a> is installed, simply run:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">MGSurvE</span> <span class="n">python</span><span class="o">=</span><span class="s2">&quot;3.10&quot;</span> <span class="o">-</span><span class="n">y</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">MGSurvE</span>
-<span class="n">conda</span> <span class="n">install</span> <span class="n">deap</span> <span class="o">-</span><span class="n">y</span>
-<span class="n">conda</span> <span class="n">install</span> <span class="n">cartopy</span> <span class="o">-</span><span class="n">y</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">MGSurvE</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n MGSurvE <span class="nv">python</span><span class="o">=</span><span class="s2">&quot;3.10&quot;</span> -y
+conda activate MGSurvE
+conda install deap -y
+conda install cartopy -y
+pip install MGSurvE
 </pre></div>
 </div>
 <p>in the terminal and you should be good to get started!</p>
@@ -99,7 +99,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ptsNum</span> <span class="o">=</span> <span class="mi">150</span>
 <span class="n">radii</span> <span class="o">=</span> <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">xy</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">ptsDonut</span><span class="p">(</span><span class="n">ptsNum</span><span class="p">,</span> <span class="n">radii</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-<span class="n">points</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">xy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]})</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">ptsNum</span><span class="p">})</span>
 </pre></div>
 </div>
 <p>We will now define a dataframe with four movable traps with the same exponential decay attraction kernel (more info in our <a class="reference external" href="./landscapeTraps.html">“Sites and Trap Types”</a> tutorial):</p>
@@ -125,21 +125,22 @@
 <p>With this, we are ready to optimize our landscape!</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lndGA</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span>
 <span class="p">(</span><span class="n">lnd</span><span class="p">,</span> <span class="n">logbook</span><span class="p">)</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">optimizeTrapsGA</span><span class="p">(</span>
-    <span class="n">lndGA</span><span class="p">,</span> <span class="n">generations</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">pop_size</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
-    <span class="n">mating_params</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">mutation_params</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">selection_params</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+    <span class="n">lndGA</span><span class="p">,</span> <span class="n">generations</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">pop_size</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">mating_params</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+    <span class="n">mutation_params</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">selection_params</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span>
 <span class="p">)</span>
 <span class="n">srv</span><span class="o">.</span><span class="n">exportLog</span><span class="p">(</span><span class="n">logbook</span><span class="p">,</span> <span class="n">OUT_PTH</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_LOG&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ID</span><span class="p">))</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/QSTART_TRP.jpg"><img alt="_images/QSTART_TRP.jpg" src="_images/QSTART_TRP.jpg" style="width: 100%;" /></a>
 <p>And that’s it! This code can be run with the following commands on the terminal (assuming we are already at the script’s location):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">MGSurvE</span>
-<span class="n">python</span> <span class="n">Demo_Quickstart</span><span class="o">.</span><span class="n">py</span>
-<span class="n">conda</span> <span class="n">deactivate</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate MGSurvE
+python Demo_Quickstart.py
+conda deactivate
 </pre></div>
 </div>
-<p>Running this will create a folder with the before/after plots of our landscape, along with the optimization algorithm logbook.</p>
+<p>Running this will create a folder with the plot of our landscape, along with the optimization algorithm logbook.</p>
+<p>Please have a look at our more in-depth <a class="reference external" href="./demos.html">tutorials</a> for info and more applications!</p>
 </section>
 
 

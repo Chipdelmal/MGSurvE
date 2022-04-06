@@ -19,7 +19,7 @@ srv.makeFolder(OUT_PTH)
 ptsNum = 150
 radii = (75, 100)
 xy = srv.ptsDonut(ptsNum, radii).T
-points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
+points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*ptsNum})
 ###############################################################################
 # Defining Traps
 ###############################################################################
@@ -38,26 +38,13 @@ lnd = srv.Landscape(
     traps=traps, trapsKernels=tKer
 )
 ###############################################################################
-# Plot Original Landscape
-############################################################################### 
-(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax, size=100)
-lnd.plotTraps(fig, ax)
-lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
-srv.plotClean(fig, ax, frame=False)
-fig.savefig(
-    path.join(OUT_PTH, '{}_CLN.png'.format(ID)), 
-    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-)
-plt.close('all')
-###############################################################################
 # Plotting Traps' Positions
 ############################################################################### 
 lndGA = deepcopy(lnd)
 (lnd, logbook) = srv.optimizeTrapsGA(
-    lndGA, generations=500, pop_size='auto', 
-    mating_params='auto', mutation_params='auto', selection_params='auto',
-    verbose=True
+    lndGA, generations=500, 
+    pop_size='auto', mating_params='auto', 
+    mutation_params='auto', selection_params='auto',
 )
 srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
 ###############################################################################
