@@ -30,7 +30,7 @@ setuptools.setup(
         'jupyter', 'pandas', 'compress-pickle',
         'scikit-learn', 'scipy', 'vincenty',
         'pytest', 'networkx', 'pointpats', 'geopandas',
-        'haversine', 'dill', 'pytest', 'twine'
+        'haversine', 'dill', 'pytest', 'twine', 'wheel'
     ],
     license='MIT',
     classifiers=[
