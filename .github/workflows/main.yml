@@ -23,12 +23,14 @@ jobs:
         with:
           python-version: '3.10'
           conda-channels: anaconda, conda-forge
-          activate-conda: false
+          activate-conda: true
       - name: Install dependencies
         run: |
+          activate-conda: true
           python -m pip install --upgrade pip
           make develop
       - name: Run tests with pytest
         run: |
+          activate-conda: true
           conda install cartopy
           make test
