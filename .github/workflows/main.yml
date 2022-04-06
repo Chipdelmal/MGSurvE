@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          conda install -c conda-forge cartopy
           make develop
+          CONDA/bin/conda -c conda-forge cartopy
       - name: Run tests with pytest
         run: make test
