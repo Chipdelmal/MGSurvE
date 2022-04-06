@@ -97,7 +97,8 @@ def test_TrapTypeIndexMask():
         traps=traps, trapsKernels=tker
     )
     shapes = (lnd.trapsMask.shape == (max(traps['t'])+1, len(set(points['t']))))
-    assert shapes
+    blank = all([all(i==1) for i in lnd.trapsMask])
+    assert all([shapes, blank])
 
 ###############################################################################
 # Main
