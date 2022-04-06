@@ -6,7 +6,6 @@ import pandas as pd
 from copy import deepcopy
 import MGSurvE as srv
 
-
 def test_SelectiveMutation_OneShift():
     (trpsNum, dims) = (12, 2)
     trpsFxd = [0]*trpsNum
@@ -15,12 +14,13 @@ def test_SelectiveMutation_OneShift():
     initChrom = srv.initChromosome(chrom, initMsk, coordsRange=((-10, 10), (-10, 10)))
     # Test one shift mask -----------------------------------------------------
     results = []
+    i = 0
     for i in range(trpsNum):
         trpsFxd = [0]*trpsNum
         trpsFxd[i] = 1
         fxdTrpsMsk = srv.genFixedTrapsMask(trpsFxd)
         mutChrom = deepcopy(initChrom)
-        srv.mutateChromosome(mutChrom, fxdTrpsMsk, randArgs={'loc': 10})
+        srv.mutateChromosome(mutChrom, fxdTrpsMsk, randArgs={'loc': 10}, indpb=1)
         resSum = np.sum(np.isclose(initChrom, mutChrom))
         results.extend([resSum == dims])
     testShift = all(results)
@@ -40,7 +40,7 @@ def test_SelectiveMutation_CumShift():
         trpsFxd[i] = 1
         fxdTrpsMsk = srv.genFixedTrapsMask(trpsFxd)
         mutChrom = deepcopy(initChrom)
-        srv.mutateChromosome(initChrom, fxdTrpsMsk, randArgs={'loc': 10})
+        srv.mutateChromosome(initChrom, fxdTrpsMsk, randArgs={'loc': 10}, indpb=1)
         resSum = np.sum(np.isclose(initChrom, mutChrom))
         results.extend([resSum])
     testCumsum = (np.sum(results)//2 == total)
@@ -109,7 +109,8 @@ def test_mutateChromosomeAsymmetric():
         randArgs={
             'x': {'loc': 10, 'scale': 100}, 
             'y': {'loc': 0, 'scale': 0}
-        }
+        },
+        indpb=1
     )
     totalX = np.sum([org[a]!=mod[0][a] for a in range(len(org))])
     # Test mutation over Y ----------------------------------------------------
@@ -118,7 +119,8 @@ def test_mutateChromosomeAsymmetric():
         randArgs={
             'x': {'loc': 0, 'scale': 0}, 
             'y': {'loc': 10, 'scale': 100}
-        }
+        },
+        indpb=1
     )
     totalY = np.sum([org[a]!=mod[0][a] for a in range(len(org))])
     # Test mutation over XY --------------------------------------------------
@@ -127,7 +129,8 @@ def test_mutateChromosomeAsymmetric():
         randArgs={
             'x': {'loc': 10, 'scale': 0}, 
             'y': {'loc': 10, 'scale': 1}
-        }
+        },
+        indpb=1
     )
     totalXY = np.sum([org[a]!=mod[0][a] for a in range(len(org))])
     # Combine tests -----------------------------------------------------------

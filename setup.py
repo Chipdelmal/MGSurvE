@@ -26,11 +26,11 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
     install_requires=[
-        'numpy', 'matplotlib', 'ipython',
+        'deap', 'numpy', 'matplotlib', 'ipython',
         'jupyter', 'pandas', 'compress-pickle',
-        'deap', 'scikit-learn', 'scipy', 'vincenty',
+        'scikit-learn', 'scipy', 'vincenty',
         'pytest', 'networkx', 'pointpats', 'geopandas',
-        'haversine', 'dill'
+        'haversine', 'dill', 'pytest'
     ],
     license='MIT',
     classifiers=[

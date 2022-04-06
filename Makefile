@@ -26,7 +26,7 @@ version:=$(shell $(python) version.py)
 sdist_name:=MGSurvE-$(version).tar.gz
 
 develop:
-	$(pip) install -e .
+	$(pip) install -e . --use-feature=in-tree-build
 
 clean_develop:
 	- $(pip) uninstall -y MGSurvE
@@ -38,7 +38,7 @@ clean_sdist:
 clean: clean_develop clean_pypi
 
 test:
-	@$(python) -m pytest -vv $(tests)
+	@$(python) -m pytest -vv $(tests) --disable-pytest-warnings
 
 check_build_reqs:
 	@$(python) -c 'import pytest' \
@@ -62,7 +62,6 @@ dev:
 	- make clean
 	- make develop
 	- make test
-	- pip install .
 
 conda:
 	- conda list -e > /conda/REQUIREMENTS.txt
