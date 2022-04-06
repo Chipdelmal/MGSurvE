@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. Quickstart &mdash; MGSurvE  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Landscape Creation" href="landscapeCreation.html" />
+    <link rel="prev" title="Tutorials" href="demos.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> MGSurvE
+            <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="breakdown.html">Pkg Breakdown</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="demos.html">Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1. Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landscapeCreation.html">2. Landscape Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landscapeUpdate.html">3. Landscape Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landscapeTraps.html">4. Sites and Trap Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA.html">5. GA Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA_custom.html">6. GA with Immovable Traps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA_sites.html">7. GA Custom with Multi-Point Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA_complex.html">8. GA with Sex Kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OT_trapMask.html">9. Stage-Specific Traps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA_STP.html">10. GA in a Realistic Landscape</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MGSurvE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="demos.html">Tutorials</a> &raquo;</li>
+      <li><span class="section-number">1. </span>Quickstart</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Quickstart.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quickstart">
+<h1><span class="section-number">1. </span>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline"></a></h1>
+<p>Installing <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> in a <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">conda</a> environment is strongly suggested, so once <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">conda</a> is installed, simply run:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">MGSurvE</span> <span class="n">python</span><span class="o">=</span><span class="s2">&quot;3.10&quot;</span> <span class="o">-</span><span class="n">y</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">MGSurvE</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="n">deap</span> <span class="o">-</span><span class="n">y</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="n">cartopy</span> <span class="o">-</span><span class="n">y</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">MGSurvE</span>
+</pre></div>
+</div>
+<p>in the terminal and you should be good to get started!</p>
+<p>In this demo, we will define a donut landscape with one of our random landscape generators and optimize the traps positions. The full code can be accessed <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_Quickstart.py">here</a>.</p>
+<p>Looking at our code, we can see that we are defining 150 points in a dataframe with ‘x’, ‘y’ columns for coordinates, and ‘t’ for their point-types (more info in our <a class="reference external" href="./landscapeCreation.html">“Landscape Creation”</a> tutorial):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ptsNum</span> <span class="o">=</span> <span class="mi">150</span>
+<span class="n">radii</span> <span class="o">=</span> <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">xy</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">ptsDonut</span><span class="p">(</span><span class="n">ptsNum</span><span class="p">,</span> <span class="n">radii</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">xy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]})</span>
+</pre></div>
+</div>
+<p>We will now define a dataframe with four movable traps with the same exponential decay attraction kernel (more info in our <a class="reference external" href="./landscapeTraps.html">“Sites and Trap Types”</a> tutorial):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nullTraps</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">traps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">nullTraps</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">nullTraps</span><span class="p">,</span>
+    <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="n">nullTraps</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">nullTraps</span>
+<span class="p">})</span>
+<span class="n">tKer</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">exponentialDecay</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mf">.1</span><span class="p">}}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We are ready to define our landscape object with an imaginary mosquito species that flies quite a bit:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lnd</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">Landscape</span><span class="p">(</span>
+    <span class="n">points</span><span class="p">,</span>
+    <span class="n">kernelParams</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">MEDIUM_MOV_EXP_PARAMS</span><span class="p">,</span> <span class="s1">&#39;zeroInflation&#39;</span><span class="p">:</span> <span class="mf">.25</span><span class="p">},</span>
+    <span class="n">traps</span><span class="o">=</span><span class="n">traps</span><span class="p">,</span> <span class="n">trapsKernels</span><span class="o">=</span><span class="n">tKer</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/QSTART_CLN.jpg"><img alt="_images/QSTART_CLN.jpg" src="_images/QSTART_CLN.jpg" style="width: 100%;" /></a>
+<p>With this, we are ready to optimize our landscape!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lndGA</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span>
+<span class="p">(</span><span class="n">lnd</span><span class="p">,</span> <span class="n">logbook</span><span class="p">)</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">optimizeTrapsGA</span><span class="p">(</span>
+    <span class="n">lndGA</span><span class="p">,</span> <span class="n">generations</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">pop_size</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+    <span class="n">mating_params</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">mutation_params</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">selection_params</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="n">srv</span><span class="o">.</span><span class="n">exportLog</span><span class="p">(</span><span class="n">logbook</span><span class="p">,</span> <span class="n">OUT_PTH</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_LOG&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ID</span><span class="p">))</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/QSTART_TRP.jpg"><img alt="_images/QSTART_TRP.jpg" src="_images/QSTART_TRP.jpg" style="width: 100%;" /></a>
+<p>And that’s it! This code can be run with the following commands on the terminal (assuming we are already at the script’s location):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">MGSurvE</span>
+<span class="n">python</span> <span class="n">Demo_Quickstart</span><span class="o">.</span><span class="n">py</span>
+<span class="n">conda</span> <span class="n">deactivate</span>
+</pre></div>
+</div>
+<p>Running this will create a folder with the before/after plots of our landscape, along with the optimization algorithm logbook.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="demos.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="landscapeCreation.html" class="btn btn-neutral float-right" title="2. Landscape Creation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Hector M. Sanchez C..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

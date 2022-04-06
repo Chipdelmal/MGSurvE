@@ -12,6 +12,7 @@ We chose to use the complex version in the tutorials because it allows more flex
    :numbered:
    :maxdepth: 1
 
+   Quickstart
    landscapeCreation
    landscapeUpdate
    landscapeTraps

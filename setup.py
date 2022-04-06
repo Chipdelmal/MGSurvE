@@ -30,11 +30,12 @@ setuptools.setup(
         'jupyter', 'pandas', 'compress-pickle',
         'scikit-learn', 'scipy', 'vincenty',
         'pytest', 'networkx', 'pointpats', 'geopandas',
-        'haversine', 'dill', 'pytest', 'twine', 'wheel'
+        'haversine', 'dill', 'pytest', 'twine', 'wheel', 'sphinx',
+        'sphinx_rtd_theme'
     ],
     license='MIT',
     classifiers=[
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Operating System :: OS Independent",
     ]
  )

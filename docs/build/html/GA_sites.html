@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6. GA Custom with Multi-Point Type &mdash; MGSurvE  documentation</title>
+  <title>7. GA Custom with Multi-Point Type &mdash; MGSurvE  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="7. GA with Sex Kernels" href="GA_complex.html" />
-    <link rel="prev" title="5. GA with Immovable Traps" href="GA_custom.html" /> 
+    <link rel="next" title="8. GA with Sex Kernels" href="GA_complex.html" />
+    <link rel="prev" title="6. GA with Immovable Traps" href="GA_custom.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,19 +42,20 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="breakdown.html">Pkg Breakdown</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="demos.html">Tutorials</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="landscapeCreation.html">1. Landscape Creation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="landscapeUpdate.html">2. Landscape Update</a></li>
-<li class="toctree-l2"><a class="reference internal" href="landscapeTraps.html">3. Sites and Trap Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="GA.html">4. GA Optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="GA_custom.html">5. GA with Immovable Traps</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">6. GA Custom with Multi-Point Type</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#setting-landscape-up">6.1. Setting Landscape Up</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#optimization-and-results">6.2. Optimization and Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html">1. Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landscapeCreation.html">2. Landscape Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landscapeUpdate.html">3. Landscape Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landscapeTraps.html">4. Sites and Trap Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA.html">5. GA Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA_custom.html">6. GA with Immovable Traps</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7. GA Custom with Multi-Point Type</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setting-landscape-up">7.1. Setting Landscape Up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optimization-and-results">7.2. Optimization and Results</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="GA_complex.html">7. GA with Sex Kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="OT_trapMask.html">8. Stage-Specific Traps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="GA_STP.html">9. GA in a Realistic Landscape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA_complex.html">8. GA with Sex Kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OT_trapMask.html">9. Stage-Specific Traps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GA_STP.html">10. GA in a Realistic Landscape</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
@@ -76,7 +77,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="demos.html">Tutorials</a> &raquo;</li>
-      <li><span class="section-number">6. </span>GA Custom with Multi-Point Type</li>
+      <li><span class="section-number">7. </span>GA Custom with Multi-Point Type</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/GA_sites.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -87,12 +88,12 @@
            <div itemprop="articleBody">
              
   <section id="ga-custom-with-multi-point-type">
-<h1><span class="section-number">6. </span>GA Custom with Multi-Point Type<a class="headerlink" href="#ga-custom-with-multi-point-type" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">7. </span>GA Custom with Multi-Point Type<a class="headerlink" href="#ga-custom-with-multi-point-type" title="Permalink to this headline"></a></h1>
 <p>Another feature of <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> is that it can handle multiple point-types
 (as we saw in our <a class="reference external" href="https://chipdelmal.github.io/MGSurvE/build/html/landscapeTraps.html">sites and trap types tutorial</a>).</p>
 <p>In this tutorial, we are going to optimize over a regular landscape with heterogeneous point-types.</p>
 <section id="setting-landscape-up">
-<h2><span class="section-number">6.1. </span>Setting Landscape Up<a class="headerlink" href="#setting-landscape-up" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">7.1. </span>Setting Landscape Up<a class="headerlink" href="#setting-landscape-up" title="Permalink to this headline"></a></h2>
 <p>As we mentioned, we are going to use a regular grid for this landscape. We define it by running:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bside</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">PTS_NUM</span><span class="p">)</span><span class="o">*</span><span class="mf">11.25</span>
 <span class="n">bbox</span> <span class="o">=</span> <span class="p">((</span><span class="o">-</span><span class="n">bside</span><span class="p">,</span> <span class="n">bside</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="n">bside</span><span class="p">,</span> <span class="n">bside</span><span class="p">))</span>
@@ -124,7 +125,7 @@ The second row encodes the probabilities of landing in point-type 1, 2, and 3 re
 <a class="reference internal image-reference" href="_images/GA_DEMO_PT_HET.jpg"><img alt="_images/GA_DEMO_PT_HET.jpg" src="_images/GA_DEMO_PT_HET.jpg" style="width: 49%;" /></a>
 </section>
 <section id="optimization-and-results">
-<h2><span class="section-number">6.2. </span>Optimization and Results<a class="headerlink" href="#optimization-and-results" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">7.2. </span>Optimization and Results<a class="headerlink" href="#optimization-and-results" title="Permalink to this headline"></a></h2>
 <p>Now, the optimization part of the algorithm remains the same as in our previous examples.</p>
 <p>Our results after running the algorithm for 500 generations are:</p>
 <a class="reference internal image-reference" href="_images/GA_DEMO_PT_HOM_TRP.jpg"><img alt="_images/GA_DEMO_PT_HOM_TRP.jpg" src="_images/GA_DEMO_PT_HOM_TRP.jpg" style="width: 49%;" /></a>
@@ -138,8 +139,8 @@ The second row encodes the probabilities of landing in point-type 1, 2, and 3 re
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="GA_custom.html" class="btn btn-neutral float-left" title="5. GA with Immovable Traps" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="GA_complex.html" class="btn btn-neutral float-right" title="7. GA with Sex Kernels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="GA_custom.html" class="btn btn-neutral float-left" title="6. GA with Immovable Traps" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="GA_complex.html" class="btn btn-neutral float-right" title="8. GA with Sex Kernels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

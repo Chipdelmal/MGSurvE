@@ -8,75 +8,60 @@ from os import path
 from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
-from deap import base, creator, algorithms, tools
-from compress_pickle import dump, load
 import MGSurvE as srv
-import warnings
-warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-(ID, OUT_PTH) = ('GA_DEMO_CX', './scratch/')
+
+(ID, OUT_PTH) = ('QSTART', './QSTART/')
 srv.makeFolder(OUT_PTH)
 ###############################################################################
-# Defining Landscape
+# Defining Landscape (Random in a Ring)
 ###############################################################################
-ptsNum = 100
+ptsNum = 150
 radii = (75, 100)
 xy = srv.ptsDonut(ptsNum, radii).T
 points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
-mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
 ###############################################################################
 # Defining Traps
 ###############################################################################
+nullTraps = [0, 0, 0, 0, 0]
 traps = pd.DataFrame({
-    'x': [0, 0, 0, 0], 
-    'y': [0, 0, 87.5, -87.5],
-    't': [0, 1, 0, 1], 
-    'f': [0, 0, 1, 1]
+    'x': nullTraps, 'y': nullTraps,
+    't': nullTraps, 'f': nullTraps
 })
-tKer = {
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .05}}
-}
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}}}
 ###############################################################################
-# Setting Landscape Up
+# Setting Landscape Object Up
 ###############################################################################
 lnd = srv.Landscape(
-    points, kernelParams=mKer,
+    points, 
+    kernelParams={'params': srv.MEDIUM_MOV_EXP_PARAMS, 'zeroInflation': .25}, 
     traps=traps, trapsKernels=tKer
 )
-bbox = lnd.getBoundingBox()
-trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
+###############################################################################
+# Plot Original Landscape
+############################################################################### 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=100)
-lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
+lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 srv.plotClean(fig, ax, frame=False)
 fig.savefig(
-    path.join(OUT_PTH, '{}_LND.png'.format(ID)), 
+    path.join(OUT_PTH, '{}_CLN.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
+plt.close('all')
 ###############################################################################
-# GA Settings
+# Plotting Traps' Positions
 ############################################################################### 
-POP_SIZE = int(10*(lnd.trapsNumber*1.25))
-(GENS, MAT, MUT, SEL) = (
-    100,
-    {'mate': .3, 'cxpb': 0.5}, 
-    {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .5, 'ipb': .5},
-    {'tSize': 3}
-)
 lndGA = deepcopy(lnd)
-###############################################################################
-# Registering Functions for GA
-############################################################################### 
 (lnd, logbook) = srv.optimizeTrapsGA(
-        lndGA, pop_size='auto', generations=GENS,
-        mating_params=MAT, mutation_params=MUT, selection_params=SEL,
-        fitFuns={'outer': np.mean, 'inner': np.max}, verbose=True
-    )
+    lndGA, generations=500, pop_size='auto', 
+    mating_params='auto', mutation_params='auto', selection_params='auto',
+    verbose=True
+)
 srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
 ###############################################################################
-# Plot Landscape
+# Plotting Optimized Landscape
 ############################################################################### 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=100)
@@ -89,16 +74,3 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
-###############################################################################
-# Plot GA
-############################################################################### 
-(fig, ax) = plt.subplots(figsize=(15, 15))
-(fig, ax) = srv.plotGAEvolution(fig, ax, logbook)
-pthSave = path.join(
-    OUT_PTH, '{}_GAP'.format(ID)
-)
-fig.savefig(
-    pthSave,
-    facecolor='w', bbox_inches='tight', 
-    pad_inches=.1, dpi=300
-)
