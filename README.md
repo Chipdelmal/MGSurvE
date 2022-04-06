@@ -15,7 +15,7 @@ conda install -c conda-forge cartopy
 ```
 
 
-[![PyPI version](https://badge.fury.io/py/MGSurvE.svg)](https://badge.fury.io/py/MGSurvE)[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)(https://www.gnu.org/licenses/gpl-3.0))](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)![Travis Build](https://app.travis-ci.com/Chipdelmal/MGSurvE.svg?branch=main)[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![PyPI version](https://badge.fury.io/py/MGSurvE.svg)](https://badge.fury.io/py/MGSurvE)[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)![Travis Build](https://app.travis-ci.com/Chipdelmal/MGSurvE.svg?branch=main)[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 <!--![Git Build](https://github.com/Chipdelmal/MGSurvE/actions/workflows/main.yml/badge.svg)-->
 
