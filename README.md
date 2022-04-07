@@ -8,7 +8,7 @@ MGSurvE is a project oriented towards the optimization of traps' placement in co
 
 **Under Construction** :construction: **Please check back in a couple of weeks!**
 
-To install the package's latest stable version, run:
+To install the package's latest stable version, install [anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html) and run:
 
 ```
 conda install deap
@@ -16,8 +16,6 @@ conda install cartopy
 pip install MGSurvE
 ```
 
-
-<!--![Git Build](https://github.com/Chipdelmal/MGSurvE/actions/workflows/main.yml/badge.svg)-->
 
 ![landscape](https://github.com/Chipdelmal/MGSurvE/raw/main/img/demo.jpg)
 
