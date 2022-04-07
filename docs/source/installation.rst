@@ -39,7 +39,7 @@ In case we are interested in such projects, we can run:
 
 .. code-block:: console
 
-   conda install -c conda-forge cartopy 
+   conda install -c conda-forge cartopy -y
 
 
 If any of these steps resulted in an error, have a look at the next section in this installation guide.
