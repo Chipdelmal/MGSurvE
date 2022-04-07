@@ -15,7 +15,7 @@ conda install -c conda-forge cartopy
 ```
 
 
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/MGSurvE)[![PyPI version](https://badge.fury.io/py/MGSurvE.svg)](https://badge.fury.io/py/MGSurvE)[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)![Unit Tests](https://github.com/chipdelmal/MGSurvE/actions/workflows/main.yml/badge.svg)[![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Naereen/badges/)
+[![PyPI version](https://badge.fury.io/py/MGSurvE.svg)](https://badge.fury.io/py/MGSurvE)![Unit Tests](https://github.com/chipdelmal/MGSurvE/actions/workflows/main.yml/badge.svg)![PyPI - Python Version](https://img.shields.io/pypi/pyversions/MGSurvE)[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)[![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Naereen/badges/)
 
 <!--![Git Build](https://github.com/Chipdelmal/MGSurvE/actions/workflows/main.yml/badge.svg)-->
 
