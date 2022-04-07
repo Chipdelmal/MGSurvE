@@ -86,7 +86,7 @@ def test_selectiveCrossover_CumShift():
         chromA = srv.initChromosome(chA, initMsk, coordsRange=((-10, 10), (-10, 10)))
         chromB = srv.initChromosome(chB, initMsk, coordsRange=((-10, 10), (-10, 10)))
         (pre1, pre2) = (chromA.copy(), chromB.copy())
-        (ind1, ind2) = srv.cxBlend(chromA, chromB, fxdTrpsMsk)
+        (ind1, ind2) = srv.cxBlend(chromA, chromB, fxdTrpsMsk, alpha=1)
         fxdA = np.sum([np.isclose(a, b) for (a, b) in zip(pre1, ind1)])
         fxdB = np.sum([np.isclose(a, b) for (a, b) in zip(pre2, ind2)])
         result.extend([fxdA == fxdB == total])
