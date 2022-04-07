@@ -85,15 +85,7 @@
              
   <section id="quickstart">
 <h1><span class="section-number">1. </span>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline"></a></h1>
-<p>Installing <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> in a <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">conda</a> environment is strongly suggested, so once <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">conda</a> is installed, simply run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n MGSurvE <span class="nv">python</span><span class="o">=</span><span class="s2">&quot;3.10&quot;</span> -y
-conda activate MGSurvE
-conda install deap -y
-conda install cartopy -y
-pip install MGSurvE
-</pre></div>
-</div>
-<p>in the terminal and you should be good to get started!</p>
+<p>Before starting, have a look at our <a class="reference external" href="./installation.html">installation</a> guide to setup the package!</p>
 <p>In this demo, we will define a donut landscape with one of our random landscape generators and optimize the traps positions. The full code can be accessed <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_Quickstart.py">here</a>.</p>
 <p>Looking at our code, we can see that we are defining 150 points in a dataframe with ‘x’, ‘y’ columns for coordinates, and ‘t’ for their point-types (more info in our <a class="reference external" href="./landscapeCreation.html">“Landscape Creation”</a> tutorial):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ptsNum</span> <span class="o">=</span> <span class="mi">150</span>

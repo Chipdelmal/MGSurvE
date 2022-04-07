@@ -39,7 +39,11 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#uneventful-tested-on-linux">Uneventful (tested on Linux)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependency-errors-sometimes-happens-on-macos">Dependency Errors (sometimes happens on MacOS)</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="breakdown.html">Pkg Breakdown</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demos.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
@@ -72,30 +76,51 @@
              
   <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
-<p>To use MGSurvE, install it using pip:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install MGSurvE
+<p>It is strongly recommended to install and use <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">conda</a> for environment management, as some of MGSurvE’s dependencies might clash with specific packages versions.
+These installation instructions assume conda is already installed in the target system.</p>
+<section id="uneventful-tested-on-linux">
+<h2>Uneventful (tested on Linux)<a class="headerlink" href="#uneventful-tested-on-linux" title="Permalink to this headline"></a></h2>
+<p>Create a clean <code class="code docutils literal notranslate"><span class="pre">python=3.10</span></code> environment:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda create -n MGSurvE python=&quot;3.10&quot; -y</span>
 </pre></div>
 </div>
-<p>MGSurvE needs <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/index.html">cartopy</a> installed. The easiest way to install the dependency is through <a class="reference external" href="https://www.anaconda.com/products/individual">anaconda</a>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda install cartopy -y
+<p>Activate the environment, and install MGSurvE using pip:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda activate MGSurvE</span>
+<span class="go">pip install MGSurvE</span>
 </pre></div>
 </div>
-<p>Installing <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> in a <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">conda</a> environment is strongly suggested, so once it’s downloaded, simply run:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">MGSurvE</span> <span class="n">python</span><span class="o">=</span><span class="s2">&quot;3.10&quot;</span> <span class="o">-</span><span class="n">y</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">MGSurvE</span>
-<span class="n">conda</span> <span class="n">install</span> <span class="n">deap</span> <span class="o">-</span><span class="n">y</span>
-<span class="n">conda</span> <span class="n">install</span> <span class="n">cartopy</span> <span class="o">-</span><span class="n">y</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">MGSurvE</span>
+<p>If this ran correctly, try importing the package from the terminal with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python</span>
+<span class="go">import MGSurvE as srv</span>
 </pre></div>
 </div>
-<p>Alternatively, dependencies can be installed through our conda environment through its YML:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda env create -f REQUIREMENTS.yml
+<p>If <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/index.html">cartopy</a> is not currently installed, we will get a warning that we can safely ignore unless we are planning to work with realistic geo-spatial landscapes.
+In case we are interested in such projects, we can run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda install -c conda-forge cartopy</span>
 </pre></div>
 </div>
-<p>or TXT definitions:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda create -n new MGSurvE --file REQUIREMENTS.txt
+<p>If any of these steps resulted in an error, have a look at the next section in this installation guide.</p>
+</section>
+<section id="dependency-errors-sometimes-happens-on-macos">
+<h2>Dependency Errors (sometimes happens on MacOS)<a class="headerlink" href="#dependency-errors-sometimes-happens-on-macos" title="Permalink to this headline"></a></h2>
+<p>Sometimes, either <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a>, <a class="reference external" href="https://pysal.org/libpysal/">libpysal</a>, or <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/index.html">cartopy</a> decide not to play nicely.
+For these cases, the following procedure might help.</p>
+<p>In a fresh environment on <code class="code docutils literal notranslate"><span class="pre">python=3.10</span></code> (or one in which the installation of MGSurvE failed), run the following commands to install <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a> and <a class="reference external" href="https://pysal.org/libpysal/">libpysal</a> (both of which are required for MGSurvE to work):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda install -c conda-forge deap -y</span>
+<span class="go">conda install -c conda-forge libpysal -y</span>
 </pre></div>
 </div>
+<p>With these packages installed, we can proceed and install MGSurvE:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install MGSurvE</span>
+</pre></div>
+</div>
+<p>which should be enough to get us started.</p>
+<p>Finally, if we are interested in the map-plotting routines, we will need <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/index.html">cartopy</a> installed. The easiest way to install the dependency is through <a class="reference external" href="https://www.anaconda.com/products/individual">anaconda</a>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda install cartopy -y</span>
+</pre></div>
+</div>
+<p>If this installation fails, or if <code class="code docutils literal notranslate"><span class="pre">import</span> <span class="pre">MGSurvE</span></code> fails on python due to errors in the dependency, we might need to have a look at their <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">documentation</a> for more information.</p>
+</section>
 </section>
 
 

@@ -28,7 +28,7 @@ setuptools.setup(
     install_requires=[
         'deap', 'numpy', 'scikit-learn', 'scipy', 'matplotlib', 
         'ipython', 'jupyter', 'pandas', 'compress-pickle', 'dill', 
-        'vincenty', 'haversine', 'networkx', 'pointpats',
+        'vincenty', 'haversine', 'networkx', 'pointpats', 'libpysal'
     ],
     extras_require={
         'dev': ['pytest', 'twine', 'wheel', 'sphinx', 'sphinx_rtd_theme'],
