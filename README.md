@@ -10,8 +10,9 @@ MGSurvE is a project oriented towards the optimization of traps' placement in co
 To install the package's latest stable version, run:
 
 ```
+conda install deap
+conda install cartopy
 pip install MGSurvE
-conda install -c conda-forge cartopy
 ```
 
 
