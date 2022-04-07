@@ -5,7 +5,6 @@ import math
 import numpy as np
 import pandas as pd
 from os import path
-from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
 from deap import base, creator, algorithms, tools
@@ -14,7 +13,7 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
-(OUT_PTH, LND_TYPE, ID, TRPS_NUM) = ('./scratch/', 'UNIF', 'SX01', 4)
+(OUT_PTH, LND_TYPE, ID, TRPS_NUM) = ('./demos_out/', 'UNIF', 'SX01', 4)
 ###############################################################################
 # Generating Pointsets
 ###############################################################################

@@ -14,7 +14,7 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
-(OUT_PTH, LND_TYPE, ID, TRPS_NUM) = ('./scratch/', 'UNIF', 'SX01', 4)
+(OUT_PTH, LND_TYPE, ID, TRPS_NUM) = ('./demos_out/', 'UNIF', 'SX01S', 4)
 ###############################################################################
 # Generating Pointsets
 ###############################################################################
