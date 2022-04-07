@@ -5,7 +5,7 @@ MGSurvE is a project that looks to optimize mosquito traps' placement in complex
 [![PyPI version](https://badge.fury.io/py/MGSurvE.svg)](https://badge.fury.io/py/MGSurvE)![Unit Tests](https://github.com/chipdelmal/MGSurvE/actions/workflows/main.yml/badge.svg)![PyPI - Python Version](https://img.shields.io/pypi/pyversions/MGSurvE)[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)[![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Naereen/badges/)
 
 
-**Under Construction** :construction: **Please check back in a couple of weeks!**
+
 
 To install the package's latest stable version, install [anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html) and run:
 
@@ -15,6 +15,7 @@ conda install cartopy
 pip install MGSurvE
 ```
 
+**Under Construction** :construction: **Please check back in a couple of weeks!**
 
 ![landscape](https://github.com/Chipdelmal/MGSurvE/raw/main/img/demo.jpg)
 
