@@ -170,9 +170,9 @@ class Landscape:
         if (traps is not None):
             tpsHead = set(traps.columns)
             if (self.geometryType == 'xy'):
-                self.trapsCoords = np.asarray(traps[['x', 'y']])
+                self.trapsCoords = np.asarray(traps[['x', 'y']]).astype(float)
             else:
-                self.trapsCoords = np.asarray(traps[['lon', 'lat']])
+                self.trapsCoords = np.asarray(traps[['lon', 'lat']]).astype(float)
             # Check if there's trap-type information --------------------------
             if ('t' in tpsHead):
                 self.trapsTypes = np.asarray(traps['t'])

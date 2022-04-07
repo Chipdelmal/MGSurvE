@@ -14,7 +14,7 @@ import MGSurvE as srv
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-(ID, OUT_PTH) = ('GA_DEMO', './scratch/')
+(ID, OUT_PTH) = ('GA_DEMO', './demos/')
 srv.makeFolder(OUT_PTH)
 ###############################################################################
 # Defining Landscape
@@ -42,6 +42,26 @@ lnd = srv.Landscape(
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
+
+# srv.initChromosome(lnd.trapsCoords, trpMsk, bbox)
+
+trapsCoords = lnd.trapsCoords
+coordsRange = bbox
+fixedTrapsMask = trpMsk
+
+(xRan, yRan) = coordsRange
+trapsNum = trapsCoords.shape[0]
+chromosome = trapsCoords.flatten().astype(float)
+allele = 0
+for trap in range(trapsNum):
+    if fixedTrapsMask[allele]:
+        chromosome[allele+0] = np.random.uniform(xRan[0], xRan[1], 1)
+        chromosome[allele+1] = np.random.uniform(yRan[0], yRan[1], 1)
+    allele = allele + 2
+    print(allele)
+
+
+
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)

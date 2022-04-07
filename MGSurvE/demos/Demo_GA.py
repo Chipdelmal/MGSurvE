@@ -5,16 +5,13 @@ import math
 import numpy as np
 import pandas as pd
 from os import path
-from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
 from deap import base, creator, algorithms, tools
-from compress_pickle import dump, load
 import MGSurvE as srv
-import warnings
-warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-(ID, OUT_PTH) = ('GA_DEMO', './scratch/')
+
+(ID, OUT_PTH) = ('GA_DEMO', './demos/')
 srv.makeFolder(OUT_PTH)
 ###############################################################################
 # Defining Landscape
@@ -45,9 +42,10 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+lnd.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=False)
 fig.savefig(
-    path.join(OUT_PTH, '{}_CLN.png'.format(ID)), 
+    path.join(OUT_PTH, '{}_LND.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 ###############################################################################
