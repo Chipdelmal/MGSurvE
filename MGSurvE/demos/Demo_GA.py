@@ -11,7 +11,7 @@ from deap import base, creator, algorithms, tools
 import MGSurvE as srv
 
 
-(ID, OUT_PTH) = ('GA_DEMO', './demos/')
+(ID, OUT_PTH) = ('GA_DEMO', './demos_out/')
 srv.makeFolder(OUT_PTH)
 ###############################################################################
 # Defining Landscape
