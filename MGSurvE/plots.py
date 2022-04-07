@@ -2,6 +2,7 @@
 
 '''
 
+import warnings
 import matplotlib
 from os import path
 from math import log
@@ -488,7 +489,7 @@ def plotsClearMemory():
 try:
     import cartopy.feature as cfeature
 except ImportError:
-    print("Cartopy installation was not detected! Geo-boundaries not available!")
+    warnings.warn("Cartopy installation was not detected! Geo-boundaries not available!")
 else:
     def plotLandBoundary(fig, ax, landTuples=cst.LAND_TUPLES):
         """ Plots the land's boundary as a polygon.
