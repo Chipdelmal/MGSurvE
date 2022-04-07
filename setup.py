@@ -35,6 +35,7 @@ setuptools.setup(
     ],
     license='MIT',
     classifiers=[
+        'Programming Language :: Python :: 3.9',
         "Programming Language :: Python :: 3.10",
         "Operating System :: OS Independent",
     ]
