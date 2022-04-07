@@ -9,15 +9,17 @@ MGSurvE is a project that looks to optimize mosquito traps' placement in complex
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Chipdelmal/MGSurvE)
 
 
-
-
-To install the package's latest stable version, install [anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html) and run:
+To install the package's latest stable version run:
 
 ```
-conda install deap
-conda install cartopy
 pip install MGSurvE
 ```
+
+The usage of [anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html) for environment management is strongly recommended.
+
+MGSurvE requires the installation of the [DEAP](https://deap.readthedocs.io/en/master/) optimization package, which should be installed automatically with our previous `pip` command. This package can also be installed with `conda install deap`, if needed; or by having a look at DEAP's [documentation](https://pypi.org/project/deap/) for additional methods.
+
+Additionally, some of MGSurvE's map-plotting functions use [cartopy](https://scitools.org.uk/cartopy/). Even though the dependency's installation is not strictly required, the easiest way to install this package is with `conda install cartopy`, but in case there are errors in this process, have a look at the package's [installation instructions](https://scitools.org.uk/cartopy/docs/latest/installing.html).
 
 **Under Construction** :construction: **Please check back in a couple of weeks!**
 
