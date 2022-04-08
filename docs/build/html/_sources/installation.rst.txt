@@ -13,7 +13,7 @@ Create a clean :code:`python=3.9` environment:
 
 .. code-block:: console
 
-   conda create -n MGSurvE python="3.10" -y
+   conda create -n MGSurvE python="3.9" -y
 
 
 
@@ -39,7 +39,7 @@ In case we are interested in such projects, we can run:
 
 .. code-block:: console
 
-   conda install -c conda-forge cartopy -y
+   conda install cartopy -y
 
 
 If any of these steps resulted in an error, have a look at the next section in this installation guide.
@@ -58,8 +58,8 @@ In a fresh environment on :code:`python=3.9` (or one in which the installation o
 
 .. code-block:: console
 
-   conda install -c conda-forge deap -y
-   conda install -c conda-forge libpysal -y
+   conda install deap -y
+   conda install libpysal -y
 
 
 With these packages installed, we can proceed and install MGSurvE:
@@ -93,8 +93,14 @@ If either of these approaches is failing, try the following chain of commands:
 .. code-block:: console
 
    conda create -n MGSurvE python="3.9"
-   conda config --add channels conda-forge
-   conda install -c conda-forge deap -y
-   conda install -c conda-forge libpysal -y
-   conda install -c conda-forge cartopy -y
+   conda activate MGSurvE
+   conda install deap -y
    pip install MGSurvE
+
+
+And for the optional dependencies (within the same environment):
+
+.. code-block:: console
+
+   conda install libpysal -y
+   conda install cartopy -y

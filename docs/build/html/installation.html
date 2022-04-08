@@ -82,7 +82,7 @@ These installation instructions assume conda is already installed in the target 
 <section id="uneventful-tested-on-linux">
 <h2>Uneventful (tested on Linux)<a class="headerlink" href="#uneventful-tested-on-linux" title="Permalink to this headline"></a></h2>
 <p>Create a clean <code class="code docutils literal notranslate"><span class="pre">python=3.9</span></code> environment:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda create -n MGSurvE python=&quot;3.10&quot; -y</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda create -n MGSurvE python=&quot;3.9&quot; -y</span>
 </pre></div>
 </div>
 <p>Activate the environment, and install MGSurvE using pip:</p>
@@ -97,7 +97,7 @@ These installation instructions assume conda is already installed in the target 
 </div>
 <p>If <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/index.html">cartopy</a> is not currently installed, we will get a warning that we can safely ignore unless we are planning to work with realistic geo-spatial landscapes.
 In case we are interested in such projects, we can run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda install -c conda-forge cartopy -y</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda install cartopy -y</span>
 </pre></div>
 </div>
 <p>If any of these steps resulted in an error, have a look at the next section in this installation guide.</p>
@@ -107,8 +107,8 @@ In case we are interested in such projects, we can run:</p>
 <p>Sometimes, either <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a>, <a class="reference external" href="https://pysal.org/libpysal/">libpysal</a>, or <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/index.html">cartopy</a> decide not to play nicely.
 For these cases, the following procedure might help.</p>
 <p>In a fresh environment on <code class="code docutils literal notranslate"><span class="pre">python=3.9</span></code> (or one in which the installation of MGSurvE failed), run the following commands to install <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a> and <a class="reference external" href="https://pysal.org/libpysal/">libpysal</a> (both of which are required for MGSurvE to work):</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda install -c conda-forge deap -y</span>
-<span class="go">conda install -c conda-forge libpysal -y</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda install deap -y</span>
+<span class="go">conda install libpysal -y</span>
 </pre></div>
 </div>
 <p>With these packages installed, we can proceed and install MGSurvE:</p>
@@ -126,11 +126,14 @@ For these cases, the following procedure might help.</p>
 <h2>Most Bulletproof Installation Method<a class="headerlink" href="#most-bulletproof-installation-method" title="Permalink to this headline"></a></h2>
 <p>If either of these approaches is failing, try the following chain of commands:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda create -n MGSurvE python=&quot;3.9&quot;</span>
-<span class="go">conda config --add channels conda-forge</span>
-<span class="go">conda install -c conda-forge deap -y</span>
-<span class="go">conda install -c conda-forge libpysal -y</span>
-<span class="go">conda install -c conda-forge cartopy -y</span>
+<span class="go">conda activate MGSurvE</span>
+<span class="go">conda install deap -y</span>
 <span class="go">pip install MGSurvE</span>
+</pre></div>
+</div>
+<p>And for the optional dependencies (within the same environment):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda install libpysal -y</span>
+<span class="go">conda install cartopy -y</span>
 </pre></div>
 </div>
 </section>

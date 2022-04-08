@@ -13,7 +13,7 @@ Create a clean :code:`python=3.9` environment:
 
 .. code-block:: console
 
-   conda create -n MGSurvE python="3.10" -y
+   conda create -n MGSurvE python="3.9" -y
 
 
 
