@@ -1,6 +1,6 @@
 # MGSurvE: Mosquito Gene SurveillancE
 
-MGSurvE is a project that looks to optimize mosquito traps' placement in complex heterogeneous landscapes in an effort to minimize the time to detection of genetic variants of interest.
+MGSurvE is a project that optimizes mosquito traps' placement in complex heterogeneous landscapes in an effort to minimize the time to detection of genetic variants of interest.
 
 Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/) for more info and our [pypi](https://pypi.org/project/MGSurvE/) package for detailed installation instructions.
 
