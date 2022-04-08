@@ -32,8 +32,6 @@ Additionally, some of MGSurvE's map-plotting functions use [cartopy](https://sci
 ![landscape](https://github.com/Chipdelmal/MGSurvE/raw/main/img/demo.jpg)
 
 
-[<img src="https://pypi.org/static/images/logo-large.6bdbb439.svg" height="50px" align="middle">](https://pypi.org/project/MGSurvE/)
-
 # Features and Development
 
 - [x] Different point-types
