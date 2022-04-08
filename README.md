@@ -2,6 +2,8 @@
 
 MGSurvE is a project that looks to optimize mosquito traps' placement in complex heterogeneous landscapes in an effort to minimize the time to detection of genetic variants of interest.
 
+Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/) for more info and our [pypi](https://pypi.org/project/MGSurvE/) package for installation and versions.
+
 [![PyPI version](https://badge.fury.io/py/MGSurvE.svg)](https://badge.fury.io/py/MGSurvE)
 [![Unit Tests](https://github.com/chipdelmal/MGSurvE/actions/workflows/main.yml/badge.svg)](https://github.com/Chipdelmal/MGSurvE/tree/main/MGSurvE/test)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/MGSurvE)](https://pypi.org/project/MGSurvE/)
@@ -28,9 +30,6 @@ Additionally, some of MGSurvE's map-plotting functions use [cartopy](https://sci
 **Under Construction** :construction: **Please check back in a couple of weeks!**
 
 ![landscape](https://github.com/Chipdelmal/MGSurvE/raw/main/img/demo.jpg)
-
-
-Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/) for more info and our [pypi](https://pypi.org/project/MGSurvE/) package for installation and versions.
 
 
 [<img src="https://pypi.org/static/images/logo-large.6bdbb439.svg" height="50px" align="middle">](https://pypi.org/project/MGSurvE/)
