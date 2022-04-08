@@ -489,7 +489,7 @@ def plotsClearMemory():
 try:
     import cartopy.feature as cfeature
 except ImportError:
-    warnings.warn("Cartopy installation was not detected! Geo-boundaries not available!")
+    warnings.warn("cartopy installation was not detected! Geo-boundaries (plotLandBoundary) not available!")
 else:
     def plotLandBoundary(fig, ax, landTuples=cst.LAND_TUPLES):
         """ Plots the land's boundary as a polygon.
