@@ -1,4 +1,3 @@
-from cgi import test
 import unittest
 import MGSurvE.auxiliary as aux
 
