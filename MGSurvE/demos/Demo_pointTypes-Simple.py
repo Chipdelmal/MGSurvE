@@ -5,17 +5,12 @@ import math
 import numpy as np
 import pandas as pd
 from os import path
-from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
-from deap import base, creator, algorithms, tools
-from compress_pickle import dump, load
 import MGSurvE as srv
-import warnings
 
-warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-(ID, OUT_PTH) = ('GA_DEMO_PT', './scratch/')
+(ID, OUT_PTH) = ('GA_DEMO_PTS', './demos_out/')
 (PTS_NUM, PTS_TYPE, LND) = (150, 3, 'HOM')
 srv.makeFolder(OUT_PTH)
 ###############################################################################

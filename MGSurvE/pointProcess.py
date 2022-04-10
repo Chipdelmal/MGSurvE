@@ -5,12 +5,10 @@
 import math
 import time
 import random
+import warnings
 import numpy as np
 import numpy.random as rand
 from sklearn.cluster import KMeans
-import libpysal as ps
-from libpysal.cg import shapely_ext
-from pointpats import PoissonClusterPointProcess, Window
 
 
 def ptsRegularGrid(pointsNumber, bbox):
@@ -74,43 +72,53 @@ def ptsRandUniform(pointsNumber, bbox):
     return np.asarray(coords)
 
 
-def ptsPossion(
-    pointsNumber, clustersNumber, 
-    radius, randomState=time.time(), 
-    bbox=None, polygon=None
-    ):
-    """Generates a synthetic landscape from a Poisson distribution.
-    
-    Parameters:
-        pointsNumber (int): Number of sites.
-        clustersNumber (int): Number of sites' clusters.
-        radius (float): Radius of the circle centered on each parent.
-        randomState (int): Random seed.
+###############################################################################
+# PySal dependency
+###############################################################################
+try:
+    import libpysal as ps
+    from libpysal.cg import shapely_ext
+    from pointpats import PoissonClusterPointProcess, Window
+except ImportError:
+    warnings.warn("libpysal installation was not detected! Poisson point distributions (ptsPossion) are not available!")
+else:
+    def ptsPossion(
+        pointsNumber, clustersNumber, 
+        radius, randomState=time.time(), 
+        bbox=None, polygon=None
+        ):
+        """Generates a synthetic landscape from a Poisson distribution.
+        
+        Parameters:
+            pointsNumber (int): Number of sites.
+            clustersNumber (int): Number of sites' clusters.
+            radius (float): Radius of the circle centered on each parent.
+            randomState (int): Random seed.
 
-        bbox (tuple of tuples): Bounding box in the form ((xLo, xHi), (yLo, yHi))
-        polygon (name of shp file): Shape-file for the points to be generated within.
+            bbox (tuple of tuples): Bounding box in the form ((xLo, xHi), (yLo, yHi))
+            polygon (name of shp file): Shape-file for the points to be generated within.
 
-    Returns:
-        (numpy array):  Points' coordinates
-    """
+        Returns:
+            (numpy array):  Points' coordinates
+        """
 
-    if bbox:
-        ((xLo, xHi), (yLo, yHi)) = (bbox[0], bbox[1])
-        parts = [[(xLo, yLo), (xLo, yHi), (xHi, yHi), (xHi, yLo), (xLo, yLo)]]
-        window = Window(parts)
-    elif polygon:
-        shp_file = ps.io.open(polygon)
-        polys = [shp for shp in shp_file]
-        state = shapely_ext.cascaded_union(polys)
-        window = Window(state.parts)
+        if bbox:
+            ((xLo, xHi), (yLo, yHi)) = (bbox[0], bbox[1])
+            parts = [[(xLo, yLo), (xLo, yHi), (xHi, yHi), (xHi, yLo), (xLo, yLo)]]
+            window = Window(parts)
+        elif polygon:
+            shp_file = ps.io.open(polygon)
+            polys = [shp for shp in shp_file]
+            state = shapely_ext.cascaded_union(polys)
+            window = Window(state.parts)
 
-    np.random.seed(int(randomState))
-    csamples = PoissonClusterPointProcess(
-        window, pointsNumber, 
-        clustersNumber, radius, 1, asPP=True, conditioning=False
-    )
+        np.random.seed(int(randomState))
+        csamples = PoissonClusterPointProcess(
+            window, pointsNumber, 
+            clustersNumber, radius, 1, asPP=True, conditioning=False
+        )
 
-    return np.asarray(csamples.realize(pointsNumber))
+        return np.asarray(csamples.realize(pointsNumber))
 
 
 ###############################################################################

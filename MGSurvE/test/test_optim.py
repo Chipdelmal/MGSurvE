@@ -86,7 +86,7 @@ def test_selectiveCrossover_CumShift():
         chromA = srv.initChromosome(chA, initMsk, coordsRange=((-10, 10), (-10, 10)))
         chromB = srv.initChromosome(chB, initMsk, coordsRange=((-10, 10), (-10, 10)))
         (pre1, pre2) = (chromA.copy(), chromB.copy())
-        (ind1, ind2) = srv.cxBlend(chromA, chromB, fxdTrpsMsk)
+        (ind1, ind2) = srv.cxBlend(chromA, chromB, fxdTrpsMsk, alpha=1)
         fxdA = np.sum([np.isclose(a, b) for (a, b) in zip(pre1, ind1)])
         fxdB = np.sum([np.isclose(a, b) for (a, b) in zip(pre2, ind2)])
         result.extend([fxdA == fxdB == total])
@@ -132,6 +132,43 @@ def test_mutateChromosomeAsymmetric():
     totalXY = np.sum([org[a]!=mod[0][a] for a in range(len(org))])
     # Combine tests -----------------------------------------------------------
     assert ((totalX==trpsNum) and (totalY==trpsNum) and (totalXY==2*trpsNum))
+
+
+def test_initChromosome():
+    trapsNum = 50
+    # Setting landscape up ----------------------------------------------------
+    pts = ((-100, -2.5, 0), (100, 2.5, 0),)
+    points = pd.DataFrame(pts, columns=('x', 'y', 't'))
+    nullTraps = [0]*trapsNum
+    traps = pd.DataFrame({
+        'x': nullTraps, 'y': nullTraps,
+        't': nullTraps, 'f': [0, 1]*(trapsNum//2)
+    })
+    tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}}}
+    lnd = srv.Landscape(points, traps=traps, trapsKernels=tKer)
+    # Init chromosome ---------------------------------------------------------
+    trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
+    bbox = lnd.getBoundingBox()
+    chrom = srv.initChromosome(lnd.trapsCoords, trpMsk, bbox)
+    (allele, results) = (0, [])
+    for trap in range(0, trapsNum):
+        (x, y) = (chrom[allele], chrom[allele+1])
+        if trap % 2 != 0:
+            # Test fixed traps ------------------------------------------------
+            trapTest = all([
+                np.isclose(x, 0), 
+                np.isclose(y, 0)
+            ])
+        else:
+            # Test movable traps ----------------------------------------------
+            trapTest = all([
+                bbox[0][0] < x <= bbox[0][1], 
+                bbox[1][0] < y <= bbox[1][1]
+            ])
+        results.extend([trapTest])
+        allele = allele + 2
+    # Combine tests -----------------------------------------------------------
+    assert all(results)
 
 ###############################################################################
 # Main

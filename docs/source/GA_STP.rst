@@ -9,7 +9,7 @@ We will use the São Tomé landscape (in equatorial Africa) to test out an optim
     :align: center
 
 
-To do so, we will use an external point-set dataset, and an independently-generated migration matrix.
+To do so, we will use an external point-set dataset, and an independently-generated migration matrix both created by `Tomás León <https://tomasleon.com/>`_.
 
 
 Reading Spatial Information

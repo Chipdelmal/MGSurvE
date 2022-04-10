@@ -26,15 +26,17 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
     install_requires=[
-        'deap', 'numpy', 'matplotlib', 'ipython',
-        'jupyter', 'pandas', 'compress-pickle',
-        'scikit-learn', 'scipy', 'vincenty',
-        'pytest', 'networkx', 'pointpats', 'geopandas',
-        'haversine', 'dill', 'pytest', 'twine', 'wheel', 'sphinx',
-        'sphinx_rtd_theme'
+        'deap', 'numpy', 'scikit-learn', 'scipy', 'matplotlib', 
+        'ipython', 'jupyter', 'pandas', 'compress-pickle', 'dill', 
+        'vincenty', 'haversine', 'networkx', 'pointpats', 'libpysal',
+        'geopandas'
     ],
+    extras_require={
+        'dev': ['pytest', 'twine', 'wheel', 'sphinx', 'sphinx_rtd_theme'],
+    },
     license='MIT',
     classifiers=[
+        'Programming Language :: Python :: 3.9',
         "Programming Language :: Python :: 3.10",
         "Operating System :: OS Independent",
     ]

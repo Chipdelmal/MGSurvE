@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import math
-import numpy as np
 import pandas as pd
 from os import path
-from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
 import MGSurvE as srv
@@ -61,3 +58,13 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
+###############################################################################
+# Plotting Optimized Landscape
+############################################################################### 
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+srv.plotMatrix(fig, ax, lnd.trapsMigration, vmax=1e-2, trapsNumber=len(nullTraps))
+srv.plotClean(fig, ax, frame=False)
+fig.savefig(
+    path.join(OUT_PTH, '{}_MTX.png'.format(ID)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+)

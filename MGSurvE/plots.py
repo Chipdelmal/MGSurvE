@@ -2,6 +2,7 @@
 
 '''
 
+import warnings
 import matplotlib
 from os import path
 from math import log
@@ -10,8 +11,6 @@ import MGSurvE.constants as cst
 import networkx as nx
 from sklearn.preprocessing import normalize
 import numpy as np
-import cartopy.crs as ccrs
-import cartopy.feature as cfeature
 
 
 def plotSites(
@@ -183,27 +182,6 @@ def plotTrapsNetwork(
         zorder=zorder,
         **kwargs
     )
-    return (fig, ax)
-
-
-def plotLandBoundary(fig, ax, landTuples=cst.LAND_TUPLES):
-    """ Plots the land's boundary as a polygon.
-
-    Parameters:
-        fig (matplotlib): Matplotlib fig object.
-        ax (matplotlib): Matplotlib ax object.
-        landTuples (list of tuples): Check the constants.py file for format.
-    
-    Returns:
-        (fig, ax): Matplotlib (fig, ax) tuple.
-    """ 
-    lands = [
-        cfeature.NaturalEarthFeature(
-            'physical', 'land', i[0],
-            edgecolor=i[1], facecolor='#00000000', linewidth=i[2]
-        ) for i in landTuples
-    ]
-    [ax.add_feature(i, zorder=(-50+ix)) for (ix, i) in enumerate(lands)]
     return (fig, ax)
 
 
@@ -496,7 +474,6 @@ def plotTrapsKernels(
     return (fig, ax)
 
 
-
 def plotsClearMemory():
     # https://stackoverflow.com/questions/28757348/how-to-clear-memory-completely-of-all-matplotlib-plots
     allfignums = matplotlib.pyplot.get_fignums()
@@ -504,3 +481,32 @@ def plotsClearMemory():
         fig = matplotlib.pyplot.figure(i)
         fig.clear()
         matplotlib.pyplot.close(fig)
+
+
+###############################################################################
+# Cartopy dependency
+###############################################################################
+try:
+    import cartopy.feature as cfeature
+except ImportError:
+    warnings.warn("cartopy installation was not detected! Geo-boundaries (plotLandBoundary) not available!")
+else:
+    def plotLandBoundary(fig, ax, landTuples=cst.LAND_TUPLES):
+        """ Plots the land's boundary as a polygon.
+
+        Parameters:
+            fig (matplotlib): Matplotlib fig object.
+            ax (matplotlib): Matplotlib ax object.
+            landTuples (list of tuples): Check the constants.py file for format.
+        
+        Returns:
+            (fig, ax): Matplotlib (fig, ax) tuple.
+        """ 
+        lands = [
+            cfeature.NaturalEarthFeature(
+                'physical', 'land', i[0],
+                edgecolor=i[1], facecolor='#00000000', linewidth=i[2]
+            ) for i in landTuples
+        ]
+        [ax.add_feature(i, zorder=(-50+ix)) for (ix, i) in enumerate(lands)]
+        return (fig, ax)

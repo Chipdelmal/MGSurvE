@@ -5,17 +5,13 @@ import math
 import numpy as np
 import pandas as pd
 from os import path
-from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
 from deap import base, creator, algorithms, tools
-from compress_pickle import dump, load
 import MGSurvE as srv
-import warnings
 
-warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-(ID, OUT_PTH) = ('GA_DEMO_PT', './scratch/')
+(ID, OUT_PTH) = ('GA_DEMO_PT', './demos_out/')
 (PTS_NUM, PTS_TYPE, LND) = (150, 3, 'HOM')
 srv.makeFolder(OUT_PTH)
 ###############################################################################
@@ -69,7 +65,7 @@ lnd.plotSites(fig, ax, size=100)
 lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 srv.plotClean(fig, ax, frame=False)
 fig.savefig(
-    path.join(OUT_PTH, '{}_{}_CLN.png'.format(ID, LND)), 
+    path.join(OUT_PTH, '{}_{}_LND.png'.format(ID, LND)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
