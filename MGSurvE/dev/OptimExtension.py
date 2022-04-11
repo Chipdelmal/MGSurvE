@@ -2,11 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import math
+import random
 import numpy as np
 import pandas as pd
 from os import path
 from sys import argv
 from copy import deepcopy
+from deap import tools
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 import numpy as np
@@ -34,7 +36,8 @@ traps = pd.DataFrame({
     'x': [0, 0, 0, 0, 0],
     'y': [0, 0, 0, 0, 0],
     't': [1, 3, 2, 1, 0],
-    'f': [0, 0, 1, 0, 0]
+    'f': [0, 0, 1, 0, 0],
+    'o': [1, 1, 0, 0, 0]
 })
 tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .05}},
@@ -52,13 +55,40 @@ lnd = srv.Landscape(
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
+trpTsk = lnd.trapsTOptim
 ###############################################################################
 # Optimization Extension
 ###############################################################################
 lndGA = deepcopy(lnd)
-srv.initChromosomeMixed(
+chromosome = srv.initChromosomeMixed(
     trapsCoords=lndGA.trapsCoords, fixedTrapsMask=trpMsk, coordsRange=bbox,
     trapsPool=[0, 1, 2, 3, 0, 1, 2]   
 )
+# Develop mutation operator ---------------------------------------------------
+(coordSect, typesSect) = (chromosome[:len(trpMsk)], chromosome[len(trpMsk):])
+coordSect = srv.mutateChromosome(coordSect, trpMsk)
 
-lndGA.trapsCoords
+typesSect
+mutShuffleIndexes(typesSect, 1, trpTsk)
+
+(coordSect[0]+typesSect[0], )
+
+
+
+def mutShuffleIndexes(individual, indpb, typeOptimMask):
+    (size, clen) = (len(typeOptimMask), len(individual))
+    for i in range(size):
+        if (random.random() < indpb) and (typeOptimMask[i]):
+            swap_indx = random.randint(0, clen-2)
+            if swap_indx >= i:
+                swap_indx += 1
+            if swap_indx >= size:
+                individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
+            elif typeOptimMask[swap_indx]:
+                individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
+            else:
+                swap_indx = random.randint(size, clen-1)
+                individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
+    return individual,
+
+len(typesSect)

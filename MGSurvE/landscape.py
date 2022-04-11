@@ -182,6 +182,10 @@ class Landscape:
                 self.trapsFixed = np.asarray(traps['f'])
             else:
                 self.trapsFixed = np.asarray([0]*len(self.trapsCoords))
+            if ('o' in tpsHead):
+                self.trapsTOptim = np.asarray(traps['o'])
+            else:
+                self.trapsTOptim = np.asarray([0]*len(self.trapsCoords))
             self.trapsNumber = len(self.trapsCoords)
             # Init trap types -------------------------------------------------
             trapTypesNum = len(set(self.trapsTypes))
