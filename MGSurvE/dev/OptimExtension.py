@@ -75,20 +75,6 @@ mutShuffleIndexes(typesSect, 1, trpTsk)
 
 
 
-def mutShuffleIndexes(individual, indpb, typeOptimMask):
-    (size, clen) = (len(typeOptimMask), len(individual))
-    for i in range(size):
-        if (random.random() < indpb) and (typeOptimMask[i]):
-            swap_indx = random.randint(0, clen-2)
-            if swap_indx >= i:
-                swap_indx += 1
-            if swap_indx >= size:
-                individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
-            elif typeOptimMask[swap_indx]:
-                individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
-            else:
-                swap_indx = random.randint(size, clen-1)
-                individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
-    return individual,
+
 
 len(typesSect)
