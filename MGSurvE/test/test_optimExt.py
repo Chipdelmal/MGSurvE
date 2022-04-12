@@ -66,7 +66,7 @@ def test_initChromosomeMixedCoords():
     lndBase = deepcopy(lnd)
     bbox = lnd.getBoundingBox()
     # Init Baseline -----------------------------------------------------------
-    trapsPool = list(traps['t'])+[100, 101, 102, 103]
+    trapsPool = list(traps['t'])+list(range(100, 300))
     trpsNum = traps.shape[0]
     baseChrom = srv.initChromosomeMixed(
         trapsCoords=lndBase.trapsCoords, 
@@ -122,7 +122,7 @@ def test_initChromosomeMixedTypes():
     lndBase = deepcopy(lnd)
     bbox = lnd.getBoundingBox()
     # Init Baseline -----------------------------------------------------------
-    trapsPool = list(traps['t'])+list(range(100, 150))
+    trapsPool = list(traps['t'])+list(range(100, 300))
     trpsNum = traps.shape[0]
     baseChrom = srv.initChromosomeMixed(
         trapsCoords=lndBase.trapsCoords, 
@@ -153,7 +153,7 @@ def test_initChromosomeMixedTypes():
     # Check if types section was mutated 
     typesSect = [i[trpsNum*2:trpsNum*2+trpsNum] for i in (baseChrom, testChrom)]
     passed = sum([a == b for (a, b) in zip(*typesSect)])
-    typesPass = (passed == trpsNum/2)
+    typesPass = (passed > trpsNum*.4)
     print(typesPass)
     # Put tests together ------------------------------------------------------
     assert (coordsPass and typesPass)

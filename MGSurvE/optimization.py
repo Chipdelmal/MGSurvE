@@ -223,7 +223,7 @@ def cxBlend(
 ###############################################################################
 # GA (Extended)
 ###############################################################################
-def mutShuffleIndexes(individual, indpb, typeOptimMask):
+def mutShuffleIndexes(individual, typeOptimMask, indpb=.5):
     (size, clen) = (len(typeOptimMask), len(individual))
     for i in range(size):
         # If the allele can be mutated and was sampled
@@ -251,8 +251,35 @@ def initChromosomeMixed(
         indpb=.75
     ):
     coordSect = initChromosome(trapsCoords, fixedTrapsMask, coordsRange)
-    typesInit = mutShuffleIndexes(trapsPool, indpb, typeOptimMask)[0]
+    typesInit = mutShuffleIndexes(trapsPool, typeOptimMask, indpb)[0]
     return [float(i) for i in coordSect]+list(typesInit)
+
+
+def mutateChromosomeMixed(
+        chromosome,
+        fixedTrapsMask, typeOptimMask,
+        mutCoordFun=mutateChromosome,
+        mutCoordArgs={
+            'randFun': rand.normal, 'randArgs': {'loc': 0, 'scale': 10}, 
+            'indpb': 0.5
+        },
+        mutTypeFun=mutShuffleIndexes,
+        mutTypeArgs={
+            'indpb': 0.5
+        }
+    ):
+    # Split chromosome in parts -----------------------------------------------
+    (coordsSect, typesSect) = (
+        chromosome[:len(fixedTrapsMask)], 
+        chromosome[len(fixedTrapsMask):]
+    )
+    # Mutate coordinates section ----------------------------------------------
+    coordsMut = mutCoordFun(coordsSect, fixedTrapsMask,**mutCoordArgs)[0]
+    # Mutate types section ----------------------------------------------------
+    typesMut = mutTypeFun(typesSect, typeOptimMask, **mutTypeArgs)[0]
+    # Return mutated chromosome -----------------------------------------------
+    return (coordsMut+typesMut)
+
 
 ###############################################################################
 # Fitness Functions

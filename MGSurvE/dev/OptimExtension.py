@@ -12,6 +12,7 @@ from deap import tools
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 import numpy as np
+import numpy.random as rand
 
 
 (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'DNUT', 'D01')
@@ -54,7 +55,7 @@ bbox = lnd.getBoundingBox()
 ###############################################################################
 # Optimization Extension
 ###############################################################################
-trapsPool = list(traps['t'])+[100, 101, 102, 103, 104, 105]
+trapsPool = list(traps['t'])+list(range(100, 110))
 trpsNum = traps.shape[0]
 baseChrom = srv.initChromosomeMixed(
     trapsCoords=lndBase.trapsCoords, 
@@ -69,7 +70,7 @@ traps = pd.DataFrame({
     'x': [0, 0, 0, 0, 0, 0],
     'y': [0, 0, 0, 0, 0, 0],
     't': [0, 1, 2, 3, 2, 1],
-    'f': [1, 1, 1, 1, 1, 1],
+    'f': [0, 1, 0, 1, 0, 1],
     'o': [1, 0, 1, 0, 1, 0]
 })
 lndTest.updateTraps(traps, tKer)
@@ -80,22 +81,23 @@ testChrom = srv.initChromosomeMixed(
     coordsRange=bbox, indpb=1,
     trapsPool=trapsPool
 )
-
-typesSect = [i[trpsNum*2:trpsNum*2+trpsNum] for i in (baseChrom, testChrom)]
-passed = sum([a == b for (a, b) in zip(*typesSect)])
-typesPass = (passed == trpsNum/2)
-typesPass
-
-chromosome
-
-# Develop mutation operator ---------------------------------------------------
-trapsCoords = lndGA.trapsCoords
-trapsPool = [1, 3, 2, 1, 0, 3, 2, 1, 0] 
-fixedTrapsMask = trpMsk
-typeOptimMask = trpTsk
+###############################################################################
+# Dev Extensions
+###############################################################################
+trapsCoords = lndTest.trapsCoords
+fixedTrapsMask = srv.genFixedTrapsMask(lndTest.trapsFixed)
+typeOptimMask = lndTest.trapsTOptim
 coordsRange = bbox
 indpb = .75
  
-coordSect = srv.initChromosome(trapsCoords, fixedTrapsMask, coordsRange)
-typesInit = srv.mutShuffleIndexes(trapsPool, indpb, typeOptimMask)[0]
-list(coordSect)+typesInit
+chromosome = deepcopy(baseChrom)
+srv.mutateChromosomeMixed(
+    chromosome, fixedTrapsMask, typeOptimMask,
+    mutCoordArgs={
+        'randFun': rand.normal, 'randArgs': {'loc': 0, 'scale': 10}, 
+        'indpb': 1
+    },
+    mutTypeArgs={
+        'indpb': 1
+    }
+)
