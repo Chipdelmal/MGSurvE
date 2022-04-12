@@ -11,10 +11,9 @@ def test_initChromosomeMixedDataType():
     # Setting landscape up ----------------------------------------------------
     pts = ((-100, -50, 0), (100, 50, 0))
     points = pd.DataFrame(pts, columns=('x', 'y', 't'))
+    (nullC, ktyp) = ([0, 0, 0, 0, 0, 0], [1, 3, 2, 1, 0, 1])
     traps = pd.DataFrame({
-        'x': [0, 0, 0, 0, 0, 0],
-        'y': [0, 0, 0, 0, 0, 0],
-        't': [1, 3, 2, 1, 0, 1],
+        'x': nullC, 'y': nullC, 't': ktyp,
         'f': [1, 1, 1, 1, 1, 1],
         'o': [0, 0, 0, 0, 0, 0]
     })
@@ -51,10 +50,9 @@ def test_initChromosomeMixedCoords():
     # Setting landscape up ----------------------------------------------------
     pts = ((-100, -50, 0), (100, 50, 0))
     points = pd.DataFrame(pts, columns=('x', 'y', 't'))
+    (nullC, ktyp) = ([0, 0, 0, 0, 0, 0], [1, 3, 2, 1, 0, 1])
     traps = pd.DataFrame({
-        'x': [0, 0, 0, 0, 0, 0],
-        'y': [0, 0, 0, 0, 0, 0],
-        't': [1, 3, 2, 1, 0, 1],
+        'x': nullC, 'y': nullC, 't': ktyp,
         'f': [1, 1, 1, 1, 1, 1],
         'o': [0, 0, 0, 0, 0, 0]
     })
@@ -80,9 +78,7 @@ def test_initChromosomeMixedCoords():
     # Hand-test coords mutation -----------------------------------------------
     lndTest = deepcopy(lndBase)
     traps = pd.DataFrame({
-        'x': [0, 0, 0, 0, 0, 0],
-        'y': [0, 0, 0, 0, 0, 0],
-        't': [0, 1, 2, 3, 2, 1],
+        'x': nullC, 'y': nullC, 't': ktyp,
         'f': [0, 1, 0, 1, 0, 1],
         'o': [0, 0, 0, 0, 0, 0]
     })
@@ -110,10 +106,9 @@ def test_initChromosomeMixedTypes():
     # Setting landscape up ----------------------------------------------------
     pts = ((-100, -50, 0), (100, 50, 0))
     points = pd.DataFrame(pts, columns=('x', 'y', 't'))
+    (nullC, ktyp) = ([0, 0, 0, 0, 0, 0], [1, 3, 2, 1, 0, 1])
     traps = pd.DataFrame({
-        'x': [0, 0, 0, 0, 0, 0],
-        'y': [0, 0, 0, 0, 0, 0],
-        't': [1, 3, 2, 1, 0, 1],
+        'x': nullC, 'y': nullC, 't': ktyp,
         'f': [1, 1, 1, 1, 1, 1],
         'o': [0, 0, 0, 0, 0, 0]
     })
@@ -139,9 +134,7 @@ def test_initChromosomeMixedTypes():
     # Hand-test coords mutation -----------------------------------------------
     lndTest = deepcopy(lndBase)
     traps = pd.DataFrame({
-        'x': [0, 0, 0, 0, 0, 0],
-        'y': [0, 0, 0, 0, 0, 0],
-        't': [0, 1, 2, 3, 2, 1],
+        'x': nullC, 'y': nullC, 't': ktyp,
         'f': [1, 1, 1, 1, 1, 1],
         'o': [0, 1, 0, 1, 0, 1]
     })
