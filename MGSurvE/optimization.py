@@ -227,20 +227,21 @@ def mutShuffleIndexes(individual, typeOptimMask, indpb=.5):
     (size, clen) = (len(typeOptimMask), len(individual))
     for i in range(size):
         # If the allele can be mutated and was sampled
-        if (random.random() < indpb) and (typeOptimMask[i]):
-            swap_indx = random.randint(0, clen-2)
-            if swap_indx >= i:
-                swap_indx += 1
-            # If sampIx is part of the extra pool, just swap
-            if swap_indx >= size:
-                individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
-            # If sampIx is part of the placed traps, and it's optimizable
-            elif typeOptimMask[swap_indx]:
-                individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
-            # If sampIx is part of the placed traps, but not optimizable
-            else:
-                swap_indx = random.randint(size, clen-1)
-                individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
+        if (typeOptimMask[i]):
+            if (random.random() < indpb):
+                swap_indx = random.randint(0, clen-2)
+                if swap_indx >= i:
+                    swap_indx += 1
+                # If sampIx is part of the extra pool, just swap
+                if swap_indx >= size:
+                    individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
+                # If sampIx is part of the placed traps, and it's optimizable
+                elif typeOptimMask[swap_indx]:
+                    individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
+                # If sampIx is part of the placed traps, but not optimizable
+                else:
+                    swap_indx = random.randint(size, clen-1)
+                    individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
     return (individual, )
 
 
