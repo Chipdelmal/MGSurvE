@@ -61,3 +61,17 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
+
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+srv.plotMatrix(
+        fig, ax,
+        lnd.maskedMigration, 
+        trapsNumber=len(nullTraps), vmin=0, vmax=.1, 
+        cmap='Purples', linecolor='#222222', linestyle=':', lw=.5,
+        ticks=False
+    )
+srv.plotClean(fig, ax)
+fig.savefig(
+    path.join(OUT_PTH, '{}_MTX.png'.format(ID)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+)
