@@ -105,6 +105,66 @@ def test_initChromosomeMixedCoords():
     # Put tests together ------------------------------------------------------
     assert (coordsPass and typesPass)
 
+
+def test_initChromosomeMixedTypes():
+    # Setting landscape up ----------------------------------------------------
+    pts = ((-100, -50, 0), (100, 50, 0))
+    points = pd.DataFrame(pts, columns=('x', 'y', 't'))
+    traps = pd.DataFrame({
+        'x': [0, 0, 0, 0, 0, 0],
+        'y': [0, 0, 0, 0, 0, 0],
+        't': [1, 3, 2, 1, 0, 1],
+        'f': [1, 1, 1, 1, 1, 1],
+        'o': [0, 0, 0, 0, 0, 0]
+    })
+    tKer = {
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .05}},
+        1: {'kernel': srv.exponentialDecay, 'params': {'A': .35, 'b': .04}},
+        2: {'kernel': srv.exponentialDecay, 'params': {'A': .25,  'b': .025}} ,
+        3: {'kernel': srv.sigmoidDecay,     'params': {'A': .2, 'rate': .5, 'x0': 1}}
+    }
+    lnd = srv.Landscape(points, traps=traps, trapsKernels=tKer)
+    lndBase = deepcopy(lnd)
+    bbox = lnd.getBoundingBox()
+    # Init Baseline -----------------------------------------------------------
+    trapsPool = list(traps['t'])+list(range(100, 150))
+    trpsNum = traps.shape[0]
+    baseChrom = srv.initChromosomeMixed(
+        trapsCoords=lndBase.trapsCoords, 
+        fixedTrapsMask=srv.genFixedTrapsMask(lndBase.trapsFixed), 
+        typeOptimMask=lnd.trapsTOptim,
+        coordsRange=bbox, indpb=1,
+        trapsPool=trapsPool
+    )
+    # Hand-test coords mutation -----------------------------------------------
+    lndTest = deepcopy(lndBase)
+    traps = pd.DataFrame({
+        'x': [0, 0, 0, 0, 0, 0],
+        'y': [0, 0, 0, 0, 0, 0],
+        't': [0, 1, 2, 3, 2, 1],
+        'f': [1, 1, 1, 1, 1, 1],
+        'o': [0, 1, 0, 1, 0, 1]
+    })
+    lndTest.updateTraps(traps, tKer)
+    testChrom = srv.initChromosomeMixed(
+        trapsCoords=lndTest.trapsCoords, 
+        fixedTrapsMask=srv.genFixedTrapsMask(lndTest.trapsFixed), 
+        typeOptimMask=lndTest.trapsTOptim,
+        coordsRange=bbox, indpb=1,
+        trapsPool=trapsPool
+    )
+    # Check if half the coordinates did not mutate
+    coordsSect = [i[:trpsNum*2] for i in (baseChrom, testChrom)]
+    passed = sum([np.isclose(a, b) for (a, b) in zip(*coordsSect)])
+    coordsPass = (passed == (trpsNum*2))
+    # Check if types section was mutated 
+    typesSect = [i[trpsNum*2:trpsNum*2+trpsNum] for i in (baseChrom, testChrom)]
+    passed = sum([a == b for (a, b) in zip(*typesSect)])
+    typesPass = (passed == trpsNum/2)
+    print(typesPass)
+    # Put tests together ------------------------------------------------------
+    assert (coordsPass and typesPass)
+
 ###############################################################################
 # Main
 ###############################################################################

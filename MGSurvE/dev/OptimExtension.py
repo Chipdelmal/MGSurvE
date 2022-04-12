@@ -54,7 +54,7 @@ bbox = lnd.getBoundingBox()
 ###############################################################################
 # Optimization Extension
 ###############################################################################
-trapsPool = list(traps['t'])+[100, 101, 102, 103]
+trapsPool = list(traps['t'])+[100, 101, 102, 103, 104, 105]
 trpsNum = traps.shape[0]
 baseChrom = srv.initChromosomeMixed(
     trapsCoords=lndBase.trapsCoords, 
@@ -69,8 +69,8 @@ traps = pd.DataFrame({
     'x': [0, 0, 0, 0, 0, 0],
     'y': [0, 0, 0, 0, 0, 0],
     't': [0, 1, 2, 3, 2, 1],
-    'f': [0, 1, 0, 1, 0, 1],
-    'o': [0, 0, 0, 0, 0, 0]
+    'f': [1, 1, 1, 1, 1, 1],
+    'o': [1, 0, 1, 0, 1, 0]
 })
 lndTest.updateTraps(traps, tKer)
 testChrom = srv.initChromosomeMixed(
@@ -81,10 +81,10 @@ testChrom = srv.initChromosomeMixed(
     trapsPool=trapsPool
 )
 
-
-typesSect = [i[trpsNum*2:] for i in (baseChrom, testChrom)]
-passed = [a == b for (a, b) in zip(*typesSect)]
-
+typesSect = [i[trpsNum*2:trpsNum*2+trpsNum] for i in (baseChrom, testChrom)]
+passed = sum([a == b for (a, b) in zip(*typesSect)])
+typesPass = (passed == trpsNum/2)
+typesPass
 
 chromosome
 
