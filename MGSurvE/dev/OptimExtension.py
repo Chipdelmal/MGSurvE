@@ -94,7 +94,8 @@ chromosome = deepcopy(baseChrom)
 srv.mutateChromosomeMixed(
     chromosome, fixedTrapsMask, typeOptimMask,
     mutCoordArgs={
-        'randFun': rand.normal, 'randArgs': {'loc': 0, 'scale': 10}, 
+        'randFun': rand.normal, 
+        'randArgs': {'loc': 0, 'scale': 10}, 
         'indpb': 1
     },
     mutTypeArgs={
