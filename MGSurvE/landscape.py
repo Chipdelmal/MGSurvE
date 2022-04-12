@@ -285,6 +285,10 @@ class Landscape:
         self.trapsNumber = len(self.trapsCoords)
         self.trapsKernels = trapsKernels
         self.trapsFixed = traps['f']
+        try:
+            self.trapsTOptim = traps['o']
+        except:
+            pass
         # Updating necessary matrices -----------------------------------------
         if (oldTrapsNum != len(self.trapsCoords)):
             self.trapsMigration = mat.genVoidFullMigrationMatrix(

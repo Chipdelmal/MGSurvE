@@ -223,22 +223,6 @@ def cxBlend(
 ###############################################################################
 # GA (Extended)
 ###############################################################################
-def initChromosomeMixed(
-        trapsCoords, fixedTrapsMask, coordsRange,
-        trapsPool
-    ):
-    """ Generates a random uniform chromosome for GA optimization on positions and traps.
-    
-    Parameters:
-
-    Returns:
-        (list): 
-    """
-    coordSect = initChromosome(trapsCoords, fixedTrapsMask, coordsRange)
-    typesSect = random.sample(trapsPool,len(trapsPool))
-    return list(coordSect)+typesSect
-
-
 def mutShuffleIndexes(individual, indpb, typeOptimMask):
     (size, clen) = (len(typeOptimMask), len(individual))
     for i in range(size):
@@ -257,7 +241,18 @@ def mutShuffleIndexes(individual, indpb, typeOptimMask):
             else:
                 swap_indx = random.randint(size, clen-1)
                 individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
-    return individual,
+    return (individual, )
+
+
+def initChromosomeMixed(
+        trapsCoords, 
+        fixedTrapsMask, typeOptimMask,
+        coordsRange, trapsPool, 
+        indpb=.75
+    ):
+    coordSect = initChromosome(trapsCoords, fixedTrapsMask, coordsRange)
+    typesInit = mutShuffleIndexes(trapsPool, indpb, typeOptimMask)[0]
+    return list(coordSect)+typesInit
 
 ###############################################################################
 # Fitness Functions

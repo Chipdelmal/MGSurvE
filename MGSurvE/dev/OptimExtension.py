@@ -33,13 +33,13 @@ elif LND_TYPE == 'DNUT':
 points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
-    'x': [0, 0, 0, 0, 0],
-    'y': [0, 0, 0, 0, 0],
-    't': [1, 3, 2, 1, 0],
-    'f': [0, 0, 1, 0, 0],
-    'o': [1, 1, 0, 0, 0]
+    'x': [0, 0, 0, 0, 0, 0],
+    'y': [0, 0, 0, 0, 0, 0],
+    't': [0, 1, 2, 3, 2, 1],
+    'f': [1, 1, 1, 1, 1, 1],
+    'o': [0, 0, 0, 0, 0, 0]
 })
-tKernels = {
+tKer = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .3, 'b': .05}},
     1: {'kernel': srv.exponentialDecay, 'params': {'A': .35, 'b': .04}},
     2: {'kernel': srv.exponentialDecay, 'params': {'A': .25,  'b': .025}} ,
@@ -48,33 +48,51 @@ tKernels = {
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
-lnd = srv.Landscape(
-    points, 
-    kernelParams={'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75},
-    traps=traps, trapsKernels=tKernels
-)
+lnd = srv.Landscape(points, traps=traps, trapsKernels=tKer)
 bbox = lnd.getBoundingBox()
-trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
-trpTsk = lnd.trapsTOptim
 ###############################################################################
 # Optimization Extension
 ###############################################################################
-lndGA = deepcopy(lnd)
-chromosome = srv.initChromosomeMixed(
-    trapsCoords=lndGA.trapsCoords, fixedTrapsMask=trpMsk, coordsRange=bbox,
-    trapsPool=[0, 1, 2, 3, 0, 1, 2]   
+lndBase = deepcopy(lnd)
+trapsPool = list(traps['t'])+[0, 1, 2, 3]
+trpsNum = traps.shape[0]
+baseChrom = srv.initChromosomeMixed(
+    trapsCoords=lndBase.trapsCoords, 
+    fixedTrapsMask=srv.genFixedTrapsMask(lndTest.trapsFixed), 
+    typeOptimMask=trpTsk,
+    coordsRange=bbox, indpb=1,
+    trapsPool=trapsPool
 )
+# Test init routine -----------------------------------------------------------
+lndTest = deepcopy(lndBase)
+traps = pd.DataFrame({
+    'x': [0, 0, 0, 0, 0, 0],
+    'y': [0, 0, 0, 0, 0, 0],
+    't': [0, 1, 2, 3, 2, 1],
+    'f': [0, 1, 1, 1, 1, 1],
+    'o': [0, 0, 0, 0, 0, 0]
+})
+lndTest.updateTraps(traps, tKer)
+testChrom = srv.initChromosomeMixed(
+    trapsCoords=lndBase.trapsCoords, 
+    fixedTrapsMask=srv.genFixedTrapsMask(lndTest.trapsFixed), 
+    typeOptimMask=lndTest.trapsTOptim,
+    coordsRange=bbox, indpb=1,
+    trapsPool=trapsPool
+)
+testChrom
+
+
+chromosome
+
 # Develop mutation operator ---------------------------------------------------
-(coordSect, typesSect) = (chromosome[:len(trpMsk)], chromosome[len(trpMsk):])
-coordSect = srv.mutateChromosome(coordSect, trpMsk)
-
-typesSect
-mutShuffleIndexes(typesSect, 1, trpTsk)
-
-(coordSect[0]+typesSect[0], )
-
-
-
-
-
-len(typesSect)
+trapsCoords = lndGA.trapsCoords
+trapsPool = [1, 3, 2, 1, 0, 3, 2, 1, 0] 
+fixedTrapsMask = trpMsk
+typeOptimMask = trpTsk
+coordsRange = bbox
+indpb = .75
+ 
+coordSect = srv.initChromosome(trapsCoords, fixedTrapsMask, coordsRange)
+typesInit = srv.mutShuffleIndexes(trapsPool, indpb, typeOptimMask)[0]
+list(coordSect)+typesInit
