@@ -1,19 +1,7 @@
 Quickstart
 ------------
 
-Installing `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ in a `conda <https://docs.conda.io/en/latest/miniconda.html>`_ environment is strongly suggested, so once `conda <https://docs.conda.io/en/latest/miniconda.html>`_ is installed, simply run:
-
-.. code-block:: bash
-
-    conda create -n MGSurvE python="3.10" -y
-    conda activate MGSurvE
-    conda install deap -y
-    conda install cartopy -y
-    pip install MGSurvE
-    
-
-
-in the terminal and you should be good to get started!
+Before starting, have a look at our `installation <./installation.html>`_ guide to setup the package!
 
 In this demo, we will define a donut landscape with one of our random landscape generators and optimize the traps positions. The full code can be accessed `here <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_Quickstart.py>`_.
 

@@ -23,6 +23,15 @@ We chose to use the complex version in the tutorials because it allows more flex
    OT_trapMask
    GA_STP
 
+
+Some other demonstrations of auxiliary tools can be accessed here:
+
+.. toctree::
+   :maxdepth: 1
+
+   TrapsKernels
+
+
 Please note that the code used in all of the tutorials can be downloaded `from this link <https://github.com/Chipdelmal/MGSurvE/tree/main/MGSurvE/demos>`_.
 
 .. image:: ../../img/STP_10_TRP.jpg

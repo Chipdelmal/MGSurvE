@@ -7,7 +7,8 @@ import MGSurvE as srv
 import matplotlib.pyplot as plt
 
 
-OUT_PTH = './scratch/'
+OUT_PTH = './demos_out/'
+srv.makeFolder(OUT_PTH)
 ###############################################################################
 # XY Landscape with two point types
 ###############################################################################
@@ -53,6 +54,6 @@ lnd.plotTrapsNetwork(fig, ax[0])
 srv.plotMatrix(fig, ax[1], lnd.trapsMigration, lnd.trapsNumber)
 [srv.plotClean(fig, i, frame=False) for i in ax]
 fig.savefig(
-    path.join(OUT_PTH, 'demo_pointTypes.png'), facecolor='w',
+    path.join(OUT_PTH, 'XYT_TRP.png'), facecolor='w',
     bbox_inches='tight', pad_inches=0, dpi=300
 )

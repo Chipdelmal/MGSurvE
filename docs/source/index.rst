@@ -39,6 +39,18 @@ To this end, we have integrated the following features into our package (with mo
 * GA optimization routines integration
 
 
+
+Demos
+------------
+
+Have a look at our `YouTube playlist <https://youtube.com/playlist?list=PLRzY6w7pvIWrOSwOlu_MXbOr14wx9xuwT>`_  for some use examples!
+
+.. raw:: html
+
+   <center><iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLRzY6w7pvIWrOSwOlu_MXbOr14wx9xuwT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+
+
+
 ------------
 
 

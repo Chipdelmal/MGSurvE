@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import math
 import numpy as np
 import pandas as pd
 from os import path
-from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
 import MGSurvE as srv
@@ -19,16 +17,20 @@ srv.makeFolder(OUT_PTH)
 ptsNum = 150
 radii = (75, 100)
 xy = srv.ptsDonut(ptsNum, radii).T
-points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*ptsNum})
+pType = np.random.choice(1, xy.shape[1])
+points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': pType})
 ###############################################################################
 # Defining Traps
 ###############################################################################
 nullTraps = [0, 0, 0, 0, 0]
 traps = pd.DataFrame({
     'x': nullTraps, 'y': nullTraps,
-    't': nullTraps, 'f': nullTraps
+    't': [0, 0, 0, 1, 1], 'f': nullTraps
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}}}
+tKer = {
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .1}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .125}}
+}
 ###############################################################################
 # Setting Landscape Object Up
 ###############################################################################
@@ -52,8 +54,8 @@ srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
 ############################################################################### 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=100)
-lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
-lnd.plotTraps(fig, ax)
+lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+lnd.plotTraps(fig, ax)# , zorders=(60, 50))
 srv.plotClean(fig, ax, frame=False)
 srv.plotFitness(fig, ax, min(logbook['min']))
 fig.savefig(
@@ -61,16 +63,12 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
-
+###############################################################################
+# Plotting Optimized Landscape
+############################################################################### 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-srv.plotMatrix(
-        fig, ax,
-        lnd.maskedMigration, 
-        trapsNumber=len(nullTraps), vmin=0, vmax=.1, 
-        cmap='Purples', linecolor='#222222', linestyle=':', lw=.5,
-        ticks=False
-    )
-srv.plotClean(fig, ax)
+srv.plotMatrix(fig, ax, lnd.trapsMigration, vmax=1e-2, trapsNumber=len(nullTraps))
+srv.plotClean(fig, ax, frame=False)
 fig.savefig(
     path.join(OUT_PTH, '{}_MTX.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
