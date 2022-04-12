@@ -252,7 +252,7 @@ def initChromosomeMixed(
     ):
     coordSect = initChromosome(trapsCoords, fixedTrapsMask, coordsRange)
     typesInit = mutShuffleIndexes(trapsPool, indpb, typeOptimMask)[0]
-    return list(coordSect)+typesInit
+    return [float(i) for i in coordSect]+list(typesInit)
 
 ###############################################################################
 # Fitness Functions

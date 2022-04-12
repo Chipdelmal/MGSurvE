@@ -288,6 +288,7 @@ class Landscape:
         try:
             self.trapsTOptim = traps['o']
         except:
+            # print("No 'o' part of update")
             pass
         # Updating necessary matrices -----------------------------------------
         if (oldTrapsNum != len(self.trapsCoords)):

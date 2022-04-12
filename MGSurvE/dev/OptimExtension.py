@@ -49,17 +49,17 @@ tKer = {
 # Defining Landscape and Traps
 ###############################################################################
 lnd = srv.Landscape(points, traps=traps, trapsKernels=tKer)
+lndBase = deepcopy(lnd)
 bbox = lnd.getBoundingBox()
 ###############################################################################
 # Optimization Extension
 ###############################################################################
-lndBase = deepcopy(lnd)
-trapsPool = list(traps['t'])+[0, 1, 2, 3]
+trapsPool = list(traps['t'])+[100, 101, 102, 103]
 trpsNum = traps.shape[0]
 baseChrom = srv.initChromosomeMixed(
     trapsCoords=lndBase.trapsCoords, 
-    fixedTrapsMask=srv.genFixedTrapsMask(lndTest.trapsFixed), 
-    typeOptimMask=trpTsk,
+    fixedTrapsMask=srv.genFixedTrapsMask(lndBase.trapsFixed), 
+    typeOptimMask=lnd.trapsTOptim,
     coordsRange=bbox, indpb=1,
     trapsPool=trapsPool
 )
@@ -69,18 +69,21 @@ traps = pd.DataFrame({
     'x': [0, 0, 0, 0, 0, 0],
     'y': [0, 0, 0, 0, 0, 0],
     't': [0, 1, 2, 3, 2, 1],
-    'f': [0, 1, 1, 1, 1, 1],
+    'f': [0, 1, 0, 1, 0, 1],
     'o': [0, 0, 0, 0, 0, 0]
 })
 lndTest.updateTraps(traps, tKer)
 testChrom = srv.initChromosomeMixed(
-    trapsCoords=lndBase.trapsCoords, 
+    trapsCoords=lndTest.trapsCoords, 
     fixedTrapsMask=srv.genFixedTrapsMask(lndTest.trapsFixed), 
-    typeOptimMask=lndTest.trapsTOptim,
+    typeOptimMask=list(traps['o']),
     coordsRange=bbox, indpb=1,
     trapsPool=trapsPool
 )
-testChrom
+
+
+typesSect = [i[trpsNum*2:] for i in (baseChrom, testChrom)]
+passed = [a == b for (a, b) in zip(*typesSect)]
 
 
 chromosome
