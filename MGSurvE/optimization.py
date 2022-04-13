@@ -94,8 +94,9 @@ def initChromosome(trapsCoords, fixedTrapsMask, coordsRange):
     """ Generates a random uniform chromosome for GA optimization.
     
     Parameters:
-        trapsNum (int): Number of traps to lay down in the landscape.
-        xRan (tuple of tuples of floats): XY Range for the coordinates.
+        trapsCoords (int): Number of traps to lay down in the landscape.
+        fixedTrapsMask (list of bools): Mask with coordinates that can be moved (true) and which can't (false).
+        coordsRange (tuple of tuples of floats).
     Returns:
         (list): List of xy coordinates for the traps' positions.
     """
@@ -108,9 +109,6 @@ def initChromosome(trapsCoords, fixedTrapsMask, coordsRange):
             chromosome[allele+0] = np.random.uniform(xRan[0], xRan[1], 1)[0]
             chromosome[allele+1] = np.random.uniform(yRan[0], yRan[1], 1)[0]
         allele = allele + 2
-    # xCoords = np.random.uniform(xRan[0], xRan[1], trapsNum)
-    # yCoords = np.random.uniform(yRan[0], yRan[1], trapsNum)
-    # chromosome = [val for pair in zip(xCoords, yCoords) for val in pair]
     return chromosome
 
 
@@ -225,6 +223,63 @@ def cxBlend(
 ###############################################################################
 # GA (Extended)
 ###############################################################################
+def mutShuffleIndexes(individual, typeOptimMask, indpb=.5):
+    (size, clen) = (len(typeOptimMask), len(individual))
+    for i in range(size):
+        # If the allele can be mutated and was sampled
+        if (typeOptimMask[i]):
+            if (random.random() < indpb):
+                swap_indx = random.randint(0, clen-2)
+                if swap_indx >= i:
+                    swap_indx += 1
+                # If sampIx is part of the extra pool, just swap
+                if swap_indx >= size:
+                    individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
+                # If sampIx is part of the placed traps, and it's optimizable
+                elif typeOptimMask[swap_indx]:
+                    individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
+                # If sampIx is part of the placed traps, but not optimizable
+                else:
+                    swap_indx = random.randint(size, clen-1)
+                    individual[i], individual[swap_indx] = individual[swap_indx], individual[i]
+    return (individual, )
+
+
+def initChromosomeMixed(
+        trapsCoords, 
+        fixedTrapsMask, typeOptimMask,
+        coordsRange, trapsPool, 
+        indpb=.75
+    ):
+    coordSect = initChromosome(trapsCoords, fixedTrapsMask, coordsRange)
+    typesInit = mutShuffleIndexes(trapsPool, typeOptimMask, indpb)[0]
+    return [float(i) for i in coordSect]+list(typesInit)
+
+
+def mutateChromosomeMixed(
+        chromosome,
+        fixedTrapsMask, typeOptimMask,
+        mutCoordFun=mutateChromosome,
+        mutCoordArgs={
+            'randFun': rand.normal, 'randArgs': {'loc': 0, 'scale': 10}, 
+            'indpb': 0.5
+        },
+        mutTypeFun=mutShuffleIndexes,
+        mutTypeArgs={
+            'indpb': 0.5
+        }
+    ):
+    # Split chromosome in parts -----------------------------------------------
+    (coordsSect, typesSect) = (
+        chromosome[:len(fixedTrapsMask)], 
+        chromosome[len(fixedTrapsMask):]
+    )
+    # Mutate coordinates section ----------------------------------------------
+    coordsMut = mutCoordFun(coordsSect, fixedTrapsMask,**mutCoordArgs)[0]
+    # Mutate types section ----------------------------------------------------
+    typesMut = mutTypeFun(typesSect, typeOptimMask, **mutTypeArgs)[0]
+    # Return mutated chromosome -----------------------------------------------
+    return (coordsMut+typesMut)
 
 
 ###############################################################################

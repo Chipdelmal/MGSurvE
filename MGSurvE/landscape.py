@@ -182,6 +182,10 @@ class Landscape:
                 self.trapsFixed = np.asarray(traps['f'])
             else:
                 self.trapsFixed = np.asarray([0]*len(self.trapsCoords))
+            if ('o' in tpsHead):
+                self.trapsTOptim = np.asarray(traps['o'])
+            else:
+                self.trapsTOptim = np.asarray([0]*len(self.trapsCoords))
             self.trapsNumber = len(self.trapsCoords)
             # Init trap types -------------------------------------------------
             trapTypesNum = len(set(self.trapsTypes))
@@ -281,6 +285,11 @@ class Landscape:
         self.trapsNumber = len(self.trapsCoords)
         self.trapsKernels = trapsKernels
         self.trapsFixed = traps['f']
+        try:
+            self.trapsTOptim = traps['o']
+        except:
+            # print("No 'o' part of update")
+            pass
         # Updating necessary matrices -----------------------------------------
         if (oldTrapsNum != len(self.trapsCoords)):
             self.trapsMigration = mat.genVoidFullMigrationMatrix(
