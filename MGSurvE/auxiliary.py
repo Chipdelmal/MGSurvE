@@ -37,6 +37,8 @@ def vincentyDistance(pointA, pointB, meters=True):
         (pointA[1], pointA[0]), 
         (pointB[1], pointB[0])
     )
+    if distKM == None:
+        return 0
     if meters:
         return distKM*1000
     else:
