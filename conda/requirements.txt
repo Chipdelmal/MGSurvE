@@ -8,7 +8,7 @@ argon2-cffi=21.3.0=pypi_0
 argon2-cffi-bindings=21.2.0=pypi_0
 asttokens=2.0.5=pypi_0
 attrs=21.4.0=pypi_0
-babel=2.9.1=pypi_0
+babel>=2.9.1=pypi_0
 backcall=0.2.0=pypi_0
 beautifulsoup4=4.10.0=pypi_0
 bleach=4.1.0=pypi_0
@@ -107,7 +107,7 @@ nbformat=5.3.0=pypi_0
 ncurses=6.3=h96cf925_1
 nest-asyncio=1.5.5=pypi_0
 networkx=2.7.1=pypi_0
-notebook=6.4.10=pypi_0
+notebook>=6.4.10=pypi_0
 numpy=1.22.3=py310hb608527_2
 opencv-contrib-python=4.5.5.64=pypi_0
 openjpeg=2.4.0=h6e7aa92_1
