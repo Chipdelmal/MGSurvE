@@ -50,7 +50,7 @@ def test_initChromosomeMixedCoords():
     # Setting landscape up ----------------------------------------------------
     pts = ((-100, -50, 0), (100, 50, 0))
     points = pd.DataFrame(pts, columns=('x', 'y', 't'))
-    (nullC, ktyp) = ([0, 0, 0, 0, 0, 0], [1, 3, 2, 1, 0, 1])
+    (nullC, ktyp) = ([0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [1, 3, 2, 1, 0, 1])
     traps = pd.DataFrame({
         'x': nullC, 'y': nullC, 't': ktyp,
         'f': [1, 1, 1, 1, 1, 1],
@@ -154,7 +154,6 @@ def test_initChromosomeMixedTypes():
     typesSect = [i[trpsNum*2:trpsNum*2+trpsNum] for i in (baseChrom, testChrom)]
     passed = sum([a == b for (a, b) in zip(*typesSect)])
     typesPass = (passed > trpsNum*.4)
-    print(typesPass)
     # Put tests together ------------------------------------------------------
     assert (coordsPass and typesPass)
 
