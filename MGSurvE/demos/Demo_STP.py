@@ -16,7 +16,7 @@ import cartopy.feature as cfeature
 
 
 # (FXD_TRPS, TRPS_NUM) = (int(argv[2]), int(argv[1]))
-(FXD_TRPS, TRPS_NUM) = (True, 5)
+(FXD_TRPS, TRPS_NUM) = (True, 10)
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
@@ -26,7 +26,7 @@ if FXD_TRPS:
     ID = 'STP_FXD'
 else:
     ID = 'STP_FXN'
-GENS = 500
+GENS = 2000
 (IX_SPLIT, DIAG_VAL) = (27, 0.5)
 ###############################################################################
 # Load Pointset
@@ -67,14 +67,14 @@ if FXD_TRPS:
         initLon[TRPS_NUM-(i+1)] = SAO_FIXED[i][0]
         initLat[TRPS_NUM-(i+1)] = SAO_FIXED[i][1]
 traps = pd.DataFrame({'lon': initLon, 'lat': initLat, 't': initTyp, 'f': initFxd})
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .01}}}
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .0075}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
     traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS,
-    trapsRadii=[.25, .2, .1],
+    trapsRadii=[.5, .25],
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
@@ -171,7 +171,7 @@ toolbox.register(
     "evaluate", srv.calcFitness, 
     landscape=lndGA,
     optimFunction=srv.getDaysTillTrapped,
-    optimFunctionArgs={'outer': np.mean, 'inner': np.max}
+    optimFunctionArgs={'outer': np.mean, 'inner': np.mean}
 )
 ###############################################################################
 # Registering GA stats
