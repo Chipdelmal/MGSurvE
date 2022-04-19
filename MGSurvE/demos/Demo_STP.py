@@ -8,6 +8,7 @@ from os import path
 from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
+from numpy.random import uniform
 from deap import base, creator, algorithms, tools
 from sklearn.preprocessing import normalize
 import MGSurvE as srv
@@ -15,19 +16,20 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 
 
-# (FXD_TRPS, TRPS_NUM) = (int(argv[2]), int(argv[1]))
-(FXD_TRPS, TRPS_NUM) = (True, 10)
+(FXD_TRPS, TRPS_NUM) = (int(argv[2]), int(argv[1]))
+# (FXD_TRPS, TRPS_NUM) = (True, 6)
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
+OUT_PTH = '/Volumes/marshallShare/MGS_Benchmarks/STPVincenty/'
 # OUT_PTH = '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
-OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
+# OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
 if FXD_TRPS:
     ID = 'STP_FXD'
 else:
     ID = 'STP_FXN'
-GENS = 2000
-(IX_SPLIT, DIAG_VAL) = (27, 0.5)
+GENS = 1000
+(IX_SPLIT, DIAG_VAL) = (27, 0.1)
 ###############################################################################
 # Load Pointset
 ###############################################################################
@@ -60,13 +62,18 @@ SAO_TOME_MIG = normalize(msplit, axis=1, norm='l1')
 #   North and South land masses (mini islands): 51, 239 (zero-indexed)
 ###############################################################################
 (initTyp, initFxd) = ([0]*TRPS_NUM, [0]*TRPS_NUM)
-(initLon, initLat) = ([SAO_cntr[0]]*TRPS_NUM, [SAO_cntr[1]]*TRPS_NUM)
+(initLon, initLat) = ([
+    uniform(*SAO_bbox[0], TRPS_NUM), uniform(*SAO_bbox[1], TRPS_NUM)
+])
 if FXD_TRPS:
     for i in range(FXD_NUM):
         initFxd[TRPS_NUM-(i+1)] = 1
-        initLon[TRPS_NUM-(i+1)] = SAO_FIXED[i][0]
+        initLon[TRPS_NUM-(i+1)] = SAO_FIXED[i][0] 
         initLat[TRPS_NUM-(i+1)] = SAO_FIXED[i][1]
-traps = pd.DataFrame({'lon': initLon, 'lat': initLat, 't': initTyp, 'f': initFxd})
+traps = pd.DataFrame({
+    'lon': initLon, 'lat': initLat, 
+    't': initTyp, 'f': initFxd
+})
 tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .0075}}}
 ###############################################################################
 # Setting Landscape Up
@@ -74,7 +81,7 @@ tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .0075}}}
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
     traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS,
-    trapsRadii=[.5, .25],
+    trapsRadii=[.75, .5, .3],
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
@@ -91,7 +98,7 @@ lnd.plotTraps(fig, ax)
 #     fig, ax, 
 #     lineWidth=10, alphaMin=.1, alphaAmplitude=2.5,
 # )
-# lnd.plotLandBoundary(fig, ax)
+lnd.plotLandBoundary(fig, ax)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
@@ -103,7 +110,7 @@ plt.close('all')
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (MAT, MUT, SEL) = (
-    {'mate': .35, 'cxpb': 0.5}, 
+    {'mate': 0.35, 'cxpb': 0.5}, 
     {
         'mean': 0, 
         'sd': max([abs(i[1]-i[0]) for i in bbox])/5, 
@@ -168,10 +175,11 @@ toolbox.register(
     tournsize=SEL['tSize']
 )
 toolbox.register(
-    "evaluate", srv.calcFitness, 
+    "evaluate", srv.calcFitnessPseudoInverse, 
     landscape=lndGA,
-    optimFunction=srv.getDaysTillTrapped,
-    optimFunctionArgs={'outer': np.mean, 'inner': np.mean}
+    optimFunction=srv.getDaysTillTrappedPseudoInverse,
+    optimFunctionArgs={'outer': np.mean, 'inner': np.max},
+    rcond=1e-30
 )
 ###############################################################################
 # Registering GA stats
