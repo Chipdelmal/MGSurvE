@@ -93,11 +93,10 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
     plt.axes(projection=ccrs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=250)
-lnd.plotTraps(fig, ax)
-# lnd.plotMigrationNetwork(
-#     fig, ax, 
-#     lineWidth=10, alphaMin=.1, alphaAmplitude=2.5,
-# )
+# lnd.plotTraps(fig, ax)
+lnd.plotMigrationNetwork(
+    fig, ax, lineWidth=10, alphaMin=.1, alphaAmplitude=2.5,
+)
 lnd.plotLandBoundary(fig, ax)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
@@ -178,8 +177,7 @@ toolbox.register(
     "evaluate", srv.calcFitnessPseudoInverse, 
     landscape=lndGA,
     optimFunction=srv.getDaysTillTrappedPseudoInverse,
-    optimFunctionArgs={'outer': np.mean, 'inner': np.max},
-    rcond=1e-30
+    optimFunctionArgs={'outer': np.mean, 'inner': np.max}
 )
 ###############################################################################
 # Registering GA stats
@@ -222,7 +220,7 @@ lnd.plotSites(fig, ax, size=250)
 # )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
 srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
-# lnd.plotLandBoundary(fig, ax)
+lnd.plotLandBoundary(fig, ax)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 

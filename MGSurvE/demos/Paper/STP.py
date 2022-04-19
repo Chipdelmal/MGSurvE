@@ -161,9 +161,9 @@ toolbox.register(
     tournsize=SEL['tSize']
 )
 toolbox.register(
-    "evaluate", srv.calcFitness, 
+    "evaluate", srv.calcFitnessPseudoInverse, 
     landscape=lndGA,
-    optimFunction=srv.getDaysTillTrapped,
+    optimFunction=srv.getDaysTillTrappedPseudoInverse,
     optimFunctionArgs={'outer': np.mean, 'inner': np.max}
 )
 ###############################################################################

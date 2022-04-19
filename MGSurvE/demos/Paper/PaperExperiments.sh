@@ -19,8 +19,8 @@ if [ $OPT == "Simple" ];
 then
     for lnd in ${lnds[@]}; do
         printf "\r\tOptimizing (Simple) $lnd..."
-        python Optimization.py "${lnd}_LND_HOM"
-        python Optimization.py "${lnd}_LND_HET"
+        python Optimization-Simple.py "${lnd}_LND_HOM"
+        python Optimization-Simple.py "${lnd}_LND_HET"
         printf "\r\033[K"
     done
 else

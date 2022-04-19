@@ -330,7 +330,7 @@ def getDaysTillTrapped(
 def getDaysTillTrappedPseudoInverse(
         landscape,
         fitFuns={'outer': np.mean, 'inner': np.max},
-        rcond=1e-20
+        rcond=1e-30
     ):
     """Gets the number of timesteps until a walker falls into a trap (using pseudo-inverse matrix function).
 
@@ -380,7 +380,7 @@ def calcFitnessPseudoInverse(
         landscape=None,
         optimFunction=getDaysTillTrappedPseudoInverse,
         optimFunctionArgs={'outer': np.mean, 'inner': np.max},
-        rcond=1e-25,
+        rcond=1e-30,
         dims=2,
         clipValue=1000
     ):
