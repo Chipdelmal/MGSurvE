@@ -34,7 +34,7 @@ class TestDistance(unittest.TestCase):
         self.assertTrue(testDistance, msg='Expect Distance: {0}, Actual Distance: {1}'.format(304001, distanceM))
 
 
-    def test_Vincinity_180Meridian(self):
+    def test_Vincenty_180Meridian(self):
         pointA = (177.221232, -17.947826)
         pointB = (-179.779055, -16.603513)
 
@@ -62,7 +62,7 @@ class TestDistance(unittest.TestCase):
         self.assertTrue(testDistance, msg='Expect Distance: {0}, Actual Distance: {1}'.format(351826, distanceM))
 
     
-    def test_Vincinity_0Distance(self):
+    def test_Vincenty_0Distance(self):
         pointA = (177.221232, -17.947826)
         pointB = (177.221232, -17.947826)
 
