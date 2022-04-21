@@ -53,7 +53,7 @@ lnd = srv.Landscape(points, kernelParams=mKer, traps=traps, trapsKernels=tKer)
 # Test and Compare
 ############################################################################### 
 (tau, sitesN, trapsN, iters) = (
-    lnd.trapsMigration, ptsNum, traps.shape[0], 1000
+    lnd.trapsMigration, ptsNum, traps.shape[0], 10000
 )
 # Equivalency -----------------------------------------------------------------
 mA = np.sum(srv.getFundamentalMatrix(tau, sitesN, trapsN), axis=1)
