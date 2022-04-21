@@ -1,8 +1,4 @@
 
-
-from deap import base
-from deap import creator
-from deap import tools
 import math
 import numpy as np
 from os import path
@@ -10,13 +6,14 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from copy import deepcopy
 from deap import base, creator, algorithms, tools
+from timeit import timeit
 import MGSurvE as srv
 
 
 (ID, TYPE, OUT_PTH) = ('PSO', 'Uniform', './demos_out/')
 srv.makeFolder(OUT_PTH)
 
-ptsNum = 500
+ptsNum = 200
 radii = (75, 100)
 pTypesProb =[0.05, 0.70, 0.25]
 bbox = ((-200, 200), (-150, 150))
@@ -51,44 +48,23 @@ tKer = {
 ###############################################################################
 # Landscape
 ############################################################################### 
-lnd = srv.Landscape(
-    points, kernelParams=mKer,
-    traps=traps, trapsKernels=tKer
-)
-bbox = lnd.getBoundingBox()
-trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
+lnd = srv.Landscape(points, kernelParams=mKer, traps=traps, trapsKernels=tKer)
 ###############################################################################
-# PSO
+# Test and Compare
 ############################################################################### 
-(PARTS, GENS, SPD, PHI) = (
-    40, 1000, 
-    (-5, 5), (75, 75)
+(tau, sitesN, trapsN, iters) = (
+    lnd.trapsMigration, ptsNum, traps.shape[0], 1000
 )
-pso = srv.Particle_Swarm(
-    lnd=lnd,
-    traps=traps,
-    num_particles=PARTS, num_gens=GENS, 
-    p_min=min(bbox[0][0], bbox[1][0]), p_max=max(bbox[1][0], bbox[1][1]),  
-    s_min=SPD[0], s_max=SPD[1],
-    phi1=PHI[0], phi2=PHI[1],
-    optimFunctionArgs={'outer': np.mean, 'inner': np.mean}
-)
-(pop, logbook, best) = pso.evaluate()
-bestTraps = np.reshape(best, (-1, 2))
-lnd.updateTrapsCoords(bestTraps)
-###############################################################################
-# Plot Results
-############################################################################### 
-(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax, size=100)
-lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
-lnd.plotTraps(fig, ax)
-# srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
-srv.plotClean(fig, ax, frame=True, bbox=bbox)
-fig.savefig(
-    path.join(OUT_PTH, '{}_{}.png'.format(ID, TYPE)),
-    facecolor='w', bbox_inches='tight', 
-    pad_inches=.1, dpi=300
-)
-plt.close('all')
-    
+# Equivalency -----------------------------------------------------------------
+mA = np.sum(srv.getFundamentalMatrix(tau, sitesN, trapsN), axis=1)
+mB = np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)
+mC = srv.getFundamentalVector(tau, sitesN, trapsN)
+equivalency = all([
+    all(np.isclose(mA, mB)), all(np.isclose(mA, mC)), all(np.isclose(mB, mC))
+])
+print("Methods are equivalent?: {}".format(equivalency))
+# Timing ----------------------------------------------------------------------
+tA = timeit(lambda: np.sum(srv.getFundamentalMatrix(tau, sitesN, trapsN), axis=1), number=iters)
+tB = timeit(lambda: np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1), number=iters)
+tC = timeit(lambda: srv.getFundamentalVector(tau, sitesN, trapsN), number=iters)
+print("* Time inverse: {}\n* Time pseudo: {}\n* Time solve: {}\nOver {} iterations!".format(tA, tB, tC, iters))

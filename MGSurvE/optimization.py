@@ -89,6 +89,15 @@ def getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN, rcond=1e-20):
     F = np.linalg.pinv(np.subtract(I, Q), rcond=rcond)
     return F
 
+def getFundamentalVector(tau, sitesN, trapsN):
+    # Equivalent to:
+    #   np.sum(srv.getFundamentalMatrix(tau, sitesN, trapsN), axis=1)
+    #   np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)
+    Q = tau[:sitesN, :sitesN]
+    I = np.identity(Q.shape[0])
+    o = np.ones(Q.shape[0])
+    F = np.linalg.solve(I-Q, o)
+    return F
 
 def getFundamentalFitness(
         fundamentalMatrix, 
