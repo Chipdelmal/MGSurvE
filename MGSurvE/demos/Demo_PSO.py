@@ -13,13 +13,13 @@ from deap import base, creator, algorithms, tools
 import MGSurvE as srv
 
 
-(ID, TYPE, OUT_PTH) = ('PSO', 'Uniform', './demos_out/')
+(ID, TYPE, OUT_PTH) = ('PSO', 'Ring', './demos_out/')
 srv.makeFolder(OUT_PTH)
 
-ptsNum = 500
-radii = (75, 100)
+ptsNum = 300
+radii = (250, 300)
 pTypesProb =[0.05, 0.70, 0.25]
-bbox = ((-200, 200), (-150, 150))
+bbox = ((-300, 300), (-200, 200))
 ###############################################################################
 # Pointset
 ############################################################################### 
@@ -37,16 +37,15 @@ mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
 ###############################################################################
 # Traps
 ############################################################################### 
-nullTraps = [0, 0, 0, 0]
 traps = pd.DataFrame({
-    'x': [0, 0, 0, 0], 
-    'y': [0, 0, 0, 0], #[0, 0, 87.5, -87.5],
-    't': [0, 1, 0, 1], 
-    'f': [0, 0, 0, 0]
+    'x': [0, 0, 0, 0, 0], 
+    'y': [0, 0, 0, 0, 0], #[0, 0, 87.5, -87.5],
+    't': [0, 1, 0, 1, 0], 
+    'f': [0, 0, 0, 0, 0]
 })
 tKer = {
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .100}},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': .050}}
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .050}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': .030}}
 }
 ###############################################################################
 # Landscape
@@ -60,9 +59,11 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 # PSO
 ############################################################################### 
-(PARTS, GENS, SPD, PHI) = (
-    40, 1000, 
-    (-5, 5), (75, 75)
+(GENS, PARTS, SPD, PHI) = (
+    100,
+    traps.shape[0]*10,
+    (-max(max(bbox))/40, max(max(bbox))/40), 
+    (max(max(bbox))/20, max(max(bbox))/20)
 )
 pso = srv.Particle_Swarm(
     lnd=lnd,
@@ -71,7 +72,7 @@ pso = srv.Particle_Swarm(
     p_min=min(bbox[0][0], bbox[1][0]), p_max=max(bbox[1][0], bbox[1][1]),  
     s_min=SPD[0], s_max=SPD[1],
     phi1=PHI[0], phi2=PHI[1],
-    optimFunctionArgs={'outer': np.mean, 'inner': np.mean}
+    optimFunctionArgs={'outer': np.max, 'inner': np.sum}
 )
 (pop, logbook, best) = pso.evaluate()
 bestTraps = np.reshape(best, (-1, 2))

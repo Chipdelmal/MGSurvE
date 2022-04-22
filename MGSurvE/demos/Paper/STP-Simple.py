@@ -100,7 +100,7 @@ POP_SIZE = int(10*(lnd.trapsNumber*1.25))
         'mean': 0, 'sd': max([abs(i[1]-i[0]) for i in bbox])/5, 
         'mutpb': .35, 'ipb': .5
     },
-    {'tSize': 5}
+    {'tSize': 3}
 )
 lndGA = deepcopy(lnd)
 # Reducing the bbox for init sampling -----------------------------------------

@@ -102,7 +102,7 @@ POP_SIZE = int(10*(lnd.trapsNumber*1))
         'sd': max([abs(i[1]-i[0]) for i in bbox])/5, 
         'mutpb': .35, 'indpb': .5
     },
-    {'tSize': 5}
+    {'tSize': 3}
 )
 VERBOSE = True
 lndGA = deepcopy(lnd)
