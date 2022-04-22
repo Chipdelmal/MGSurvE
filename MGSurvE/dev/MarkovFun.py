@@ -1,11 +1,8 @@
 
 import math
 import numpy as np
-from os import path
 import matplotlib.pyplot as plt
 import pandas as pd
-from copy import deepcopy
-from deap import base, creator, algorithms, tools
 from timeit import timeit
 import MGSurvE as srv
 

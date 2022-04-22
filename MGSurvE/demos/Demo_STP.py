@@ -76,7 +76,7 @@ traps = pd.DataFrame({
     'lon': initLon, 'lat': initLat, 
     't': initTyp, 'f': initFxd
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .0050}}}
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .0075}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
@@ -178,8 +178,8 @@ toolbox.register(
 toolbox.register(
     "evaluate", srv.calcFitness, 
     landscape=lndGA,
-    optimFunction=srv.getDaysTillTrappedVector, #srv.getDaysTillTrappedPseudoInverse,
-    optimFunctionArgs={'outer': np.mean, 'inner': np.sum} # np.max}
+    optimFunction=srv.getDaysTillTrappedPseudoInverse, #srv.getDaysTillTrappedVector, 
+    optimFunctionArgs={'outer': np.mean, 'inner': np.max} # np.max}
 )
 ###############################################################################
 # Registering GA stats
@@ -221,7 +221,7 @@ lnd.plotMigrationNetwork(
     fig, ax, lineWidth=60, alphaMin=.1, alphaAmplitude=5
 )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
-srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.0f}')
+srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
 # lnd.plotLandBoundary(fig, ax)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
