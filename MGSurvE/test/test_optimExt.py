@@ -165,7 +165,7 @@ def test_MarkovFundamental():
     ###############################################################################
     # Pointset
     ############################################################################### 
-    (ptsNum, ptsTypes) = (ptsNum, len(pTypesProb))
+    (ptsNum, _) = (ptsNum, len(pTypesProb))
     xy = srv.ptsRandUniform(ptsNum, bbox).T
     points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
     mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
@@ -193,7 +193,7 @@ def test_MarkovFundamental():
     # Equivalency -----------------------------------------------------------------
     mA = np.sum(srv.getFundamentalMatrix(tau, sitesN, trapsN), axis=1)
     mB = np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)
-    mC = srv.getFundamentalVector(tau, sitesN, trapsN)
+    mC = srv.getFundamentalVector(tau, sitesN)
     equivalency = all([
         all(np.isclose(mA, mB)), all(np.isclose(mA, mC)), all(np.isclose(mB, mC))
     ])

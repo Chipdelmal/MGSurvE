@@ -67,11 +67,4 @@ print("Methods are equivalent?: {}".format(equivalency))
 tA = timeit(lambda: np.sum(srv.getFundamentalMatrix(tau, sitesN, trapsN), axis=1), number=iters)
 tB = timeit(lambda: np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1), number=iters)
 tC = timeit(lambda: srv.getFundamentalVector(tau, sitesN, trapsN), number=iters)
-print("* Time inverse: {}\n* Time pseudo: {}\n* 
-
-
-rA = srv.getFundamentalMatrix(tau, sitesN, trapsN)
-rB = srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN)
-rC = srv.getFundamentalVector(tau, sitesN, trapsN)
-
-np.mean(rC)
+print("* Time inverse: {}\n* Time pseudo: {}\n* Time solve: {}\nOver {} iterations!".format(tA, tB, tC, iters))
