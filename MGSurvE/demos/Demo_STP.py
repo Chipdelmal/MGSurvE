@@ -178,7 +178,7 @@ toolbox.register(
 toolbox.register(
     "evaluate", srv.calcFitness, 
     landscape=lndGA,
-    optimFunction=srv.getDaysTillTrappedPseudoInverse, #srv.getDaysTillTrappedVector, 
+    optimFunction=srv.getDaysTillTrappedPseudoInverse,
     optimFunctionArgs={'outer': np.mean, 'inner': np.max} # np.max}
 )
 ###############################################################################
