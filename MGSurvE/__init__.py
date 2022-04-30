@@ -9,3 +9,4 @@ from .plots import *
 from .optimization import *
 from .pointProcess import *
 from .network import *
+from .optimizationPSO import *

@@ -1,4 +1,3 @@
-# %%
 import operator
 import random
 
@@ -20,10 +19,6 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 (ID, OUT_PTH) = ('PSO_testing', './test/')
 
-## TODO: ASK HECTOR HOW TO IMPORT CLASS
-from optimizationPSO import Particle_Swarm
-
-#%%
 def test_movable_pso():
      # defining landscape ----------------------------------------------------
     ptsNum = 100
@@ -50,10 +45,6 @@ def test_movable_pso():
     lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
     lnd.plotTraps(fig, ax)
     srv.plotClean(fig, ax, frame=False)
-    fig.savefig(
-        path.join(OUT_PTH, '{}_TRP1.png'.format(ID)), 
-        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-    )
     # GA settings -------------------------------------------------------------------
     POP_SIZE = int(10*(lnd.trapsNumber*1.25))
     (GENS, MAT, MUT, SEL) = (
@@ -65,7 +56,7 @@ def test_movable_pso():
     VERBOSE = True
     lndGA = deepcopy(lnd)
     # PSO -------------------------------------------------------------------
-    pso = Particle_Swarm(traps,-150, 150, lnd, 5, 100)
+    pso = srv.Particle_Swarm(traps,-150, 150, lnd, 5, 100)
     # self, traps, p_min, p_max, lnd, num_particles=50, num_gens=500, s_min=-3, s_max=3
 
     (pop, logbook, best) = pso.evaluate()
@@ -78,17 +69,8 @@ def test_movable_pso():
     lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
     lnd.plotTraps(fig, ax)
     srv.plotClean(fig, ax, frame=False, bbox=bbox)
-    fig.savefig(
-        './images/pso.png',
-        facecolor='w', bbox_inches='tight', 
-        pad_inches=.1, dpi=300
-    )
-    
-#%%
-test_movable_pso()
-#%%
-def test_immovable_pso():
 
+def test_immovable_pso():
     # defining landscape ----------------------------------------------------
     ptsNum = 100
     radii = (75, 100)
@@ -122,14 +104,9 @@ def test_immovable_pso():
     lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
     lnd.plotTraps(fig, ax)
     srv.plotClean(fig, ax, frame=False)
-    fig.savefig(
-        path.join(OUT_PTH, '{}_TRP1.png'.format(ID)), 
-        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-    )
 
     # Initialize an instance of PSO
-    opt = Particle_Swarm(traps,-150, 150, lnd, 5, 50)
-    # self, traps, p_min, p_max, lnd, num_particles=50, num_gens=500, s_min=-3, s_max=3
+    opt = srv.Particle_Swarm(traps,-150, 150, lnd, 5, 50)
 
     # Run PSO 
     (pop, logbook, best) = opt.evaluate() 
@@ -146,14 +123,7 @@ def test_immovable_pso():
     lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
     lnd.plotTraps(fig, ax)
     srv.plotClean(fig, ax, frame=False, bbox=bbox)
-    fig.savefig(
-        './images/pso.png',
-        facecolor='w', bbox_inches='tight', 
-        pad_inches=.1, dpi=300
-    )
-#%%
-test_immovable_pso()
-#%%%
+
 ###############################################################################
 # Main
 ###############################################################################
