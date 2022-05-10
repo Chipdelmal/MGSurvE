@@ -1,4 +1,3 @@
-# %%
 import operator
 import random
 
@@ -18,10 +17,6 @@ import MGSurvE as srv
 
 (ID, OUT_PTH) = ('PSO_testing', './test/')
 
-## TODO: ASK HECTOR HOW TO IMPORT CLASS
-# from optimizationPSO import Particle_Swarm
-
-#%%
 def test_movable_pso():
      # defining landscape ----------------------------------------------------
     ptsNum = 100
@@ -81,12 +76,10 @@ def test_movable_pso():
     #     facecolor='w', bbox_inches='tight', 
     #     pad_inches=.1, dpi=300
     # )
-    
-#%%
+   
 test_movable_pso()
-#%%
-def test_immovable_pso():
 
+def test_immovable_pso():
     # defining landscape ----------------------------------------------------
     ptsNum = 100
     radii = (75, 100)
@@ -115,6 +108,10 @@ def test_immovable_pso():
     )
     bbox = lnd.getBoundingBox()
     trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
+
+    # Initialize an instance of PSO
+    opt = srv.Particle_Swarm(traps,-150, 150, lnd, 5, 50)
+
     # (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
     # lnd.plotSites(fig, ax, size=100)
     # lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
@@ -149,9 +146,9 @@ def test_immovable_pso():
     #     facecolor='w', bbox_inches='tight', 
     #     pad_inches=.1, dpi=300
     # )
-#%%
+
 test_immovable_pso()
-#%%%
+
 ###############################################################################
 # Main
 ###############################################################################
