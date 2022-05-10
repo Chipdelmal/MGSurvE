@@ -16,19 +16,21 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 
 
-(FXD_TRPS, TRPS_NUM) = (int(argv[2]), int(argv[1]))
-# (FXD_TRPS, TRPS_NUM) = (True, 6)
+if not srv.isNotebook():
+    (FXD_TRPS, TRPS_NUM) = (int(argv[2]), int(argv[1]))
+else:
+    (FXD_TRPS, TRPS_NUM) = (True, 6)
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
-OUT_PTH = '/Volumes/marshallShare/MGS_Benchmarks/STPVincenty/'
+# OUT_PTH = '/Volumes/marshallShare/MGS_Benchmarks/STPVincenty/'
 # OUT_PTH = '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
-# OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
+OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
 if FXD_TRPS:
     ID = 'STP_FXD'
 else:
     ID = 'STP_FXN'
-GENS = 1000
+GENS = 2000
 (IX_SPLIT, DIAG_VAL) = (27, 0.1)
 ###############################################################################
 # Load Pointset
@@ -88,23 +90,22 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 # Plot Landscape
 ###############################################################################
-(fig, ax) = (
-    plt.figure(figsize=(15, 15)),
-    plt.axes(projection=ccrs.PlateCarree())
-)
-lnd.plotSites(fig, ax, size=250)
-lnd.plotTraps(fig, ax)
-# lnd.plotMigrationNetwork(
-#     fig, ax, 
-#     lineWidth=10, alphaMin=.1, alphaAmplitude=2.5,
+# (fig, ax) = (
+#     plt.figure(figsize=(15, 15)),
+#     plt.axes(projection=ccrs.PlateCarree())
 # )
-lnd.plotLandBoundary(fig, ax)
-srv.plotClean(fig, ax, bbox=lnd.landLimits)
-fig.savefig(
-    path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
-    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-)
-plt.close('all')
+# lnd.plotSites(fig, ax, size=250)
+# # lnd.plotTraps(fig, ax)
+# lnd.plotMigrationNetwork(
+#     fig, ax, lineWidth=60, alphaMin=.1, alphaAmplitude=5,
+# )
+# lnd.plotLandBoundary(fig, ax)
+# srv.plotClean(fig, ax, bbox=lnd.landLimits)
+# fig.savefig(
+#     path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
+#     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+# )
+# plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 
@@ -113,10 +114,10 @@ POP_SIZE = int(10*(lnd.trapsNumber*1.25))
     {'mate': 0.35, 'cxpb': 0.5}, 
     {
         'mean': 0, 
-        'sd': max([abs(i[1]-i[0]) for i in bbox])/5, 
-        'mutpb': .35, 'indpb': .5
+        'sd': min([abs(i[1]-i[0]) for i in bbox])/4, 
+        'mutpb': .375, 'indpb': .5
     },
-    {'tSize': 5}
+    {'tSize': 3}
 )
 VERBOSE = True
 lndGA = deepcopy(lnd)
@@ -175,11 +176,10 @@ toolbox.register(
     tournsize=SEL['tSize']
 )
 toolbox.register(
-    "evaluate", srv.calcFitnessPseudoInverse, 
+    "evaluate", srv.calcFitness, 
     landscape=lndGA,
     optimFunction=srv.getDaysTillTrappedPseudoInverse,
-    optimFunctionArgs={'outer': np.mean, 'inner': np.max},
-    rcond=1e-30
+    optimFunctionArgs={'outer': np.mean, 'inner': np.max} # np.max}
 )
 ###############################################################################
 # Registering GA stats
@@ -217,9 +217,9 @@ srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
     plt.axes(projection=ccrs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=250)
-# lnd.plotMigrationNetwork(
-#     fig, ax, lineWidth=10, alphaMin=.1, alphaAmplitude=2.5
-# )
+lnd.plotMigrationNetwork(
+    fig, ax, lineWidth=60, alphaMin=.1, alphaAmplitude=5
+)
 lnd.plotTraps(fig, ax, zorders=(25, 20))
 srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
 # lnd.plotLandBoundary(fig, ax)

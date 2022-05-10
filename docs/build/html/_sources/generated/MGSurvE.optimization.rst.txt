@@ -19,13 +19,18 @@
       exportLog
       genFixedTrapsMask
       getDaysTillTrapped
+      getDaysTillTrappedPseudoInverse
       getFundamentalFitness
       getFundamentalMatrix
+      getFundamentalMatrixPseudoInverse
       getMarkovAbsorbing
       importLog
       initChromosome
+      initChromosomeMixed
+      mutShuffleIndexes
       mutateChromosome
       mutateChromosomeAsymmetric
+      mutateChromosomeMixed
       optimizeTrapsGA
       optimizeTwoSexesTrapsGA
       reshapeInCanonicalForm

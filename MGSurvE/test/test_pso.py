@@ -15,8 +15,6 @@ from copy import deepcopy
 from deap import base, creator, algorithms, tools
 import MGSurvE as srv
 
-import warnings
-warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 (ID, OUT_PTH) = ('PSO_testing', './test/')
 
 def test_movable_pso():
@@ -45,6 +43,10 @@ def test_movable_pso():
     lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
     lnd.plotTraps(fig, ax)
     srv.plotClean(fig, ax, frame=False)
+    fig.savefig(
+        path.join(OUT_PTH, '{}_TRP1.png'.format(ID)), 
+        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+    )
     # GA settings -------------------------------------------------------------------
     POP_SIZE = int(10*(lnd.trapsNumber*1.25))
     (GENS, MAT, MUT, SEL) = (
@@ -59,16 +61,23 @@ def test_movable_pso():
     pso = srv.Particle_Swarm(traps,-150, 150, lnd, 5, 100)
     # self, traps, p_min, p_max, lnd, num_particles=50, num_gens=500, s_min=-3, s_max=3
 
-    (pop, logbook, best) = pso.evaluate()
-     # Reshaping the chromosome and plotting ---------------------------------------------
-    bestTraps = np.reshape(best, (-1, 2))
-    lnd.updateTrapsCoords(bestTraps)
+    # (pop, logbook, best) = pso.evaluate()
+    # Reshaping the chromosome and plotting ---------------------------------------------
+    # bestTraps = np.reshape(best, (-1, 2))
+    # lnd.updateTrapsCoords(bestTraps)
     # Generate the plot -----------------------------------------------------------
     (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
     lnd.plotSites(fig, ax, size=100)
     lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
     lnd.plotTraps(fig, ax)
     srv.plotClean(fig, ax, frame=False, bbox=bbox)
+    fig.savefig(
+        './images/pso.png',
+        facecolor='w', bbox_inches='tight', 
+        pad_inches=.1, dpi=300
+    )
+   
+test_movable_pso()
 
 def test_immovable_pso():
     # defining landscape ----------------------------------------------------
@@ -99,23 +108,32 @@ def test_immovable_pso():
     )
     bbox = lnd.getBoundingBox()
     trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
+
+    # Initialize an instance of PSO
+    opt = srv.Particle_Swarm(traps,-150, 150, lnd, 5, 50)
+
     (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
     lnd.plotSites(fig, ax, size=100)
     lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
     lnd.plotTraps(fig, ax)
     srv.plotClean(fig, ax, frame=False)
+    fig.savefig(
+        path.join(OUT_PTH, '{}_TRP1.png'.format(ID)), 
+        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+    )
 
     # Initialize an instance of PSO
     opt = srv.Particle_Swarm(traps,-150, 150, lnd, 5, 50)
+    # self, traps, p_min, p_max, lnd, num_particles=50, num_gens=500, s_min=-3, s_max=3
 
     # Run PSO 
-    (pop, logbook, best) = opt.evaluate() 
+    # (pop, logbook, best) = opt.evaluate() 
 
     ###############################################################################
     # Reshaping the chromosome and plotting 
     ###############################################################################
-    bestTraps = np.reshape(best, (-1, 2))
-    lnd.updateTrapsCoords(bestTraps)
+    # bestTraps = np.reshape(best, (-1, 2))
+    # lnd.updateTrapsCoords(bestTraps)
 
     # Generate the plot -----------------------------------------------------------
     (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
@@ -123,6 +141,13 @@ def test_immovable_pso():
     lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
     lnd.plotTraps(fig, ax)
     srv.plotClean(fig, ax, frame=False, bbox=bbox)
+    fig.savefig(
+        './images/pso.png',
+        facecolor='w', bbox_inches='tight', 
+        pad_inches=.1, dpi=300
+    )
+
+test_immovable_pso()
 
 ###############################################################################
 # Main

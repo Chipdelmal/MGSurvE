@@ -76,6 +76,14 @@ MGSurvE.optimization module
    :undoc-members:
    :show-inheritance:
 
+MGSurvE.optimizationPSO module
+------------------------------
+
+.. automodule:: MGSurvE.optimizationPSO
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 MGSurvE.plots module
 --------------------
 
