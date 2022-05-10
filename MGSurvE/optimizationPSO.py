@@ -3,18 +3,16 @@ import random
 import math
 import unittest
 import numpy as np
-
-from deap import base
-from deap import creator
-from deap import tools
-
 import math
-import numpy as np
 import pandas as pd
 from copy import deepcopy
 from deap import base, creator, algorithms, tools
 import MGSurvE as srv
 import unittest
+
+from deap import base
+from deap import creator
+from deap import tools
 
 def setup_stats(): 
     """
@@ -115,8 +113,8 @@ class Particle_Swarm:
                 v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)
         """
         # calculate V[t + 1]
-        u1 = (random.uniform(0, phi1) for _ in range(len(part)))
-        u2 = (random.uniform(0, phi2) for _ in range(len(part)))
+        u1 = np.random.uniform(low=0, high=phi1, size=len(part))
+        u2 = np.random.uniform(low=0, high=phi2, size=len(part))
         v_u1 = map(operator.mul, u1, map(operator.sub, part.best, part))
         v_u2 = map(operator.mul, u2, map(operator.sub, best, part))
         part.speed = list(map(operator.add, part.speed, map(operator.add, v_u1, v_u2))) # update speed
@@ -128,11 +126,8 @@ class Particle_Swarm:
             elif abs(speed) > part.smax:
                 part.speed[i] = math.copysign(part.smax, speed)
 
-        ## WILL REMOVE WHEN FINISHED TESTING 
-        # print(part)
-        
         # update particles; calculate X[t+1]
-        part[:] = list( map(operator.add, part, map(operator.mul, part.speed, Particle_Swarm.trpMsk)))
+        part[:] = list(map(operator.add, part, map(operator.mul, part.speed, Particle_Swarm.trpMsk)))
     
     
     def evaluate(self):
