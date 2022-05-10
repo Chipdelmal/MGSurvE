@@ -18,9 +18,9 @@ srv.makeFolder(OUT_PTH)
 
 gens = 1000
 ptsNum = 500
-radii = (450, 500)
+radii = (425, 500)
 pTypesProb =[0.05, 0.70, 0.25]
-bbox = ((-300, 300), (-200, 200))
+bbox = ((-500, 500), (-350, 350))
 ###############################################################################
 # Pointset
 ############################################################################### 
@@ -62,7 +62,7 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ############################################################################### 
 (GENS, PARTS, SPD, PHI) = (
     gens,
-    traps.shape[0]*10,
+    traps.shape[0]*15,
     (-max(max(bbox))/40, max(max(bbox))/40), 
     (max(max(bbox))/20, max(max(bbox))/20)
 )
@@ -86,11 +86,11 @@ lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
 srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
-srv.plotClean(fig, ax, frame=True, bbox=bbox)
+srv.plotClean(fig, ax, frame=False, bbox=bbox)
 fig.savefig(
     path.join(OUT_PTH, '{}_{}.png'.format(ID, TYPE)),
     facecolor='w', bbox_inches='tight', 
-    pad_inches=.1, dpi=300
+    pad_inches=1, dpi=300
 )
 plt.close('all')
     
