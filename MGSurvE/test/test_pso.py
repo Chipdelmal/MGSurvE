@@ -38,15 +38,15 @@ def test_movable_pso():
     )
     bbox = lnd.getBoundingBox()
     trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
-    (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-    lnd.plotSites(fig, ax, size=100)
-    lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
-    lnd.plotTraps(fig, ax)
-    srv.plotClean(fig, ax, frame=False)
-    fig.savefig(
-        path.join(OUT_PTH, '{}_TRP1.png'.format(ID)), 
-        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-    )
+    # (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+    # lnd.plotSites(fig, ax, size=100)
+    # lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+    # lnd.plotTraps(fig, ax)
+    # srv.plotClean(fig, ax, frame=False)
+    # fig.savefig(
+    #     path.join(OUT_PTH, '{}_TRP1.png'.format(ID)), 
+    #     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+    # )
     # GA settings -------------------------------------------------------------------
     POP_SIZE = int(10*(lnd.trapsNumber*1.25))
     (GENS, MAT, MUT, SEL) = (
@@ -66,16 +66,16 @@ def test_movable_pso():
     # bestTraps = np.reshape(best, (-1, 2))
     # lnd.updateTrapsCoords(bestTraps)
     # Generate the plot -----------------------------------------------------------
-    (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-    lnd.plotSites(fig, ax, size=100)
-    lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
-    lnd.plotTraps(fig, ax)
-    srv.plotClean(fig, ax, frame=False, bbox=bbox)
-    fig.savefig(
-        './images/pso.png',
-        facecolor='w', bbox_inches='tight', 
-        pad_inches=.1, dpi=300
-    )
+    # (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+    # lnd.plotSites(fig, ax, size=100)
+    # lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+    # lnd.plotTraps(fig, ax)
+    # srv.plotClean(fig, ax, frame=False, bbox=bbox)
+    # fig.savefig(
+    #     './images/pso.png',
+    #     facecolor='w', bbox_inches='tight', 
+    #     pad_inches=.1, dpi=300
+    # )
    
 test_movable_pso()
 
@@ -112,15 +112,15 @@ def test_immovable_pso():
     # Initialize an instance of PSO
     opt = srv.Particle_Swarm(traps,-150, 150, lnd, 5, 50)
 
-    (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-    lnd.plotSites(fig, ax, size=100)
-    lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
-    lnd.plotTraps(fig, ax)
-    srv.plotClean(fig, ax, frame=False)
-    fig.savefig(
-        path.join(OUT_PTH, '{}_TRP1.png'.format(ID)), 
-        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-    )
+    # (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+    # lnd.plotSites(fig, ax, size=100)
+    # lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+    # lnd.plotTraps(fig, ax)
+    # srv.plotClean(fig, ax, frame=False)
+    # fig.savefig(
+    #     path.join(OUT_PTH, '{}_TRP1.png'.format(ID)), 
+    #     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+    # )
 
     # Initialize an instance of PSO
     opt = srv.Particle_Swarm(traps,-150, 150, lnd, 5, 50)
@@ -136,16 +136,16 @@ def test_immovable_pso():
     # lnd.updateTrapsCoords(bestTraps)
 
     # Generate the plot -----------------------------------------------------------
-    (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-    lnd.plotSites(fig, ax, size=100)
-    lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
-    lnd.plotTraps(fig, ax)
-    srv.plotClean(fig, ax, frame=False, bbox=bbox)
-    fig.savefig(
-        './images/pso.png',
-        facecolor='w', bbox_inches='tight', 
-        pad_inches=.1, dpi=300
-    )
+    # (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+    # lnd.plotSites(fig, ax, size=100)
+    # lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+    # lnd.plotTraps(fig, ax)
+    # srv.plotClean(fig, ax, frame=False, bbox=bbox)
+    # fig.savefig(
+    #     './images/pso.png',
+    #     facecolor='w', bbox_inches='tight', 
+    #     pad_inches=.1, dpi=300
+    # )
 
 test_immovable_pso()
 
