@@ -16,8 +16,9 @@ import MGSurvE as srv
 (ID, TYPE, OUT_PTH) = ('PSO', 'Ring', './demos_out/')
 srv.makeFolder(OUT_PTH)
 
-ptsNum = 300
-radii = (250, 300)
+gens = 1000
+ptsNum = 500
+radii = (450, 500)
 pTypesProb =[0.05, 0.70, 0.25]
 bbox = ((-300, 300), (-200, 200))
 ###############################################################################
@@ -60,7 +61,7 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 # PSO
 ############################################################################### 
 (GENS, PARTS, SPD, PHI) = (
-    100,
+    gens,
     traps.shape[0]*10,
     (-max(max(bbox))/40, max(max(bbox))/40), 
     (max(max(bbox))/20, max(max(bbox))/20)
@@ -84,7 +85,7 @@ lnd.updateTrapsCoords(bestTraps)
 lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
-# srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
+srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
 srv.plotClean(fig, ax, frame=True, bbox=bbox)
 fig.savefig(
     path.join(OUT_PTH, '{}_{}.png'.format(ID, TYPE)),
