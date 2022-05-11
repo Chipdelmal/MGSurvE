@@ -7,9 +7,10 @@ from timeit import timeit
 import MGSurvE as srv
 
 
-(ID, TYPE, OUT_PTH) = ('PSO', 'Uniform', './demos_out/')
-srv.makeFolder(OUT_PTH)
-
+(ID, TYPE) = ('PSO', 'Uniform')
+###############################################################################
+# Setting
+############################################################################### 
 ptsNum = 200
 radii = (75, 100)
 pTypesProb =[0.05, 0.70, 0.25]
@@ -33,10 +34,8 @@ mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
 ############################################################################### 
 nullTraps = [0, 0, 0, 0]
 traps = pd.DataFrame({
-    'x': [0, 0, 0, 0], 
-    'y': [0, 0, 0, 0], #[0, 0, 87.5, -87.5],
-    't': [0, 1, 0, 1], 
-    'f': [0, 0, 0, 0]
+    'x': [0, 0, 0, 0], 'y': [0, 0, 0, 0],
+    't': [0, 1, 0, 1], 'f': [0, 0, 0, 0]
 })
 tKer = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .100}},
