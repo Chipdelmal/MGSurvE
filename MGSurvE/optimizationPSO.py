@@ -1,3 +1,7 @@
+'''PSO Operators to calculate fitness and perform operations to search through optimization space.
+
+'''
+
 import operator
 import random
 import math
@@ -17,7 +21,6 @@ from deap import tools
 def setup_stats(pop): 
     """
     Set up Statistics
-    (note: we moved this outside because deap's tools did not work inside the class)
     """
     stats = tools.Statistics(lambda ind: ind.fitness.values)
     stats.register("min", np.min)

@@ -4,7 +4,7 @@ Particle-Swarm Optimization (PSO)
 Particle-Swarm (PSO) is another optimization paradigm that can be used in `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_. 
 PSO can return more stable results in landscapes where the distances gradient is smooth (as particles tend to move towards the mimumim iteratively following this gradient).
 
-To use this paradigm, we once again internally leverage the `DEAP <https://deap.readthedocs.io/en/master/>`_ framework, which can be used through some wrapper functions.
+To use this paradigm, we once again internally leverage the `DEAP <https://deap.readthedocs.io/en/master/>`_ framework, which can be used through some wrapper functions (special thanks to Lillian Weng, Ayden Salazar, Xingli Yu, Joanna Yoo for the implementation of the algorithm).
 
 
 Landscape
@@ -54,9 +54,16 @@ And we will instantiate our main object:
     bbox = lnd.getBoundingBox()
     trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 
+.. image:: ../../img/STP_10_CLN.jpg
+     :align: center
+
 
 PSO
 ~~~~~~~~~~~~~~~~~~~~~~
+
+Now, the PSO works by generating candidate hyper-dimensional particles (moving along trap-position space) that work in community to find the position that minimizes the target function. 
+The variables to tweak to improve its performance are the particles speed (:code:`SPD`), and exploration distances (:code:`PHI`), along with the number of particles and generations (:code:`GENS` and :code:`PARTS` respectively).
+For this example, we will use a set of parameters that works heuristically well for these scenarios, although these might vary depending on the landscape:
 
 .. code-block:: python
 
@@ -67,6 +74,7 @@ PSO
         (max(max(bbox))/20, max(max(bbox))/20)
     )
 
+With these in place, we instantiate our optimizator object, and start the evaluation process:
 
 .. code-block:: python
 
@@ -81,6 +89,7 @@ PSO
     )
     (pop, logbook, _) = pso.evaluate()
 
+And once it's finished, we update our landscape with the best solution found:
 
 .. code-block:: python
 
@@ -92,6 +101,7 @@ PSO
 Export Results
 ~~~~~~~~~~~~~~~~~~~~~~
 
+Finally, as we did before with our GA examples, we export our results:
 
 .. code-block:: python
 
@@ -99,6 +109,8 @@ Export Results
     srv.dumpLandscape(lnd, OUT_PTH, '{}_{}-TRP'.format(ID, TYPE), fExt='pkl')
     srv.exportLog(logbook, OUT_PTH, '{}_{}-LOG'.format(ID, TYPE))
 
+
+and plot our optimized landscape:
 
 .. code-block:: python
 
@@ -116,8 +128,8 @@ Export Results
     plt.close('all')
 
 
+
+
 The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_PSO.py>`_.
 
 
-.. .. image:: ../../img/STP_10_CLN.jpg
-..     :align: center

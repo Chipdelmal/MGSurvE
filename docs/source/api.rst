@@ -27,6 +27,7 @@ All the operations necessary to optimize traps' positions in our landscapes.
    :nosignatures:
 
    MGSurvE.optimization
+   MGSurvE.optimizationPSO
    
 
 DataViz, Point-Processes and Auxiliaries

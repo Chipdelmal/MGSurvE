@@ -11,7 +11,7 @@ import MGSurvE as srv
 srv.makeFolder(OUT_PTH)
 
 gens = 1000
-ptsNum = 200
+ptsNum = 500
 radii = (425, 500)
 pTypesProb =[0.05, 0.70, 0.25]
 bbox = ((-500, 500), (-350, 350))
@@ -27,7 +27,8 @@ elif TYPE == 'Uniform':
 elif TYPE == 'Ring':
     (ptsNum, radii, ptsTypes) = (ptsNum, radii, len(pTypesProb))
     xy = srv.ptsDonut(ptsNum, radii).T
-points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
+pType = np.random.choice(ptsTypes, xy.shape[1])
+points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': pType}) # [0]*xy.shape[1]})
 mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
 ###############################################################################
 # Traps
@@ -51,6 +52,19 @@ lnd = srv.Landscape(
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
+###############################################################################
+# Plot Landscape
+############################################################################### 
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+lnd.plotSites(fig, ax, size=100)
+lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+srv.plotClean(fig, ax, frame=False, bbox=bbox, pad=(5, 5))
+fig.savefig(
+    path.join(OUT_PTH, '{}_{}-LND.png'.format(ID, TYPE)),
+    facecolor='w', bbox_inches='tight', 
+    pad_inches=1, dpi=300
+)
+plt.close('all')
 ###############################################################################
 # PSO
 ############################################################################### 
@@ -87,9 +101,9 @@ lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
 srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
-srv.plotClean(fig, ax, frame=False, bbox=bbox, pad=(10, 10))
+srv.plotClean(fig, ax, frame=False, bbox=bbox, pad=(5, 5))
 fig.savefig(
-    path.join(OUT_PTH, '{}_{}.png'.format(ID, TYPE)),
+    path.join(OUT_PTH, '{}_{}-TRP.png'.format(ID, TYPE)),
     facecolor='w', bbox_inches='tight', 
     pad_inches=1, dpi=300
 )

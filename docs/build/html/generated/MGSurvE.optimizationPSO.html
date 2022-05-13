@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MGSurvE.pointProcess &mdash; MGSurvE  documentation</title>
+  <title>MGSurvE.optimizationPSO &mdash; MGSurvE  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,7 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="MGSurvE.plots" href="MGSurvE.plots.html" /> 
+    <link rel="next" title="MGSurvE.auxiliary" href="MGSurvE.auxiliary.html" />
+    <link rel="prev" title="MGSurvE.optimization" href="MGSurvE.optimization.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,15 +45,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#landscape">Landscape</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#optimization">Optimization</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#dataviz-point-processes-and-auxiliaries">DataViz, Point-Processes and Auxiliaries</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="MGSurvE.auxiliary.html">MGSurvE.auxiliary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MGSurvE.constants.html">MGSurvE.constants</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MGSurvE.colors.html">MGSurvE.colors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MGSurvE.plots.html">MGSurvE.plots</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">MGSurvE.pointProcess</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#optimization">Optimization</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="MGSurvE.optimization.html">MGSurvE.optimization</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">MGSurvE.optimizationPSO</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#dataviz-point-processes-and-auxiliaries">DataViz, Point-Processes and Auxiliaries</a></li>
 </ul>
 </li>
 </ul>
@@ -72,9 +70,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../api.html">API</a> &raquo;</li>
-      <li>MGSurvE.pointProcess</li>
+      <li>MGSurvE.optimizationPSO</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/generated/MGSurvE.pointProcess.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/generated/MGSurvE.optimizationPSO.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -82,9 +80,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-MGSurvE.pointProcess">
-<span id="mgsurve-pointprocess"></span><h1>MGSurvE.pointProcess<a class="headerlink" href="#module-MGSurvE.pointProcess" title="Permalink to this headline"></a></h1>
-<p>Synthetic Landscape generation functions (thanks to Elijah Bartolome in the impelemntation of some of the point-process functions).</p>
+  <section id="module-MGSurvE.optimizationPSO">
+<span id="mgsurve-optimizationpso"></span><h1>MGSurvE.optimizationPSO<a class="headerlink" href="#module-MGSurvE.optimizationPSO" title="Permalink to this headline"></a></h1>
+<p>PSO Operators to calculate fitness and perform operations to search through optimization space.</p>
 <p class="rubric">Functions</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -92,17 +90,20 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.pointProcess.ptsDonut" title="MGSurvE.pointProcess.ptsDonut"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ptsDonut</span></code></a>(pointsNumber, radii[, center])</p></td>
-<td><p>Creates a distribution of points laid around a donut shape.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimizationPSO.setup_stats" title="MGSurvE.optimizationPSO.setup_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_stats</span></code></a>(pop)</p></td>
+<td><p>Set up Statistics</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.pointProcess.ptsPossion" title="MGSurvE.pointProcess.ptsPossion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ptsPossion</span></code></a>(pointsNumber, clustersNumber, radius)</p></td>
-<td><p>Generates a synthetic landscape from a Poisson distribution.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.pointProcess.ptsRandUniform" title="MGSurvE.pointProcess.ptsRandUniform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ptsRandUniform</span></code></a>(pointsNumber, bbox)</p></td>
-<td><p>Creates a random unifor distribution of points.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.pointProcess.ptsRegularGrid" title="MGSurvE.pointProcess.ptsRegularGrid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ptsRegularGrid</span></code></a>(pointsNumber, bbox)</p></td>
-<td><p>Creates a regular grid (lattice) of points.</p></td>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimizationPSO.Particle_Swarm" title="MGSurvE.optimizationPSO.Particle_Swarm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Particle_Swarm</span></code></a>(traps, p_min, p_max, lnd[, ...])</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -112,7 +113,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="MGSurvE.plots.html" class="btn btn-neutral float-left" title="MGSurvE.plots" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="MGSurvE.optimization.html" class="btn btn-neutral float-left" title="MGSurvE.optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="MGSurvE.auxiliary.html" class="btn btn-neutral float-right" title="MGSurvE.auxiliary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

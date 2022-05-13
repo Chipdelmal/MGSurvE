@@ -1,4 +1,4 @@
-'''Operators to calculate fitness and perform operations to search through optimization space.
+'''GA Operators to calculate fitness and perform operations to search through optimization space.
 
 '''
 

@@ -1,4 +1,4 @@
-'''Synthetic Landscape generation functions.
+'''Synthetic Landscape generation functions (thanks to Elijah Bartolome in the impelemntation of some of the point-process functions).
 
 '''
 
