@@ -26,7 +26,7 @@ version:=$(shell $(python) version.py)
 sdist_name:=MGSurvE-$(version).tar.gz
 
 develop:
-	$(pip) install -e . --use-feature=in-tree-build
+	$(pip) install -e .
 
 clean_develop:
 	- $(pip) uninstall -y MGSurvE
