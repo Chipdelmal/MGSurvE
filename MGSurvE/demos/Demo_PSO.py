@@ -16,7 +16,7 @@ import MGSurvE as srv
 (ID, TYPE, OUT_PTH) = ('PSO', 'Ring', './demos_out/')
 srv.makeFolder(OUT_PTH)
 
-gens = 500
+gens = 1000
 ptsNum = 200
 radii = (425, 500)
 pTypesProb =[0.05, 0.70, 0.25]
@@ -93,7 +93,7 @@ lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
 srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
-srv.plotClean(fig, ax, frame=False, bbox=bbox)
+srv.plotClean(fig, ax, frame=False, bbox=bbox, pad=(10, 10))
 fig.savefig(
     path.join(OUT_PTH, '{}_{}.png'.format(ID, TYPE)),
     facecolor='w', bbox_inches='tight', 

@@ -20,10 +20,10 @@ def setup_stats(pop):
     (note: we moved this outside because deap's tools did not work inside the class)
     """
     stats = tools.Statistics(lambda ind: ind.fitness.values)
-    stats.register("avg", np.mean)
-    stats.register("std", np.std)
     stats.register("min", np.min)
+    stats.register("avg", np.mean)
     stats.register("max", np.max)
+    stats.register("std", np.std)
     stats.register("best", lambda fitnessValues: fitnessValues.index(min(fitnessValues)))
     stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnessValues))])
     return stats
