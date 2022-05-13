@@ -54,7 +54,7 @@ And we will instantiate our main object:
     bbox = lnd.getBoundingBox()
     trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 
-.. image:: ../../img/STP_10_CLN.jpg
+.. image:: ../../img/PSO_Uniform-LND.jpg
      :align: center
 
 
@@ -128,8 +128,9 @@ and plot our optimized landscape:
     plt.close('all')
 
 
+.. image:: ../../img/PSO_Uniform-TRP.jpg
+     :align: center
 
 
 The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_PSO.py>`_.
-
 
