@@ -16,7 +16,7 @@ import MGSurvE as srv
 (ID, TYPE, OUT_PTH) = ('PSO', 'Ring', './demos_out/')
 srv.makeFolder(OUT_PTH)
 
-gens = 50
+gens = 500
 ptsNum = 200
 radii = (425, 500)
 pTypesProb =[0.05, 0.70, 0.25]
@@ -75,30 +75,28 @@ pso = srv.Particle_Swarm(
     phi1=PHI[0], phi2=PHI[1],
     optimFunctionArgs={'outer': np.max, 'inner': np.sum}
 )
-(pop, logbook, best) = pso.evaluate()
+(pop, logbook, _) = pso.evaluate()
+best = list(logbook[logbook['min']==min(logbook['min'])]['traps'])[0]
 bestTraps = np.reshape(best, (-1, 2))
 lnd.updateTrapsCoords(bestTraps)
 ###############################################################################
-# Get and Export Results
+# Export Results
 ############################################################################### 
-bestChromosome = hof[0]
-bestTraps = np.reshape(bestChromosome, (-1, 2))
-lnd.updateTrapsCoords(bestTraps)
 dta = pd.DataFrame(logbook)
-srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
-srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
+srv.dumpLandscape(lnd, OUT_PTH, '{}_{}-TRP'.format(ID, TYPE), fExt='pkl')
+srv.exportLog(logbook, OUT_PTH, '{}_{}-LOG'.format(ID, TYPE))
 ###############################################################################
 # Plot Results
 ############################################################################### 
-# (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-# lnd.plotSites(fig, ax, size=100)
-# lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
-# lnd.plotTraps(fig, ax)
-# srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
-# srv.plotClean(fig, ax, frame=False, bbox=bbox)
-# fig.savefig(
-#     path.join(OUT_PTH, '{}_{}.png'.format(ID, TYPE)),
-#     facecolor='w', bbox_inches='tight', 
-#     pad_inches=1, dpi=300
-# )
-# plt.close('all')
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+lnd.plotSites(fig, ax, size=100)
+lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+lnd.plotTraps(fig, ax)
+srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
+srv.plotClean(fig, ax, frame=False, bbox=bbox)
+fig.savefig(
+    path.join(OUT_PTH, '{}_{}.png'.format(ID, TYPE)),
+    facecolor='w', bbox_inches='tight', 
+    pad_inches=1, dpi=300
+)
+plt.close('all')
