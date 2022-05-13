@@ -83,7 +83,7 @@
 <span id="mgsurve-optimization"></span><h1>MGSurvE.optimization<a class="headerlink" href="#module-MGSurvE.optimization" title="Permalink to this headline"></a></h1>
 <p>Operators to calculate fitness and perform operations to search through optimization space.</p>
 <p class="rubric">Functions</p>
-<table class="autosummary longtable docutils align-default">
+<table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -110,14 +110,20 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getDaysTillTrappedPseudoInverse" title="MGSurvE.optimization.getDaysTillTrappedPseudoInverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getDaysTillTrappedPseudoInverse</span></code></a>(landscape[, ...])</p></td>
 <td><p>Gets the number of timesteps until a walker falls into a trap (using pseudo-inverse matrix function).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalFitness" title="MGSurvE.optimization.getFundamentalFitness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalFitness</span></code></a>(fundamentalMatrix[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getDaysTillTrappedVector" title="MGSurvE.optimization.getDaysTillTrappedVector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getDaysTillTrappedVector</span></code></a>(landscape[, fitFuns])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalFitness" title="MGSurvE.optimization.getFundamentalFitness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalFitness</span></code></a>(fundamentalMatrix[, ...])</p></td>
 <td><p>Get fitness from Markov's fundamental matrix.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalMatrix" title="MGSurvE.optimization.getFundamentalMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalMatrix</span></code></a>(tau, sitesN, trapsN)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalMatrix" title="MGSurvE.optimization.getFundamentalMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalMatrix</span></code></a>(tau, sitesN, trapsN)</p></td>
 <td><p>Get Markov's fundamental matrix (pseudo-inverse).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalMatrixPseudoInverse" title="MGSurvE.optimization.getFundamentalMatrixPseudoInverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalMatrixPseudoInverse</span></code></a>(tau, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalMatrixPseudoInverse" title="MGSurvE.optimization.getFundamentalMatrixPseudoInverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalMatrixPseudoInverse</span></code></a>(tau, ...)</p></td>
 <td><p>Get Markov's fundamental matrix (inverse).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getFundamentalVector" title="MGSurvE.optimization.getFundamentalVector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFundamentalVector</span></code></a>(tau, sitesN)</p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.optimization.getMarkovAbsorbing" title="MGSurvE.optimization.getMarkovAbsorbing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getMarkovAbsorbing</span></code></a>(tauCan, trapsN)</p></td>
 <td><p>Get Markov's absorbing states (deprecated).</p></td>

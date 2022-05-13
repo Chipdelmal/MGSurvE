@@ -20,9 +20,11 @@
       genFixedTrapsMask
       getDaysTillTrapped
       getDaysTillTrappedPseudoInverse
+      getDaysTillTrappedVector
       getFundamentalFitness
       getFundamentalMatrix
       getFundamentalMatrixPseudoInverse
+      getFundamentalVector
       getMarkovAbsorbing
       importLog
       initChromosome

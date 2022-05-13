@@ -22,6 +22,7 @@ We chose to use the complex version in the tutorials because it allows more flex
    GA_complex
    OT_trapMask
    GA_STP
+   PSO
 
 
 Some other demonstrations of auxiliary tools can be accessed here:

@@ -1,19 +1,13 @@
 
-
-from deap import base
-from deap import creator
-from deap import tools
 import math
 import numpy as np
 from os import path
 import matplotlib.pyplot as plt
 import pandas as pd
-from copy import deepcopy
-from deap import base, creator, algorithms, tools
 import MGSurvE as srv
 
 
-(ID, TYPE, OUT_PTH) = ('PSO', 'Ring', './demos_out/')
+(ID, TYPE, OUT_PTH) = ('PSO', 'Uniform', './demos_out/')
 srv.makeFolder(OUT_PTH)
 
 gens = 1000
@@ -39,10 +33,10 @@ mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
 # Traps
 ############################################################################### 
 traps = pd.DataFrame({
-    'x': [0, 0, 0, 0, 0], 
-    'y': [0, 0, 0, 0, 0],
-    't': [0, 1, 0, 1, 0], 
-    'f': [0, 0, 0, 0, 0]
+    'x': [0, 0, 0, 0, 0, 0], 
+    'y': [0, 0, 0, 0, 0, 0],
+    't': [0, 1, 0, 1, 0, 1], 
+    'f': [0, 0, 0, 0, 0, 0]
 })
 tKer = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .050}},
@@ -63,8 +57,8 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 (GENS, PARTS, SPD, PHI) = (
     gens,
     traps.shape[0]*15,
-    (-max(max(bbox))/40, max(max(bbox))/40), 
-    (max(max(bbox))/20, max(max(bbox))/20)
+    (-max(max(bbox))/25, max(max(bbox))/25), 
+    (max(max(bbox))/15, max(max(bbox))/15)
 )
 pso = srv.Particle_Swarm(
     lnd=lnd,
