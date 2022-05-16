@@ -110,8 +110,12 @@ the traps).
 
 
 
-Genetic Algorithm 
+Optimization
 ------------
+
+
+Genetic Algorithm (GA)
+~~~~~~~~~~~~~~~~~~~~~~
 
 `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ is designed to integrate into the `DEAP <https://deap.readthedocs.io/en/master/>`_ Genetic Algorithm framework.
 We provide some of the basic functions necessary to make the integration as seamless as possible, namely:
@@ -127,3 +131,7 @@ We provide some of the basic functions necessary to make the integration as seam
 For a thorough description of the operations, have a look at our `examples <./demos.html>`_ sections, where we describe how to setup the algorithms for the most common variations of use-cases.
 
 .. image:: ../../img/SM1-005-TRP.jpg
+
+
+Particle-Swarm Optimization (PSO)
+~~~~~~~~~~~~~~~~~~~~~~
