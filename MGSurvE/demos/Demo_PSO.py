@@ -7,11 +7,11 @@ import pandas as pd
 import MGSurvE as srv
 
 
-(ID, TYPE, OUT_PTH) = ('PSO', 'Uniform', './demos_out/')
+(ID, TYPE, OUT_PTH) = ('PSO', 'Ring', './demos_out/')
 srv.makeFolder(OUT_PTH)
 
 gens = 1000
-ptsNum = 500
+ptsNum = 600
 radii = (425, 500)
 pTypesProb =[0.25, 0.75]
 bbox = ((-500, 500), (-350, 350))
