@@ -602,6 +602,7 @@ def optimizeTrapsGA(
     stats.register("min", np.min)
     stats.register("avg", np.mean)
     stats.register("max", np.max)
+    stats.register("std", np.std)
     stats.register(
         "best", lambda fitnessValues: fitnessValues.index(min(fitnessValues))
     )
@@ -726,6 +727,7 @@ def optimizeTwoSexesTrapsGA(
     stats.register("min", np.min)
     stats.register("avg", np.mean)
     stats.register("max", np.max)
+    stats.register("std", np.std)
     stats.register(
         "best", lambda fitnessValues: fitnessValues.index(min(fitnessValues))
     )

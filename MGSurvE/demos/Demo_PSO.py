@@ -13,8 +13,9 @@ srv.makeFolder(OUT_PTH)
 gens = 1000
 ptsNum = 500
 radii = (425, 500)
-pTypesProb =[0.05, 0.70, 0.25]
+pTypesProb =[0.25, 0.75]
 bbox = ((-500, 500), (-350, 350))
+pad = 10
 ###############################################################################
 # Pointset
 ############################################################################### 
@@ -60,7 +61,7 @@ lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 srv.plotClean(fig, ax, frame=False, bbox=bbox, pad=(5, 5))
 fig.savefig(
-    path.join(OUT_PTH, '{}_{}-LND.png'.format(ID, TYPE)),
+    path.join(OUT_PTH, '{}_{}-CLN.png'.format(ID, TYPE)),
     facecolor='w', bbox_inches='tight', 
     pad_inches=1, dpi=300
 )
