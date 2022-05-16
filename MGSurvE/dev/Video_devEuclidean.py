@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 import gc
 import time
 import numpy as np
@@ -13,10 +14,10 @@ from PIL import Image
 matplotlib.use('agg')
 # https://github.com/matplotlib/matplotlib/issues/20067
 
-# ffmpeg -start_number 0 -r 4 -f image2 -s 1920x1080 -i STP_10_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 15 -pix_fmt yuv420p OUTPUT_PATH.mp4
+# ffmpeg -start_number 0 -r 4 -f image2 -s 1920x1080 -i PSO_Ring_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 15 -pix_fmt yuv420p VIDEO.mp4
 
 (OUT_PTH, LND_TYPE) = (
-    '/home/chipdelmal/Documents/GitHub/MGSurvE/MGSurvE/demos/demos_out/', 
+    '/home/hector/MGSurvE/MGSurvE/demos/demos_out/', 
     'PSO_Ring',
 )
 fPat = '{}-'.format(LND_TYPE)
@@ -69,12 +70,12 @@ for i in range(0, len(gaMin)):
     (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
     (fig, ax) = lnd.plotTraps(fig, ax, colors=TCOL)
     (fig, ax) = srv.plotClean(fig, ax, bbox=lnd.landLimits, pad=(5, 5))
-    # ax.text(
-    #     0.5, 0.55, '{:.0f}'.format(gaMin[i]),
-    #     horizontalalignment='center', verticalalignment='center',
-    #     fontsize=50, color='#00000011',
-    #     transform=ax.transAxes, zorder=5
-    # )
+    ax.text(
+        0.5, 0.55, '{:.0f}'.format(gaMin[i]),
+        horizontalalignment='center', verticalalignment='center',
+        fontsize=50, color='#00000011',
+        transform=ax.transAxes, zorder=5
+    )
     ax.text(
         0.5, 0.5, '{:04d}'.format(i),
         horizontalalignment='center', verticalalignment='center',
@@ -105,3 +106,10 @@ for i in range(0, len(gaMin)):
     background.save(pthSave, dpi=(DPI, DPI))
     background.close()
     foreground.close()
+###############################################################################
+# Exporting Video (ffmpeg)
+############################################################################### 
+imgFmt = f'{IMG_PTH}/{LND_TYPE}-%05d.png'
+outFmt = f'{OUT_PTH}/{LND_TYPE}.mp4'
+cmd = f'ffmpeg -y -start_number 0 -r 4 -f image2 -s 1920x1080 -i {imgFmt} -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 15 -pix_fmt yuv420p {outFmt}'
+os.system(cmd)

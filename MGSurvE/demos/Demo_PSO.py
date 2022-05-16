@@ -71,7 +71,7 @@ plt.close('all')
 ############################################################################### 
 (GENS, PARTS, SPD, PHI) = (
     gens,
-    traps.shape[0]*15,
+    traps.shape[0]*20,
     (-max(max(bbox))/25, max(max(bbox))/25), 
     (max(max(bbox))/15, max(max(bbox))/15)
 )
