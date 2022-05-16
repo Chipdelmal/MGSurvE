@@ -157,8 +157,9 @@ if the parameters are provided (this would not pose a substantial computational 
 <h3>Traps Kernels (<code class="code docutils literal notranslate"><span class="pre">lnd.trapsKernels</span></code>)<a class="headerlink" href="#traps-kernels-lnd-trapskernels" title="Permalink to this headline"></a></h3>
 <p>Additional functions that calculate the relation between distance <code class="code docutils literal notranslate"><span class="pre">d</span></code> from the trap to the site from which the individual is moving from, and probability <code class="code docutils literal notranslate"><span class="pre">p</span></code> to fall into a trap (depending on the type of trap to account for attractiveness).
 These functions are stored in a dictionary where each entry defines the properties for every trap type.</p>
-<p>More complicated functions can be used to account for complicated features such as wind, elevation, land-type, and more; but, as these functions need to be run on each iteration of optimization cycles,
-the more complicated they become, the more processing power that will be required to compensate for the complexity.</p>
+<p>More complicated functions can be used to account for complex features such as elevation, land-type, and more; but, as these functions need to be run on each iteration of optimization cycles,
+the more complicated they become, the more processing power that will be required.</p>
+<img alt="_images/TrapKernels.jpg" class="align-center" src="_images/TrapKernels.jpg" />
 </section>
 <section id="distances-matrix-lnd-distancematrix">
 <h3>Distances Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.distanceMatrix</span></code>)<a class="headerlink" href="#distances-matrix-lnd-distancematrix" title="Permalink to this headline"></a></h3>
@@ -187,6 +188,9 @@ the traps).</p>
 <hr class="docutils" />
 <section id="optimization">
 <h2>Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline"></a></h2>
+<p>Some knowledge on basic constrained-optimization operations is needed to make the most of our framework.
+In particular, on Genetic Algorithms and/or Particle-Swarm Optimization; as these are the two alternatives that are provided out-of-the-box with <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a>.
+Most applications are easy to extend from our <a class="reference external" href="./demos.html">tutorials</a> and only require tweaks on the optimization hyper-parameters, but more tailored applications might need some extensions.</p>
 <section id="genetic-algorithm-ga">
 <h3>Genetic Algorithm (GA)<a class="headerlink" href="#genetic-algorithm-ga" title="Permalink to this headline"></a></h3>
 <p><a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> is designed to integrate into the <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a> Genetic Algorithm framework.
@@ -204,6 +208,11 @@ We provide some of the basic functions necessary to make the integration as seam
 </section>
 <section id="particle-swarm-optimization-pso">
 <h3>Particle-Swarm Optimization (PSO)<a class="headerlink" href="#particle-swarm-optimization-pso" title="Permalink to this headline"></a></h3>
+<p>In <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> we also include PSO optimization through the <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a> framework.
+For PSO, in contrast to GA, we provide a full wrapper object that takes care of all the needed operations within its methods.
+As such, this alternative is not as flexible as the GA one, but it might prove faster and more stable in certain optimization scenarios.</p>
+<img alt="_images/PSO_Uniform-TRP.jpg" class="align-center" src="_images/PSO_Uniform-TRP.jpg" />
+<p>For more information on how to use the particle-swarm alternative to genetic algorithms, have a look at our <a class="reference external" href="./PSO.html">PSO demo</a></p>
 </section>
 </section>
 </section>

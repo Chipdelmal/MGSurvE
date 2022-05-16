@@ -56,7 +56,7 @@ Additionally, some of MGSurvE's map-plotting functions use [cartopy](https://sci
 <img src="https://raw.githubusercontent.com/Chipdelmal/pyMSync/master/media/pusheen.jpg" height="125px" align="middle"><img src="https://github.com/Chipdelmal/MGSurvE/blob/main/img/MGSurvE_Logo.png?raw=true" height="125px" align="middle"> <br><br>
 
 * Lead and Dev: [Héctor M. Sánchez C.](https://chipdelmal.github.io/blog/)
-* Active Devs: Elijah Bartolome, Lillian Weng, Ayden Salazar, Xingli Yu, Joanna Yoo
+* Active Devs: Elijah Bartolome, Lillian Weng, Ayden Salazar, Xingli Yu, Joanna Yoo, Topiltzin Hernandez
 * PIs: [David L. Smith](http://www.healthdata.org/about/david-smith), [John M. Marshall](https://publichealth.berkeley.edu/people/john-marshall/)
 
 <br>
