@@ -129,7 +129,7 @@ and plot our optimized landscape:
 
 
 .. image:: ../../img/PSO_Uniform-TRP.jpg
-     :align: center
+    :align: center
 
 
 The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_PSO.py>`_.

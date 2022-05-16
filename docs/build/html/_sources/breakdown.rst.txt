@@ -66,8 +66,11 @@ Traps Kernels (:code:`lnd.trapsKernels`)
 Additional functions that calculate the relation between distance :code:`d` from the trap to the site from which the individual is moving from, and probability :code:`p` to fall into a trap (depending on the type of trap to account for attractiveness). 
 These functions are stored in a dictionary where each entry defines the properties for every trap type. 
 
-More complicated functions can be used to account for complicated features such as wind, elevation, land-type, and more; but, as these functions need to be run on each iteration of optimization cycles, 
-the more complicated they become, the more processing power that will be required to compensate for the complexity.
+More complicated functions can be used to account for complex features such as elevation, land-type, and more; but, as these functions need to be run on each iteration of optimization cycles, 
+the more complicated they become, the more processing power that will be required.
+
+.. image:: ../../img/TrapKernels.jpg
+    :align: center
 
 
 Distances Matrix (:code:`lnd.distanceMatrix`)
@@ -110,8 +113,16 @@ the traps).
 
 
 
-Genetic Algorithm 
+Optimization
 ------------
+
+Some knowledge on basic constrained-optimization operations is needed to make the most of our framework. 
+In particular, on Genetic Algorithms and/or Particle-Swarm Optimization; as these are the two alternatives that are provided out-of-the-box with `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_.
+Most applications are easy to extend from our `tutorials <./demos.html>`_ and only require tweaks on the optimization hyper-parameters, but more tailored applications might need some extensions.
+
+
+Genetic Algorithm (GA)
+~~~~~~~~~~~~~~~~~~~~~~
 
 `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ is designed to integrate into the `DEAP <https://deap.readthedocs.io/en/master/>`_ Genetic Algorithm framework.
 We provide some of the basic functions necessary to make the integration as seamless as possible, namely:
@@ -127,3 +138,16 @@ We provide some of the basic functions necessary to make the integration as seam
 For a thorough description of the operations, have a look at our `examples <./demos.html>`_ sections, where we describe how to setup the algorithms for the most common variations of use-cases.
 
 .. image:: ../../img/SM1-005-TRP.jpg
+
+
+Particle-Swarm Optimization (PSO)
+~~~~~~~~~~~~~~~~~~~~~~
+
+In `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ we also include PSO optimization through the `DEAP <https://deap.readthedocs.io/en/master/>`_ framework.
+For PSO, in contrast to GA, we provide a full wrapper object that takes care of all the needed operations within its methods. 
+As such, this alternative is not as flexible as the GA one, but it might prove faster and more stable in certain optimization scenarios.
+
+.. image:: ../../img/PSO_Uniform-TRP.jpg
+    :align: center
+
+For more information on how to use the particle-swarm alternative to genetic algorithms, have a look at our `PSO demo <./PSO.html>`_
