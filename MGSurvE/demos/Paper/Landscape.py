@@ -75,7 +75,7 @@ trpMsk = srv.genFixedTrapsMask(lnd_hom.trapsFixed)
 lnd_hom.plotSites(fig, ax, size=200)
 lnd_hom.plotMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
 # lnd_hom.plotTraps(fig, ax)
-srv.plotClean(fig, ax, frame=True)
+srv.plotClean(fig, ax, frame=False, bbox=bbox, pad=cst.pad_i)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_HOM.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
@@ -88,7 +88,7 @@ trpMsk = srv.genFixedTrapsMask(lnd_het.trapsFixed)
 lnd_het.plotSites(fig, ax, size=200)
 lnd_het.plotMaskedMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
 # lnd_het.plotTraps(fig, ax)
-srv.plotClean(fig, ax, frame=True)
+srv.plotClean(fig, ax, frame=False, bbox=bbox, pad=cst.pad_i)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_HET.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
