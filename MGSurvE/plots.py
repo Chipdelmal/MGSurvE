@@ -1,4 +1,4 @@
-'''Data-Visualization functions.
+'''Data-Visualization functions (thanks to Elijah Bartolome in the impelemntation of some of the visualization functions).
 
 '''
 
@@ -227,7 +227,7 @@ def plotMatrix(
     return (fig, ax)
 
 
-def plotClean(fig, ax, frame=False, bbox=None, labels=False):
+def plotClean(fig, ax, frame=False, bbox=None, labels=False, pad=(0, 0)):
     """ Makes axes equally spaced and removes frame.
 
     Parameters:
@@ -238,6 +238,10 @@ def plotClean(fig, ax, frame=False, bbox=None, labels=False):
     Returns:
         (fig, ax): Matplotlib (fig, ax) tuple.
     """ 
+    bbox = (
+        (bbox[0][0]-pad[0], bbox[0][1]+pad[0]), 
+        (bbox[1][0]-pad[1], bbox[1][1]+pad[1])
+    )
     ax.set_aspect('equal')
     if frame is not True:
         ax.axis('off')

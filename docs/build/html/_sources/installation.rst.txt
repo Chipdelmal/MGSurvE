@@ -36,7 +36,7 @@ If this ran correctly, try importing the package from the terminal with:
 If `cartopy <https://scitools.org.uk/cartopy/docs/latest/index.html>`_ or `libpysal <https://pysal.org/libpysal/>`_ are not currently installed, we will get a warning that we can safely ignore (see the next section for more info); but if any of these steps resulted in an error, let's have a look at the next section in this installation guide.
 
 
-Additional Dependencies, and Installation Errors (sometimes happens on MacOS)
+Additional Dependencies, and Installation Mishaps (sometimes happens on MacOS)
 --------------------------
 
 
@@ -77,7 +77,7 @@ The easiest way to install these dependencies is through `anaconda <https://www.
 If this installation fails, or if :code:`import MGSurvE` fails on python, we might need to have a look at the next section.
 
 
-Most Bulletproof Installation Method
+Bulletproof Installation Method
 --------------------------
 
 If either of these approaches is failing, try the following chain of commands (or to install in :code:`python=3.10`):

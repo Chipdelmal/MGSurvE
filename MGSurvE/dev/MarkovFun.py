@@ -55,7 +55,7 @@ lnd = srv.Landscape(points, kernelParams=mKer, traps=traps, trapsKernels=tKer)
 # Equivalency -----------------------------------------------------------------
 mA = np.sum(srv.getFundamentalMatrix(tau, sitesN, trapsN), axis=1)
 mB = np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)
-mC = srv.getFundamentalVector(tau, sitesN, trapsN)
+mC = srv.getFundamentalVector(tau, sitesN)
 equivalency = all([
     all(np.isclose(mA, mB)), all(np.isclose(mA, mC)), all(np.isclose(mB, mC))
 ])
@@ -63,5 +63,5 @@ print("Methods are equivalent?: {}".format(equivalency))
 # Timing ----------------------------------------------------------------------
 tA = timeit(lambda: np.sum(srv.getFundamentalMatrix(tau, sitesN, trapsN), axis=1), number=iters)
 tB = timeit(lambda: np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1), number=iters)
-tC = timeit(lambda: srv.getFundamentalVector(tau, sitesN, trapsN), number=iters)
+tC = timeit(lambda: srv.getFundamentalVector(tau, sitesN), number=iters)
 print("* Time inverse: {}\n* Time pseudo: {}\n* Time solve: {}\nOver {} iterations!".format(tA, tB, tC, iters))

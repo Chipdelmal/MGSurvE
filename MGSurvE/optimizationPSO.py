@@ -1,3 +1,7 @@
+'''PSO Operators to calculate fitness and perform operations to search through optimization space.
+
+'''
+
 import operator
 import random
 import math
@@ -14,16 +18,17 @@ from deap import base
 from deap import creator
 from deap import tools
 
-def setup_stats(): 
+def setup_stats(pop): 
     """
     Set up Statistics
-    (note: we moved this outside because deap's tools did not work inside the class)
     """
     stats = tools.Statistics(lambda ind: ind.fitness.values)
-    stats.register("avg", np.mean)
-    stats.register("std", np.std)
     stats.register("min", np.min)
+    stats.register("avg", np.mean)
     stats.register("max", np.max)
+    stats.register("std", np.std)
+    stats.register("best", lambda fitnessValues: fitnessValues.index(min(fitnessValues)))
+    stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnessValues))])
     return stats
 
 class Particle_Swarm:
@@ -145,7 +150,7 @@ class Particle_Swarm:
             smin=None, smax=None, best=None)
             
         pop = self.toolbox.population(n=self.num_particles)
-        stats = setup_stats()
+        stats = setup_stats(pop)
 
         logbook = tools.Logbook()
         logbook.header = ["gen", "evals"] + stats.fields
