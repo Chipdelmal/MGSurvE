@@ -53,6 +53,10 @@ pypi: clean clean_sdist
 clean_pypi:
 	- rm -rf build/
 
+conda:
+	- conda list -e > /conda/REQUIREMENTS.txt
+	- conda env export > /conda/REQUIREMENTS.yml 
+
 doc:
 	- pip install .
 	- sphinx-apidoc -f -o docs/source MGSurvE
@@ -63,6 +67,10 @@ dev:
 	- make develop
 	- make test
 
-conda:
-	- conda list -e > /conda/REQUIREMENTS.txt
-	- conda env export > /conda/REQUIREMENTS.yml
+devFull: 
+	- pip install .
+	- pip install pytest
+	- conda config --add channels conda-forge
+	- conda install -c conda-forge deap -y
+	- conda install -c conda-forge libpysal -y
+	- conda install -c conda-forge cartopy -y
