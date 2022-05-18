@@ -30,6 +30,6 @@ RUN apt-get update \
 # RUN pip install MGSurvE
 
 # docker image ls
-# docker run -it mgsurve:latest bash
+# docker run -it chipdelmal/mgsurve:latest bash
 # docker rm $(docker ps -a -q)
 # docker rmi -f $(docker images -q)
