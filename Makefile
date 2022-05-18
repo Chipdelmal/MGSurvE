@@ -57,6 +57,11 @@ condaExport:
 	- conda list -e > ./conda/requirements.txt
 	- conda env export | cut -f 1 -d '=' | grep -v "prefix" > ./conda/requirements.yml
 
+condaUpdate:
+	- conda update --all -y
+	- conda list -e > ./conda/requirements.txt
+	- conda env export | cut -f 1 -d '=' | grep -v "prefix" > ./conda/requirements.yml
+
 doc:
 	- pip install .
 	- sphinx-apidoc -f -o docs/source MGSurvE

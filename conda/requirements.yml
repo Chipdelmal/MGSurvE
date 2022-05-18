@@ -35,6 +35,7 @@ dependencies:
   - jpeg
   - jupyter_client
   - jupyter_core
+  - keyutils
   - kiwisolver
   - krb5
   - lcms2
