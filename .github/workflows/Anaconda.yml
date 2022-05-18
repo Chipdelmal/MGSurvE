@@ -1,4 +1,4 @@
-name: CondaPkg
+name: CondaEnv
 
 on: [push]
 
