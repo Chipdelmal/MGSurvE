@@ -54,8 +54,8 @@ clean_pypi:
 	- rm -rf build/
 
 condaExport:
-	- conda list -e > ./conda/REQUIREMENTS.txt --prune
-	- conda env export > ./conda/REQUIREMENTS.yml --prune
+	- conda list -e > ./conda/requirements.txt
+	- conda env export | cut -f 1 -d '=' | grep -v "prefix" > ./conda/requirements.yml
 
 doc:
 	- pip install .
