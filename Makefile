@@ -55,7 +55,6 @@ clean_pypi:
 
 condaExport:
 	- pip freeze > ./conda/requirements.txt
-	# - conda list -e > ./conda/requirements.txt
 	- conda env export | cut -f 1 -d '=' | grep -v "prefix" > ./conda/requirements.yml
 
 condaUpdate:
