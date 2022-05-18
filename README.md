@@ -11,6 +11,8 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Chipdelmal/MGSurvE)
 
 
+![example workflow](https://github.com/chipdelmal/MGSurvE/actions/workflows/Flake8/badge.svg)
+
 To install the package's latest stable version run:
 
 ```
