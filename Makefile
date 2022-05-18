@@ -54,12 +54,13 @@ clean_pypi:
 	- rm -rf build/
 
 condaExport:
-	- conda list -e > ./conda/requirements.txt
+	- pip freeze > ./conda/requirements.txt
+	# - conda list -e > ./conda/requirements.txt
 	- conda env export | cut -f 1 -d '=' | grep -v "prefix" > ./conda/requirements.yml
 
 condaUpdate:
 	- conda update --all -y
-	- conda list -e > ./conda/requirements.txt
+	- pip freeze > ./conda/requirements.txt
 	- conda env export | cut -f 1 -d '=' | grep -v "prefix" > ./conda/requirements.yml
 
 doc:
