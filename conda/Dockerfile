@@ -1,4 +1,4 @@
-FROM python:"3.9-alpine"
+# FROM python:"3.9-alpine"
 FROM continuumio/miniconda3
 
 # RUN addgroup --system mgsurve
