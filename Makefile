@@ -53,9 +53,9 @@ pypi: clean clean_sdist
 clean_pypi:
 	- rm -rf build/
 
-conda:
-	- conda list -e > /conda/REQUIREMENTS.txt
-	- conda env export > /conda/REQUIREMENTS.yml 
+condaExport:
+	- conda list -e > ./conda/REQUIREMENTS.txt --prune
+	- conda env export > ./conda/REQUIREMENTS.yml --prune
 
 doc:
 	- pip install .
