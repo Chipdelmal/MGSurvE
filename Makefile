@@ -79,3 +79,6 @@ devFull:
 	- conda install -c conda-forge deap -y
 	- conda install -c conda-forge libpysal -y
 	- conda install -c conda-forge cartopy -y
+
+dockerExport:
+	- docker build -t mgsurve .
