@@ -23,7 +23,8 @@ COPY ./MGSurvE/demos/Paper/*.sh ./Paper/
 ###############################################################################
 # Install Packages
 ###############################################################################
-RUN conda env update --file requirements.yml -n base --prune
+RUN conda env update --file requirements.yml -n base --prune \
+    && rm requirements.yml
 ###############################################################################
 # Scratch
 ###############################################################################
