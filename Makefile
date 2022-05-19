@@ -81,7 +81,7 @@ devFull:
 	- conda install -c conda-forge cartopy -y
 
 dockerExport:
-	- docker build -t chipdelmal/mgsurve:$(version) ./conda
+	- docker build -t chipdelmal/mgsurve:$(version) .
 	- docker push chipdelmal/mgsurve:$(version)
 
 
