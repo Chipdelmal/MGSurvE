@@ -17,20 +17,14 @@ COPY LICENSE .
 ###############################################################################
 # Copy Paper Experiments Files
 ###############################################################################
+COPY ./MGSurvE/demos/Paper/GEO ./Paper/
 COPY ./MGSurvE/demos/Paper/*.py ./Paper/
 COPY ./MGSurvE/demos/Paper/*.sh ./Paper/
 ###############################################################################
 # Install Packages
 ###############################################################################
 RUN conda env update --file requirements.yml -n base --prune
-
-# RUN pip install . --use-feature=in-tree-build
-
-# RUN conda env update --file ./conda/requirements.yml --name base
-# RUN conda config --add channels conda-forge && \
-#     conda install -c conda-forge deap -y && \
-#     conda install -c conda-forge libpysal -y && \
-#     conda install -c conda-forge cartopy -y
-# RUN pip install MGSurvE
-
+###############################################################################
+# Scratch
+###############################################################################
 # docker run -v "$(pwd)":/MGSurvE/Paper/sims_out -it mgsurve:latest bash
