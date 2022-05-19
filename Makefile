@@ -85,7 +85,7 @@ dockerExport:
 	- docker push chipdelmal/mgsurve:$(version)
 
 dockerRun:
-	- docker run -v "$(pwd)":/MGSurvE/Paper/sims_out -it mgsurve:dev bash
+	- docker run -v "$(pwd)":/MGSurvE/sims_out -it mgsurve:dev bash
 
 dockerBuild:
 	- docker rmi mgsurve:dev

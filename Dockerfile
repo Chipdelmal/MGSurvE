@@ -7,19 +7,26 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir MGSurvE \
     && mkdir MGSurvE/Paper \
-    && mkdir MGSurvE/Paper/sims_out
+    && mkdir MGSurvE/Paper/sims_out \
+    && mkdir MGSurvE/Demos \
+    && mkdir MGSurvE/Demos/demos_out \
+    && mkdir MGSurvE/sims_out
 WORKDIR /MGSurvE
+RUN ln -s ./Paper/sims_out ./sims_out/paper \
+    && ln -s ./Demos/demos_out ./sims_out/demos
 ###############################################################################
 # Copy Requirements and License
 ###############################################################################
-COPY ./conda/requirements.yml .
+COPY ./conda/requirements.yml . 
 COPY LICENSE .
 ###############################################################################
-# Copy Paper Experiments Files
+# Copy Paper and Demo Experiments Files
 ###############################################################################
 COPY ./MGSurvE/demos/Paper/GEO ./Paper/
 COPY ./MGSurvE/demos/Paper/*.py ./Paper/
 COPY ./MGSurvE/demos/Paper/*.sh ./Paper/
+COPY ./MGSurvE/demos/*.sh ./Demos/
+COPY ./MGSurvE/demos/*.py ./Demos/
 ###############################################################################
 # Install Packages
 ###############################################################################
