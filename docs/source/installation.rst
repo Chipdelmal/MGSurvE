@@ -109,14 +109,14 @@ To get started with this approach, `install Docker <https://docs.docker.com/get-
 
 .. code-block:: console
 
-   docker pull chipdelmal/mgsurve:0.6.5.5
+   docker pull chipdelmal/mgsurve:0.6.5.6
 
 
 And then run it in interactive mode:
 
 .. code-block:: console
 
-   docker run -it chipdelmal/mgsurve:0.6.5.5 bash
+   docker run -it chipdelmal/mgsurve:0.6.5.6 bash
 
 
 We can check that `MGSurvE <https://github.com/Chipdelmal/MGSurvE>`_ is correctly installed with its dependencies by running:

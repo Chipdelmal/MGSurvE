@@ -90,6 +90,12 @@ dockerRun:
 		-v "$(pwd)"/MGS_sims/demos:/MGSurvE/Demos/demos_out \
 		-it mgsurve:dev bash
 
+
 dockerBuild:
 	- docker rmi mgsurve:dev
 	- docker build -t mgsurve:dev .
+
+
+pypiDocker:
+	- make pypi
+	- make dockerExport

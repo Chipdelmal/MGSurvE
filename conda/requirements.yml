@@ -105,20 +105,45 @@ dependencies:
   - zlib
   - zstd
   - pip:
+    - alabaster
+    - babel
     - bleach
     - click
     - click-plugins
     - cligj
+    - commonmark
     - dill
+    - docutils
     - fiona
     - geopandas
     - haversine
+    - imagesize
+    - importlib-metadata
     - ipykernel
+    - jeepney
+    - keyring
     - mgsurve
     - munch
     - networkx
     - opencv-contrib-python
+    - pkginfo
     - pointpats
     - psutil
     - pygments
+    - readme-renderer
+    - requests-toolbelt
+    - rfc3986
+    - rich
+    - secretstorage
+    - snowballstemmer
+    - sphinx
+    - sphinx-rtd-theme
+    - sphinxcontrib-applehelp
+    - sphinxcontrib-devhelp
+    - sphinxcontrib-htmlhelp
+    - sphinxcontrib-jsmath
+    - sphinxcontrib-qthelp
+    - sphinxcontrib-serializinghtml
+    - twine
     - webencodings
+    - zipp
