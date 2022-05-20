@@ -35,8 +35,7 @@ Some other demonstrations of auxiliary tools can be accessed here:
 
 Please note that the code used in all of the tutorials can be downloaded `from this link <https://github.com/Chipdelmal/MGSurvE/tree/main/MGSurvE/demos>`_.
 
-.. image:: ../../img/STP_10_TRP.jpg
-   
+------------
 
 Additionally, all of the demos can be run from our docker container as follows.
 
@@ -71,8 +70,8 @@ Additionally, all of the demos can be run from our docker container as follows.
    ./Demos.sh
 
 
-This will take a while but all the results will be accessible on the created folder. Alternatively, each demo script can be launched independently:
+This will take a while but all the results will be accessible on the created folder. 
 
-.. code-block:: console
 
-   python Demo_GA-Simple.py
+
+.. image:: ../../img/STP_10_TRP.jpg
