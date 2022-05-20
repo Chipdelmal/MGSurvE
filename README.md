@@ -29,29 +29,6 @@ MGSurvE requires the installation of the [DEAP](https://deap.readthedocs.io/en/m
 
 ![landscape](https://github.com/Chipdelmal/MGSurvE/raw/main/img/demo.jpg)
 
-
-<!-- # Features and Development
-
-- [x] Different point-types
-- [x] Random point-process landscape generators
-- [x] Customizable movement kernels
-- [x] Customizable trap attractiveness kernels
-- [x] Integrated plotting routines
-- [x] GA Optimization routines
-- [x] Directed network plotting routines
-- [x] Demos and Examples
-- [x] Immovable traps
-- [x] Different attractiveness levels at specific point-type transitions
-- [x] Different movement kernels for male and female mosquitos
-- [x] Different trap attractiveness levels for male and female mosquitos 
-- [x] Thorough timing benchmarks
-- [x] Support for xy coordinate systems
-- [x] Integrated Map-plotting routines
-- [x] Attractiveness/repellency effects
-- [x] Docker image for demos
-- [x] Docker image for paper experiments -->
-
-
 # Authors and Funders
 
 <img src="https://raw.githubusercontent.com/Chipdelmal/pyMSync/master/media/pusheen.jpg" height="125px" align="middle"><img src="https://github.com/Chipdelmal/MGSurvE/blob/main/img/MGSurvE_Logo.png?raw=true" height="125px" align="middle"> <br><br>

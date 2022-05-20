@@ -1,5 +1,6 @@
 # FROM python: "3.10-alpine"
 FROM continuumio/miniconda3
+MAINTAINER HectorMSanchezC <sanchez.hmsc@berkeley.edu>
 ###############################################################################
 # Setup Structure
 ###############################################################################
