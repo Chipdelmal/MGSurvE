@@ -37,3 +37,42 @@ Please note that the code used in all of the tutorials can be downloaded `from t
 
 .. image:: ../../img/STP_10_TRP.jpg
    
+
+Additionally, all of the demos can be run from our docker container as follows.
+
+1. Pull the image from DockerHub:
+
+.. code-block:: console
+
+   docker pull chipdelmal/mgsurve:0.6.5.6
+
+
+2. Run the container and attach the folder for the results:
+
+.. code-block:: console
+
+   docker run \
+         -v "$(pwd)"/MGS_demos:/MGSurvE/Demos/demos_out \
+         -it chipdelmal/mgsurve:0.6.5.6 bash
+
+
+3. Navigate to the "Demos" folder where all of the scripts are located:
+
+.. code-block:: console
+
+   cd Demos
+   ls
+
+
+4. Launch the bash script to call all of the experiments:
+
+.. code-block:: console
+
+   ./Demos.sh
+
+
+This will take a while but all the results will be accessible on the created folder. Alternatively, each demo script can be launched independently:
+
+.. code-block:: console
+
+   python Demo_GA-Simple.py

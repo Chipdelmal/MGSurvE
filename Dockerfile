@@ -4,6 +4,7 @@ FROM continuumio/miniconda3
 # Setup Structure
 ###############################################################################
 RUN apt-get update \
+    && apt-get install nano \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir MGSurvE \
     && mkdir MGSurvE/Paper \
@@ -27,7 +28,3 @@ COPY ./MGSurvE/demos/*.py ./Demos/
 ###############################################################################
 RUN conda env update --file requirements.yml -n base --prune \
     && rm requirements.yml
-###############################################################################
-# Scratch
-###############################################################################
-# docker run -v "$(pwd)":/MGSurvE/Paper/sims_out -it mgsurve:latest bash
