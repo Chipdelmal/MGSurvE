@@ -30,7 +30,7 @@ MGSurvE requires the installation of the [DEAP](https://deap.readthedocs.io/en/m
 ![landscape](https://github.com/Chipdelmal/MGSurvE/raw/main/img/demo.jpg)
 
 
-# Features and Development
+<!-- # Features and Development
 
 - [x] Different point-types
 - [x] Random point-process landscape generators
@@ -49,7 +49,8 @@ MGSurvE requires the installation of the [DEAP](https://deap.readthedocs.io/en/m
 - [x] Integrated Map-plotting routines
 - [x] Attractiveness/repellency effects
 - [x] Docker image for demos
-- [x] Docker image for paper experiments
+- [x] Docker image for paper experiments -->
+
 
 # Authors and Funders
 
