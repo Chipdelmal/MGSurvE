@@ -7,13 +7,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir MGSurvE \
     && mkdir MGSurvE/Paper \
-    && mkdir MGSurvE/Paper/sims_out \
-    && mkdir MGSurvE/Demos \
-    && mkdir MGSurvE/Demos/demos_out \
-    && mkdir MGSurvE/sims_out
+    && mkdir MGSurvE/Demos
 WORKDIR /MGSurvE
-RUN ln -s ./Paper/sims_out ./sims_out/paper \
-    && ln -s ./Demos/demos_out ./sims_out/demos
 ###############################################################################
 # Copy Requirements and License
 ###############################################################################

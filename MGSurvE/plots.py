@@ -238,10 +238,11 @@ def plotClean(fig, ax, frame=False, bbox=None, labels=False, pad=(0, 0)):
     Returns:
         (fig, ax): Matplotlib (fig, ax) tuple.
     """ 
-    bbox = (
-        (bbox[0][0]-pad[0], bbox[0][1]+pad[0]), 
-        (bbox[1][0]-pad[1], bbox[1][1]+pad[1])
-    )
+    if bbox is not None:
+        bbox = (
+            (bbox[0][0]-pad[0], bbox[0][1]+pad[0]), 
+            (bbox[1][0]-pad[1], bbox[1][1]+pad[1])
+        )
     ax.set_aspect('equal')
     if frame is not True:
         ax.axis('off')

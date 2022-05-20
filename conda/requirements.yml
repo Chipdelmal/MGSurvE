@@ -5,36 +5,29 @@ channels:
 dependencies:
   - _libgcc_mutex
   - _openmp_mutex
-  - asttokens
-  - backcall
-  - backports
-  - backports.functools_lru_cache
-  - black
+  - appdirs
+  - beautifulsoup4
   - brotli
   - brotli-bin
+  - brotlipy
   - bzip2
   - c-ares
   - ca-certificates
   - cartopy
-  - click
+  - certifi
+  - cffi
+  - charset-normalizer
+  - cryptography
   - cycler
-  - dataclasses
   - deap
-  - debugpy
-  - decorator
-  - entrypoints
-  - executing
   - fonttools
   - freetype
-  - fribidi
   - geos
   - giflib
-  - ipython
+  - idna
   - jbig
-  - jedi
+  - jinja2
   - jpeg
-  - jupyter_client
-  - jupyter_core
   - keyutils
   - kiwisolver
   - krb5
@@ -55,13 +48,12 @@ dependencies:
   - libgfortran-ng
   - libgfortran5
   - libgomp
-  - libimagequant
   - liblapack
   - libnghttp2
   - libnsl
   - libopenblas
   - libpng
-  - libsodium
+  - libpysal
   - libssh2
   - libstdcxx-ng
   - libtiff
@@ -71,147 +63,62 @@ dependencies:
   - libxcb
   - libzlib
   - lz4-c
+  - markupsafe
   - matplotlib-base
-  - matplotlib-inline
   - munkres
-  - mypy_extensions
   - ncurses
-  - nest-asyncio
   - numpy
   - openjpeg
   - openssl
   - packaging
-  - parso
-  - pathspec
-  - pexpect
-  - pickleshare
+  - pandas
   - pillow
   - pip
-  - platformdirs
   - proj
   - pthread-stubs
-  - ptyprocess
-  - pure_eval
-  - pygments
+  - pycparser
+  - pyopenssl
   - pyparsing
   - pyproj
   - pyshp
+  - pysocks
   - python
   - python-dateutil
   - python_abi
-  - pyzmq
+  - pytz
   - readline
+  - requests
   - scipy
+  - setuptools
   - shapely
   - six
+  - soupsieve
   - sqlite
-  - stack_data
   - tk
-  - tomli
-  - tornado
-  - traitlets
-  - typed-ast
-  - typing_extensions
   - tzdata
   - unicodedata2
-  - wcwidth
+  - urllib3
   - wheel
   - xorg-libxau
   - xorg-libxdmcp
   - xz
-  - zeromq
   - zlib
   - zstd
   - pip:
-    - alabaster
-    - appdirs
-    - argon2-cffi
-    - argon2-cffi-bindings
-    - attrs
-    - babel
-    - beautifulsoup4
     - bleach
-    - certifi
-    - cffi
-    - charset-normalizer
+    - click
     - click-plugins
     - cligj
-    - commonmark
-    - compress-pickle
-    - cryptography
-    - defusedxml
     - dill
-    - docutils
     - fiona
     - geopandas
     - haversine
-    - idna
-    - imagesize
-    - importlib-metadata
-    - iniconfig
     - ipykernel
-    - ipython-genutils
-    - ipywidgets
-    - jeepney
-    - jinja2
-    - joblib
-    - jsonschema
-    - jupyter
-    - jupyter-console
-    - jupyter-core
-    - jupyterlab-pygments
-    - jupyterlab-widgets
-    - keyring
-    - libpysal
-    - markupsafe
     - mgsurve
-    - mistune
     - munch
-    - nbclient
-    - nbconvert
-    - nbformat
     - networkx
-    - notebook
     - opencv-contrib-python
-    - pandas
-    - pandocfilters
-    - pkginfo
-    - pluggy
     - pointpats
-    - prometheus-client
-    - prompt-toolkit
-    - py
-    - pycparser
-    - pyrsistent
-    - pytest
-    - pytz
-    - qtconsole
-    - qtpy
-    - readme-renderer
-    - requests
-    - requests-toolbelt
-    - rfc3986
-    - rich
-    - scikit-learn
-    - secretstorage
-    - send2trash
-    - setuptools
-    - snowballstemmer
-    - soupsieve
-    - sphinx
-    - sphinx-rtd-theme
-    - sphinxcontrib-applehelp
-    - sphinxcontrib-devhelp
-    - sphinxcontrib-htmlhelp
-    - sphinxcontrib-jsmath
-    - sphinxcontrib-qthelp
-    - sphinxcontrib-serializinghtml
-    - terminado
-    - testpath
-    - threadpoolctl
-    - twine
-    - urllib3
-    - vincenty
+    - psutil
+    - pygments
     - webencodings
-    - widgetsnbextension
-    - zipp
