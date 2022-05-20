@@ -14,23 +14,18 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Chipdelmal/MGSurvE)
 
 
-To install the package's latest stable version run:
+To install the package's latest stable version run (usage of [anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html) for environment management is strongly recommended):
 
 ```
 pip install MGSurvE
 ```
 
-The usage of [anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html) for environment management is strongly recommended.
-
-
-MGSurvE requires the installation of the [DEAP](https://deap.readthedocs.io/en/master/) optimization package, which should be installed automatically with our previous `pip` command. This package can also be installed with `conda install deap`, if needed; or by having a look at [DEAP's documentation](https://pypi.org/project/deap/) for additional methods,or at our [installation instructions](https://chipdelmal.github.io/MGSurvE/build/html/installation.html) for common issues with some of the dependencies!
-
-
-Additionally, some of MGSurvE's map-plotting functions use [cartopy](https://scitools.org.uk/cartopy/). Even though the dependency's installation is not strictly required, the easiest way to install this package is with `conda install cartopy`, but in case there are errors in this process, have a look at the package's [installation instructions](https://scitools.org.uk/cartopy/docs/latest/installing.html).
+MGSurvE requires the installation of the [DEAP](https://deap.readthedocs.io/en/master/) optimization package, which should be installed automatically with our previous `pip` command. This package can also be installed with `conda install deap`, if needed; or by having a look at [DEAP's documentation](https://pypi.org/project/deap/) for additional methods. Please have a look at our [installation instructions](https://chipdelmal.github.io/MGSurvE/build/html/installation.html) for common issues with some of the dependencies. Alternatively, pre-build images from [our Dockerhub](https://hub.docker.com/repository/docker/chipdelmal/mgsurve) can be pulled and used to avoid dependencies issues. 
 
 
 
-**Under Construction** :construction: **Please check back in a couple of weeks!**
+<!-- Additionally, some of MGSurvE's map-plotting functions use [cartopy](https://scitools.org.uk/cartopy/). Even though the dependency's installation is not strictly required, the easiest way to install this package is with `conda install cartopy`, but in case there are errors in this process, have a look at the package's [installation instructions](https://scitools.org.uk/cartopy/docs/latest/installing.html). -->
+
 
 ![landscape](https://github.com/Chipdelmal/MGSurvE/raw/main/img/demo.jpg)
 
@@ -53,6 +48,8 @@ Additionally, some of MGSurvE's map-plotting functions use [cartopy](https://sci
 - [x] Support for xy coordinate systems
 - [x] Integrated Map-plotting routines
 - [x] Attractiveness/repellency effects
+- [x] Docker image for demos
+- [x] Docker image for paper experiments
 
 # Authors and Funders
 
