@@ -13,9 +13,12 @@ from sklearn.preprocessing import normalize
 import MGSurvE as srv
 import cartopy.crs as ccrs
 
-
-(FXD_TRPS, TRPS_NUM, GENS) = (False, 6, 3000)
-DIAG_VAL = 0.25
+if srv.isNotebook():
+    FXD_TRPS =  True
+else:
+    FXD_TRPS =  (argv[1] == 'True')
+(TRPS_NUM, GENS) = (6, 3000)
+DIAG_VAL = 0.1
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
