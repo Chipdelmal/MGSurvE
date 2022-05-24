@@ -17,7 +17,7 @@ if srv.isNotebook():
     FXD_TRPS =  True
 else:
     FXD_TRPS =  (argv[1] == 'True')
-(TRPS_NUM, GENS) = (6, 500)
+(TRPS_NUM, GENS) = (6, 1500)
 DIAG_VAL = 0.1
 ###############################################################################
 # Debugging fixed traps at land masses
@@ -72,7 +72,8 @@ tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .0075}}}
 ###############################################################################
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
-    traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS
+    traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS,
+    trapsRadii=[.9, .75, .5],
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
