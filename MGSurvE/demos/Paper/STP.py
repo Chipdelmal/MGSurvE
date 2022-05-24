@@ -17,7 +17,7 @@ if srv.isNotebook():
     FXD_TRPS =  True
 else:
     FXD_TRPS =  (argv[1] == 'True')
-(TRPS_NUM, GENS) = (6, 3000)
+(TRPS_NUM, GENS) = (6, 500)
 DIAG_VAL = 0.1
 ###############################################################################
 # Debugging fixed traps at land masses
@@ -194,7 +194,7 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 bestChromosome = hof[0]
 bestTraps = np.reshape(bestChromosome, (-1, 2))
 lnd.updateTrapsCoords(bestTraps)
-srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM))
+srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 dta = pd.DataFrame(logbook)
 srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 ###############################################################################
