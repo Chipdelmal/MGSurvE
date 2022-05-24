@@ -14,6 +14,7 @@
    .. autosummary::
    
       calcFitness
+      calcFitnessPseudoInverse
       calcSexFitness
       cxBlend
       exportLog
