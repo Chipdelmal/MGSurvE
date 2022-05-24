@@ -1,19 +1,16 @@
 # FROM python: "3.10-alpine"
 FROM continuumio/miniconda3
+MAINTAINER HectorMSanchezC <sanchez.hmsc@berkeley.edu>
 ###############################################################################
 # Setup Structure
 ###############################################################################
 RUN apt-get update \
+    && apt-get install nano \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir MGSurvE \
     && mkdir MGSurvE/Paper \
-    && mkdir MGSurvE/Paper/sims_out \
-    && mkdir MGSurvE/Demos \
-    && mkdir MGSurvE/Demos/demos_out \
-    && mkdir MGSurvE/sims_out
+    && mkdir MGSurvE/Demos
 WORKDIR /MGSurvE
-RUN ln -s ./Paper/sims_out ./sims_out/paper \
-    && ln -s ./Demos/demos_out ./sims_out/demos
 ###############################################################################
 # Copy Requirements and License
 ###############################################################################
@@ -32,7 +29,3 @@ COPY ./MGSurvE/demos/*.py ./Demos/
 ###############################################################################
 RUN conda env update --file requirements.yml -n base --prune \
     && rm requirements.yml
-###############################################################################
-# Scratch
-###############################################################################
-# docker run -v "$(pwd)":/MGSurvE/Paper/sims_out -it mgsurve:latest bash

@@ -28,7 +28,7 @@ python Demo_pointTypes.py
 python Demo_pointTypes-Simple.py
 
 # 8. GA with Sex Kernels ------------------------------------------------------
-echo "* [8/9] GA with Immovable Traps"
+echo "* [8/9] GA with Sex-Specific Traps"
 python Demo_GASex.py
 python Demo_GASex-Simple.py
 

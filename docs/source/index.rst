@@ -37,6 +37,8 @@ To this end, we have integrated the following features into our package (with mo
 * Integrated plotting routines
 * Integrated Map-plotting routines (for GIS geometries)
 * Genetic Algorithm (GA) and Particle-Swarm Optimization (PSO) routines integration
+* Attractiveness/repellency effects
+* Docker images
 
 
 
