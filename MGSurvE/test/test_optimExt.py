@@ -50,7 +50,7 @@ def test_initChromosomeMixedCoords():
     # Setting landscape up ----------------------------------------------------
     pts = ((-100, -50, 0), (100, 50, 0))
     points = pd.DataFrame(pts, columns=('x', 'y', 't'))
-    (nullC, ktyp) = ([0, 0, 0, 0, 0, 0], [1, 3, 2, 1, 0, 1])
+    (nullC, ktyp) = ([0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [1, 3, 2, 1, 0, 1])
     traps = pd.DataFrame({
         'x': nullC, 'y': nullC, 't': ktyp,
         'f': [1, 1, 1, 1, 1, 1],
@@ -154,9 +154,51 @@ def test_initChromosomeMixedTypes():
     typesSect = [i[trpsNum*2:trpsNum*2+trpsNum] for i in (baseChrom, testChrom)]
     passed = sum([a == b for (a, b) in zip(*typesSect)])
     typesPass = (passed > trpsNum*.4)
-    print(typesPass)
     # Put tests together ------------------------------------------------------
     assert (coordsPass and typesPass)
+
+
+def test_MarkovFundamental():
+    ptsNum = 50
+    pTypesProb =[0.05, 0.70, 0.25]
+    bbox = ((-200, 200), (-150, 150))
+    ###############################################################################
+    # Pointset
+    ############################################################################### 
+    (ptsNum, _) = (ptsNum, len(pTypesProb))
+    xy = srv.ptsRandUniform(ptsNum, bbox).T
+    points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
+    mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
+    ###############################################################################
+    # Traps
+    ############################################################################### 
+    traps = pd.DataFrame({
+        'x': [0, 0, 0, 0], 'y': [0, 0, 87.5, -87.5],
+        't': [0, 1, 0, 1], 'f': [0, 0, 0, 0]
+    })
+    tKer = {
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .100}},
+        1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': .050}}
+    }
+    ###############################################################################
+    # Landscape
+    ############################################################################### 
+    lnd = srv.Landscape(points, kernelParams=mKer, traps=traps, trapsKernels=tKer)
+    ###############################################################################
+    # Test and Compare
+    ############################################################################### 
+    (tau, sitesN, trapsN, iters) = (
+        lnd.trapsMigration, ptsNum, traps.shape[0], 50000
+    )
+    # Equivalency -----------------------------------------------------------------
+    mA = np.sum(srv.getFundamentalMatrix(tau, sitesN, trapsN), axis=1)
+    mB = np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)
+    mC = srv.getFundamentalVector(tau, sitesN)
+    equivalency = all([
+        all(np.isclose(mA, mB)), all(np.isclose(mA, mC)), all(np.isclose(mB, mC))
+    ])
+    # Put tests together ------------------------------------------------------
+    assert (equivalency)
 
 ###############################################################################
 # Main

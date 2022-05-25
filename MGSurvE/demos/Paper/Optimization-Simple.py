@@ -38,19 +38,21 @@ lndGA = deepcopy(lnd)
 (lnd, logbook) = srv.optimizeTrapsGA(
         lndGA, pop_size='auto', generations=GENS,
         mating_params=MAT, mutation_params=MUT, selection_params=SEL,
-        fitFuns={'outer': np.mean, 'inner': np.max}, verbose=True
+        fitFuns={'outer': np.mean, 'inner': np.max}, verbose=VERBOSE
     )
 srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
 ###############################################################################
 # Plot GA
 ############################################################################### 
 (fig, ax) = plt.subplots(figsize=(15, 15))
-(fig, ax) = srv.plotGAEvolution(fig, ax, dta)
-# srv.plotClean(fig, ax)
-pthSave = path.join(OUT_PTH, '{}_GAP'.format(ID))
+(fig, ax) = srv.plotGAEvolution(fig, ax, logbook)
+pthSave = path.join(
+    OUT_PTH, '{}_GAP'.format(ID)
+)
 fig.savefig(
     pthSave,
-    facecolor='w', bbox_inches='tight', pad_inches=.1, dpi=cst.dpi
+    facecolor='w', bbox_inches='tight', 
+    pad_inches=.1, dpi=300
 )
 # Export plots ----------------------------------------------------------------
 bbox = lnd.getBoundingBox()
@@ -59,10 +61,10 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 lnd.plotSites(fig, ax, size=200)
 lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
 lnd.plotTraps(fig, ax, size=200)
-srv.plotClean(fig, ax, bbox=bbox, frame=True)
-srv.plotFitness(fig, ax, min(minFits), zorder=30)
+srv.plotClean(fig, ax, bbox=bbox, frame=False, pad=cst.pad_i)
+srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
 fig.savefig(
-    path.join(OUT_PTH, '{}_TRP.png'.format(ID)), 
+    path.join(OUT_PTH, '{}_TRP-S.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')

@@ -114,10 +114,10 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 lnd.plotSites(fig, ax, size=200)
 lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
 lnd.plotTraps(fig, ax, size=200)
-srv.plotClean(fig, ax, bbox=bbox, frame=True)
+srv.plotClean(fig, ax, bbox=bbox, frame=False, pad=cst.pad_i)
 srv.plotFitness(fig, ax, min(minFits), zorder=30)
 fig.savefig(
-    path.join(OUT_PTH, '{}_TRP.png'.format(ID)), 
+    path.join(OUT_PTH, '{}_TRP-C.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')

@@ -1,25 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from sys import argv
-import math
 import numpy as np
 import pandas as pd
 from os import path
 from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
+from numpy.random import uniform
 from deap import base, creator, algorithms, tools
-from compress_pickle import dump, load
 from sklearn.preprocessing import normalize
 import MGSurvE as srv
 import cartopy.crs as ccrs
-import cartopy.feature as cfeature
-import warnings
-warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-(FXD_TRPS, TRPS_NUM, GENS) = (False, 10, 3000)
-DIAG_VAL = 0.01
+if srv.isNotebook():
+    FXD_TRPS =  True
+else:
+    FXD_TRPS =  (argv[1] == 'True')
+(TRPS_NUM, GENS) = (6, 1500)
+DIAG_VAL = 0.1
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
@@ -34,13 +33,13 @@ else:
 SAO_TOME_LL = pd.read_csv(path.join('./GEO', 'STP_LatLon.csv'))
 SAO_TOME_LL['t'] = [0]*SAO_TOME_LL.shape[0]
 SAO_bbox = (
-    (min(SAO_TOME_LL['x']), max(SAO_TOME_LL['x'])),
-    (min(SAO_TOME_LL['y']), max(SAO_TOME_LL['y']))
+    (min(SAO_TOME_LL['lon']), max(SAO_TOME_LL['lon'])),
+    (min(SAO_TOME_LL['lat']), max(SAO_TOME_LL['lat']))
 )
 SAO_cntr = [i[0]+(i[1]-i[0])/2 for i in SAO_bbox]
 SAO_LIMITS = ((6.41, 6.79), (-0.0475, .45))
 # Get location of minor land-masses -------------------------------------------
-SAO_FIXED = [tuple(SAO_TOME_LL.loc[i][['x', 'y']]) for i in (24, 212)]
+SAO_FIXED = [tuple(SAO_TOME_LL.loc[i][['lon', 'lat']]) for i in (24, 212)]
 FXD_NUM = len(SAO_FIXED)
 ###############################################################################
 # Load Migration Matrix
@@ -55,20 +54,26 @@ SAO_TOME_MIG = normalize(migration, axis=1, norm='l1')
 #   North and South land masses (mini islands): 51, 239 (zero-indexed)
 ###############################################################################
 (initTyp, initFxd) = ([0]*TRPS_NUM, [0]*TRPS_NUM)
-(initLon, initLat) = ([SAO_cntr[0]]*TRPS_NUM, [SAO_cntr[1]]*TRPS_NUM)
+(initLon, initLat) = ([
+    uniform(*SAO_bbox[0], TRPS_NUM), uniform(*SAO_bbox[1], TRPS_NUM)
+])
 if FXD_TRPS:
     for i in range(FXD_NUM):
         initFxd[TRPS_NUM-(i+1)] = 1
-        initLon[TRPS_NUM-(i+1)] = SAO_FIXED[i][0]
+        initLon[TRPS_NUM-(i+1)] = SAO_FIXED[i][0] 
         initLat[TRPS_NUM-(i+1)] = SAO_FIXED[i][1]
-traps = pd.DataFrame({'x': initLon, 'y': initLat, 't': initTyp, 'f': initFxd})
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 100}}}
+traps = pd.DataFrame({
+    'lon': initLon, 'lat': initLat, 
+    't': initTyp, 'f': initFxd
+})
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .0075}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
-    traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS
+    traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS,
+    trapsRadii=[.9, .75, .5],
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
@@ -80,9 +85,9 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
     plt.axes(projection=ccrs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=250)
-lnd.plotMigrationNetwork(
-    fig, ax, lineWidth=10, alphaMin=.1, alphaAmplitude=2.5
-)
+# lnd.plotMigrationNetwork(
+#     fig, ax, lineWidth=10, alphaMin=.1, alphaAmplitude=2.5
+# )
 lnd.plotLandBoundary(fig, ax)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
@@ -93,7 +98,7 @@ plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 
-POP_SIZE = int(10*(lnd.trapsNumber*1.25))
+POP_SIZE = int(10*(lnd.trapsNumber*1))
 (MAT, MUT, SEL) = (
     {'mate': .35, 'cxpb': 0.5}, 
     {
@@ -101,7 +106,7 @@ POP_SIZE = int(10*(lnd.trapsNumber*1.25))
         'sd': max([abs(i[1]-i[0]) for i in bbox])/5, 
         'mutpb': .35, 'indpb': .5
     },
-    {'tSize': 5}
+    {'tSize': 3}
 )
 VERBOSE = True
 lndGA = deepcopy(lnd)
@@ -160,9 +165,9 @@ toolbox.register(
     tournsize=SEL['tSize']
 )
 toolbox.register(
-    "evaluate", srv.calcFitness, 
+    "evaluate", srv.calcFitnessPseudoInverse, 
     landscape=lndGA,
-    optimFunction=srv.getDaysTillTrapped,
+    optimFunction=srv.getDaysTillTrappedPseudoInverse,
     optimFunctionArgs={'outer': np.mean, 'inner': np.max}
 )
 ###############################################################################
@@ -190,7 +195,7 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 bestChromosome = hof[0]
 bestTraps = np.reshape(bestChromosome, (-1, 2))
 lnd.updateTrapsCoords(bestTraps)
-srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM))
+srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 dta = pd.DataFrame(logbook)
 srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 ###############################################################################

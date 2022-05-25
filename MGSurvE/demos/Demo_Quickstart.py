@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import MGSurvE as srv
 
 
-(ID, OUT_PTH) = ('QSTART', './QSTART/')
+(ID, OUT_PTH) = ('qstart', './demos_out/')
 srv.makeFolder(OUT_PTH)
 ###############################################################################
 # Defining Landscape (Random in a Ring)
@@ -73,3 +73,4 @@ fig.savefig(
     path.join(OUT_PTH, '{}_MTX.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
+plt.close('all')

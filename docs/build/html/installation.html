@@ -40,9 +40,13 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#uneventful-tested-on-linux">Uneventful (tested on Linux)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#additional-dependencies-and-installation-errors-sometimes-happens-on-macos">Additional Dependencies, and Installation Errors (sometimes happens on MacOS)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#most-bulletproof-installation-method">Most Bulletproof Installation Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#local-installation">Local Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#uneventful-tested-on-linux">Uneventful (tested on Linux)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-dependencies-and-installation-mishaps-sometimes-happens-on-macos">Additional Dependencies, and Installation Mishaps (sometimes happens on MacOS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bulletproof-installation-method">Bulletproof Installation Method</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#docker">Docker</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="breakdown.html">Pkg Breakdown</a></li>
@@ -79,8 +83,10 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
 <p>It is strongly recommended to install and use <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">conda</a> for environment management, as some of MGSurvE’s dependencies might clash with specific packages versions.
 These installation instructions assume <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">conda</a> is already installed in the target system.</p>
+<section id="local-installation">
+<h2>Local Installation<a class="headerlink" href="#local-installation" title="Permalink to this headline"></a></h2>
 <section id="uneventful-tested-on-linux">
-<h2>Uneventful (tested on Linux)<a class="headerlink" href="#uneventful-tested-on-linux" title="Permalink to this headline"></a></h2>
+<h3>Uneventful (tested on Linux)<a class="headerlink" href="#uneventful-tested-on-linux" title="Permalink to this headline"></a></h3>
 <p>Create a clean <code class="code docutils literal notranslate"><span class="pre">python=3.9</span></code> environment:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda create -n MGSurvE python=&quot;3.9&quot; -y</span>
 </pre></div>
@@ -97,8 +103,8 @@ These installation instructions assume <a class="reference external" href="https
 </div>
 <p>If <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/index.html">cartopy</a> or <a class="reference external" href="https://pysal.org/libpysal/">libpysal</a> are not currently installed, we will get a warning that we can safely ignore (see the next section for more info); but if any of these steps resulted in an error, let’s have a look at the next section in this installation guide.</p>
 </section>
-<section id="additional-dependencies-and-installation-errors-sometimes-happens-on-macos">
-<h2>Additional Dependencies, and Installation Errors (sometimes happens on MacOS)<a class="headerlink" href="#additional-dependencies-and-installation-errors-sometimes-happens-on-macos" title="Permalink to this headline"></a></h2>
+<section id="additional-dependencies-and-installation-mishaps-sometimes-happens-on-macos">
+<h3>Additional Dependencies, and Installation Mishaps (sometimes happens on MacOS)<a class="headerlink" href="#additional-dependencies-and-installation-mishaps-sometimes-happens-on-macos" title="Permalink to this headline"></a></h3>
 <p>Sometimes, either <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a>, <a class="reference external" href="https://pysal.org/libpysal/">libpysal</a>, or <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/index.html">cartopy</a> decide not to play nicely.
 For these cases, the following procedure might help.</p>
 <p>In a fresh environment on <code class="code docutils literal notranslate"><span class="pre">python=3.9</span></code> (or one in which the installation of MGSurvE failed), run the following commands to install <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a>:</p>
@@ -118,9 +124,9 @@ The easiest way to install these dependencies is through <a class="reference ext
 </div>
 <p>If this installation fails, or if <code class="code docutils literal notranslate"><span class="pre">import</span> <span class="pre">MGSurvE</span></code> fails on python, we might need to have a look at the next section.</p>
 </section>
-<section id="most-bulletproof-installation-method">
-<h2>Most Bulletproof Installation Method<a class="headerlink" href="#most-bulletproof-installation-method" title="Permalink to this headline"></a></h2>
-<p>If either of these approaches is failing, try the following chain of commands (or to install in <code class="code docutils literal notranslate"><span class="pre">python=3.10</span></code>):</p>
+<section id="bulletproof-installation-method">
+<h3>Bulletproof Installation Method<a class="headerlink" href="#bulletproof-installation-method" title="Permalink to this headline"></a></h3>
+<p>If either of these approaches is failing, try the following chain of commands:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda create -n MGSurvE python=&quot;3.10&quot;</span>
 <span class="go">conda activate MGSurvE</span>
 <span class="go">conda config --add channels conda-forge</span>
@@ -131,6 +137,25 @@ The easiest way to install these dependencies is through <a class="reference ext
 </pre></div>
 </div>
 <p>In case this method still fails, please have a look at the installation instructions on: <a class="reference external" href="https://deap.readthedocs.io/en/master/installation.html">DEAP</a>, <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">cartopy</a>, and <a class="reference external" href="https://pysal.org/libpysal/installation.html">libpysal</a>; before installing MGSurvE.</p>
+</section>
+</section>
+<section id="docker">
+<h2>Docker<a class="headerlink" href="#docker" title="Permalink to this headline"></a></h2>
+<p>An alternative way to get <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> running is to download the latest <a class="reference external" href="https://hub.docker.com/r/chipdelmal/mgsurve">Docker image</a>.</p>
+<p>To get started with this approach, <a class="reference external" href="https://docs.docker.com/get-docker/">install Docker</a> on your system. Then, go to our <a class="reference external" href="https://hub.docker.com/r/chipdelmal/mgsurve">Docker image hub</a> and get the latest tag to pull from it. For example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker pull chipdelmal/mgsurve:0.6.5.6</span>
+</pre></div>
+</div>
+<p>And then run it in interactive mode:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker run -it chipdelmal/mgsurve:0.6.5.6 bash</span>
+</pre></div>
+</div>
+<p>We can check that <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> is correctly installed with its dependencies by running:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python</span>
+<span class="go">import MGSurvE</span>
+</pre></div>
+</div>
+<p>Which should run without any error or warnings. To quit our python session, we simply type <code class="code docutils literal notranslate"><span class="pre">exit()</span></code> into the interpreter, and we exit the docker promt by typing <code class="code docutils literal notranslate"><span class="pre">exit</span></code>.</p>
 </section>
 </section>
 

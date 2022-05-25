@@ -2,47 +2,36 @@
 # -*- coding: utf-8 -*-
 
 from sys import argv
-import math
 import numpy as np
 import pandas as pd
 from os import path
 from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
+from numpy.random import uniform
 from deap import base, creator, algorithms, tools
-from compress_pickle import dump, load
 from sklearn.preprocessing import normalize
 import MGSurvE as srv
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
-import warnings
-warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
-MAIL_ALERTS = True
-(FXD_TRPS, TRPS_NUM) = (int(argv[2]), int(argv[1]))
-# (FXD_TRPS, TRPS_NUM) = (True, 8)
+if not srv.isNotebook():
+    (FXD_TRPS, TRPS_NUM) = (int(argv[2]), int(argv[1]))
+else:
+    (FXD_TRPS, TRPS_NUM) = (True, 6)
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
-OUT_PTH = '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
-# OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
+# OUT_PTH = '/Volumes/marshallShare/MGS_Benchmarks/STPVincenty/'
+# OUT_PTH = '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
+OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
 if FXD_TRPS:
     ID = 'STP_FXD'
 else:
     ID = 'STP_FXN'
-GENS = 5000
-(IX_SPLIT, DIAG_VAL) = (27, 0.02)
-###############################################################################
-# Setup email alerts
-###############################################################################
-if MAIL_ALERTS:
-    import time
-    import smtplib
-    import mailAlerts as mlr
-    from email.message import EmailMessage
-    import imghdr
-    t0 = time.time()
+GENS = 2000
+(IX_SPLIT, DIAG_VAL) = (27, 0.1)
 ###############################################################################
 # Load Pointset
 ###############################################################################
@@ -54,12 +43,12 @@ SAO_bbox = (
     (min(SAO_TOME_LL['lat']), max(SAO_TOME_LL['lat']))
 )
 SAO_cntr = [i[0]+(i[1]-i[0])/2 for i in SAO_bbox]
-SAO_TOME_LL = SAO_TOME_LL .rename(
-    columns={'lon': 'x', 'lat': 'y'}
-)
+# SAO_TOME_LL = SAO_TOME_LL .rename(
+#     columns={'lon': 'x', 'lat': 'y'}
+# )
 SAO_LIMITS = ((6.41, 6.79), (-0.0475, .45))
 # Get location of minor land-masses -------------------------------------------
-SAO_FIXED = [tuple(SAO_TOME_LL.loc[i][['x', 'y']]) for i in (51, 239)]
+SAO_FIXED = [tuple(SAO_TOME_LL.loc[i][['lon', 'lat']]) for i in (51, 239)]
 FXD_NUM = len(SAO_FIXED)
 ###############################################################################
 # Load Migration Matrix
@@ -75,20 +64,26 @@ SAO_TOME_MIG = normalize(msplit, axis=1, norm='l1')
 #   North and South land masses (mini islands): 51, 239 (zero-indexed)
 ###############################################################################
 (initTyp, initFxd) = ([0]*TRPS_NUM, [0]*TRPS_NUM)
-(initLon, initLat) = ([SAO_cntr[0]]*TRPS_NUM, [SAO_cntr[1]]*TRPS_NUM)
+(initLon, initLat) = ([
+    uniform(*SAO_bbox[0], TRPS_NUM), uniform(*SAO_bbox[1], TRPS_NUM)
+])
 if FXD_TRPS:
     for i in range(FXD_NUM):
         initFxd[TRPS_NUM-(i+1)] = 1
-        initLon[TRPS_NUM-(i+1)] = SAO_FIXED[i][0]
+        initLon[TRPS_NUM-(i+1)] = SAO_FIXED[i][0] 
         initLat[TRPS_NUM-(i+1)] = SAO_FIXED[i][1]
-traps = pd.DataFrame({'x': initLon, 'y': initLat, 't': initTyp, 'f': initFxd})
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': 100}}}
+traps = pd.DataFrame({
+    'lon': initLon, 'lat': initLat, 
+    't': initTyp, 'f': initFxd
+})
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .0075}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
-    traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS
+    traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS,
+    trapsRadii=[.75, .5, .3],
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
@@ -100,10 +95,9 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 #     plt.axes(projection=ccrs.PlateCarree())
 # )
 # lnd.plotSites(fig, ax, size=250)
-# lnd.plotTraps(fig, ax)
+# # lnd.plotTraps(fig, ax)
 # lnd.plotMigrationNetwork(
-#     fig, ax, 
-#     lineWidth=10, alphaMin=.1, alphaAmplitude=2.5,
+#     fig, ax, lineWidth=60, alphaMin=.1, alphaAmplitude=5,
 # )
 # lnd.plotLandBoundary(fig, ax)
 # srv.plotClean(fig, ax, bbox=lnd.landLimits)
@@ -117,13 +111,13 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (MAT, MUT, SEL) = (
-    {'mate': .35, 'cxpb': 0.5}, 
+    {'mate': 0.35, 'cxpb': 0.5}, 
     {
         'mean': 0, 
-        'sd': max([abs(i[1]-i[0]) for i in bbox])/5, 
-        'mutpb': .35, 'indpb': .5
+        'sd': min([abs(i[1]-i[0]) for i in bbox])/4, 
+        'mutpb': .375, 'indpb': .5
     },
-    {'tSize': 5}
+    {'tSize': 3}
 )
 VERBOSE = True
 lndGA = deepcopy(lnd)
@@ -184,8 +178,8 @@ toolbox.register(
 toolbox.register(
     "evaluate", srv.calcFitness, 
     landscape=lndGA,
-    optimFunction=srv.getDaysTillTrapped,
-    optimFunctionArgs={'outer': np.mean, 'inner': np.max}
+    optimFunction=srv.getDaysTillTrappedPseudoInverse,
+    optimFunctionArgs={'outer': np.mean, 'inner': np.max} # np.max}
 )
 ###############################################################################
 # Registering GA stats
@@ -212,8 +206,8 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 bestChromosome = hof[0]
 bestTraps = np.reshape(bestChromosome, (-1, 2))
 lnd.updateTrapsCoords(bestTraps)
-srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM))
 dta = pd.DataFrame(logbook)
+srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 ###############################################################################
 # Plot Results
@@ -224,39 +218,14 @@ srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 )
 lnd.plotSites(fig, ax, size=250)
 lnd.plotMigrationNetwork(
-    fig, ax, lineWidth=10, alphaMin=.1, alphaAmplitude=2.5
+    fig, ax, lineWidth=60, alphaMin=.1, alphaAmplitude=5
 )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
 srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
-lnd.plotLandBoundary(fig, ax)
+# lnd.plotLandBoundary(fig, ax)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=400
 )
 plt.close('all')
-###############################################################################
-# Email Finished!
-############################################################################### 
-if MAIL_ALERTS:
-    tF = (time.time()-t0)/3600
-    fName = __file__.split('/')[-1]
-    mailStr = 'Sim finished ({}  t{:02d})\nRuntime: {}'.format(
-        fName, TRPS_NUM, tF
-    )
-    msg = EmailMessage()
-    msg['Subject'] = 'Sim finished: {} - {:02d}'.format(fName, TRPS_NUM)
-    msg['From'] = mlr.MAIL
-    msg['To'] = mlr.TARG
-    msg.set_content(mailStr)
-    imgPath = path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM))
-    with open(imgPath, 'rb') as f:
-        image_data = f.read()
-        image_type = imghdr.what(f.name)
-        image_name = f.name
-    msg.add_attachment(
-        image_data, maintype='image', subtype='image_type', filename=image_name
-    )
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-        smtp.login(mlr.MAIL, mlr.PSWD)
-        smtp.send_message(msg)
