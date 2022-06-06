@@ -43,14 +43,16 @@ The distance between each pair of random points was calculated with each distanc
 
 Here are violin plots of the distribution of execution times for all 1,000,000 pairs of points for each distance function: 
 
-.. image:: ../../img/distancePlots5.png
+.. image:: ../../img/distancePlots5.jpg
     :width: 100%
     :align: center
+
 
 Both Haversine and `Cheap Ruler <https://github.com/mapbox/cheap-ruler>`_ are about 10 seconds faster than Vincenty when calculating the 1,000,000 points. So for optimizing runtime, Haversine and `Cheap Ruler <https://github.com/mapbox/cheap-ruler>`_  are ideal with `Cheap Ruler <https://github.com/mapbox/cheap-ruler>`_  having a slight advantage.
 `Cheap Ruler <https://github.com/mapbox/cheap-ruler>`_ , however, has a wide, problematic range of error. Haversine, in comparison, has an error range orders of magnitude smaller than `Cheap Ruler <https://github.com/mapbox/cheap-ruler>`_ .
 If one wants to try to minimize runtimes while trying to preserve the accuracy of the distance function, then Haversine is the optimal distance function compared to Vincenty and Haversine.
 
-.. image:: ../../img/errorPlots3.png
+
+.. image:: ../../img/errorPlots3.jpg
     :width: 100%
     :align: center

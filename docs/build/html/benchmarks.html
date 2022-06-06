@@ -99,11 +99,11 @@ The algorithm was run for 1000 generations (and five repetitions per scenario) i
 <li><p>Haversine: 2.408093000000001 seconds</p></li>
 </ul>
 <p>Here are violin plots of the distribution of execution times for all 1,000,000 pairs of points for each distance function:</p>
-<a class="reference internal image-reference" href="_images/distancePlots5.png"><img alt="_images/distancePlots5.png" class="align-center" src="_images/distancePlots5.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="_images/distancePlots5.jpg"><img alt="_images/distancePlots5.jpg" class="align-center" src="_images/distancePlots5.jpg" style="width: 100%;" /></a>
 <p>Both Haversine and <a class="reference external" href="https://github.com/mapbox/cheap-ruler">Cheap Ruler</a> are about 10 seconds faster than Vincenty when calculating the 1,000,000 points. So for optimizing runtime, Haversine and <a class="reference external" href="https://github.com/mapbox/cheap-ruler">Cheap Ruler</a>  are ideal with <a class="reference external" href="https://github.com/mapbox/cheap-ruler">Cheap Ruler</a>  having a slight advantage.
 <a class="reference external" href="https://github.com/mapbox/cheap-ruler">Cheap Ruler</a> , however, has a wide, problematic range of error. Haversine, in comparison, has an error range orders of magnitude smaller than <a class="reference external" href="https://github.com/mapbox/cheap-ruler">Cheap Ruler</a> .
 If one wants to try to minimize runtimes while trying to preserve the accuracy of the distance function, then Haversine is the optimal distance function compared to Vincenty and Haversine.</p>
-<a class="reference internal image-reference" href="_images/errorPlots3.png"><img alt="_images/errorPlots3.png" class="align-center" src="_images/errorPlots3.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="_images/errorPlots3.jpg"><img alt="_images/errorPlots3.jpg" class="align-center" src="_images/errorPlots3.jpg" style="width: 100%;" /></a>
 </section>
 </section>
 
