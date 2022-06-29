@@ -6,14 +6,9 @@ import time
 import numpy as np
 import pandas as pd
 from os import path
-from sys import argv
 import cartopy.crs as ccrs
 import matplotlib
-from matplotlib import figure
-import cartopy.feature as cfeature
-from copy import deepcopy
 import matplotlib.pyplot as plt
-from compress_pickle import dump, load
 import MGSurvE as srv
 from PIL import Image
 matplotlib.use('agg')
