@@ -19,11 +19,11 @@ warnings.filterwarnings("ignore")
 # ffmpeg -start_number 0 -r 4 -f image2 -s 1920x1080 -i STP_10_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 15 -pix_fmt yuv420p OUTPUT_PATH.mp4
 
 (OUT_PTH, LND_TYPE, ID) = (
-    'C:/Users/azneb/Downloads/YKVid/YKVid', 
+    '/home/chipdelmal/Desktop/YKVid/', 
     'YKN', '05'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
-IMG_PTH = path.join(OUT_PTH, fPat+'VIDALPHA')
+IMG_PTH = path.join(OUT_PTH, fPat+'VID')
 srv.makeFolder(IMG_PTH)
 DPI = 200
 ###############################################################################
