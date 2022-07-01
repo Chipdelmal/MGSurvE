@@ -283,7 +283,7 @@ def violinPlots(num = 1000000):
 def errorPlots(num = 100):
     #Set random seed for consistent benchmarks
     random.seed (0x7126434a2ea2a259e9f4196cbb343b1e6d4c2fc8)
-    fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(9, 4), sharey=True)
+    fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(15, 4), sharey=False)
 
 ###############################################################################
 # Create pairs of random points
@@ -323,6 +323,7 @@ def errorPlots(num = 100):
 
     axes[0].set_title("Vincenty vs Cheap Ruler")
     axes[0].scatter(x=vincentyDistances, y=[cheapDistances[i] - vincentyDistances[i] for i in range(len(vincentyDistances)) if vincentyDistances[i] != 0])
+    axes[0].set_aspect(1)
     axes[0].set_xlabel("Vincenty Distance (meters)")
     axes[0].set_ylabel("(Cheap Ruler - Vincenty) Distance Difference")
 ###############################################################################
@@ -339,13 +340,14 @@ def errorPlots(num = 100):
 
     axes[1].set_title("Vincenty vs Haversine")
     axes[1].scatter(x=vincentyDistances, y=[haversineDistances[i] - vincentyDistances[i] for i in range(len(vincentyDistances)) if vincentyDistances[i] != 0])
+    axes[1].set_aspect(1/axes[1].get_data_ratio())
     axes[1].set_xlabel("Vincenty Distance (meters)")
     axes[1].set_ylabel("(Haversine - Vincenty) Distance Difference")
 ###############################################################################
 # Save Figure
 ###############################################################################
-    plt.savefig("errorPlots.png")
+    plt.savefig("errorPlots5.png")
 
 if __name__ == '__main__':
-    violinPlots()
+    errorPlots()
     

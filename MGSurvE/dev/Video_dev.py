@@ -19,11 +19,11 @@ warnings.filterwarnings("ignore")
 # ffmpeg -start_number 0 -r 4 -f image2 -s 1920x1080 -i STP_10_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 15 -pix_fmt yuv420p OUTPUT_PATH.mp4
 
 (OUT_PTH, LND_TYPE, ID) = (
-    '/home/chipdelmal/Desktop/YKVid/', 
+    'C:/Users/azneb/Downloads/YKVid/YKVid', 
     'YKN', '05'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
-IMG_PTH = path.join(OUT_PTH, fPat+'VID')
+IMG_PTH = path.join(OUT_PTH, fPat+'VIDALPHA')
 srv.makeFolder(IMG_PTH)
 DPI = 200
 ###############################################################################
@@ -107,7 +107,7 @@ for i in range(0, len(gaMin)):
     (w, h) = background.size
     background = background.crop((0, 0, w, h))
     foreground = foreground.resize((int(w/1), int(h/1)), Image.ANTIALIAS)
-    background.paste(foreground, (0, 0), foreground)
+    background = Image.alpha_composite(background, foreground)
     background.save(pthSave, dpi=(DPI, DPI))
     background.close()
     foreground.close()
