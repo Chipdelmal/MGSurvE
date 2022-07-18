@@ -56,23 +56,23 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 # Implementing extension
 ###############################################################################
-# lnd.calcFundamentalMatrix()
-# lnd.getDaysTillTrapped()
-# # lnd.pointCoords
-# lnd.fundamentalMatrix
-# # Init chromosome -------------------------------------------------------------
-# trpsIDPos  = [0, 1, 1, 1]
-# fixedTraps = [1, 0, 0, 1]
-# trapsNum = lnd.trapsNumber
-# ptsNum = lnd.pointNumber
-# ptsIds = tuple((range(ptsNum)))
+lnd.calcFundamentalMatrix()
+lnd.getDaysTillTrapped()
+# lnd.pointCoords
+lnd.fundamentalMatrix
+# Init chromosome -------------------------------------------------------------
+trpsIDPos  = [0, 1, 1, 1]
+fixedTraps = [1, 0, 0, 1]
+trapsNum = lnd.trapsNumber
+ptsNum = lnd.pointNumber
+ptsIds = tuple((range(ptsNum)))
 
-# def initDiscreteChromosome(ptsIds, traps):
-#     (fixedTraps, trapsNum) = (traps['f'], len(traps['f']))    
-#     chromosome = list(traps['s']).copy()
-#     for ix in range(trapsNum):
-#         if not fixedTraps[ix]:
-#             chromosome[ix] = choice(ptsIds)
-#     return chromosome
+def initDiscreteChromosome(ptsIds, traps):
+    (fixedTraps, trapsNum) = (traps['f'], len(traps['f']))    
+    chromosome = list(traps['s']).copy()
+    for ix in range(trapsNum):
+        if not fixedTraps[ix]:
+            chromosome[ix] = choice(ptsIds)
+    return chromosome
 
-# initDiscreteChromosome(ptsIds, traps)
+initDiscreteChromosome(ptsIds, traps)
