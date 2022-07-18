@@ -26,6 +26,7 @@ jobs:
           python -m pip install --upgrade pip
           make develop
           pip install pytest
+          pip install pytest-faulthandler
           conda install cartopy
       - name: Run tests with pytest
         run: |
