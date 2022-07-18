@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 from os import path
 from sys import argv
-from random import choice
+from random import choice, random
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 import numpy as np
@@ -67,6 +67,7 @@ trapsNum = lnd.trapsNumber
 ptsNum = lnd.pointNumber
 ptsIds = tuple((range(ptsNum)))
 
+
 def initDiscreteChromosome(ptsIds, traps):
     (fixedTraps, trapsNum) = (traps['f'], len(traps['f']))    
     chromosome = list(traps['s']).copy()
@@ -75,4 +76,13 @@ def initDiscreteChromosome(ptsIds, traps):
             chromosome[ix] = choice(ptsIds)
     return chromosome
 
-initDiscreteChromosome(ptsIds, traps)
+def mutateDiscreteChromosome(chromosome, ptsIds, traps, indpb=0.5):
+    (fixedTraps, cLen) = (traps['f'], len(traps['f']))  
+    for i in range(cLen):
+        if (random() < indpb) and not fixedTraps[i]:
+            chromosome[i] = choice(ptsIds)
+    return (chromosome, )
+
+
+chrom = initDiscreteChromosome(ptsIds, traps)
+mutateDiscreteChromosome(chrom, ptsIds, traps)

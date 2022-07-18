@@ -9,7 +9,7 @@ import random
 import numpy as np
 import pandas as pd
 from os import path
-from random import choice
+from random import choice, random
 import numpy.random as rand
 from deap import base, creator, algorithms, tools
 
