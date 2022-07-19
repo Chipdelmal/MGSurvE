@@ -7,7 +7,8 @@ import numpy as np
 import pandas as pd
 from os import path
 from sys import argv
-from random import choice, random
+import random
+from random import choice
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 import numpy as np
@@ -40,7 +41,7 @@ traps = pd.DataFrame({
     'x': [xy[0, 0], 0, 0, 0],
     'y': [xy[1, 0], 0, 0, 0],
     't': [0, 0, 0 ,0],
-    'f': [1, 0, 0 ,1]
+    'f': [0, 0, 0 ,1]
 })
 tKernels = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .2, 'b': 0.1}}}
 ###############################################################################
@@ -62,7 +63,7 @@ lnd.getDaysTillTrapped()
 lnd.fundamentalMatrix
 # Init chromosome -------------------------------------------------------------
 trpsIDPos  = [0, 1, 1, 1]
-fixedTraps = [1, 0, 0, 1]
+fixedTraps = [0, 0, 0, 1]
 trapsNum = lnd.trapsNumber
 ptsNum = lnd.pointNumber
 ptsIds = tuple((range(ptsNum)))
@@ -79,10 +80,24 @@ def initDiscreteChromosome(ptsIds, traps):
 def mutateDiscreteChromosome(chromosome, ptsIds, traps, indpb=0.5):
     (fixedTraps, cLen) = (traps['f'], len(traps['f']))  
     for i in range(cLen):
-        if (random() < indpb) and not fixedTraps[i]:
+        if (random.random() < indpb) and not fixedTraps[i]:
             chromosome[i] = choice(ptsIds)
     return (chromosome, )
 
+def cxUniform(ind1, ind2, traps, indpb=.5):
+    fixedTraps = traps['f']
+    (offA, offB) = (ind1[:], ind2[:])
+    for ix in range(len(offA)):
+        if not fixedTraps[ix] and (random.random() < indpb):
+            offA[ix] = ind2[ix]
+            offB[ix] = ind1[ix]
+    (ind1[:], ind2[:]) = (offA[:], offB[:])
+    return (ind1, ind2)
 
-chrom = initDiscreteChromosome(ptsIds, traps)
-mutateDiscreteChromosome(chrom, ptsIds, traps)
+
+chromB = initDiscreteChromosome(ptsIds, traps)
+chromA = mutateDiscreteChromosome(chromB.copy(), ptsIds, traps, indpb=1)[0]
+print(chromA, chromB)
+print(cxUniform(chromA, chromB, traps, indpb=.5))
+
+
