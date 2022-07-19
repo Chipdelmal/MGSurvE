@@ -34,10 +34,13 @@ elif LND_TYPE == 'DNUT':
     ptsNum = 150
     radii = (100, 150)
     xy = srv.ptsDonut(ptsNum, radii).T
-points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
+points = pd.DataFrame({
+    'x': xy[0], 'y': xy[1], 
+    't': [0]*xy.shape[1], 'id': range(0, 100)
+})
 # Traps info ------------------------------------------------------------------
 traps = pd.DataFrame({
-    's': [0, 1, 1, 1],
+    'sid': [0, 10, 55, 25],
     'x': [xy[0, 0], 0, 0, 0],
     'y': [xy[1, 0], 0, 0, 0],
     't': [0, 0, 0 ,0],
@@ -62,30 +65,32 @@ lnd.getDaysTillTrapped()
 # lnd.pointCoords
 lnd.fundamentalMatrix
 # Init chromosome -------------------------------------------------------------
-trpsIDPos  = [0, 1, 1, 1]
+trpsIDPos  = [0, 10, 55, 25]
 fixedTraps = [0, 0, 0, 1]
 trapsNum = lnd.trapsNumber
 ptsNum = lnd.pointNumber
 ptsIds = tuple((range(ptsNum)))
 
 
-def initDiscreteChromosome(ptsIds, traps):
-    (fixedTraps, trapsNum) = (traps['f'], len(traps['f']))    
-    chromosome = list(traps['s']).copy()
+def initDiscreteChromosome(trapsSitesID, ptsIds, fixedTraps):
+    trapsNum = len(trapsSitesID)  
+    chromosome = list(traps['sid']).copy()
     for ix in range(trapsNum):
         if not fixedTraps[ix]:
             chromosome[ix] = choice(ptsIds)
     return chromosome
 
-def mutateDiscreteChromosome(chromosome, ptsIds, traps, indpb=0.5):
-    (fixedTraps, cLen) = (traps['f'], len(traps['f']))  
+def mutateDiscreteChromosome(
+        chromosome, ptsIds, trapsSitesID, 
+        fixedTraps, indpb=0.5
+    ):
+    cLen = len(trapsSitesID)
     for i in range(cLen):
         if (random.random() < indpb) and not fixedTraps[i]:
             chromosome[i] = choice(ptsIds)
     return (chromosome, )
 
-def cxUniform(ind1, ind2, traps, indpb=.5):
-    fixedTraps = traps['f']
+def cxUniform(ind1, ind2, fixedTraps, indpb=.5):
     (offA, offB) = (ind1[:], ind2[:])
     for ix in range(len(offA)):
         if not fixedTraps[ix] and (random.random() < indpb):
@@ -95,10 +100,11 @@ def cxUniform(ind1, ind2, traps, indpb=.5):
     return (ind1, ind2)
 
 def calcDiscreteFitness(
-        chromosome, landscape, ptsIds,
+        chromosome, landscape,
         optimFunction=srv.getDaysTillTrapped,
         optimFunctionArgs={'outer': np.mean, 'inner': np.max},
     ):
+    ptsIds = landscape.pointID
     siteIndex = [ptsIds.index(i) for i in chromosome]
     trapXY = np.asarray([landscape.pointCoords[i] for i in siteIndex])
     fit = srv.calcFitness(
@@ -109,11 +115,12 @@ def calcDiscreteFitness(
     return fit
 
 def calcDiscreteFitnessPseudoInverse(
-        chromosome, landscape, ptsIds,
+        chromosome, landscape,
         optimFunction=srv.getDaysTillTrappedPseudoInverse,
         optimFunctionArgs={'outer': np.mean, 'inner': np.max},  
         rcond=1e-30
     ):
+    ptsIds = landscape.pointID
     siteIndex = [ptsIds.index(i) for i in chromosome]
     trapXY = np.asarray([landscape.pointCoords[i] for i in siteIndex])
     fit = srv.calcFitnessPseudoInverse(
@@ -125,12 +132,14 @@ def calcDiscreteFitnessPseudoInverse(
     return fit
 
 
-chromB = initDiscreteChromosome(ptsIds, traps)
-chromA = mutateDiscreteChromosome(chromB.copy(), ptsIds, traps, indpb=1)[0]
+chromB = initDiscreteChromosome(lnd.trapsSiteID, lnd.pointID, lnd.trapsFixed)
+chromA = mutateDiscreteChromosome(
+    chromB.copy(), lnd.pointID, lnd.trapsSiteID, lnd.trapsFixed, indpb=1
+)[0]
 print(chromA, chromB)
-print(cxUniform(chromA, chromB, traps, indpb=.5))
-calcDiscreteFitness(chromA, lnd, ptsIds)
-calcDiscreteFitnessPseudoInverse(chromA, lnd, ptsIds)
+print(cxUniform(chromA, chromB,  lnd.trapsFixed, indpb=.5))
+calcDiscreteFitness(chromA, lnd)
+calcDiscreteFitnessPseudoInverse(chromB, lnd)
 
 chromosome = chromA
 landscape = lnd

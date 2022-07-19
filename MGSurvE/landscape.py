@@ -50,7 +50,7 @@ class Landscape:
     # Initializers
     ###########################################################################
     def __init__(self, 
-        points, 
+        points,
         maskingMatrix=None,
         attractionVector=None,
 
@@ -126,6 +126,11 @@ class Landscape:
             self.pointTypes = np.asarray(points['t'])
         else:
             self.pointTypes = np.asarray([0]*len(points))
+        # Check and define point-IDs ------------------------------------------
+        if ('id' in ptsHead):
+            self.pointID = list(points['id'])
+        else:
+            self.pointID = list(range(len(points)))
         # If no migration mask is provided, generate a dummy one --------------
         if maskingMatrix is None:
             ptNum = len(set(self.pointTypes))
@@ -182,6 +187,8 @@ class Landscape:
                 self.trapsFixed = np.asarray(traps['f'])
             else:
                 self.trapsFixed = np.asarray([0]*len(self.trapsCoords))
+            if ('sid' in tpsHead):
+                self.trapsSiteID = list(traps['sid'])
             if ('o' in tpsHead):
                 self.trapsTOptim = np.asarray(traps['o'])
             else:
