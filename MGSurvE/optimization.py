@@ -520,6 +520,61 @@ def calcSexFitness(
     fitVal = (fit[0]*weightMale+fit[1]*weightFemale)/(2*(weightMale+weightFemale))
     return (fitVal, )
 
+def calcDiscreteFitness(
+        chromosome, landscape,
+        optimFunction=getDaysTillTrapped,
+        optimFunctionArgs={'outer': np.mean, 'inner': np.max},
+    ):
+    """Calculates the fitness function of the landscape given a chromosome (in place, so not thread-safe).
+
+    Parameters:
+        chromosome (list): Discrete optimization chromosome.
+        landscape (object): Landscape object to use for the analysis.
+        optimFunction (function): Function that turns a matrix into a fitness value.
+        optimFunctionArgs (dict): Dictionary with the outer (row) and inner (col) functions to use on the matrix.
+
+    Returns:
+        (tuple of floats): Landscape's fitness function.
+    """
+    ptsIds = landscape.pointID
+    siteIndex = [ptsIds.index(i) for i in chromosome]
+    trapXY = np.asarray([landscape.pointCoords[i] for i in siteIndex])
+    fit = calcFitness(
+        trapXY, landscape=landscape,
+        optimFunction=optimFunction,
+        optimFunctionArgs=optimFunctionArgs
+    )
+    return fit
+
+def calcDiscreteFitnessPseudoInverse(
+        chromosome, landscape,
+        optimFunction=getDaysTillTrappedPseudoInverse,
+        optimFunctionArgs={'outer': np.mean, 'inner': np.max},  
+        rcond=1e-30
+    ):
+    """Calculates the fitness function of the landscape given a chromosome (in place, so not thread-safe).
+
+    Parameters:
+        chromosome (list): Discrete optimization chromosome.
+        landscape (object): Landscape object to use for the analysis.
+        optimFunction (function): Function that turns a matrix into a fitness value.
+        optimFunctionArgs (dict): Dictionary with the outer (row) and inner (col) functions to use on the matrix.
+        rcond (float): Cutoff for small singular values.
+
+    Returns:
+        (tuple of floats): Landscape's fitness function.
+    """
+    ptsIds = landscape.pointID
+    siteIndex = [ptsIds.index(i) for i in chromosome]
+    trapXY = np.asarray([landscape.pointCoords[i] for i in siteIndex])
+    fit = calcFitnessPseudoInverse(
+        trapXY, landscape=landscape,
+        optimFunction=optimFunction,
+        optimFunctionArgs=optimFunctionArgs,
+        rcond=rcond
+    )
+    return fit
+
 ###############################################################################
 # Logging results
 ###############################################################################

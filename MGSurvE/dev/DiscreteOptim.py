@@ -71,53 +71,12 @@ trapsNum = lnd.trapsNumber
 ptsNum = lnd.pointNumber
 ptsIds = tuple((range(ptsNum)))
 
-def calcDiscreteFitness(
-        chromosome, landscape,
-        optimFunction=srv.getDaysTillTrapped,
-        optimFunctionArgs={'outer': np.mean, 'inner': np.max},
-    ):
-    ptsIds = landscape.pointID
-    siteIndex = [ptsIds.index(i) for i in chromosome]
-    trapXY = np.asarray([landscape.pointCoords[i] for i in siteIndex])
-    fit = srv.calcFitness(
-        trapXY, landscape=landscape,
-        optimFunction=optimFunction,
-        optimFunctionArgs=optimFunctionArgs
-    )
-    return fit
-
-def calcDiscreteFitnessPseudoInverse(
-        chromosome, landscape,
-        optimFunction=srv.getDaysTillTrappedPseudoInverse,
-        optimFunctionArgs={'outer': np.mean, 'inner': np.max},  
-        rcond=1e-30
-    ):
-    ptsIds = landscape.pointID
-    siteIndex = [ptsIds.index(i) for i in chromosome]
-    trapXY = np.asarray([landscape.pointCoords[i] for i in siteIndex])
-    fit = srv.calcFitnessPseudoInverse(
-        trapXY, landscape=landscape,
-        optimFunction=optimFunction,
-        optimFunctionArgs=optimFunctionArgs,
-        rcond=rcond
-    )
-    return fit
-
-
 chromB = srv.initDiscreteChromosome(lnd.pointID, lnd.trapsFixed, lnd.pointsTrapBanned)
 chromA = srv.mutateDiscreteChromosome(
     chromB.copy(), lnd.pointID, lnd.trapsFixed, indpb=1
 )[0]
 print(chromA, chromB)
-print(cxUniform(chromA, chromB,  lnd.trapsFixed, indpb=.5))
-calcDiscreteFitness(chromA, lnd)
-calcDiscreteFitnessPseudoInverse(chromB, lnd)
-
-chromosome = chromA
-landscape = lnd
-
-siteIndex = [ptsIds.index(i) for i in chromosome]
-trapXY = np.asarray([landscape.pointCoords[i] for i in siteIndex])
-np.reshape(trapXY, (-1, 2))
-
+print(srv.cxUniform(chromA, chromB,  lnd.trapsFixed, indpb=.5))
+srv.calcDiscreteFitness(chromA, lnd)
+srv.calcDiscreteFitnessPseudoInverse(chromB, lnd)
 
