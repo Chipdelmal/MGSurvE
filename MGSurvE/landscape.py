@@ -51,6 +51,7 @@ class Landscape:
     ###########################################################################
     def __init__(self, 
         points,
+        pointsTrapBanned=None,
         maskingMatrix=None,
         attractionVector=None,
 
@@ -172,6 +173,10 @@ class Landscape:
         else:
             self.landLimits = landLimits
         # Init traps locations ------------------------------------------------
+        if pointsTrapBanned:
+            self.pointsTrapBanned = set(pointsTrapBanned)
+        else:
+            self.pointsTrapBanned = pointsTrapBanned
         if (traps is not None):
             tpsHead = set(traps.columns)
             if (self.geometryType == 'xy'):

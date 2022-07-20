@@ -52,7 +52,7 @@ tKernels = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .2, 'b': 0.1}}}
 ###############################################################################
 lnd = srv.Landscape(
     points, kernelParams={'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75},
-    traps=traps, trapsKernels=tKernels
+    traps=traps, trapsKernels=tKernels, pointsTrapBanned={5}
 )
 srv.dumpLandscape(lnd, OUT_PTH, '{}_{}_CLN'.format(LND_TYPE, ID))
 bbox = lnd.getBoundingBox()
@@ -70,34 +70,6 @@ fixedTraps = [0, 0, 0, 1]
 trapsNum = lnd.trapsNumber
 ptsNum = lnd.pointNumber
 ptsIds = tuple((range(ptsNum)))
-
-
-def initDiscreteChromosome(trapsSitesID, ptsIds, fixedTraps):
-    trapsNum = len(trapsSitesID)  
-    chromosome = list(traps['sid']).copy()
-    for ix in range(trapsNum):
-        if not fixedTraps[ix]:
-            chromosome[ix] = choice(ptsIds)
-    return chromosome
-
-def mutateDiscreteChromosome(
-        chromosome, ptsIds, trapsSitesID, 
-        fixedTraps, indpb=0.5
-    ):
-    cLen = len(trapsSitesID)
-    for i in range(cLen):
-        if (random.random() < indpb) and not fixedTraps[i]:
-            chromosome[i] = choice(ptsIds)
-    return (chromosome, )
-
-def cxUniform(ind1, ind2, fixedTraps, indpb=.5):
-    (offA, offB) = (ind1[:], ind2[:])
-    for ix in range(len(offA)):
-        if not fixedTraps[ix] and (random.random() < indpb):
-            offA[ix] = ind2[ix]
-            offB[ix] = ind1[ix]
-    (ind1[:], ind2[:]) = (offA[:], offB[:])
-    return (ind1, ind2)
 
 def calcDiscreteFitness(
         chromosome, landscape,
@@ -132,9 +104,9 @@ def calcDiscreteFitnessPseudoInverse(
     return fit
 
 
-chromB = initDiscreteChromosome(lnd.trapsSiteID, lnd.pointID, lnd.trapsFixed)
-chromA = mutateDiscreteChromosome(
-    chromB.copy(), lnd.pointID, lnd.trapsSiteID, lnd.trapsFixed, indpb=1
+chromB = srv.initDiscreteChromosome(lnd.pointID, lnd.trapsFixed, lnd.pointsTrapBanned)
+chromA = srv.mutateDiscreteChromosome(
+    chromB.copy(), lnd.pointID, lnd.trapsFixed, indpb=1
 )[0]
 print(chromA, chromB)
 print(cxUniform(chromA, chromB,  lnd.trapsFixed, indpb=.5))
@@ -147,3 +119,5 @@ landscape = lnd
 siteIndex = [ptsIds.index(i) for i in chromosome]
 trapXY = np.asarray([landscape.pointCoords[i] for i in siteIndex])
 np.reshape(trapXY, (-1, 2))
+
+
