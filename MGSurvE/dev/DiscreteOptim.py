@@ -79,4 +79,5 @@ print(chromA, chromB)
 print(srv.cxUniform(chromA, chromB,  lnd.trapsFixed, indpb=.5))
 srv.calcDiscreteFitness(chromA, lnd)
 srv.calcDiscreteFitnessPseudoInverse(chromB, lnd)
+srv.calcDiscreteSexFitness(chromA, lnd, lnd)
 
