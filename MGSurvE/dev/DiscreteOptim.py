@@ -84,3 +84,13 @@ srv.calcDiscreteSexFitness(chromA, lnd, lnd)
 vct = [0]*100
 chrom = srv.initDiscreteChromosome(range(10), vct, {5, 6})
 set(chrom)
+
+(ub, chromSize) = (100, 100)
+chromA = srv.mutateDiscreteChromosome(
+    [0]*chromSize, range(1, ub), [0]*chromSize, indpb=1
+)[0]
+chromB = srv.mutateDiscreteChromosome(
+    [0]*chromSize, range(1, ub), [0]*chromSize, indpb=0
+)[0]
+noZero = (len([i for i in chromA if i==0]) == 0)
+allZero = (len([i for i in chromB if i==0]) == len(chromB))

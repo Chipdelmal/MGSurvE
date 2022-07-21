@@ -10,6 +10,21 @@ def test_InitDiscrete():
     ixTest = ((vix-ban)==vix)
     assert (lTest and ixTest)
 
+
+def test_MutateDiscrete():
+    (ub, chromSize) = (100, 100)
+    chromA = srv.mutateDiscreteChromosome(
+        [0]*chromSize, range(1, ub), [0]*chromSize, indpb=1
+    )[0]
+    chromB = srv.mutateDiscreteChromosome(
+        [0]*chromSize, range(1, ub), [0]*chromSize, indpb=0
+    )[0]
+    # Compile tests -----------------------------------------------------------
+    noZero = (len([i for i in chromA if i==0]) == 0)
+    allZero = (len([i for i in chromB if i==0]) == len(chromB))
+    assert (noZero and allZero)
+
+
 ###############################################################################
 # Main
 ###############################################################################
