@@ -81,3 +81,6 @@ srv.calcDiscreteFitness(chromA, lnd)
 srv.calcDiscreteFitnessPseudoInverse(chromB, lnd)
 srv.calcDiscreteSexFitness(chromA, lnd, lnd)
 
+vct = [0]*100
+chrom = srv.initDiscreteChromosome(range(10), vct, {5, 6})
+set(chrom)
