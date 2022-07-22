@@ -12,6 +12,7 @@ from scipy.optimize import fsolve
 from sklearn.preprocessing import normalize
 import MGSurvE.constants as cst
 import warnings
+import matplotlib.pyplot as plt
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 # https://en.wikipedia.org/wiki/Sigmoid_function
@@ -101,9 +102,16 @@ def zeroInflatedExponentialKernel(
                 migrMat[i][j] = 0
             else:
                 migrMat[i][j] = truncatedExponential(dst, params=params)
-        migrMat[i] = migrMat[i] / np.sum(migrMat[i]) * (1 - zeroInflation)
+        # migrMat[i] = migrMat[i] / np.sum(migrMat[i]) * (1 - zeroInflation)
+        migrRowSum = np.sum(migrMat[i])
+        for j in range(len(row)):
+            migrMat[i][j] = migrMat[i][j] / migrRowSum * (1 - zeroInflation)
+            if np.isnan(migrMat[i][j]):
+                migrMat[i][j] = 0
+
     np.fill_diagonal(migrMat, zeroInflation)
     tauN = normalize(migrMat, axis=1, norm='l1')
+    
     return tauN
 
 
