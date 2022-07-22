@@ -5,6 +5,7 @@ import math
 import pandas as pd
 from sys import argv
 import numpy as np
+from os import path
 from copy import deepcopy
 import matplotlib.pyplot as plt
 from deap import base, creator, algorithms, tools
@@ -13,7 +14,7 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 if srv.isNotebook():
-    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'GRID', 'G01')
+    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'GRID', 'G03')
 else:
     (OUT_PTH, LND_TYPE, ID) = (argv[1], argv[2], argv[3].zfill(3))
 ###############################################################################
@@ -33,19 +34,22 @@ elif LND_TYPE == 'DNUT':
     xy = srv.ptsDonut(ptsNum, radii).T
 points = pd.DataFrame({
     'x': xy[0], 'y': xy[1], 
-    't': [0]*xy.shape[1], 'id': range(0, 100)
+    't': [0]*xy.shape[1], 'id': range(0, xy.shape[1])
 })
 # Traps info ------------------------------------------------------------------
 trapsNum = 8
 nullTrap = [0]*trapsNum
+tTypes = nullTrap[:]
+tTypes[-1] = 1
 traps = pd.DataFrame({
     'sid': nullTrap,
-    'x': nullTrap,
-    'y': nullTrap,
-    't': nullTrap,
-    'f': nullTrap
+    'x': nullTrap, 'y': nullTrap,
+    't': tTypes, 'f': nullTrap
 })
-tKernels = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': 0.05}}}
+tKernels = {
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': 0.2}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': 0.05}}
+}
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
@@ -145,11 +149,15 @@ dta = pd.DataFrame(logbook)
 ############################################################################### 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=100)
-# lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=False)
 srv.plotFitness(fig, ax, min(dta['min']))
-
+fig.savefig(
+    path.join(OUT_PTH, '{}_{}_TRP.png'.format(ID, LND_TYPE)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+)
+plt.close('all')
 
 
 ###############################################################################
@@ -160,7 +168,6 @@ srv.plotFitness(fig, ax, min(dta['min']))
 # trapsNum = lnd.trapsNumber
 # ptsNum = lnd.pointNumber
 # ptsIds = tuple((range(ptsNum)))
-
 
 # chromB = srv.initDiscreteChromosome(lnd.pointID, lnd.trapsFixed, lnd.pointsTrapBanned)
 # chromA = srv.mutateDiscreteChromosome(
