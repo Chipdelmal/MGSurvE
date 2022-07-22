@@ -302,7 +302,7 @@ def cxBlend(
     (ind1[:], ind2[:]) = (offA[:], offB[:])
     return (ind1, ind2)
 
-def cxUniform(ind1, ind2, fixedTraps, indpb=.5):
+def cxDiscreteUniform(ind1, ind2, fixedTraps, indpb=.5):
     """Mates two chromosomes in place by swapping alleles between them.
 
     Args:

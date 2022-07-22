@@ -54,7 +54,6 @@ lnd = srv.Landscape(
     points, kernelParams={'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75},
     traps=traps, trapsKernels=tKernels, pointsTrapBanned={5}
 )
-srv.dumpLandscape(lnd, OUT_PTH, '{}_{}_CLN'.format(LND_TYPE, ID))
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
@@ -76,7 +75,7 @@ chromA = srv.mutateDiscreteChromosome(
     chromB.copy(), lnd.pointID, lnd.trapsFixed, indpb=1
 )[0]
 print(chromA, chromB)
-print(srv.cxUniform(chromA, chromB,  lnd.trapsFixed, indpb=.5))
+print(srv.cxDiscreteUniform(chromA, chromB,  lnd.trapsFixed, indpb=.5))
 srv.calcDiscreteFitness(chromA, lnd)
 srv.calcDiscreteFitnessPseudoInverse(chromB, lnd)
 srv.calcDiscreteSexFitness(chromA, lnd, lnd)
@@ -94,3 +93,5 @@ chromB = srv.mutateDiscreteChromosome(
 )[0]
 noZero = (len([i for i in chromA if i==0]) == 0)
 allZero = (len([i for i in chromB if i==0]) == len(chromB))
+
+srv.cxDiscreteUniform(chromA, chromB, fixedTraps)

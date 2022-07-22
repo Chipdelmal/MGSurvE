@@ -2,6 +2,7 @@
 import unittest
 import numpy as np
 from copy import deepcopy
+from math import isclose
 import MGSurvE as srv
 
 def test_InitDiscrete():
@@ -45,7 +46,7 @@ def test_DiscreteSelectiveMutation_OneShift():
     assert all(results)
 
 def test_DiscreteSelectiveMutation_CumShift():
-    trpsNum = 25
+    trpsNum = 150
     (trpsFxd, ptdsId) = ([0]*trpsNum, list(range(5000)))
     initChrom = srv.initDiscreteChromosome(ptdsId, trpsFxd, banSites=None)
     # Test cumulative on mask -------------------------------------------------
@@ -60,6 +61,25 @@ def test_DiscreteSelectiveMutation_CumShift():
         pSum = np.sum([mutChrom[i]==initChrom[i] for i in range(trpsNum)])
         results.append((i <= pSum) and (pSum < i+5))
     assert all(results)
+
+def test_DiscreteSelectiveCrossover_CumShift():
+    trpsNum = 150
+    (trpsFxd, ptdsId) = ([0]*trpsNum, list(range(5000)))
+    # Test one shift mask -----------------------------------------------------
+    (total, result) = (0, [])
+    for i in range(trpsNum):
+        total += 1
+        trpsFxd[i] = 1
+        chromA = srv.initDiscreteChromosome(ptdsId, trpsFxd, banSites=None)
+        chromB = srv.initDiscreteChromosome(ptdsId, trpsFxd, banSites=None)
+        (pre1, pre2) = (chromA.copy(), chromB.copy())
+        (ind1, ind2) = srv.cxDiscreteUniform(chromA, chromB, trpsFxd, indpb=1)
+        fxdA = np.sum([isclose(a, b, abs_tol=.25) for (a, b) in zip(pre1, ind1)])
+        fxdB = np.sum([isclose(a, b, abs_tol=.25) for (a, b) in zip(pre2, ind2)])
+        boolA = isclose(fxdA, total, abs_tol=3)
+        boolB = isclose(fxdB, total, abs_tol=3)
+        result.append(boolA and boolB)
+    assert all(result)
 
 ###############################################################################
 # Main
