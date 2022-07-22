@@ -1,27 +1,37 @@
 name: MGSurvE
 channels:
   - conda-forge
-  - giuliorossetti
   - defaults
 dependencies:
+  - _libgcc_mutex
+  - _openmp_mutex
+  - appdirs
+  - beautifulsoup4
   - brotli
   - brotli-bin
+  - brotlipy
   - bzip2
   - c-ares
   - ca-certificates
   - cartopy
   - certifi
+  - cffi
+  - charset-normalizer
+  - cryptography
   - cycler
   - deap
   - fonttools
   - freetype
   - geos
   - giflib
-  - jbig
+  - idna
+  - jinja2
   - jpeg
+  - keyutils
   - kiwisolver
   - krb5
   - lcms2
+  - ld_impl_linux-64
   - lerc
   - libblas
   - libbrotlicommon
@@ -29,25 +39,30 @@ dependencies:
   - libbrotlienc
   - libcblas
   - libcurl
-  - libcxx
   - libdeflate
   - libedit
   - libev
   - libffi
-  - libgfortran
+  - libgcc-ng
+  - libgfortran-ng
   - libgfortran5
+  - libgomp
   - liblapack
   - libnghttp2
+  - libnsl
   - libopenblas
   - libpng
+  - libpysal
   - libssh2
+  - libstdcxx-ng
   - libtiff
+  - libuuid
   - libwebp
   - libwebp-base
   - libxcb
   - libzlib
-  - llvm-openmp
   - lz4-c
+  - markupsafe
   - matplotlib-base
   - munkres
   - ncurses
@@ -55,25 +70,33 @@ dependencies:
   - openjpeg
   - openssl
   - packaging
+  - pandas
   - pillow
   - pip
   - proj
   - pthread-stubs
+  - pycparser
+  - pyopenssl
   - pyparsing
   - pyproj
   - pyshp
+  - pysocks
   - python
   - python-dateutil
   - python_abi
+  - pytz
   - readline
+  - requests
   - scipy
   - setuptools
   - shapely
   - six
+  - soupsieve
   - sqlite
   - tk
   - tzdata
   - unicodedata2
+  - urllib3
   - wheel
   - xorg-libxau
   - xorg-libxdmcp
@@ -82,97 +105,37 @@ dependencies:
   - zstd
   - pip:
     - alabaster
-    - appdirs
-    - appnope
-    - argon2-cffi
-    - argon2-cffi-bindings
-    - asttokens
-    - attrs
     - babel
-    - backcall
-    - beautifulsoup4
     - bleach
-    - cffi
-    - charset-normalizer
     - click
     - click-plugins
     - cligj
     - commonmark
-    - compress-pickle
-    - debugpy
-    - decorator
-    - defusedxml
     - dill
     - docutils
-    - entrypoints
-    - executing
-    - fastjsonschema
     - fiona
     - geopandas
     - haversine
-    - idna
     - imagesize
     - importlib-metadata
-    - iniconfig
     - ipykernel
-    - ipython
-    - ipython-genutils
-    - ipywidgets
-    - jedi
-    - jinja2
-    - joblib
-    - jsonschema
-    - jupyter
-    - jupyter-client
-    - jupyter-console
-    - jupyter-core
-    - jupyterlab-pygments
-    - jupyterlab-widgets
+    - jeepney
     - keyring
-    - libpysal
-    - markupsafe
-    - matplotlib-inline
     - mgsurve
-    - mistune
     - munch
-    - nbclient
-    - nbconvert
-    - nbformat
-    - nest-asyncio
     - networkx
-    - notebook
     - opencv-contrib-python
-    - pandas
-    - pandocfilters
-    - parso
-    - pexpect
-    - pickleshare
     - pkginfo
-    - pluggy
     - pointpats
-    - prometheus-client
-    - prompt-toolkit
     - psutil
-    - ptyprocess
-    - pure-eval
-    - py
-    - pycparser
     - pygments
-    - pyrsistent
-    - pytest
-    - pytz
-    - pyzmq
-    - qtconsole
-    - qtpy
+    - pytest-faulthandler
     - readme-renderer
-    - requests
     - requests-toolbelt
     - rfc3986
     - rich
-    - scikit-learn
-    - send2trash
+    - secretstorage
     - snowballstemmer
-    - soupsieve
     - sphinx
     - sphinx-rtd-theme
     - sphinxcontrib-applehelp
@@ -181,17 +144,6 @@ dependencies:
     - sphinxcontrib-jsmath
     - sphinxcontrib-qthelp
     - sphinxcontrib-serializinghtml
-    - stack-data
-    - terminado
-    - testpath
-    - threadpoolctl
-    - tomli
-    - tornado
-    - traitlets
     - twine
-    - urllib3
-    - vincenty
-    - wcwidth
     - webencodings
-    - widgetsnbextension
     - zipp
