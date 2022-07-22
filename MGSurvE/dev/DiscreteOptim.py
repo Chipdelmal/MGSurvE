@@ -14,7 +14,7 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 if srv.isNotebook():
-    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'GRID', 'G03')
+    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'UNIF', 'G04')
 else:
     (OUT_PTH, LND_TYPE, ID) = (argv[1], argv[2], argv[3].zfill(3))
 ###############################################################################
@@ -37,18 +37,19 @@ points = pd.DataFrame({
     't': [0]*xy.shape[1], 'id': range(0, xy.shape[1])
 })
 # Traps info ------------------------------------------------------------------
-trapsNum = 8
+trapsNum = 10
 nullTrap = [0]*trapsNum
 tTypes = nullTrap[:]
 tTypes[-1] = 1
+tTypes[-2] = 1
 traps = pd.DataFrame({
     'sid': nullTrap,
     'x': nullTrap, 'y': nullTrap,
     't': tTypes, 'f': nullTrap
 })
 tKernels = {
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': 0.2}},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': 0.05}}
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': 0.100}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': 0.075}}
 }
 ###############################################################################
 # Defining Landscape and Traps
@@ -65,8 +66,8 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
     500,
-    {'cxpb':  0.3, 'indpb': 0.5}, 
-    {'mutpb': 0.5, 'indpb': 0.35},
+    {'cxpb':  0.50, 'indpb': 0.35}, 
+    {'mutpb': 0.45, 'indpb': 0.35},
     {'tSize': 3}
 )
 VERBOSE = True
@@ -113,7 +114,7 @@ toolbox.register("evaluate",
     srv.calcDiscreteFitness, 
     landscape=lndGA,
     optimFunction=srv.getDaysTillTrapped,
-    optimFunctionArgs={'outer': np.mean, 'inner': np.max}
+    optimFunctionArgs={'outer': np.mean, 'inner': np.mean}
 )
 ###############################################################################
 # Registering GA stats
@@ -124,8 +125,8 @@ stats = tools.Statistics(lambda ind: ind.fitness.values)
 stats.register("min", np.min)
 stats.register("avg", np.mean)
 stats.register("max", np.max)
-stats.register("best", lambda fitnessValues: fitnessValues.index(min(fitnessValues)))
-stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnessValues))])
+stats.register("best", lambda fitsVals: fitsVals.index(min(fitsVals)))
+stats.register("traps", lambda fitsVals: pop[fitsVals.index(min(fitsVals))])
 ###############################################################################
 # Optimization Cycle
 ############################################################################### 
