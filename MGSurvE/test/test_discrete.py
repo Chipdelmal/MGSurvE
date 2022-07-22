@@ -65,7 +65,7 @@ def test_DiscreteSelectiveMutation_CumShift():
 def test_DiscreteSelectiveCrossover_CumShift():
     trpsNum = 150
     (trpsFxd, ptdsId) = ([0]*trpsNum, list(range(5000)))
-    # Test one shift mask -----------------------------------------------------
+    # Test cumulative on mask -------------------------------------------------
     (total, result) = (0, [])
     for i in range(trpsNum):
         total += 1
