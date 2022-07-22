@@ -2,12 +2,12 @@
 
 This simulations set is generated as a companion for the initial publication of our framework.
 
-# Requirements
+## Requirements
 
 * MGSurvE with dependencies [installed](https://chipdelmal.github.io/MGSurvE/build/html/installation.html).
 * `./sims_out` folder in the path where the scripts are being run (for output).
 
-# Running the scripts
+## Running the scripts
 
 Each landscape generator can be run independently for the desired demonstration in the following way:
 
@@ -30,3 +30,7 @@ after giving it executable permissions:
 ```bash
 chmod +x PaperExperiments.sh
 ```
+
+## Running the scripts (Docker)
+
+Coming soon!

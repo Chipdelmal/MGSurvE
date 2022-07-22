@@ -53,6 +53,15 @@ pypi: clean clean_sdist
 clean_pypi:
 	- rm -rf build/
 
+condaExport:
+	- pip freeze > ./conda/requirements.txt
+	- conda env export | cut -f 1 -d '=' | grep -v "prefix" > ./conda/requirements.yml
+
+condaUpdate:
+	- conda update --all -y
+	- pip freeze > ./conda/requirements.txt
+	- conda env export | cut -f 1 -d '=' | grep -v "prefix" > ./conda/requirements.yml
+
 doc:
 	- pip install .
 	- sphinx-apidoc -f -o docs/source MGSurvE
@@ -63,6 +72,28 @@ dev:
 	- make develop
 	- make test
 
-conda:
-	- conda list -e > /conda/REQUIREMENTS.txt
-	- conda env export > /conda/REQUIREMENTS.yml
+devFull: 
+	- pip install .
+	- pip install pytest
+	- conda config --add channels conda-forge
+	- conda install -c conda-forge deap -y
+	- conda install -c conda-forge libpysal -y
+	- conda install -c conda-forge cartopy -y
+
+dockerExport:
+	- docker build -t chipdelmal/mgsurve:$(version) .
+	- docker push chipdelmal/mgsurve:$(version)
+
+dockerRun:
+	- docker run \
+		-v "$(pwd)"/MGS_sims/paper:/MGSurvE/Paper/sims_out \
+		-v "$(pwd)"/MGS_sims/demos:/MGSurvE/Demos/demos_out \
+		-it mgsurve:dev bash
+
+dockerBuild:
+	- docker rmi mgsurve:dev -f
+	- docker build -t mgsurve:dev .
+
+pypiDocker:
+	- make pypi
+	- make dockerExport

@@ -53,7 +53,7 @@ bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=100)
-lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)yy
+lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 # lnd.plotTraps(fig, ax)
 lnd.plotDirectedNetwork(fig, ax)
 srv.plotClean(fig, ax, frame=False)

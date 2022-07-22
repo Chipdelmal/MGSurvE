@@ -13,9 +13,14 @@
 
    .. autosummary::
    
+      calcDiscreteFitness
+      calcDiscreteFitnessPseudoInverse
+      calcDiscreteSexFitness
       calcFitness
+      calcFitnessPseudoInverse
       calcSexFitness
       cxBlend
+      cxUniform
       exportLog
       genFixedTrapsMask
       getDaysTillTrapped
@@ -29,10 +34,12 @@
       importLog
       initChromosome
       initChromosomeMixed
+      initDiscreteChromosome
       mutShuffleIndexes
       mutateChromosome
       mutateChromosomeAsymmetric
       mutateChromosomeMixed
+      mutateDiscreteChromosome
       optimizeTrapsGA
       optimizeTwoSexesTrapsGA
       reshapeInCanonicalForm

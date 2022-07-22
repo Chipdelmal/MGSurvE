@@ -6,24 +6,21 @@ import time
 import numpy as np
 import pandas as pd
 from os import path
-from sys import argv
 import cartopy.crs as ccrs
 import matplotlib
-from matplotlib import figure
-import cartopy.feature as cfeature
-from copy import deepcopy
 import matplotlib.pyplot as plt
-from compress_pickle import dump, load
 import MGSurvE as srv
 from PIL import Image
 matplotlib.use('agg')
+import warnings
+warnings.filterwarnings("ignore")
 # https://github.com/matplotlib/matplotlib/issues/20067
 
 # ffmpeg -start_number 0 -r 4 -f image2 -s 1920x1080 -i STP_10_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 15 -pix_fmt yuv420p OUTPUT_PATH.mp4
 
 (OUT_PTH, LND_TYPE, ID) = (
-    '/home/chipdelmal/Documents/WorkSims/MGSurvE_Yorkeys/', 
-    'YKN', '08'
+    '/home/chipdelmal/Desktop/YKVid/', 
+    'YKN', '05'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
@@ -34,8 +31,8 @@ DPI = 200
 ############################################################################### 
 lnd = srv.loadLandscape(OUT_PTH, fPat+'TRP', fExt='pkl')
 dat = srv.importLog(OUT_PTH, fPat+'LOG')
-TCOL = {
-    0: '#f7258515', 1: '#fe5f5515', 2: '#5ddeb125', 
+TCOL= {
+    0: '#f7258515', 1: '#5ddeb125', 2: '#fe5f5515', 
     3: '#f038ff15', 4: '#e2ef7015', 5: '#9381ff15', 
 }
 ###############################################################################
@@ -110,7 +107,7 @@ for i in range(0, len(gaMin)):
     (w, h) = background.size
     background = background.crop((0, 0, w, h))
     foreground = foreground.resize((int(w/1), int(h/1)), Image.ANTIALIAS)
-    background.paste(foreground, (0, 0), foreground)
+    background = Image.alpha_composite(background, foreground)
     background.save(pthSave, dpi=(DPI, DPI))
     background.close()
     foreground.close()

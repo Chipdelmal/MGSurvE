@@ -42,7 +42,11 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="breakdown.html">Pkg Breakdown</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demos.html">Tutorials</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Benchmarks</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Benchmarks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#landscape-size">Landscape Size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#distance-functions-author-elijah-bartolome">Distance Functions (Author: Elijah Bartolome)</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>
 
@@ -72,6 +76,8 @@
              
   <section id="benchmarks">
 <h1>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline"></a></h1>
+<section id="landscape-size">
+<h2>Landscape Size<a class="headerlink" href="#landscape-size" title="Permalink to this headline"></a></h2>
 <p>The size of the landscape along with the number of traps in it determine the total processing power required for the optimization of the traps’ placements.</p>
 <p>For our tests, we ran a regular square-grid landscape with an increasing number of points and traps.
 We ran this code with the base <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a> implementation of a genetic algorithm with Gaussian mutation, blend crossover and tournament selection.
@@ -82,6 +88,23 @@ The algorithm was run for 1000 generations (and five repetitions per scenario) i
 <a class="reference internal image-reference" href="_images/bench_TrapsVTime.jpg"><img alt="_images/bench_TrapsVTime.jpg" class="align-center" src="_images/bench_TrapsVTime.jpg" style="width: 60%;" /></a>
 <p>While these times are hardware-dependent (and we have a dedicated server to run our tests with tons of memory), the shape of the response to landscape sizes should help inform the decision on land size/traps number to be run in a general-use computer.</p>
 <p>The code used for these benchmarks can be found <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/tree/main/MGSurvE/benchmarks">in this link</a></p>
+</section>
+<section id="distance-functions-author-elijah-bartolome">
+<h2>Distance Functions (Author: Elijah Bartolome)<a class="headerlink" href="#distance-functions-author-elijah-bartolome" title="Permalink to this headline"></a></h2>
+<p>1,000,000 pairs of random points were created. Each point had a valid longitude and latitude value (the longitude was a random number between and while the latitude was a random number between and)</p>
+<p>The distance between each pair of random points was calculated with each distance function. Each function used the same pairs of points. Here are the times it took to calculate the distance between all 1,000,000 pairs:</p>
+<ul class="simple">
+<li><p>Vincenty: 13.3743638 seconds</p></li>
+<li><p><a class="reference external" href="https://github.com/mapbox/cheap-ruler">Cheap Ruler</a>: 1.6893626000000026 seconds</p></li>
+<li><p>Haversine: 2.408093000000001 seconds</p></li>
+</ul>
+<p>Here are violin plots of the distribution of execution times for all 1,000,000 pairs of points for each distance function:</p>
+<a class="reference internal image-reference" href="_images/distancePlots5.jpg"><img alt="_images/distancePlots5.jpg" class="align-center" src="_images/distancePlots5.jpg" style="width: 100%;" /></a>
+<p>Both Haversine and <a class="reference external" href="https://github.com/mapbox/cheap-ruler">Cheap Ruler</a> are about 10 seconds faster than Vincenty when calculating the 1,000,000 points. So for optimizing runtime, Haversine and <a class="reference external" href="https://github.com/mapbox/cheap-ruler">Cheap Ruler</a>  are ideal with <a class="reference external" href="https://github.com/mapbox/cheap-ruler">Cheap Ruler</a>  having a slight advantage.
+<a class="reference external" href="https://github.com/mapbox/cheap-ruler">Cheap Ruler</a> , however, has a wide, problematic range of error. Haversine, in comparison, has an error range orders of magnitude smaller than <a class="reference external" href="https://github.com/mapbox/cheap-ruler">Cheap Ruler</a> .
+If one wants to try to minimize runtimes while trying to preserve the accuracy of the distance function, then Haversine is the optimal distance function compared to Vincenty and Haversine.</p>
+<a class="reference internal image-reference" href="_images/errorPlots3.jpg"><img alt="_images/errorPlots3.jpg" class="align-center" src="_images/errorPlots3.jpg" style="width: 100%;" /></a>
+</section>
 </section>
 
 

@@ -237,7 +237,7 @@ def plotClean(fig, ax, frame=False, bbox=None, labels=False, pad=(0, 0)):
     
     Returns:
         (fig, ax): Matplotlib (fig, ax) tuple.
-    """
+    """ 
     if bbox is not None:
         bbox = (
             (bbox[0][0]-pad[0], bbox[0][1]+pad[0]), 

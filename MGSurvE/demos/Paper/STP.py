@@ -13,9 +13,12 @@ from sklearn.preprocessing import normalize
 import MGSurvE as srv
 import cartopy.crs as ccrs
 
-
-(FXD_TRPS, TRPS_NUM, GENS) = (False, 6, 3000)
-DIAG_VAL = 0.25
+if srv.isNotebook():
+    FXD_TRPS =  True
+else:
+    FXD_TRPS =  (argv[1] == 'True')
+(TRPS_NUM, GENS) = (6, 1500)
+DIAG_VAL = 0.1
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
@@ -69,7 +72,8 @@ tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .0075}}}
 ###############################################################################
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
-    traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS
+    traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS,
+    trapsRadii=[.9, .75, .5],
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
@@ -191,7 +195,7 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 bestChromosome = hof[0]
 bestTraps = np.reshape(bestChromosome, (-1, 2))
 lnd.updateTrapsCoords(bestTraps)
-srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM))
+srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 dta = pd.DataFrame(logbook)
 srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 ###############################################################################

@@ -10,8 +10,9 @@ import MGSurvE as srv
 (ID, TYPE, OUT_PTH) = ('PSO', 'Ring', './demos_out/')
 srv.makeFolder(OUT_PTH)
 
-gens = 1000
-ptsNum = 600
+
+gens = 2000
+ptsNum = 500
 radii = (425, 500)
 pTypesProb =[0.25, 0.75]
 bbox = ((-500, 500), (-350, 350))
@@ -72,7 +73,7 @@ plt.close('all')
 (GENS, PARTS, SPD, PHI) = (
     gens,
     traps.shape[0]*20,
-    (-max(max(bbox))/25, max(max(bbox))/25), 
+    (-max(max(bbox))/30, max(max(bbox))/30),
     (max(max(bbox))/15, max(max(bbox))/15)
 )
 pso = srv.Particle_Swarm(

@@ -1,5 +1,7 @@
 # Output files
+dockerData
 demos_out
+MGS_sims
 scratch
 demo_out
 sims_out
@@ -9,6 +11,9 @@ mailAlerts.py
 /MGSurve/demos/*.png
 !/MGSurvE/demos/Paper/GEO/STP_LatLon.csv
 !/MGSurvE/demos/Paper/GEO/STP_Migration.csv
+
+# VSCode
+*.vscode
 
 
 # Compressed Serialized Files

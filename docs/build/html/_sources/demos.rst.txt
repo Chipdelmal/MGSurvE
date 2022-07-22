@@ -35,5 +35,43 @@ Some other demonstrations of auxiliary tools can be accessed here:
 
 Please note that the code used in all of the tutorials can be downloaded `from this link <https://github.com/Chipdelmal/MGSurvE/tree/main/MGSurvE/demos>`_.
 
+------------
+
+Additionally, all of the demos can be run from our docker container as follows.
+
+1. Pull the image from DockerHub:
+
+.. code-block:: console
+
+   docker pull chipdelmal/mgsurve:0.6.5.6
+
+
+2. Run the container and attach the folder for the results:
+
+.. code-block:: console
+
+   docker run \
+         -v "$(pwd)"/MGS_demos:/MGSurvE/Demos/demos_out \
+         -it chipdelmal/mgsurve:0.6.5.6 bash
+
+
+3. Navigate to the "Demos" folder where all of the scripts are located:
+
+.. code-block:: console
+
+   cd Demos
+   ls
+
+
+4. Launch the bash script to call all of the experiments:
+
+.. code-block:: console
+
+   ./Demos.sh
+
+
+This will take a while but all the results will be accessible on the created folder. 
+
+
+
 .. image:: ../../img/STP_10_TRP.jpg
-   
