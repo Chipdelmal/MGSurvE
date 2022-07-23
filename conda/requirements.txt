@@ -67,7 +67,7 @@ nbconvert==6.2.0
 nbformat==5.1.3
 nest-asyncio==1.5.1
 networkx==2.8.1
-notebook==6.4.5
+notebook==6.4.12
 numpy @ file:///home/conda/feedstock_root/build_artifacts/numpy_1657483874185/work
 opencv-contrib-python==4.5.5.64
 packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1637239678211/work
