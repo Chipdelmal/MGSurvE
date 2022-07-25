@@ -71,7 +71,7 @@ for i in range(0, len(gaMin)):
     ###########################################################################
     (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
     (fig, ax) = lnd.plotTraps(fig, ax, colors=TCOL)
-    (fig, ax) = srv.plotClean(fig, ax, bbox=bbox)
+    (fig, ax) = srv.plotClean(fig, ax, bbox=bbox)   
     ax.text(
         0.75, 0.15, '{:.4f}'.format(gaMin[i]),
         horizontalalignment='center', verticalalignment='center',
@@ -102,8 +102,8 @@ for i in range(0, len(gaMin)):
     background = Image.open(path.join(OUT_PTH, fPat+'CLN.png')).convert('RGBA')
     foreground = Image.open(pthSave).convert('RGBA')
     (w, h) = background.size
-    background = background.crop((0, 0, w, h))
-    foreground = foreground.resize((int(w/1), int(h/1)), Image.ANTIALIAS)
+    # background = background.crop((0, 0, w, h))
+    # foreground = foreground.resize((int(w/1), int(h/1)), Image.ANTIALIAS)
     background = Image.alpha_composite(background, foreground)
     background.save(pthSave, dpi=(DPI, DPI))
     background.close()

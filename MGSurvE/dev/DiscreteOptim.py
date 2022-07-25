@@ -68,7 +68,7 @@ srv.dumpLandscape(lnd, OUT_PTH, '{}_{}_CLN'.format(ID, LND_TYPE))
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
-srv.plotClean(fig, ax, frame=False)
+srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
     path.join(OUT_PTH, '{}_{}_CLN.png'.format(ID, LND_TYPE)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
@@ -164,7 +164,7 @@ srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(ID, LND_TYPE))
 lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 lnd.plotTraps(fig, ax)
-srv.plotClean(fig, ax, frame=False)
+srv.plotClean(fig, ax, bbox=lnd.landLimits)
 srv.plotFitness(fig, ax, min(dta['min']))
 fig.savefig(
     path.join(OUT_PTH, '{}_{}_TRP.png'.format(ID, LND_TYPE)), 
