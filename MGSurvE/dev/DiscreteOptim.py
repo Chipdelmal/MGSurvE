@@ -6,6 +6,7 @@ import pandas as pd
 from sys import argv
 import numpy as np
 from os import path
+import pickle as pkl
 from copy import deepcopy
 import matplotlib.pyplot as plt
 from deap import base, creator, algorithms, tools
@@ -14,14 +15,14 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 if srv.isNotebook():
-    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'UNIF', 'G04')
+    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'UNIF', 'G01')
 else:
     (OUT_PTH, LND_TYPE, ID) = (argv[1], argv[2], argv[3].zfill(3))
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
 if LND_TYPE == 'UNIF':
-    ptsNum = 400
+    ptsNum = 250
     bbox = ((-225, 225), (-175, 175))
     xy = srv.ptsRandUniform(ptsNum, bbox).T
 elif LND_TYPE == 'GRID':
@@ -37,7 +38,7 @@ points = pd.DataFrame({
     't': [0]*xy.shape[1], 'id': range(0, xy.shape[1])
 })
 # Traps info ------------------------------------------------------------------
-trapsNum = 10
+trapsNum = 5
 nullTrap = [0]*trapsNum
 tTypes = nullTrap[:]
 tTypes[-1] = 1
@@ -56,7 +57,7 @@ tKernels = {
 ###############################################################################
 lnd = srv.Landscape(
     points, kernelParams={'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75},
-    traps=traps, trapsKernels=tKernels, pointsTrapBanned={5}
+    traps=traps, trapsKernels=tKernels, pointsTrapBanned={5}, landLimits=bbox
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
@@ -78,7 +79,7 @@ plt.close('all')
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (GENS, MAT, MUT, SEL) = (
-    500,
+    250,
     {'cxpb':  0.50, 'indpb': 0.35}, 
     {'mutpb': 0.45, 'indpb': 0.35},
     {'tSize': 3}
@@ -155,7 +156,7 @@ trapXY = srv.chromosomeIDtoXY(bestChromosome, lndGA.pointID, lndGA.pointCoords)
 lnd.updateTrapsCoords(trapXY)
 dta = pd.DataFrame(logbook)
 srv.dumpLandscape(lnd, OUT_PTH, '{}_{}_TRP'.format(ID, LND_TYPE))
-srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(LND_TYPE, ID))
+srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(ID, LND_TYPE))
 ###############################################################################
 # Plot Landscape
 ############################################################################### 
@@ -170,39 +171,17 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
-
-
 ###############################################################################
-# Drafts
-###############################################################################
-# trpsIDPos  = [0, 10, 55, 25]
-# fixedTraps = [0, 0, 0, 1]
-# trapsNum = lnd.trapsNumber
-# ptsNum = lnd.pointNumber
-# ptsIds = tuple((range(ptsNum)))
-
-# chromB = srv.initDiscreteChromosome(lnd.pointID, lnd.trapsFixed, lnd.pointsTrapBanned)
-# chromA = srv.mutateDiscreteChromosome(
-#     chromB.copy(), lnd.pointID, lnd.trapsFixed, indpb=1
-# )[0]
-# print(chromA, chromB)
-# print(srv.cxDiscreteUniform(chromA, chromB,  lnd.trapsFixed, indpb=.5))
-# srv.calcDiscreteFitness(chromA, lnd)
-# srv.calcDiscreteFitnessPseudoInverse(chromB, lnd)
-# srv.calcDiscreteSexFitness(chromA, lnd, lnd)
-
-# vct = [0]*100
-# chrom = srv.initDiscreteChromosome(range(10), vct, {5, 6})
-# set(chrom)
-
-# (ub, chromSize) = (100, 100)
-# chromA = srv.mutateDiscreteChromosome(
-#     [0]*chromSize, range(1, ub), [0]*chromSize, indpb=1
-# )[0]
-# chromB = srv.mutateDiscreteChromosome(
-#     [0]*chromSize, range(1, ub), [0]*chromSize, indpb=0
-# )[0]
-# noZero = (len([i for i in chromA if i==0]) == 0)
-# allZero = (len([i for i in chromB if i==0]) == len(chromB))
-
-# srv.cxDiscreteUniform(chromA, chromB, fixedTraps)
+# Get and Export Results
+############################################################################### 
+(maxFits, meanFits, bestIndx, minFits, traps) = logbook.select(
+    "max", "avg", "best", "min", "traps"
+)
+pklPath = path.join(OUT_PTH, '{}_{}_GA'.format(ID, LND_TYPE))
+outList = [
+    i for i in zip(minFits, meanFits, maxFits, [list(j) for j in traps])
+]
+outDF = pd.DataFrame(outList, columns=['min', 'mean', 'max', 'traps'])
+outDF.to_csv(pklPath+'.csv', index=False)
+with open(pklPath+'.pkl', "wb") as file:
+    pkl.dump(outDF, file)
