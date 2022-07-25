@@ -60,6 +60,19 @@ lnd = srv.Landscape(
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
+srv.dumpLandscape(lnd, OUT_PTH, '{}_{}_CLN'.format(ID, LND_TYPE))
+###############################################################################
+# Plot Landscape
+############################################################################### 
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+lnd.plotSites(fig, ax, size=100)
+lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+srv.plotClean(fig, ax, frame=False)
+fig.savefig(
+    path.join(OUT_PTH, '{}_{}_CLN.png'.format(ID, LND_TYPE)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+)
+plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 
@@ -138,13 +151,11 @@ stats.register("traps", lambda fitsVals: pop[fitsVals.index(min(fitsVals))])
 # Get and Export Results
 ############################################################################### 
 bestChromosome = hof[0]
-# Code this into a function ---------------------------------------------------
-ptsIds = lndGA.pointID
-siteIndex = [ptsIds.index(i) for i in bestChromosome]
-trapXY = np.asarray([lndGA.pointCoords[i] for i in siteIndex])
-# -----------------------------------------------------------------------------
+trapXY = srv.chromosomeIDtoXY(bestChromosome, lndGA.pointID, lndGA.pointCoords)
 lnd.updateTrapsCoords(trapXY)
 dta = pd.DataFrame(logbook)
+srv.dumpLandscape(lnd, OUT_PTH, '{}_{}_TRP'.format(ID, LND_TYPE))
+srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(LND_TYPE, ID))
 ###############################################################################
 # Plot Landscape
 ############################################################################### 

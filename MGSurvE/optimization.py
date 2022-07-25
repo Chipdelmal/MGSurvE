@@ -515,6 +515,11 @@ def calcSexFitness(
     fitVal = (fit[0]*weightMale+fit[1]*weightFemale)/(2*(weightMale+weightFemale))
     return (fitVal, )
 
+def chromosomeIDtoXY(chromosome, ptsID, pointCoords):
+    siteIndex = [ptsID.index(i) for i in chromosome]
+    trapXY = np.asarray([pointCoords[i] for i in siteIndex])
+    return trapXY
+
 def calcDiscreteFitness(
         chromosome, landscape,
         optimFunction=getDaysTillTrapped,
@@ -531,9 +536,9 @@ def calcDiscreteFitness(
     Returns:
         (tuple of floats): Landscape's fitness function.
     """
-    ptsIds = landscape.pointID
-    siteIndex = [ptsIds.index(i) for i in chromosome]
-    trapXY = np.asarray([landscape.pointCoords[i] for i in siteIndex])
+    trapXY = chromosomeIDtoXY(
+        chromosome, landscape.pointID, landscape.pointCoords
+    )
     fit = calcFitness(
         trapXY, landscape=landscape,
         optimFunction=optimFunction,
