@@ -129,9 +129,9 @@ class Landscape:
             self.pointTypes = np.asarray([0]*len(points))
         # Check and define point-IDs ------------------------------------------
         if ('id' in ptsHead):
-            self.pointID = list(points['id'])
+            self.pointID = tuple(points['id'])
         else:
-            self.pointID = list(range(len(points)))
+            self.pointID = tuple(range(len(points)))
         # If no migration mask is provided, generate a dummy one --------------
         if maskingMatrix is None:
             ptNum = len(set(self.pointTypes))
