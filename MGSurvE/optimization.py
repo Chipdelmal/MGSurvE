@@ -564,9 +564,10 @@ def calcDiscreteFitnessPseudoInverse(
     Returns:
         (tuple of floats): Landscape's fitness function.
     """
-    ptsIds = landscape.pointID
-    siteIndex = [ptsIds.index(i) for i in chromosome]
-    trapXY = np.asarray([landscape.pointCoords[i] for i in siteIndex])
+    trapXY = chromosomeIDtoXY(
+        chromosome, landscape.pointID, landscape.pointCoords
+    )
+    print(trapXY)
     fit = calcFitnessPseudoInverse(
         trapXY, landscape=landscape,
         optimFunction=optimFunction,
