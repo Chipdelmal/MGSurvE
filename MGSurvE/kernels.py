@@ -107,6 +107,7 @@ def zeroInflatedExponentialKernel(
         for j in range(len(row)):
             migrMat[i][j] = migrMat[i][j] / migrRowSum * (1 - zeroInflation)
             if np.isnan(migrMat[i][j]):
+                print("NaN Warning (check points locations, distances might be too large.")
                 migrMat[i][j] = 0
 
     np.fill_diagonal(migrMat, zeroInflation)
