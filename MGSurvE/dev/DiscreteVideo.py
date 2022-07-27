@@ -6,7 +6,7 @@ import time
 import numpy as np
 import pandas as pd
 from os import path
-import cartopy.crs as ccrs
+from sys import argv
 import matplotlib
 import matplotlib.pyplot as plt
 import MGSurvE as srv
@@ -14,14 +14,13 @@ from PIL import Image
 matplotlib.use('agg')
 import warnings
 warnings.filterwarnings("ignore")
+# ffmpeg -start_number 0 -r 4 -f image2 -s 1920x1080 -i G01_UNIF_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 5 -pix_fmt yuv420p OUTPUT_PATH.mp4
 
-# ffmpeg -start_number 0 -r 4 -f image2 -s 1920x1080 -i STP_10_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 15 -pix_fmt yuv420p OUTPUT_PATH.mp4
-
-(OUT_PTH, LND_TYPE, ID) = (
-    './Lands/', 
-    'G01', 'UNIF'
-)
-fPat = '{}_{}_'.format(LND_TYPE, ID)
+if srv.isNotebook():
+    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'DNUT', 'G02')
+else:
+    (OUT_PTH, LND_TYPE, ID) = (argv[1], argv[2], argv[3])
+fPat = '{}_{}_'.format(ID, LND_TYPE)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
 srv.makeFolder(IMG_PTH)
 DPI = 300
@@ -72,12 +71,12 @@ for i in range(0, len(gaMin)):
     (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
     (fig, ax) = lnd.plotTraps(fig, ax, colors=TCOL)
     (fig, ax) = srv.plotClean(fig, ax, bbox=bbox)   
-    ax.text(
-        0.75, 0.15, '{:.4f}'.format(gaMin[i]),
-        horizontalalignment='center', verticalalignment='center',
-        fontsize=50, color='#00000011',
-        transform=ax.transAxes, zorder=5
-    )
+    # ax.text(
+    #     0.75, 0.15, '{:.4f}'.format(gaMin[i]),
+    #     horizontalalignment='center', verticalalignment='center',
+    #     fontsize=50, color='#00000011',
+    #     transform=ax.transAxes, zorder=5
+    # )
     ax.text(
         0.75, 0.10, 'gens: {:04d}'.format(i),
         horizontalalignment='center', verticalalignment='center',
@@ -102,8 +101,8 @@ for i in range(0, len(gaMin)):
     background = Image.open(path.join(OUT_PTH, fPat+'CLN.png')).convert('RGBA')
     foreground = Image.open(pthSave).convert('RGBA')
     (w, h) = background.size
-    # background = background.crop((0, 0, w, h))
-    # foreground = foreground.resize((int(w/1), int(h/1)), Image.ANTIALIAS)
+    background = background.crop((0, 0, w, h))
+    foreground = foreground.resize((int(w/1), int(h/1)), Image.ANTIALIAS)
     background = Image.alpha_composite(background, foreground)
     background.save(pthSave, dpi=(DPI, DPI))
     background.close()

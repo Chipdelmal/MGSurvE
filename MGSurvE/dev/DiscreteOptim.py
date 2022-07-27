@@ -9,20 +9,21 @@ from os import path
 import pickle as pkl
 from copy import deepcopy
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import normalize
 from deap import base, creator, algorithms, tools
 import MGSurvE as srv
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 if srv.isNotebook():
-    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'UNIF', 'G01')
+    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'GRID', 'G01')
 else:
     (OUT_PTH, LND_TYPE, ID) = (argv[1], argv[2], argv[3].zfill(3))
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
 if LND_TYPE == 'UNIF':
-    ptsNum = 250
+    ptsNum = 400
     bbox = ((-225, 225), (-175, 175))
     xy = srv.ptsRandUniform(ptsNum, bbox).T
 elif LND_TYPE == 'GRID':
@@ -30,15 +31,16 @@ elif LND_TYPE == 'GRID':
     bbox = ((-225, 225), (-225, 225))
     xy = srv.ptsRegularGrid(ptsNum, bbox).T
 elif LND_TYPE == 'DNUT':
-    ptsNum = 150
-    radii = (100, 150)
+    ptsNum = 200
+    radii = (150, 200)
+    bbox = ((-225, 225), (-225, 225))
     xy = srv.ptsDonut(ptsNum, radii).T
 points = pd.DataFrame({
     'x': xy[0], 'y': xy[1], 
     't': [0]*xy.shape[1], 'id': range(0, xy.shape[1])
 })
 # Traps info ------------------------------------------------------------------
-trapsNum = 5
+trapsNum = 6
 nullTrap = [0]*trapsNum
 tTypes = nullTrap[:]
 tTypes[-1] = 1
@@ -77,9 +79,9 @@ plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 
-POP_SIZE = int(10*(lnd.trapsNumber*1.25))
+POP_SIZE = int(10*(lnd.trapsNumber*.5))
 (GENS, MAT, MUT, SEL) = (
-    250,
+    500,
     {'cxpb':  0.50, 'indpb': 0.35}, 
     {'mutpb': 0.45, 'indpb': 0.35},
     {'tSize': 3}
@@ -131,6 +133,78 @@ toolbox.register("evaluate",
     optimFunctionArgs={'outer': np.mean, 'inner': np.mean}
 )
 ###############################################################################
+# DEBUGGING
+###############################################################################
+srv.calcDiscreteFitness((71, 15, 63, 87, 58, 32), lndGA)
+
+
+
+def chromosomeIDtoXY(chromosome, ptsID, pointCoords):
+    siteIndex = [ptsID.index(i) for i in chromosome]
+    print(siteIndex)
+    trapXY = np.asarray([pointCoords[i] for i in siteIndex])
+    return trapXY
+
+xy = srv.chromosomeIDtoXY(
+    (0, 1, 2, 3, 4, 5), 
+    lndGA.pointID,
+    lndGA.pointCoords
+)
+srv.calcFitness(xy, lndGA)
+
+lndGA.trapsCoords
+
+landscape = lndGA
+
+candidateTraps = np.reshape(xy, (-1, 2))
+landscape.updateTrapsCoords(xy)
+srv.getDaysTillTrapped(landscape)
+landscape.trapsCoords
+landscape.trapsMigration
+landscape.trapsNumber
+landscape.pointNumber
+
+
+srv.getFundamentalMatrix(
+    landscape.trapsMigration, 
+    landscape.pointNumber, 
+    landscape.trapsNumber
+)
+
+landscape.updateTrapsCoords(xy)
+landscape.calcTrapsMigration()
+landscape.trapsMigration
+landscape.trapsDistances
+landscape.trapsTypes
+landscape.trapsMask
+landscape.pointTypes
+landscape.trapsKernels
+
+
+
+
+
+landscape.updateTrapsCoords(xy)
+trapProbsA = srv.calcTrapsProbabilities(
+    landscape.trapsDistances, landscape.trapsTypes, 
+    landscape.trapsKernels, landscape.trapsMask, landscape.pointTypes
+)
+ptsN = landscape.pointNumber
+landscape.trapsMigration[:ptsN, ptsN:] = trapProbsA
+# Norm A
+row_sums = landscape.trapsMigration.sum(axis=1)
+landscape.trapsMigration / row_sums[:, np.newaxis]
+# Norm B
+normalize(landscape.trapsMigration, axis=1, norm='l1')
+
+
+landscape.updateTrapsCoords(xy)
+trapProbsB = srv.calcTrapsProbabilities(
+    landscape.trapsDistances, landscape.trapsTypes, 
+    landscape.trapsKernels, landscape.trapsMask, landscape.pointTypes
+)
+
+###############################################################################
 # Registering GA stats
 ############################################################################### 
 pop = toolbox.populationCreator(n=POP_SIZE)
@@ -139,8 +213,14 @@ stats = tools.Statistics(lambda ind: ind.fitness.values)
 stats.register("min", np.min)
 stats.register("avg", np.mean)
 stats.register("max", np.max)
-stats.register("best", lambda fitsVals: fitsVals.index(min(fitsVals)))
-stats.register("traps", lambda fitsVals: pop[fitsVals.index(min(fitsVals))])
+stats.register(
+    "best", 
+    lambda fitsVals: fitsVals.index(np.min(fitsVals))
+)
+stats.register(
+    "traps", 
+    lambda fitsVals: pop[np.where(np.isclose(fitsVals, np.min(fitsVals)))[0][0]]
+)
 ###############################################################################
 # Optimization Cycle
 ############################################################################### 
