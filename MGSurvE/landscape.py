@@ -274,7 +274,8 @@ class Landscape:
             self.trapsKernels, self.trapsMask, self.pointTypes
         )
         ptsN = self.pointNumber
-        self.trapsMigration[:ptsN, ptsN:] = trapProbs
+        self.trapsMigration[:ptsN, :ptsN] = np.copy(self.maskedMigration)
+        self.trapsMigration[:ptsN, ptsN:] = np.copy(trapProbs)
         self.trapsMigration = normalize(self.trapsMigration, axis=1, norm='l1')
     def updateTrapsCoords(self, trapsCoords):
         self.trapsCoords = trapsCoords

@@ -40,7 +40,7 @@ points = pd.DataFrame({
     't': [0]*xy.shape[1], 'id': range(0, xy.shape[1])
 })
 # Traps info ------------------------------------------------------------------
-trapsNum = 6
+trapsNum = 4
 nullTrap = [0]*trapsNum
 tTypes = nullTrap[:]
 tTypes[-1] = 1
@@ -132,77 +132,6 @@ toolbox.register("evaluate",
     optimFunction=srv.getDaysTillTrapped,
     optimFunctionArgs={'outer': np.mean, 'inner': np.mean}
 )
-###############################################################################
-# DEBUGGING
-###############################################################################
-srv.calcDiscreteFitness((71, 15, 63, 87, 58, 32), lndGA)
-
-def chromosomeIDtoXY(chromosome, ptsID, pointCoords):
-    siteIndex = [ptsID.index(i) for i in chromosome]
-    print(siteIndex)
-    trapXY = np.asarray([pointCoords[i] for i in siteIndex])
-    return trapXY
-
-xy = srv.chromosomeIDtoXY(
-    (0, 1, 2, 3, 4, 5), 
-    lndGA.pointID,
-    lndGA.pointCoords
-)
-srv.calcFitness(xy, lndGA)
-
-lndGA.trapsCoords
-
-landscape = lndGA
-
-xy = [5, 5, 10, 10, 15, 15, 20, 20, 25, 25, 30, 30]
-candidateTraps = np.reshape(xy, (-1, 2))
-landscape.updateTrapsCoords(candidateTraps)
-srv.getDaysTillTrapped(landscape)
-landscape.trapsCoords
-landscape.trapsMigration
-landscape.trapsNumber
-landscape.pointNumber
-
-
-srv.getFundamentalMatrix(
-    landscape.trapsMigration, 
-    landscape.pointNumber, 
-    landscape.trapsNumber
-)
-
-landscape.updateTrapsCoords(xy)
-landscape.calcTrapsMigration()
-landscape.trapsMigration
-landscape.trapsDistances
-landscape.trapsTypes
-landscape.trapsMask
-landscape.pointTypes
-landscape.trapsKernels
-
-
-
-
-
-landscape.updateTrapsCoords(xy)
-trapProbsA = srv.calcTrapsProbabilities(
-    landscape.trapsDistances, landscape.trapsTypes, 
-    landscape.trapsKernels, landscape.trapsMask, landscape.pointTypes
-)
-ptsN = landscape.pointNumber
-landscape.trapsMigration[:ptsN, ptsN:] = trapProbsA
-# Norm A
-row_sums = landscape.trapsMigration.sum(axis=1)
-landscape.trapsMigration / row_sums[:, np.newaxis]
-# Norm B
-normalize(landscape.trapsMigration, axis=1, norm='l1')
-
-
-landscape.updateTrapsCoords(xy)
-trapProbsB = srv.calcTrapsProbabilities(
-    landscape.trapsDistances, landscape.trapsTypes, 
-    landscape.trapsKernels, landscape.trapsMask, landscape.pointTypes
-)
-
 ###############################################################################
 # Registering GA stats
 ############################################################################### 
