@@ -137,8 +137,6 @@ toolbox.register("evaluate",
 ###############################################################################
 srv.calcDiscreteFitness((71, 15, 63, 87, 58, 32), lndGA)
 
-
-
 def chromosomeIDtoXY(chromosome, ptsID, pointCoords):
     siteIndex = [ptsID.index(i) for i in chromosome]
     print(siteIndex)
@@ -156,8 +154,9 @@ lndGA.trapsCoords
 
 landscape = lndGA
 
+xy = [5, 5, 10, 10, 15, 15, 20, 20, 25, 25, 30, 30]
 candidateTraps = np.reshape(xy, (-1, 2))
-landscape.updateTrapsCoords(xy)
+landscape.updateTrapsCoords(candidateTraps)
 srv.getDaysTillTrapped(landscape)
 landscape.trapsCoords
 landscape.trapsMigration
