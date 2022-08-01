@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import MGSurvE as srv
 
-(ID, TYPE, OUT_PTH) = ('PSO', 'Ring', './demos_out/')
+(ID, TYPE, OUT_PTH) = ('PSO', 'Uniform', './Lands')
 srv.makeFolder(OUT_PTH)
 
-gens = 2000
+gens = 500
 ptsNum = 500
 radii = (425, 500)
 pTypesProb =[0.25, 0.75]
