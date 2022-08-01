@@ -23,15 +23,15 @@ else:
 # Defining Landscape and Traps
 ###############################################################################
 if LND_TYPE == 'UNIF':
-    ptsNum = 400
+    ptsNum = 500
     bbox = ((-225, 225), (-175, 175))
     xy = srv.ptsRandUniform(ptsNum, bbox).T
 elif LND_TYPE == 'GRID':
-    ptsNum = 10
+    ptsNum = 15
     bbox = ((-225, 225), (-225, 225))
     xy = srv.ptsRegularGrid(ptsNum, bbox).T
 elif LND_TYPE == 'DNUT':
-    ptsNum = 200
+    ptsNum = 300
     radii = (150, 200)
     bbox = ((-225, 225), (-225, 225))
     xy = srv.ptsDonut(ptsNum, radii).T
@@ -40,7 +40,7 @@ points = pd.DataFrame({
     't': [0]*xy.shape[1], 'id': range(0, xy.shape[1])
 })
 # Traps info ------------------------------------------------------------------
-trapsNum = 4
+trapsNum = 6
 nullTrap = [0]*trapsNum
 tTypes = nullTrap[:]
 tTypes[-1] = 1

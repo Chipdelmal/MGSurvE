@@ -14,7 +14,7 @@ from PIL import Image
 matplotlib.use('agg')
 import warnings
 warnings.filterwarnings("ignore")
-# ffmpeg -start_number 0 -r 4 -f image2 -s 1920x1080 -i G01_UNIF_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 5 -pix_fmt yuv420p OUTPUT_PATH.mp4
+# ffmpeg -start_number 0 -r 8+ -f image2 -s 1920x1080 -i G01_UNIF_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 1 -pix_fmt yuv420p OUTPUT_PATH.mp4
 
 if srv.isNotebook():
     (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'DNUT', 'G02')
@@ -71,14 +71,14 @@ for i in range(0, len(gaMin)):
     (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
     (fig, ax) = lnd.plotTraps(fig, ax, colors=TCOL)
     (fig, ax) = srv.plotClean(fig, ax, bbox=bbox)   
-    # ax.text(
-    #     0.75, 0.15, '{:.4f}'.format(gaMin[i]),
-    #     horizontalalignment='center', verticalalignment='center',
-    #     fontsize=50, color='#00000011',
-    #     transform=ax.transAxes, zorder=5
-    # )
     ax.text(
-        0.75, 0.10, 'gens: {:04d}'.format(i),
+        0.5, 0.525, '{:.4f}'.format(gaMin[i]),
+        horizontalalignment='center', verticalalignment='center',
+        fontsize=50, color='#00000011',
+        transform=ax.transAxes, zorder=5
+    )
+    ax.text(
+        0.5, 0.475, 'gens: {:04d}'.format(i),
         horizontalalignment='center', verticalalignment='center',
         fontsize=25, color='#00000011',
         transform=ax.transAxes, zorder=5
