@@ -19,7 +19,7 @@ import cartopy.feature as cfeature
 if not srv.isNotebook():
     (FXD_TRPS, TRPS_NUM) = (int(argv[2]), int(argv[1]))
 else:
-    (FXD_TRPS, TRPS_NUM) = (True, 3)
+    (FXD_TRPS, TRPS_NUM) = (False, 8)
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
@@ -27,9 +27,9 @@ else:
 OUT_PTH = '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
 # OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
 if FXD_TRPS:
-    ID = 'STP_FXD'
+    ID = 'STP_DO_FXD'
 else:
-    ID = 'STP_FXN'
+    ID = 'STP_DO_FXN'
 GENS = 500
 (IX_SPLIT, DIAG_VAL) = (27, 0.1)
 ###############################################################################
@@ -48,7 +48,8 @@ SAO_cntr = [i[0]+(i[1]-i[0])/2 for i in SAO_bbox]
 # )
 SAO_LIMITS = ((6.41, 6.79), (-0.0475, .45))
 # Get location of minor land-masses -------------------------------------------
-SAO_FIXED = [tuple(SAO_TOME_LL.loc[i][['lon', 'lat']]) for i in (51, 239)]
+# SAO_FIXED = [tuple(SAO_TOME_LL.loc[i][['lon', 'lat']]) for i in (51, 239)]
+SAO_FIXED = [51, 239]
 FXD_NUM = len(SAO_FIXED)
 ###############################################################################
 # Load Migration Matrix
@@ -68,11 +69,10 @@ SAO_TOME_MIG = normalize(msplit, axis=1, norm='l1')
     uniform(*SAO_bbox[0], TRPS_NUM), uniform(*SAO_bbox[1], TRPS_NUM)
 ])
 if FXD_TRPS:
-    for i in range(FXD_NUM):
-        initFxd[TRPS_NUM-(i+1)] = 1
-        initLon[TRPS_NUM-(i+1)] = SAO_FIXED[i][0] 
-        initLat[TRPS_NUM-(i+1)] = SAO_FIXED[i][1]
+    initFxd = ([0]*(TRPS_NUM-FXD_NUM) + [1]*FXD_NUM)
+sid = [0]*(TRPS_NUM-FXD_NUM) + SAO_FIXED 
 traps = pd.DataFrame({
+    'sid': sid,
     'lon': initLon, 'lat': initLat, 
     't': initTyp, 'f': initFxd
 })
@@ -111,12 +111,8 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (MAT, MUT, SEL) = (
-    {'mate': 0.35, 'cxpb': 0.35}, 
-    {
-        'mean': 0, 
-        'sd': min([abs(i[1]-i[0]) for i in bbox])/10, 
-        'mutpb': .3, 'indpb': .5
-    },
+    {'cxpb':  0.50, 'indpb': 0.35}, 
+    {'mutpb': 0.45, 'indpb': 0.35},
     {'tSize': 3}
 )
 VERBOSE = True
@@ -129,57 +125,46 @@ bboxRed = [(i[0]+r, i[1]-r) for (i, r) in zip(bbox,reduction)]
 # Registering GA functions
 ############################################################################### 
 toolbox = base.Toolbox()
-creator.create(
-    "FitnessMin", base.Fitness, 
-    weights=(-1.0, )
+creator.create("FitnessMin", 
+    base.Fitness, weights=(-1.0, )
 )
-creator.create(
-    "Individual", list, 
-    fitness=creator.FitnessMin
+creator.create("Individual", 
+    list, fitness=creator.FitnessMin
 )
-toolbox.register(
-    "initChromosome", srv.initChromosome, 
-    trapsCoords=lndGA.trapsCoords, 
-    fixedTrapsMask=trpMsk, coordsRange=bboxRed
+# Init Population -------------------------------------------------------------
+toolbox.register("initChromosome", srv.initDiscreteChromosome, 
+    ptsIds=lndGA.pointID, 
+    fixedTraps=lndGA.trapsFixed, 
+    # trapsSiteID=lndGA.trapsSiteID,
+    banSites=lndGA.pointsTrapBanned
 )
-toolbox.register(
-    "individualCreator", tools.initIterate, 
+toolbox.register("individualCreator", tools.initIterate, 
     creator.Individual, toolbox.initChromosome
 )
-toolbox.register(
-    "populationCreator", tools.initRepeat, 
+toolbox.register("populationCreator", tools.initRepeat, 
     list, toolbox.individualCreator
 )
 # Mate and mutate -------------------------------------------------------------
-if FXD_TRPS:
-    toolbox.register(
-        "mutate", srv.mutateChromosome, 
-        fixedTrapsMask=trpMsk, indpb=MUT['indpb'],
-        randArgs={'loc': MUT['mean'], 'scale': MUT['sd']}
-    )
-    toolbox.register(
-        "mate", srv.cxBlend, 
-        fixedTrapsMask=trpMsk, alpha=MAT['mate']
-    )
-else:
-    toolbox.register(
-        "mutate", tools.mutGaussian, 
-        mu=MUT['mean'], sigma=MUT['sd'], indpb=MUT['indpb']
-    )
-    toolbox.register(
-        "mate", tools.cxBlend, 
-        alpha=MAT['mate']
-    )
-# Select and evaluate ---------------------------------------------------------
-toolbox.register(
-    "select", tools.selTournament, 
-    tournsize=SEL['tSize']
+toolbox.register("mate", srv.cxDiscreteUniform, 
+    fixedTraps=lndGA.trapsFixed,
+    indpb=MAT['indpb']
 )
 toolbox.register(
-    "evaluate", srv.calcFitness, 
+    "mutate", srv.mutateDiscreteChromosome,
+    ptsIds=lndGA.pointID, 
+    fixedTraps=lndGA.trapsFixed,
+    indpb=MUT['indpb'],
+    banSites=lndGA.pointsTrapBanned
+)
+# Select and evaluate ---------------------------------------------------------
+toolbox.register("select", 
+    tools.selTournament, tournsize=SEL['tSize']
+)
+toolbox.register("evaluate", 
+    srv.calcDiscreteFitness, 
     landscape=lndGA,
     optimFunction=srv.getDaysTillTrappedPseudoInverse,
-    optimFunctionArgs={'outer': np.mean, 'inner': np.median} # np.max}
+    optimFunctionArgs={'outer': np.mean, 'inner': np.mean}
 )
 ###############################################################################
 # Registering GA stats

@@ -17,17 +17,17 @@ warnings.filterwarnings("ignore")
 # ffmpeg -start_number 0 -r 8+ -f image2 -s 1920x1080 -i G01_UNIF_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 1 -pix_fmt yuv420p OUTPUT_PATH.mp4
 
 if srv.isNotebook():
-    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'DNUT', 'G02')
+    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'Uniform', 'PSO')
 else:
     (OUT_PTH, LND_TYPE, ID) = (argv[1], argv[2], argv[3])
-fPat = '{}_{}_'.format(ID, LND_TYPE)
+fPat = '{}_{}-'.format(ID, LND_TYPE)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
 srv.makeFolder(IMG_PTH)
 DPI = 300
 ###############################################################################
 # Load Landscape
 ############################################################################### 
-lnd = srv.loadLandscape(OUT_PTH, fPat+'TRP')
+lnd = srv.loadLandscape(OUT_PTH, fPat+'TRP', fExt='pkl')
 dat = srv.importLog(OUT_PTH, fPat+'LOG')
 TCOL= {
     0: '#f7258515', 1: '#5ddeb125', 2: '#fe5f5515', 
@@ -47,19 +47,18 @@ plt.close('all')
 # Plot Loop
 ############################################################################### 
 (gaMin, gaTraps, gens) = (dat['min'], dat['traps'], dat.shape[0])
-bbox = lnd.landLimits
-i=249
+bbox = lnd.getBoundingBox()
+i=10
 for i in range(0, len(gaMin)):
     print("* Exporting frame {:05d}".format(i), end='\r')
     ###########################################################################
     # Reshape and update traps
     ###########################################################################
-    trapsIDs = np.fromstring(gaTraps[i][1:-1], sep=',')
-    trapsCoords = srv.chromosomeIDtoXY(trapsIDs, lnd.pointID, lnd.pointCoords)
+    trapsCoords = np.reshape(
+        np.fromstring(gaTraps[i][1:-1], sep=','), (-1, 2)
+    ).T
     trapsLocs = pd.DataFrame(
-        np.vstack([
-            trapsCoords[:,0], trapsCoords[:,1], lnd.trapsTypes, lnd.trapsFixed
-        ]).T, 
+        np.vstack([trapsCoords, lnd.trapsTypes, lnd.trapsFixed]).T, 
         columns=['x', 'y', 't', 'f']
     )
     trapsLocs['t']=trapsLocs['t'].astype('int64')
@@ -70,7 +69,7 @@ for i in range(0, len(gaMin)):
     ###########################################################################
     (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
     (fig, ax) = lnd.plotTraps(fig, ax, colors=TCOL)
-    (fig, ax) = srv.plotClean(fig, ax, bbox=bbox)   
+    (fig, ax) = srv.plotClean(fig, ax, bbox=lnd.landLimits)
     ax.text(
         0.5, 0.525, '{:.4f}'.format(gaMin[i]),
         horizontalalignment='center', verticalalignment='center',
@@ -87,7 +86,7 @@ for i in range(0, len(gaMin)):
     fig.savefig(
         pthSave, 
         dpi=DPI, bbox_inches='tight', 
-        pad_inches=0.1, transparent=True
+        pad_inches=0, transparent=True
     )
     srv.plotsClearMemory()
     fig.clf()

@@ -7,7 +7,9 @@ import MGSurvE as srv
 
 def test_InitDiscrete():
     (vct, ban, ids) = ([0]*100, {5, 6}, 25)
-    chrom = srv.initDiscreteChromosome(range(ids), vct, ban)
+    chrom = srv.initDiscreteChromosome(
+        ptsIds=range(ids), fixedTraps=vct, trapsSiteID=vct, banSites=ban
+    )
     vix = set(chrom)
     # Check for conditions ----------------------------------------------------
     lTest = (len(chrom) == len(vct))
@@ -70,8 +72,8 @@ def test_DiscreteSelectiveCrossover_CumShift():
     for i in range(trpsNum):
         total += 1
         trpsFxd[i] = 1
-        chromA = srv.initDiscreteChromosome(ptdsId, trpsFxd, banSites=None)
-        chromB = srv.initDiscreteChromosome(ptdsId, trpsFxd, banSites=None)
+        chromA = srv.initDiscreteChromosome(ptdsId, trpsFxd, ptdsId, banSites=None)
+        chromB = srv.initDiscreteChromosome(ptdsId, trpsFxd, ptdsId, banSites=None)
         (pre1, pre2) = (chromA.copy(), chromB.copy())
         (ind1, ind2) = srv.cxDiscreteUniform(chromA, chromB, trpsFxd, indpb=1)
         fxdA = np.sum([isclose(a, b, abs_tol=.25) for (a, b) in zip(pre1, ind1)])

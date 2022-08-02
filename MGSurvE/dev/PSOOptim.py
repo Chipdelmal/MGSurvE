@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import MGSurvE as srv
 
-(ID, TYPE, OUT_PTH) = ('PSO', 'Uniform', './Lands')
+(ID, TYPE, OUT_PTH) = ('PSO', 'Ring', './Lands')
 srv.makeFolder(OUT_PTH)
 
-gens = 500
+gens = 300
 ptsNum = 500
 radii = (425, 500)
 pTypesProb =[0.25, 0.75]
@@ -62,7 +62,7 @@ srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
     path.join(OUT_PTH, '{}_{}-CLN.png'.format(ID, TYPE)),
     facecolor='w', bbox_inches='tight', 
-    pad_inches=1, dpi=300
+    pad_inches=0, dpi=300
 )
 plt.close('all')
 ###############################################################################

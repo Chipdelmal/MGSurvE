@@ -148,7 +148,7 @@ def initChromosome(trapsCoords, fixedTrapsMask, coordsRange):
         allele = allele + 2
     return chromosome
 
-def initDiscreteChromosome(ptsIds, fixedTraps, banSites=None):
+def initDiscreteChromosome(ptsIds, fixedTraps, trapsSiteID=None, banSites=None):
     """Generates a random uniform chromosome for discrete GA optimizations (from available sites).
 
     Args:
@@ -169,6 +169,8 @@ def initDiscreteChromosome(ptsIds, fixedTraps, banSites=None):
     for ix in range(trapsNum):
         if not fixedTraps[ix]:
             chromosome[ix] = choice(validNodes)
+        else:
+            chromosome[ix] = trapsSiteID[ix] 
     return chromosome
 
 def genFixedTrapsMask(trapsFixed, dims=2):
