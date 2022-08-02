@@ -19,13 +19,13 @@ import cartopy.feature as cfeature
 if not srv.isNotebook():
     (FXD_TRPS, TRPS_NUM) = (int(argv[2]), int(argv[1]))
 else:
-    (FXD_TRPS, TRPS_NUM) = (False, 8)
+    (FXD_TRPS, TRPS_NUM) = (True, 8)
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
 # OUT_PTH = '/Volumes/marshallShare/MGS_Benchmarks/STPVincenty/'
-OUT_PTH = '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
-# OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
+# OUT_PTH = '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
+OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
 if FXD_TRPS:
     ID = 'STP_DO_FXD'
 else:
@@ -49,7 +49,7 @@ SAO_cntr = [i[0]+(i[1]-i[0])/2 for i in SAO_bbox]
 SAO_LIMITS = ((6.41, 6.79), (-0.0475, .45))
 # Get location of minor land-masses -------------------------------------------
 # SAO_FIXED = [tuple(SAO_TOME_LL.loc[i][['lon', 'lat']]) for i in (51, 239)]
-SAO_FIXED = [51, 239]
+SAO_FIXED = [51-IX_SPLIT, 239-IX_SPLIT]
 FXD_NUM = len(SAO_FIXED)
 ###############################################################################
 # Load Migration Matrix
@@ -135,7 +135,7 @@ creator.create("Individual",
 toolbox.register("initChromosome", srv.initDiscreteChromosome, 
     ptsIds=lndGA.pointID, 
     fixedTraps=lndGA.trapsFixed, 
-    # trapsSiteID=lndGA.trapsSiteID,
+    trapsSiteID=lndGA.trapsSiteID,
     banSites=lndGA.pointsTrapBanned
 )
 toolbox.register("individualCreator", tools.initIterate, 
@@ -189,8 +189,8 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 # Get and Export Results
 ############################################################################### 
 bestChromosome = hof[0]
-bestTraps = np.reshape(bestChromosome, (-1, 2))
-lnd.updateTrapsCoords(bestTraps)
+trapXY = srv.chromosomeIDtoXY(bestChromosome, lndGA.pointID, lndGA.pointCoords)
+lnd.updateTrapsCoords(trapXY)
 dta = pd.DataFrame(logbook)
 srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
