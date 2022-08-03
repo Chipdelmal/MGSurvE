@@ -57,8 +57,9 @@ tKernels = {
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
+mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
 lnd = srv.Landscape(
-    points, kernelParams={'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75},
+    points, kernelParams=mKer,
     traps=traps, trapsKernels=tKernels, pointsTrapBanned={5}, landLimits=bbox
 )
 bbox = lnd.getBoundingBox()

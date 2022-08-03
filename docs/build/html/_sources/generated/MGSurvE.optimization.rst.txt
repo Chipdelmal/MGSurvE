@@ -19,8 +19,9 @@
       calcFitness
       calcFitnessPseudoInverse
       calcSexFitness
+      chromosomeIDtoXY
       cxBlend
-      cxUniform
+      cxDiscreteUniform
       exportLog
       genFixedTrapsMask
       getDaysTillTrapped
