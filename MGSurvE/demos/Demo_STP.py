@@ -24,13 +24,13 @@ else:
 # Debugging fixed traps at land masses
 ###############################################################################
 # OUT_PTH = '/Volumes/marshallShare/MGS_Benchmarks/STPVincenty/'
-OUT_PTH = '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
-# OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
+# OUT_PTH = '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
+OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
 if FXD_TRPS:
     ID = 'STP_FXD'
 else:
     ID = 'STP_FXN'
-GENS = 500
+GENS = 1000
 (IX_SPLIT, DIAG_VAL) = (27, 0.1)
 ###############################################################################
 # Load Pointset
@@ -122,7 +122,7 @@ POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 VERBOSE = True
 lndGA = deepcopy(lnd)
 # Reducing the bbox for init sampling -----------------------------------------
-redFract = .25
+redFract = .75
 reduction = [(i[1]-i[0])/2*redFract for i in bbox]
 bboxRed = [(i[0]+r, i[1]-r) for (i, r) in zip(bbox,reduction)]
 ###############################################################################
@@ -179,7 +179,7 @@ toolbox.register(
     "evaluate", srv.calcFitness, 
     landscape=lndGA,
     optimFunction=srv.getDaysTillTrappedPseudoInverse,
-    optimFunctionArgs={'outer': np.mean, 'inner': np.median} # np.max}
+    optimFunctionArgs={'outer': np.mean, 'inner': np.max} # np.max}
 )
 ###############################################################################
 # Registering GA stats

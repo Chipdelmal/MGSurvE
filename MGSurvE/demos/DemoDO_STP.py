@@ -164,7 +164,7 @@ toolbox.register("evaluate",
     srv.calcDiscreteFitness, 
     landscape=lndGA,
     optimFunction=srv.getDaysTillTrappedPseudoInverse,
-    optimFunctionArgs={'outer': np.mean, 'inner': np.mean}
+    optimFunctionArgs={'outer': np.mean, 'inner': np.max}
 )
 ###############################################################################
 # Registering GA stats
