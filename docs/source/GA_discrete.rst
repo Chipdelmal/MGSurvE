@@ -116,3 +116,5 @@ Finally, as our chromosome stores the sites IDs instead of the coordinates, we h
     trapXY = srv.chromosomeIDtoXY(bestChromosome, lndGA.pointID, lndGA.pointCoords)
     lnd.updateTrapsCoords(trapXY)
 
+
+The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_Discrete.py>`_.
