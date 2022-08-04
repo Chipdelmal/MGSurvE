@@ -95,25 +95,29 @@
 <h1><span class="section-number">12. </span>GA Discrete Optimization<a class="headerlink" href="#ga-discrete-optimization" title="Permalink to this headline"></a></h1>
 <p>To allow for the optimization of meta-populations, in which several habitats are pooled into a larger one, we’ve also added a set of functions to operate on a “discrete” level.
 In this case, the optimization is not performed on the continuous “xy” or “longitude/latitude” space, but on the locations at which the meta-populations are located.</p>
+<p>In this demo, we will optimize the location of traps in a random-uniform landscape with the limitation of traps not being allowed in sites with an ID which corresponds to an even number (just as a test of the system).</p>
+<img alt="_images/DO_UNIF_CLN.jpg" src="_images/DO_UNIF_CLN.jpg" />
 <section id="setting-landscape-up">
 <h2><span class="section-number">12.1. </span>Setting Landscape Up<a class="headerlink" href="#setting-landscape-up" title="Permalink to this headline"></a></h2>
 <p>To setup the initial locations of the traps in our landscape, we will add the <code class="code docutils literal notranslate"><span class="pre">sid</span></code> column in the dataframe (<code class="code docutils literal notranslate"><span class="pre">sid</span></code> for “site’s ID”):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trapsNum</span> <span class="o">=</span> <span class="mi">6</span>
 <span class="n">nullTrap</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">trapsNum</span>
 <span class="n">traps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s1">&#39;sid&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span>
+    <span class="s1">&#39;sid&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
     <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">nullTrap</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">nullTrap</span><span class="p">,</span>
     <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="p">})</span>
 <span class="n">tKernels</span> <span class="o">=</span> <span class="p">{</span>
     <span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">exponentialDecay</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mf">.75</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mf">0.100</span><span class="p">}},</span>
     <span class="mi">1</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">exponentialDecay</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mf">.75</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mf">0.075</span><span class="p">}}</span>
 <span class="p">}</span>
 <span class="c1"># Sites in which we don&#39;t want traps</span>
-<span class="n">bannedSites</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">23</span><span class="p">}</span>
+<span class="n">banSites</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
+<p>Generally speaking, if we are going to optimize the location of our traps, we can leave all the <code class="code docutils literal notranslate"><span class="pre">sid</span></code>’s set to zero, as the algorithm will change their positions automatically.
+The only exception to this rule would be if we plan for some traps to be fixed in some specific sites in our environment, in which case we do need to provide the specific ID of the site in which we will set our desired trap.</p>
 <p>All the other parameters remain the same, namely:</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">sid</span></code>: ID of the site at which the trap is located (if discrete optimization functions are used, otherwise <code class="code docutils literal notranslate"><span class="pre">xy</span></code> coordinates take precedence).</p></li>
@@ -122,7 +126,7 @@ In this case, the optimization is not performed on the continuous “xy” or �
 <li><p><code class="code docutils literal notranslate"><span class="pre">t</span></code>: Trap type as defined in the traps dictionary.</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">f</span></code>: Fixed in place boolean identifier.</p></li>
 </ul>
-<p>Now, to instantiate our landscape, we simply pass our constructor the traps dataframe, along with the kernels, and, if needed, the sites at which we want to ban traps:</p>
+<p>Now, to instantiate our landscape, we simply pass our constructor the traps dataframe, along with the kernels, and the sites at which we want to ban traps:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lnd</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">Landscape</span><span class="p">(</span>
     <span class="n">points</span><span class="p">,</span> <span class="n">kernelParams</span><span class="o">=</span><span class="n">mKer</span><span class="p">,</span>
     <span class="n">traps</span><span class="o">=</span><span class="n">traps</span><span class="p">,</span> <span class="n">trapsKernels</span><span class="o">=</span><span class="n">tKernels</span><span class="p">,</span>
@@ -144,7 +148,7 @@ If the landscape was correctly setup, our new chromosome initializer can be safe
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>In which each “allele” in our chromosome represents the ID of the point in which the corresponding trap will be located.</p>
+<p>In which each “allele” in our “chromosome” represents the ID of the point in which the corresponding trap will be located.</p>
 <p>Now, the stock mutation operation for this application swaps between possible sites IDs if the allele is selected for the operation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
     <span class="s2">&quot;mutate&quot;</span><span class="p">,</span> <span class="n">srv</span><span class="o">.</span><span class="n">mutateDiscreteChromosome</span><span class="p">,</span>
@@ -181,6 +185,7 @@ If the landscape was correctly setup, our new chromosome initializer can be safe
 <span class="n">lnd</span><span class="o">.</span><span class="n">updateTrapsCoords</span><span class="p">(</span><span class="n">trapXY</span><span class="p">)</span>
 </pre></div>
 </div>
+<img alt="_images/DO_UNIF_TRP.jpg" src="_images/DO_UNIF_TRP.jpg" />
 <p>The code used for this tutorial can be found <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_Discrete.py">in this link</a>.</p>
 </section>
 </section>

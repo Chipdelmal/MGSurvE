@@ -15,7 +15,7 @@ import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 
-(OUT_PTH, LND_TYPE, ID, TRPS_NUM) = ('./demos_out/', 'GRID', 'DO', 5)
+(OUT_PTH, LND_TYPE, ID, TRPS_NUM) = ('./demos_out/', 'UNIF', 'DO', 5)
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
@@ -24,7 +24,7 @@ if LND_TYPE == 'UNIF':
     bbox = ((-225, 225), (-175, 175))
     xy = srv.ptsRandUniform(ptsNum, bbox).T
 elif LND_TYPE == 'GRID':
-    ptsNum = 15
+    ptsNum = 10
     bbox = ((-225, 225), (-225, 225))
     xy = srv.ptsRegularGrid(ptsNum, bbox).T
 elif LND_TYPE == 'DNUT':
@@ -180,7 +180,7 @@ lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 for (i, xy) in enumerate(lnd.pointCoords):
     plt.text(
         xy[0], xy[1], i, 
-        fontsize=3, zorder=20, va='center', ha='center'
+        fontsize=3, zorder=500, va='center', ha='center'
     )
 lnd.plotTraps(fig, ax)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)

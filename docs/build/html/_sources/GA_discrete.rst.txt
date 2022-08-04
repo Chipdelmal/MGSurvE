@@ -5,6 +5,10 @@ To allow for the optimization of meta-populations, in which several habitats are
 In this case, the optimization is not performed on the continuous "xy" or "longitude/latitude" space, but on the locations at which the meta-populations are located. 
 
 
+In this demo, we will optimize the location of traps in a random-uniform landscape with the limitation of traps not being allowed in sites with an ID which corresponds to an even number (just as a test of the system).
+
+.. image:: ../../img/DO_UNIF_CLN.jpg
+
 Setting Landscape Up
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -15,17 +19,20 @@ To setup the initial locations of the traps in our landscape, we will add the :c
     trapsNum = 6
     nullTrap = [0]*trapsNum
     traps = pd.DataFrame({
-        'sid': [0, 1, 10, 15, 20, 25],
+        'sid': [0, 0, 0, 0, 0, 0],
         'x': nullTrap, 'y': nullTrap,
         't': [0, 0, 0, 0, 1, 1], 
-        'f': [1, 0, 0, 0, 0, 0]
+        'f': [0, 0, 0, 0, 0, 0]
     })
     tKernels = {
         0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': 0.100}},
         1: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': 0.075}}
     }
     # Sites in which we don't want traps
-    bannedSites = {2, 4, 23}
+    banSites = set(range(0, points.shape[0], 2))
+
+Generally speaking, if we are going to optimize the location of our traps, we can leave all the :code:`sid`'s set to zero, as the algorithm will change their positions automatically.
+The only exception to this rule would be if we plan for some traps to be fixed in some specific sites in our environment, in which case we do need to provide the specific ID of the site in which we will set our desired trap.
 
 All the other parameters remain the same, namely:
 
@@ -36,7 +43,7 @@ All the other parameters remain the same, namely:
 * :code:`f`: Fixed in place boolean identifier.
 
 
-Now, to instantiate our landscape, we simply pass our constructor the traps dataframe, along with the kernels, and, if needed, the sites at which we want to ban traps:
+Now, to instantiate our landscape, we simply pass our constructor the traps dataframe, along with the kernels, and the sites at which we want to ban traps:
 
 .. code-block:: python
 
@@ -63,7 +70,7 @@ If the landscape was correctly setup, our new chromosome initializer can be safe
         banSites=lndGA.pointsTrapBanned
     )
 
-In which each "allele" in our chromosome represents the ID of the point in which the corresponding trap will be located.
+In which each "allele" in our "chromosome" represents the ID of the point in which the corresponding trap will be located.
 
 
 Now, the stock mutation operation for this application swaps between possible sites IDs if the allele is selected for the operation:
@@ -116,5 +123,8 @@ Finally, as our chromosome stores the sites IDs instead of the coordinates, we h
     trapXY = srv.chromosomeIDtoXY(bestChromosome, lndGA.pointID, lndGA.pointCoords)
     lnd.updateTrapsCoords(trapXY)
 
+
+.. image:: ../../img/DO_UNIF_TRP.jpg
+    
 
 The code used for this tutorial can be found `in this link <https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_Discrete.py>`_.
