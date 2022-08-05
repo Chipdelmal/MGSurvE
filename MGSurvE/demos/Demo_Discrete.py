@@ -9,25 +9,22 @@ from os import path
 import pickle as pkl
 from copy import deepcopy
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import normalize
 from deap import base, creator, algorithms, tools
 import MGSurvE as srv
 import warnings
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-if srv.isNotebook():
-    (OUT_PTH, LND_TYPE, ID) = ('./Lands', 'GRID', 'G01')
-else:
-    (OUT_PTH, LND_TYPE, ID) = (argv[1], argv[2], argv[3].zfill(3))
+
+(OUT_PTH, LND_TYPE, ID, TRPS_NUM) = ('./demos_out/', 'UNIF', 'DO', 5)
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
 if LND_TYPE == 'UNIF':
-    ptsNum = 500
+    ptsNum = 300
     bbox = ((-225, 225), (-175, 175))
     xy = srv.ptsRandUniform(ptsNum, bbox).T
 elif LND_TYPE == 'GRID':
-    ptsNum = 15
+    ptsNum = 10
     bbox = ((-225, 225), (-225, 225))
     xy = srv.ptsRegularGrid(ptsNum, bbox).T
 elif LND_TYPE == 'DNUT':
@@ -40,7 +37,7 @@ points = pd.DataFrame({
     't': [0]*xy.shape[1], 'id': range(0, xy.shape[1])
 })
 # Traps info ------------------------------------------------------------------
-trapsNum = 6
+trapsNum = TRPS_NUM
 nullTrap = [0]*trapsNum
 tTypes = nullTrap[:]
 tTypes[-1] = 1
@@ -54,13 +51,15 @@ tKernels = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': 0.100}},
     1: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': 0.075}}
 }
+banSites = set(range(0, points.shape[0], 2))
 ###############################################################################
 # Defining Landscape and Traps
 ###############################################################################
 mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
 lnd = srv.Landscape(
     points, kernelParams=mKer,
-    traps=traps, trapsKernels=tKernels, pointsTrapBanned={5}, landLimits=bbox
+    traps=traps, trapsKernels=tKernels, pointsTrapBanned=banSites, 
+    landLimits=bbox
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
@@ -69,7 +68,12 @@ srv.dumpLandscape(lnd, OUT_PTH, '{}_{}_CLN'.format(ID, LND_TYPE))
 # Plot Landscape
 ############################################################################### 
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
-lnd.plotSites(fig, ax, size=100)
+lnd.plotSites(fig, ax, size=125)
+for (i, xy) in enumerate(lnd.pointCoords):
+    plt.text(
+        xy[0], xy[1], i, 
+        fontsize=3, zorder=20, va='center', ha='center'
+    )
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
@@ -82,7 +86,7 @@ plt.close('all')
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*.5))
 (GENS, MAT, MUT, SEL) = (
-    500,
+    2000,
     {'cxpb':  0.50, 'indpb': 0.35}, 
     {'mutpb': 0.45, 'indpb': 0.35},
     {'tSize': 3}
@@ -132,7 +136,7 @@ toolbox.register("evaluate",
     srv.calcDiscreteFitness, 
     landscape=lndGA,
     optimFunction=srv.getDaysTillTrapped,
-    optimFunctionArgs={'outer': np.mean, 'inner': np.mean}
+    optimFunctionArgs={'outer': np.mean, 'inner': np.max}
 )
 ###############################################################################
 # Registering GA stats
@@ -173,6 +177,11 @@ srv.exportLog(logbook, OUT_PTH, '{}_{}_LOG'.format(ID, LND_TYPE))
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=100)
 lnd.plotMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
+for (i, xy) in enumerate(lnd.pointCoords):
+    plt.text(
+        xy[0], xy[1], i, 
+        fontsize=3, zorder=500, va='center', ha='center'
+    )
 lnd.plotTraps(fig, ax)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 srv.plotFitness(fig, ax, min(dta['min']))

@@ -11,7 +11,8 @@
 7. [GA With Sex Kernels](https://chipdelmal.github.io/MGSurvE/build/html/GA_complex.html): [Demo_GASex.py](https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GASex.py), [Demo_GASex-Simple.py](https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_GASex-Simple.py)
 8. [Stage-Specific Traps](https://chipdelmal.github.io/MGSurvE/build/html/OT_trapMask.html): [Demo_TrapsComplex.py](https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_TrapsComplex.py)
 9. [GA in a Realistic Landscape](https://chipdelmal.github.io/MGSurvE/build/html/GA_STP.html): [Demo_STP.py](https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Paper/STP.py), [Demo_STP-Simple.py](https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Paper/STP-Simple.py)
-
+10. [PSO Optimization](https://chipdelmal.github.io/MGSurvE/build/html/PSO.html): [Demo_PSO.py](https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_PSO.py)
+11. [Discrete Optimization GA](https://chipdelmal.github.io/MGSurvE/build/html/GA_discrete.html): [Demo_Discrete.py](https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/demos/Demo_Discrete.py)
 
 ## Paper's Demos
 
