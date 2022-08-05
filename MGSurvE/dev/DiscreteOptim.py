@@ -102,6 +102,7 @@ creator.create("Individual",
 toolbox.register("initChromosome", srv.initDiscreteChromosome, 
     ptsIds=lndGA.pointID, 
     fixedTraps=lndGA.trapsFixed, 
+    trapsSiteID=lndGA.trapsSiteID,
     banSites=lndGA.pointsTrapBanned
 )
 toolbox.register("individualCreator", tools.initIterate, 

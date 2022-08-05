@@ -24,8 +24,8 @@ else:
 # Debugging fixed traps at land masses
 ###############################################################################
 # OUT_PTH = '/Volumes/marshallShare/MGS_Benchmarks/STPVincenty/'
-# OUT_PTH = '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
-OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
+OUT_PTH = '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
+# OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
 if FXD_TRPS:
     ID = 'STP_FXD'
 else:
