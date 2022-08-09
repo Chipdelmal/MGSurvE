@@ -178,7 +178,7 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 ###############################################################################
 # Get and Export Results
 ############################################################################### 
-bestChromosome = hof[0]
+bestChromosome = [205, 174, 84, 208, 38, 122, 224, 14, 24, 212] # hof[0]
 trapXY = srv.chromosomeIDtoXY(bestChromosome, lndGA.pointID, lndGA.pointCoords)
 lnd.updateTrapsCoords(trapXY)
 dta = pd.DataFrame(logbook)
@@ -196,7 +196,7 @@ lnd.plotMigrationNetwork(
     fig, ax, lineWidth=10, alphaMin=.1, alphaAmplitude=2.5
 )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
-srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
+# srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
 lnd.plotLandBoundary(fig, ax)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(

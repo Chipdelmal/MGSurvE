@@ -1,4 +1,4 @@
-Visualizing Traps Kernels
+Visualizing Traps' Kernels
 ------------
 
 MGSurvE contains a tool to visualize traps kernels. 

@@ -24,6 +24,7 @@ We chose to use the complex version in the tutorials because it allows more flex
    GA_STP
    PSO
    GA_discrete
+   GA_STPDO
 
 
 Some other demonstrations of auxiliary tools can be accessed here:
