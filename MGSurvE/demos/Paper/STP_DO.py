@@ -17,7 +17,7 @@ if srv.isNotebook():
     FXD_TRPS =  True
 else:
     FXD_TRPS =  (argv[1] == 'True')
-(TRPS_NUM, GENS) = (8, 1500)
+(TRPS_NUM, GENS) = (10, 1500)
 DIAG_VAL = 0.1
 ###############################################################################
 # Debugging fixed traps at land masses
@@ -193,7 +193,7 @@ srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 )
 lnd.plotSites(fig, ax, size=250)
 lnd.plotMigrationNetwork(
-    fig, ax, lineWidth=60, alphaMin=.1, alphaAmplitude=5
+    fig, ax, lineWidth=10, alphaMin=.1, alphaAmplitude=2.5
 )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
 srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')

@@ -17,7 +17,7 @@ if srv.isNotebook():
     FXD_TRPS =  True
 else:
     FXD_TRPS =  (argv[1] == 'True')
-(TRPS_NUM, GENS) = (8, 1500)
+(TRPS_NUM, GENS) = (10, 1500)
 DIAG_VAL = 0.1
 ###############################################################################
 # Debugging fixed traps at land masses
