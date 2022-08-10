@@ -5,9 +5,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import dill
 import math
 import numpy as np
+import pandas as pd
 from time import time
 from haversine import haversine
 from sklearn.preprocessing import normalize
@@ -481,3 +481,13 @@ class Landscape:
         (maxX, maxY) = np.apply_along_axis(max, 0, self.pointCoords)
         retPair = ((minX, maxX), (minY, maxY))
         return retPair
+    ###########################################################################
+    # Export Landscape
+    ###########################################################################
+    def exportForMGDrivE(self):
+        (xyp, xyt) = (self.pointCoords, self.trapsCoords)
+        (idp, idt) = (self.pointTypes, (self.trapsTypes*-1)-1)
+        xyPos = np.vstack([xyp, xyt])
+        idTyp = np.hstack([idp, idt])
+        df = pd.DataFrame({'x': xyPos.T[0], 'y': xyPos.T[1], 'type': idTyp})
+        return {'pos': df, 'mig': self.trapsMigration}

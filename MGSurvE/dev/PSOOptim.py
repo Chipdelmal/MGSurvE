@@ -6,11 +6,11 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import MGSurvE as srv
 
-(ID, TYPE, OUT_PTH) = ('PSO', 'Ring', './Lands')
+(ID, TYPE, OUT_PTH) = ('PSO', 'Uniform', './Lands')
 srv.makeFolder(OUT_PTH)
 
-gens = 300
-ptsNum = 500
+gens = 250
+ptsNum = 100
 radii = (425, 500)
 pTypesProb =[0.25, 0.75]
 bbox = ((-500, 500), (-350, 350))
@@ -34,10 +34,10 @@ mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
 # Traps
 ############################################################################### 
 traps = pd.DataFrame({
-    'x': [0, 0, 0, 0, 0, 0], 
-    'y': [0, 0, 0, 0, 0, 0],
-    't': [0, 1, 0, 1, 0, 1], 
-    'f': [0, 0, 0, 0, 0, 0]
+    'x': [0, 0, 0, 0], 
+    'y': [0, 0, 0, 0],
+    't': [0, 1, 0, 1], 
+    'f': [0, 0, 0, 0]
 })
 tKer = {
     0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .050}},
@@ -108,3 +108,14 @@ fig.savefig(
     pad_inches=0, dpi=300
 )
 plt.close('all')
+###############################################################################
+# Dump Land for MGDrivE
+###############################################################################
+pthOut = path.join(OUT_PTH, '{}_{}-MGDrivE_{}')
+mgd = lnd.exportForMGDrivE()
+np.savetxt(
+    pthOut.format(ID, TYPE, 'MIG')+'.csv', 
+    mgd['mig'], delimiter=","
+)
+mgd['pos'].to_csv(pthOut.format(ID, TYPE, 'PTS')+'.csv', index=False)
+
