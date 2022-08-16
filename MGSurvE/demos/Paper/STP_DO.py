@@ -178,7 +178,7 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 ###############################################################################
 # Get and Export Results
 ############################################################################### 
-bestChromosome = [205, 174, 84, 208, 38, 122, 224, 14, 24, 212] # hof[0]
+bestChromosome = hof[0]
 trapXY = srv.chromosomeIDtoXY(bestChromosome, lndGA.pointID, lndGA.pointCoords)
 lnd.updateTrapsCoords(trapXY)
 dta = pd.DataFrame(logbook)
