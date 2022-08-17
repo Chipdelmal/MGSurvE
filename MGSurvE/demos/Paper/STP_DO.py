@@ -17,16 +17,14 @@ if srv.isNotebook():
     FXD_TRPS =  True
 else:
     FXD_TRPS =  (argv[1] == 'True')
-(TRPS_NUM, GENS) = (10, 1500)
-DIAG_VAL = 0.1
+PRINT_BLANK = False
+(TRPS_NUM, GENS) = (10, 500)
+DIAG_VAL = 0.2
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
 OUT_PTH = './sims_out/'
-if FXD_TRPS:
-    ID = 'STP_DO_FXD'
-else:
-    ID = 'STP_DO_FXN'
+ID = 'STP_DO_FXD' if FXD_TRPS else 'STP_DO_FXN'
 ###############################################################################
 # Load Pointset
 ###############################################################################
@@ -66,43 +64,44 @@ traps = pd.DataFrame({
     'lon': initLon, 'lat': initLat, 
     't': initTyp, 'f': initFxd
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .0075}}}
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .01}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
     traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS,
-    trapsRadii=[.75, .5, .3],
+    trapsRadii=[.75, .5, .25],
 )
+lndGA = deepcopy(lnd)
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 # Plot Landscape
 ###############################################################################
-# (fig, ax) = (
-#     plt.figure(figsize=(15, 15)),
-#     plt.axes(projection=ccrs.PlateCarree())
-# )
-# lnd.plotSites(fig, ax, size=250)
-# # lnd.plotTraps(fig, ax)
-# lnd.plotMigrationNetwork(
-#     fig, ax, lineWidth=60, alphaMin=.1, alphaAmplitude=5,
-# )
-# lnd.plotLandBoundary(fig, ax)
-# srv.plotClean(fig, ax, bbox=lnd.landLimits)
-# fig.savefig(
-#     path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
-#     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-# )
-# plt.close('all')
+if PRINT_BLANK:
+    (fig, ax) = (
+        plt.figure(figsize=(15, 15)), plt.axes(projection=ccrs.PlateCarree())
+    )
+    lnd.plotSites(fig, ax, size=250)
+    # lnd.plotTraps(fig, ax)
+    lnd.plotMigrationNetwork(
+        fig, ax, lineWidth=50, alphaMin=.1, alphaAmplitude=2.5
+    )
+    lnd.plotLandBoundary(fig, ax)
+    srv.plotClean(fig, ax, bbox=lnd.landLimits)
+    fig.savefig(
+        path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
+        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+    )
+    plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 
 POP_SIZE = int(10*(lnd.trapsNumber*1.25))
 (MAT, MUT, SEL) = (
-    {'cxpb':  0.50, 'indpb': 0.35}, 
-    {'mutpb': 0.45, 'indpb': 0.35},
+    {'cxpb':  0.30, 'indpb': 0.35}, 
+    {'mutpb': 0.35, 'indpb': 0.50},
     {'tSize': 3}
 )
 VERBOSE = True
@@ -114,76 +113,13 @@ bboxRed = [(i[0]+r, i[1]-r) for (i, r) in zip(bbox,reduction)]
 ###############################################################################
 # Registering GA functions
 ############################################################################### 
-toolbox = base.Toolbox()
-creator.create("FitnessMin", 
-    base.Fitness, weights=(-1.0, )
+(lnd, logbook) = srv.optimizeDiscreteTrapsGA(
+    lndGA, pop_size=POP_SIZE, generations=GENS,
+    mating_params=MAT, mutation_params=MUT, selection_params=SEL,
+    fitFuns={'outer': np.mean, 'inner': np.max}
 )
-creator.create("Individual", 
-    list, fitness=creator.FitnessMin
-)
-# Init Population -------------------------------------------------------------
-toolbox.register("initChromosome", srv.initDiscreteChromosome, 
-    ptsIds=lndGA.pointID, 
-    fixedTraps=lndGA.trapsFixed, 
-    trapsSiteID=lndGA.trapsSiteID,
-    banSites=lndGA.pointsTrapBanned
-)
-toolbox.register("individualCreator", tools.initIterate, 
-    creator.Individual, toolbox.initChromosome
-)
-toolbox.register("populationCreator", tools.initRepeat, 
-    list, toolbox.individualCreator
-)
-# Mate and mutate -------------------------------------------------------------
-toolbox.register("mate", srv.cxDiscreteUniform, 
-    fixedTraps=lndGA.trapsFixed,
-    indpb=MAT['indpb']
-)
-toolbox.register(
-    "mutate", srv.mutateDiscreteChromosome,
-    ptsIds=lndGA.pointID, 
-    fixedTraps=lndGA.trapsFixed,
-    indpb=MUT['indpb'],
-    banSites=lndGA.pointsTrapBanned
-)
-# Select and evaluate ---------------------------------------------------------
-toolbox.register("select", 
-    tools.selTournament, tournsize=SEL['tSize']
-)
-toolbox.register("evaluate", 
-    srv.calcDiscreteFitness, 
-    landscape=lndGA,
-    optimFunction=srv.getDaysTillTrappedPseudoInverse,
-    optimFunctionArgs={'outer': np.mean, 'inner': np.max}
-)
-###############################################################################
-# Registering GA stats
-############################################################################### 
-pop = toolbox.populationCreator(n=POP_SIZE)
-hof = tools.HallOfFame(1)
-stats = tools.Statistics(lambda ind: ind.fitness.values)   
-stats.register("min", np.min)
-stats.register("median", np.median)
-stats.register("max", np.max)
-stats.register("best", lambda fitnessValues: fitnessValues.index(min(fitnessValues)))
-stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnessValues))])
-###############################################################################
-# Optimization Cycle
-############################################################################### 
-(pop, logbook) = algorithms.eaSimple(
-    pop, toolbox, 
-    cxpb=MAT['cxpb'], mutpb=MUT['mutpb'], 
-    ngen=GENS, stats=stats, halloffame=hof, verbose=VERBOSE
-)
-###############################################################################
-# Get and Export Results
-############################################################################### 
-bestChromosome = hof[0]
-trapXY = srv.chromosomeIDtoXY(bestChromosome, lndGA.pointID, lndGA.pointCoords)
-lnd.updateTrapsCoords(trapXY)
-dta = pd.DataFrame(logbook)
+srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
 srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
-srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 ###############################################################################
 # Plot Results
 ###############################################################################
@@ -193,7 +129,7 @@ srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 )
 lnd.plotSites(fig, ax, size=250)
 lnd.plotMigrationNetwork(
-    fig, ax, lineWidth=10, alphaMin=.1, alphaAmplitude=2.5
+    fig, ax, lineWidth=50, alphaMin=.1, alphaAmplitude=2.5
 )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
 # srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
@@ -202,5 +138,29 @@ srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=400
+)
+plt.close('all')
+# Plot Traps Kernels ----------------------------------------------------------
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
+(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 500))
+fig.savefig(
+    path.join(OUT_PTH, '{}_{:02d}_KER.png'.format(ID, TRPS_NUM)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+)
+plt.close('all')
+# GA --------------------------------------------------------------------------
+log = pd.DataFrame(logbook)
+log.rename(columns={'median': 'avg'}, inplace=True)
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
+srv.plotGAEvolution(
+    fig, ax,
+    log,
+    colors={'mean': '#ffffff', 'envelope': '#1565c0'},
+    alphas={'mean': .75, 'envelope': 0.5},
+    aspect=1/3
+)
+fig.savefig(
+    path.join(OUT_PTH, '{}_{:02d}_GA.png'.format(ID, TRPS_NUM)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')

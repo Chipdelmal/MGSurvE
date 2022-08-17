@@ -1,26 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import math
 import numpy as np
 import pandas as pd
 from os import path
-from sys import argv
-from random import uniform
 from copy import deepcopy
 import cartopy.crs as crs
-import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
-from compress_pickle import dump, load
 import MGSurvE as srv
-import warnings
-warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
-ID = 'TTP'
+ID = 'YKN'
 ###############################################################################
 # File ID
 ###############################################################################
-GENS = 1500
+GENS = 1000
 OUT_PTH = './sims_out/'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
@@ -28,7 +21,7 @@ srv.makeFolder(OUT_PTH)
 ###############################################################################
 LND_PTH = './GEO/{}_LatLon.csv'.format(ID)
 TRPS_NUM = 6
-TRAP_TYP = [0, 0, 1, 0, 2, 1]
+TRAP_TYP = [0, 0, 1, 2, 1, 1]
 ###############################################################################
 # Load pointset
 ###############################################################################
@@ -79,40 +72,28 @@ lnd = srv.Landscape(
     landLimits=YK_BBOX
 )
 bbox = lnd.getBoundingBox()
-###############################################################################
-# GA Settings
-############################################################################### 
-POP_SIZE = int(20*(lnd.trapsNumber*1.25))
-(MAT, MUT, SEL) = (
-    {'mate': .35, 'cxpb': 0.5}, 
-    {
-        'mean': 0, 
-        'sd': max([abs(i[1]-i[0]) for i in bbox])/5, 
-        'mutpb': .4, 'ipb': .5
-    },
-    {'tSize': 5}
-)
 lndGA = deepcopy(lnd)
 ###############################################################################
 # Registering Functions for GA
 ############################################################################### 
 (lnd, logbook) = srv.optimizeTrapsGA(
-        lndGA, pop_size='auto', generations=GENS,
-        mating_params='auto', mutation_params='auto', selection_params='auto',
-        fitFuns={'outer': np.mean, 'inner': np.mean}
-    )
+    lndGA, pop_size='auto', generations=GENS,
+    mating_params='auto', mutation_params='auto', selection_params='auto',
+    fitFuns={'outer': np.mean, 'inner': np.max}
+)
 srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
 srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 ###############################################################################
 # Plot Landscape
 ###############################################################################
+lnd = srv.loadLandscape(OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 (fig, ax) = (
     plt.figure(figsize=(15, 15)), plt.axes(projection=crs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=50)
-# lnd.plotMigrationNetwork(fig, ax, lineWidth=500, alphaMin=.1, alphaAmplitude=20)
+lnd.plotMigrationNetwork(fig, ax, lineWidth=20, alphaMin=.075, alphaAmplitude=7.5)
 lnd.plotTraps(fig, ax, zorders=(30, 25))
-srv.plotFitness(fig, ax, min(logbook['min']), fmt='{:.5f}', fontSize=100)
+# srv.plotFitness(fig, ax, min(logbook['min']), fmt='{:.5f}', fontSize=100)
 srv.plotClean(fig, ax, bbox=YK_BBOX)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 
@@ -120,10 +101,26 @@ fig.savefig(
 )
 plt.close('all')
 # Plot Traps Kernels ----------------------------------------------------------
-(fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
 (fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 125))
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_KER.png'.format(ID, TRPS_NUM)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+)
+plt.close('all')
+# GA --------------------------------------------------------------------------
+log = pd.DataFrame(logbook)
+log.rename(columns={'median': 'avg'}, inplace=True)
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
+srv.plotGAEvolution(
+    fig, ax,
+    logbook,
+    colors={'mean': '#ffffff', 'envelope': '#1565c0'},
+    alphas={'mean': .75, 'envelope': 0.5},
+    aspect=1/3
+)
+fig.savefig(
+     path.join(OUT_PTH, '{}_{:02d}_GA.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
