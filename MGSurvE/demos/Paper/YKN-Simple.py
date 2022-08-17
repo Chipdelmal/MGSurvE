@@ -13,7 +13,7 @@ ID = 'YKN'
 ###############################################################################
 # File ID
 ###############################################################################
-GENS = 1000
+GENS = 200
 OUT_PTH = './sims_out/'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
@@ -55,7 +55,7 @@ tKer = {
     },
     1: {
         'kernel': srv.exponentialDecay, 
-        'params': {'A': 1, 'b': 0.045}
+        'params': {'A': 1, 'b': 0.0425}
     },
     0: {
         'kernel': srv.exponentialAttractiveness,
@@ -124,3 +124,5 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
+
+

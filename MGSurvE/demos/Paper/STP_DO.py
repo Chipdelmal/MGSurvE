@@ -18,8 +18,8 @@ if srv.isNotebook():
 else:
     FXD_TRPS =  (argv[1] == 'True')
 PRINT_BLANK = False
-(TRPS_NUM, GENS) = (10, 500)
-DIAG_VAL = 0.2
+(TRPS_NUM, GENS) = (10, 200)
+DIAG_VAL = 0.01
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
@@ -64,14 +64,14 @@ traps = pd.DataFrame({
     'lon': initLon, 'lat': initLat, 
     't': initTyp, 'f': initFxd
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .01}}}
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .005}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
     traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS,
-    trapsRadii=[.75, .5, .25],
+    trapsRadii=[.75, .5, .4],
 )
 lndGA = deepcopy(lnd)
 bbox = lnd.getBoundingBox()
