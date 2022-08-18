@@ -9,11 +9,11 @@ import cartopy.crs as crs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 
-ID = 'YKN'
+ID = 'TTP'
 ###############################################################################
 # File ID
 ###############################################################################
-GENS = 200
+GENS = 2000
 OUT_PTH = './sims_out/'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
@@ -102,7 +102,7 @@ fig.savefig(
 plt.close('all')
 # Plot Traps Kernels ----------------------------------------------------------
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
-(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 125))
+(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 100), aspect=.175)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_KER.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
@@ -116,9 +116,11 @@ srv.plotGAEvolution(
     fig, ax,
     logbook,
     colors={'mean': '#ffffff', 'envelope': '#1565c0'},
-    alphas={'mean': .75, 'envelope': 0.5},
+    alphas={'mean': .1, 'envelope': 0.5},
     aspect=1/3
 )
+ax.set_ylim(-10, 5000)
+ax.set_aspect((1/3)/ax.get_data_ratio())
 fig.savefig(
      path.join(OUT_PTH, '{}_{:02d}_GA.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300

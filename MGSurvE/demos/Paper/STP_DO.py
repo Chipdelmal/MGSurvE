@@ -142,7 +142,7 @@ fig.savefig(
 plt.close('all')
 # Plot Traps Kernels ----------------------------------------------------------
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
-(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 500))
+(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 500), aspect=.175)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_KER.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
