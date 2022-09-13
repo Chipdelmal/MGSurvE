@@ -9,11 +9,11 @@ import cartopy.crs as crs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 
-ID = 'TTP'
+ID = 'YKN'
 ###############################################################################
 # File ID
 ###############################################################################
-GENS = 2000
+GENS = 25
 OUT_PTH = './sims_out/'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
@@ -51,7 +51,7 @@ traps = pd.DataFrame({
 tKer = {
     2: {
         'kernel': srv.sigmoidDecay,     
-        'params': {'A': 1, 'rate': .175, 'x0': 25}
+        'params': {'A': .85, 'rate': .175, 'x0': 20}
     },
     1: {
         'kernel': srv.exponentialDecay, 
@@ -84,8 +84,9 @@ lndGA = deepcopy(lnd)
 srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
 srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 ###############################################################################
-# Plot Landscape
+# Plots
 ###############################################################################
+# Landscape -------------------------------------------------------------------
 lnd = srv.loadLandscape(OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 (fig, ax) = (
     plt.figure(figsize=(15, 15)), plt.axes(projection=crs.PlateCarree())
@@ -100,7 +101,7 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
-# Plot Traps Kernels ----------------------------------------------------------
+# Traps Kernels ---------------------------------------------------------------
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
 (fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 100), aspect=.175)
 fig.savefig(
