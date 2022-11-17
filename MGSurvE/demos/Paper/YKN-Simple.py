@@ -9,7 +9,7 @@ import cartopy.crs as crs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 
-ID = 'YKN'
+ID = 'TTP'
 ###############################################################################
 # File ID
 ###############################################################################
@@ -20,8 +20,8 @@ srv.makeFolder(OUT_PTH)
 # File ID
 ###############################################################################
 LND_PTH = './GEO/{}_LatLon.csv'.format(ID)
-TRPS_NUM = 6
-TRAP_TYP = [0, 0, 1, 2, 1, 1]
+TRPS_NUM = 10
+TRAP_TYP = [0, 0, 1, 0, 1, 1, 0, 1, 0, 2]
 ###############################################################################
 # Load pointset
 ###############################################################################
@@ -51,7 +51,7 @@ traps = pd.DataFrame({
 tKer = {
     2: {
         'kernel': srv.sigmoidDecay,     
-        'params': {'A': .85, 'rate': .175, 'x0': 20}
+        'params': {'A': .8, 'rate': .15, 'x0': 30}
     },
     1: {
         'kernel': srv.exponentialDecay, 
@@ -68,7 +68,7 @@ tKer = {
 lnd = srv.Landscape(
     YK_LL, 
     kernelFunction=mKer['kernelFunction'], kernelParams=mKer['kernelParams'],
-    traps=traps, trapsKernels=tKer, trapsRadii=[.9, .8, .7],
+    traps=traps, trapsKernels=tKer, trapsRadii=[.9, .8, .75],
     landLimits=YK_BBOX
 )
 bbox = lnd.getBoundingBox()
