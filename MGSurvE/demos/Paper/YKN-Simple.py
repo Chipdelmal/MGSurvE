@@ -9,18 +9,18 @@ import cartopy.crs as crs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 
-ID = 'TTP'
+ID = 'YKN'
 ###############################################################################
 # File ID
 ###############################################################################
-GENS = 1500
+GENS = 1000
 OUT_PTH = './sims_out/'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
 # File ID
 ###############################################################################
 LND_PTH = './GEO/{}_LatLon.csv'.format(ID)
-TRPS_NUM = 10
+TRPS_NUM = 8
 TRAP_TYP = [0, 0, 1, 0, 1, 1, 0, 1, 0, 2]
 ###############################################################################
 # Load pointset
@@ -51,7 +51,7 @@ traps = pd.DataFrame({
 tKer = {
     2: {
         'kernel': srv.sigmoidDecay,     
-        'params': {'A': .8, 'rate': .15, 'x0': 30}
+        'params': {'A': .8, 'rate': .1, 'x0': 40}
     },
     1: {
         'kernel': srv.exponentialDecay, 
@@ -92,7 +92,7 @@ lnd = srv.loadLandscape(OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl
     plt.figure(figsize=(15, 15)), plt.axes(projection=crs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=50)
-lnd.plotMigrationNetwork(fig, ax, lineWidth=20, alphaMin=.075, alphaAmplitude=7.5)
+lnd.plotMigrationNetwork(fig, ax, lineWidth=10, alphaMin=.1, alphaAmplitude=7.5)
 lnd.plotTraps(fig, ax, zorders=(30, 25))
 # srv.plotFitness(fig, ax, min(logbook['min']), fmt='{:.5f}', fontSize=100)
 srv.plotClean(fig, ax, bbox=YK_BBOX)
