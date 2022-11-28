@@ -20,7 +20,7 @@ srv.makeFolder(OUT_PTH)
 bside = math.sqrt(PTS_NUM)*11.25
 bbox = ((-bside, bside), (-bside, bside))
 xy = srv.ptsRegularGrid(int(math.sqrt(PTS_NUM)), bbox).T
-if LND == 'HOM':
+if LND == 'HET':
     pType = [0]*xy.shape[1]
 else:
     pType = np.random.choice(PTS_TYPE, xy.shape[1])

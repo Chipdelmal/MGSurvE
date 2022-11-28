@@ -9,20 +9,19 @@ import cartopy.crs as crs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 
-ID = 'YKN'
+ID = 'TTP'
 ###############################################################################
 # File ID
 ###############################################################################
 GENS = 1000
 OUT_PTH = './sims_out/'
 srv.makeFolder(OUT_PTH)
-DIAG_VAL = 0
 ###############################################################################
 # File ID
 ###############################################################################
 LND_PTH = './GEO/{}_LatLon.csv'.format(ID)
 TRPS_NUM = 8
-TRAP_TYP = [0, 0, 1, 0, 1, 1, 0, 1]
+TRAP_TYP = [0, 0, 1, 0, 1, 1, 0, 2]
 ###############################################################################
 # Load pointset
 ###############################################################################
@@ -44,9 +43,10 @@ mKer = {
 ###############################################################################
 nullTraps = [0]*TRPS_NUM
 cntr = ([np.mean(YK_LL['lon'])]*TRPS_NUM, [np.mean(YK_LL['lat'])]*TRPS_NUM)
+cntr = (cntr[0][:-1]+[145.70042928450462], cntr[1][:-1]+[-16.8078])
 traps = pd.DataFrame({
     'lon': cntr[0], 'lat': cntr[1], 
-    't': TRAP_TYP, 'f': nullTraps
+    't': TRAP_TYP, 'f': ([0]*(TRPS_NUM-1))+[1],
 })
 # Setup trap kernels ----------------------------------------------------------
 tKer = {
@@ -93,10 +93,11 @@ lnd = srv.loadLandscape(OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl
     plt.figure(figsize=(15, 15)), plt.axes(projection=crs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=50)
-lnd.plotMigrationNetwork(fig, ax, lineWidth=7.5, alphaMin=.05, alphaAmplitude=5)
-lnd.plotTraps(fig, ax, zorders=(30, 25))
+# lnd.plotMigrationNetwork(fig, ax, lineWidth=7.5, alphaMin=.05, alphaAmplitude=5)
+# lnd.plotTraps(fig, ax, zorders=(30, 25))
 # srv.plotFitness(fig, ax, min(logbook['min']), fmt='{:.5f}', fontSize=100)
-srv.plotClean(fig, ax, bbox=YK_BBOX)
+# srv.plotClean(fig, ax, bbox=YK_BBOX)
+ax.scatter(145.70001928450462, -16.8055, zorder=10)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
