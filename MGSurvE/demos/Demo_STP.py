@@ -30,7 +30,7 @@ if FXD_TRPS:
     ID = 'STP_FXD'
 else:
     ID = 'STP_FXN'
-GENS = 1000
+GENS = 500
 (IX_SPLIT, DIAG_VAL) = (27, 0.1)
 ###############################################################################
 # Load Pointset
@@ -221,7 +221,7 @@ lnd.plotMigrationNetwork(
     fig, ax, lineWidth=60, alphaMin=.1, alphaAmplitude=5
 )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
-srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
+# srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
 lnd.plotLandBoundary(fig, ax)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(

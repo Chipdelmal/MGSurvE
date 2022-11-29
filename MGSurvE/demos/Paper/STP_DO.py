@@ -24,7 +24,7 @@ ID = 'STP_DO_FXD' if FXD_TRPS else 'STP_DO_FXN'
 ###############################################################################
 # Load Pointset
 ###############################################################################
-SAO_TOME_LL = pd.read_csv(path.join('./GEO', 'STP_LatLon.csv'))
+SAO_TOME_LL = pd.read_csv(path.join('./GEO', 'STP_LatLonN.csv'))
 SAO_TOME_LL['t'] = [0]*SAO_TOME_LL.shape[0]
 SAO_bbox = (
     (min(SAO_TOME_LL['lon']), max(SAO_TOME_LL['lon'])),
@@ -40,7 +40,7 @@ FXD_NUM = len(SAO_FIXED)
 # Load Migration Matrix
 ###############################################################################
 migration = np.genfromtxt(
-    path.join('./GEO', 'STP_Migration.csv'), delimiter=','
+    path.join('./GEO', 'STP_MigrationN.csv'), delimiter=','
 )
 np.fill_diagonal(migration, DIAG_VAL)
 SAO_TOME_MIG = normalize(migration, axis=1, norm='l1')

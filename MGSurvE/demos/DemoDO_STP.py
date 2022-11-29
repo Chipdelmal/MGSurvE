@@ -19,12 +19,10 @@ import cartopy.feature as cfeature
 if not srv.isNotebook():
     (FXD_TRPS, TRPS_NUM) = (int(argv[2]), int(argv[1]))
 else:
-    (FXD_TRPS, TRPS_NUM) = (True, 8)
+    (FXD_TRPS, TRPS_NUM) = (True, 7)
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
-# OUT_PTH = '/Volumes/marshallShare/MGS_Benchmarks/STPVincenty/'
-# OUT_PTH = '/RAID5/marshallShare/MGS_Benchmarks/STPVincenty/'
 OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
 if FXD_TRPS:
     ID = 'STP_DO_FXD'
@@ -90,22 +88,22 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 # Plot Landscape
 ###############################################################################
-# (fig, ax) = (
-#     plt.figure(figsize=(15, 15)),
-#     plt.axes(projection=ccrs.PlateCarree())
-# )
-# lnd.plotSites(fig, ax, size=250)
-# # lnd.plotTraps(fig, ax)
-# lnd.plotMigrationNetwork(
-#     fig, ax, lineWidth=60, alphaMin=.1, alphaAmplitude=5,
-# )
-# lnd.plotLandBoundary(fig, ax)
-# srv.plotClean(fig, ax, bbox=lnd.landLimits)
-# fig.savefig(
-#     path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
-#     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-# )
-# plt.close('all')
+(fig, ax) = (
+    plt.figure(figsize=(15, 15)),
+    plt.axes(projection=ccrs.PlateCarree())
+)
+lnd.plotSites(fig, ax, size=250)
+# lnd.plotTraps(fig, ax)
+lnd.plotMigrationNetwork(
+    fig, ax, lineWidth=75, alphaMin=.2, alphaAmplitude=5
+)
+lnd.plotLandBoundary(fig, ax)
+srv.plotClean(fig, ax, bbox=lnd.landLimits)
+fig.savefig(
+    path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+)
+plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 
@@ -197,20 +195,45 @@ srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 ###############################################################################
 # Plot Results
 ###############################################################################
+# Landscape -------------------------------------------------------------------
+lnd = srv.loadLandscape(OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 (fig, ax) = (
     plt.figure(figsize=(15, 15)),
     plt.axes(projection=ccrs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=250)
 lnd.plotMigrationNetwork(
-    fig, ax, lineWidth=60, alphaMin=.1, alphaAmplitude=5
+    fig, ax, lineWidth=75, alphaMin=.2, alphaAmplitude=5
 )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
-srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
+# srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
 lnd.plotLandBoundary(fig, ax)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=400
+)
+plt.close('all')
+# Plot Traps Kernels ----------------------------------------------------------
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
+(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 500), aspect=.175)
+fig.savefig(
+    path.join(OUT_PTH, '{}_{:02d}_KER.png'.format(ID, TRPS_NUM)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+)
+plt.close('all')
+# GA --------------------------------------------------------------------------
+log = pd.DataFrame(logbook)
+log.rename(columns={'median': 'avg'}, inplace=True)
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
+srv.plotGAEvolution(
+    fig, ax, log,
+    colors={'mean': '#ffffff', 'envelope': '#1565c0'},
+    alphas={'mean': .75, 'envelope': 0.5},
+    aspect=1/3
+)
+fig.savefig(
+    path.join(OUT_PTH, '{}_{:02d}_GA.png'.format(ID, TRPS_NUM)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')

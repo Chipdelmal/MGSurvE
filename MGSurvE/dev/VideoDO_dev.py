@@ -20,7 +20,7 @@ warnings.filterwarnings("ignore")
 
 (OUT_PTH, LND_TYPE, ID) = (
     '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty', 
-    'STP_DO_FXD', '07'
+    'STP_DO_FXD', '12'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
@@ -56,8 +56,9 @@ for i in range(0, len(gaMin)):
     ###########################################################################
     # Reshape and update traps
     ###########################################################################
-    trapsCoords = np.reshape(
-        np.fromstring(gaTraps[i][1:-1], sep=','), (-1, 2)
+    trapsCoords = srv.chromosomeIDtoXY(
+        np.fromstring(gaTraps[i][1:-1], sep=','), 
+        lnd.pointID, lnd.pointCoords
     ).T
     trapsLocs = pd.DataFrame(
         np.vstack([trapsCoords, lnd.trapsTypes, lnd.trapsFixed]).T, 
