@@ -20,7 +20,7 @@ warnings.filterwarnings("ignore")
 
 (OUT_PTH, LND_TYPE, ID) = (
     '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty', 
-    'STP_DO_FXD', '12'
+    'STP_DO_FXD', '22'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
