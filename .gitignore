@@ -7,7 +7,7 @@ scratch
 demo_out
 sims_out
 *.png
-# *.csv
+*.csv
 mailAlerts.py
 /MGSurve/demos/*.png
 !/MGSurvE/demos/Paper/GEO/STP_LatLon.csv
