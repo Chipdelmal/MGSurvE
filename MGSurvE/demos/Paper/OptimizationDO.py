@@ -17,7 +17,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (GENS, VERBOSE, OUT_PTH) = (cst.gens, cst.verbose, cst.out_pth)
 if srv.isNotebook():
-    ID = 'Ring_LND_HOM'
+    ID = 'Grid_LND_HOM'
 else:
     ID = argv[1]
 ###############################################################################
@@ -43,9 +43,11 @@ creator.create("FitnessMin",
 creator.create("Individual", 
     list, fitness=creator.FitnessMin
 )
-toolbox.register("initChromosome", srv.initChromosome, 
-    trapsCoords=lndGA.trapsCoords, 
-    fixedTrapsMask=trpMsk, coordsRange=bbox
+toolbox.register("initChromosome", srv.initDiscreteChromosome, 
+    ptsIds=lndGA.pointID, 
+    fixedTraps=lndGA.trapsFixed, 
+    trapsSiteID=lndGA.trapsSiteID,
+    banSites=lndGA.pointsTrapBanned
 )
 toolbox.register("individualCreator", tools.initIterate, 
     creator.Individual, toolbox.initChromosome
@@ -55,21 +57,25 @@ toolbox.register("populationCreator", tools.initRepeat,
 )
 # Mate and mutate -------------------------------------------------------------
 toolbox.register(
-    "mate", tools.cxBlend, 
-    alpha=MAT['mate']
+    "mate", srv.cxDiscreteUniform, 
+    fixedTraps=lndGA.trapsFixed,
+    indpb=MAT['indpb']
 )
 toolbox.register(
-    "mutate", tools.mutGaussian, 
-    mu=MUT['mean'], sigma=MUT['sd'], indpb=MUT['ipb']
+    "mutate", srv.mutateDiscreteChromosome,
+    ptsIds=lndGA.pointID, 
+    fixedTraps=lndGA.trapsFixed,
+    indpb=MUT['indpb'],
+    banSites=lndGA.pointsTrapBanned
 )
 # Select and evaluate ---------------------------------------------------------
 toolbox.register("select", 
     tools.selTournament, tournsize=SEL['tSize']
 )
 toolbox.register("evaluate", 
-    srv.calcFitness, 
+    srv.calcDiscreteFitness, 
     landscape=lndGA,
-    optimFunction=srv.getDaysTillTrapped,
+    optimFunction=srv.getDaysTillTrappedPseudoInverse,
     optimFunctionArgs={'outer': np.mean, 'inner': np.max}
 )
 ###############################################################################
@@ -88,7 +94,7 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 ############################################################################### 
 (pop, logbook) = algorithms.eaSimple(
     pop, toolbox, cxpb=MAT['cxpb'], mutpb=MUT['mutpb'], ngen=GENS, 
-    stats=stats, halloffame=hof, verbose=VERBOSE
+    stats=stats, halloffame=hof, verbose=True
 )
 # Update with best results ----------------------------------------------------
 minFits= logbook.select("min")
@@ -102,7 +108,7 @@ srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
 (fig, ax) = plt.subplots(figsize=(15, 15))
 (fig, ax) = srv.plotGAEvolution(fig, ax, dta)
 # srv.plotClean(fig, ax)
-pthSave = path.join(OUT_PTH, '{}_GAP-S'.format(ID))
+pthSave = path.join(OUT_PTH, '{}_GAP-DOC'.format(ID))
 fig.savefig(
     pthSave,
     facecolor='w', bbox_inches='tight', pad_inches=.1, dpi=cst.dpi
@@ -117,7 +123,7 @@ lnd.plotTraps(fig, ax, size=200)
 srv.plotClean(fig, ax, bbox=bbox, frame=False, pad=cst.pad_i)
 srv.plotFitness(fig, ax, min(minFits), zorder=30)
 fig.savefig(
-    path.join(OUT_PTH, '{}_TRP-C.png'.format(ID)), 
+    path.join(OUT_PTH, '{}_TRP-DOC.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')

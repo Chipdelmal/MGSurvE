@@ -49,7 +49,11 @@ points_het['t'] = np.random.choice(ptsTypes, ptsNum, p=cst.pTypesProb)
 # Defining Traps
 ###############################################################################
 nullT= cst.nullTraps
-traps = pd.DataFrame({'x': nullT, 'y': nullT, 't': cst.typeTraps , 'f': nullT})
+traps = pd.DataFrame({
+    'sid': nullT,
+    'x': nullT, 'y': nullT, 
+    't': cst.typeTraps , 'f': nullT
+})
 tKer = cst.tKer
 ###############################################################################
 # Setting Landscape Up
