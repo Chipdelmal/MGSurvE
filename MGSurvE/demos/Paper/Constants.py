@@ -18,8 +18,8 @@ nullTraps = [0, 0, 0, 0, 0]
 typeTraps = [0, 0, 1, 1, 1]
 # Traps' kernels
 tKer = {
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .075}},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .025}}
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .050}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .025}}
 }
 # Transition probabilities between point-types
 msk = [
@@ -28,12 +28,13 @@ msk = [
     [0.70, 0.10, 0.20],
 ]
 # GA Settings
-(gens, verbose) = (500, False)
+(gens, verbose) = (750, False)
 gaParams = [
     {
         'mate': .3, 
         'cxpb': 0.5,
-        'indpb': 0.35
+        'indpb': 0.35,
+        'alpha': .5
     }, 
     {
         'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 

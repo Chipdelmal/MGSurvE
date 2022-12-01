@@ -94,14 +94,15 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 ############################################################################### 
 (pop, logbook) = algorithms.eaSimple(
     pop, toolbox, cxpb=MAT['cxpb'], mutpb=MUT['mutpb'], ngen=GENS, 
-    stats=stats, halloffame=hof, verbose=True
+    stats=stats, halloffame=hof, verbose=VERBOSE
 )
 # Update with best results ----------------------------------------------------
 minFits= logbook.select("min")
-lnd.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
-srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP'.format(ID))
+trapXY = srv.chromosomeIDtoXY(hof[0], lndGA.pointID, lndGA.pointCoords)
+lnd.updateTrapsCoords(trapXY)
+srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP-DOC'.format(ID))
 dta = pd.DataFrame(logbook)
-srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
+srv.exportLog(logbook, OUT_PTH, '{}_LOG-DOC'.format(ID))
 ###############################################################################
 # Plot GA
 ############################################################################### 

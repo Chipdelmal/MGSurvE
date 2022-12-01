@@ -40,7 +40,7 @@ lndGA = deepcopy(lnd)
         mating_params=MAT, mutation_params=MUT, selection_params=SEL,
         fitFuns={'outer': np.mean, 'inner': np.max}, verbose=VERBOSE
     )
-srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
+srv.exportLog(logbook, OUT_PTH, '{}_LOG-S'.format(ID))
 ###############################################################################
 # Plot GA
 ############################################################################### 

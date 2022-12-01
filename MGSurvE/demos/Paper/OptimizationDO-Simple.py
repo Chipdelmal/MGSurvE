@@ -36,11 +36,11 @@ lndGA = deepcopy(lnd)
 # Registering Functions for GA
 ############################################################################### 
 (lnd, logbook) = srv.optimizeDiscreteTrapsGA(
-        lndGA, pop_size='auto', generations=50,
+        lndGA, pop_size='auto', generations=GENS,
         mating_params=MAT, mutation_params=MUT, selection_params=SEL,
         fitFuns={'outer': np.mean, 'inner': np.max}, verbose=VERBOSE
     )
-srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
+srv.exportLog(logbook, OUT_PTH, '{}_LOG-DOS'.format(ID))
 ###############################################################################
 # Plot GA
 ############################################################################### 
