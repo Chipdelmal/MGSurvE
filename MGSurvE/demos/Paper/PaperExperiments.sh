@@ -6,11 +6,11 @@ declare -a lnds=("Grid" "Uniform" "Ring" "Poisson" )
 # Setting landscapes up
 ###############################################################################
 echo "* [1/3] Generating landscapes"
-# for lnd in ${lnds[@]}; do
-#     printf "\r\tGenerating $lnd..."
-#     python Landscape.py $lnd
-#     printf "\r\033[K"
-# done
+for lnd in ${lnds[@]}; do
+    printf "\r\tGenerating $lnd..."
+    python Landscape.py $lnd
+    printf "\r\033[K"
+done
 ###############################################################################
 # Optimizing Continuous Traps
 ###############################################################################

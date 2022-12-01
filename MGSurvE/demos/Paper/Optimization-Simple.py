@@ -40,7 +40,7 @@ lndGA = deepcopy(lnd)
         mating_params=MAT, mutation_params=MUT, selection_params=SEL,
         fitFuns={'outer': np.mean, 'inner': np.max}, verbose=VERBOSE
     )
-srv.exportLog(logbook, OUT_PTH, '{}_LOG-S'.format(ID))
+srv.exportLog(logbook, OUT_PTH, '{}_LOG-COS'.format(ID))
 ###############################################################################
 # Plot GA
 ############################################################################### 
@@ -64,7 +64,7 @@ lnd.plotTraps(fig, ax, size=200)
 srv.plotClean(fig, ax, bbox=bbox, frame=False, pad=cst.pad_i)
 srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
 fig.savefig(
-    path.join(OUT_PTH, '{}_TRP-S.png'.format(ID)), 
+    path.join(OUT_PTH, '{}_TRP-COS.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')

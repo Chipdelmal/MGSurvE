@@ -93,16 +93,16 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 # Update with best results ----------------------------------------------------
 minFits= logbook.select("min")
 lnd.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
-srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP-C'.format(ID))
+srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP-DOC'.format(ID))
 dta = pd.DataFrame(logbook)
-srv.exportLog(logbook, OUT_PTH, '{}_LOG-C'.format(ID))
+srv.exportLog(logbook, OUT_PTH, '{}_LOG-DOC'.format(ID))
 ###############################################################################
 # Plot GA
 ############################################################################### 
 (fig, ax) = plt.subplots(figsize=(15, 15))
 (fig, ax) = srv.plotGAEvolution(fig, ax, dta)
 # srv.plotClean(fig, ax)
-pthSave = path.join(OUT_PTH, '{}_GAP-C'.format(ID))
+pthSave = path.join(OUT_PTH, '{}_GAP-DOC'.format(ID))
 fig.savefig(
     pthSave,
     facecolor='w', bbox_inches='tight', pad_inches=.1, dpi=cst.dpi
@@ -117,7 +117,7 @@ lnd.plotTraps(fig, ax, size=200)
 srv.plotClean(fig, ax, bbox=bbox, frame=False, pad=cst.pad_i)
 srv.plotFitness(fig, ax, min(minFits), zorder=30)
 fig.savefig(
-    path.join(OUT_PTH, '{}_TRP-C.png'.format(ID)), 
+    path.join(OUT_PTH, '{}_TRP-DOC.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')
