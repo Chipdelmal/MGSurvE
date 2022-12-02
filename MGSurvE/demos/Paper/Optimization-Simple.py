@@ -47,7 +47,7 @@ srv.exportLog(logbook, OUT_PTH, '{}_LOG-COS'.format(ID))
 (fig, ax) = plt.subplots(figsize=(15, 15))
 (fig, ax) = srv.plotGAEvolution(fig, ax, logbook)
 pthSave = path.join(
-    OUT_PTH, '{}_GAP-C'.format(ID)
+    OUT_PTH, '{}_GAP-COS'.format(ID)
 )
 fig.savefig(
     pthSave,
