@@ -21,7 +21,7 @@ srv.makeFolder(OUT_PTH)
 ###############################################################################
 LND_PTH = './GEO/{}_LatLon.csv'.format(ID)
 TRPS_NUM = 8
-TRAP_TYP = [0, 0, 1, 0, 1, 1, 0, 2]
+TRAP_TYP = [0, 0, 1, 0, 1, 1, 0, 0]
 ###############################################################################
 # Load pointset
 ###############################################################################
@@ -94,10 +94,10 @@ lnd = srv.loadLandscape(OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl
 )
 lnd.plotSites(fig, ax, size=50)
 lnd.plotMigrationNetwork(fig, ax, lineWidth=7.5, alphaMin=.05, alphaAmplitude=7.5)
-lnd.plotTraps(fig, ax, zorders=(30, 25))
+# lnd.plotTraps(fig, ax, zorders=(30, 25))
 # srv.plotFitness(fig, ax, min(logbook['min']), fmt='{:.5f}', fontSize=100)
-srv.plotClean(fig, ax, bbox=YK_BBOX)
-ax.scatter(145.70001928450462, -16.8055, zorder=10)
+# srv.plotClean(fig, ax, bbox=YK_BBOX)
+# ax.scatter(145.70001928450462, -16.8055, zorder=10)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300

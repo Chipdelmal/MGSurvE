@@ -5,21 +5,21 @@ import MGSurvE as srv
 # Path for outputs
 out_pth = './sims_out/'
 # Landscape's bounding box
-bbox = ((-350, 350), (-225, 225))
+bbox = ((-400, 400), (-300, 300))
 # Mosquito movement kernel
 mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
 # Number of sites and clusters in the environment
-ptsNum = 350
-(clsNum, clsRad) = (5, 75)
+ptsNum = 400
+(clsNum, clsRad) = (5, 175)
 # Probability for each point-type
 pTypesProb =[0.05, 0.70, 0.25]
 # Number and type of traps
-nullTraps = [0, 0, 0, 0]
-typeTraps = [0, 0, 1, 1]
+nullTraps = [0, 0, 0, 0, 0]
+typeTraps = [0, 0, 1, 1, 1]
 # Traps' kernels
 tKer = {
-    0: {'kernel': srv.exponentialDecay, 'params': {'A': .5, 'b': .075}},
-    1: {'kernel': srv.exponentialDecay, 'params': {'A': .25, 'b': .025}}
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .035}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .025}}
 }
 # Transition probabilities between point-types
 msk = [
@@ -28,10 +28,19 @@ msk = [
     [0.70, 0.10, 0.20],
 ]
 # GA Settings
-(gens, verbose) = (2000, False)
+(gens, verbose) = (1000, False)
 gaParams = [
-    {'mate': .3, 'cxpb': 0.5}, 
-    {'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 'mutpb': .4, 'ipb': .5},
+    {
+        'mate': .3, 
+        'cxpb': 0.5,
+        'indpb': 0.35,
+        'alpha': .5
+    }, 
+    {
+        'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 
+        'mutpb': .4, 'ipb': .5, 
+        'indpb': 0.35
+    },
     {'tSize': 3}
 ]
 # Plots

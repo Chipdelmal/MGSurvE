@@ -16,7 +16,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (GENS, VERBOSE, OUT_PTH) = (cst.gens, cst.verbose, cst.out_pth)
 if srv.isNotebook():
-    ID = 'Ring_LND_HOM'
+    ID = 'Grid_LND_HOM'
 else:
     ID = argv[1]
 ###############################################################################
@@ -35,19 +35,19 @@ lndGA = deepcopy(lnd)
 ###############################################################################
 # Registering Functions for GA
 ############################################################################### 
-(lnd, logbook) = srv.optimizeTrapsGA(
+(lnd, logbook) = srv.optimizeDiscreteTrapsGA(
         lndGA, pop_size='auto', generations=GENS,
         mating_params=MAT, mutation_params=MUT, selection_params=SEL,
         fitFuns={'outer': np.mean, 'inner': np.max}, verbose=VERBOSE
     )
-srv.exportLog(logbook, OUT_PTH, '{}_LOG-COS'.format(ID))
+srv.exportLog(logbook, OUT_PTH, '{}_LOG-DOS'.format(ID))
 ###############################################################################
 # Plot GA
 ############################################################################### 
 (fig, ax) = plt.subplots(figsize=(15, 15))
 (fig, ax) = srv.plotGAEvolution(fig, ax, logbook)
 pthSave = path.join(
-    OUT_PTH, '{}_GAP-COS'.format(ID)
+    OUT_PTH, '{}_GAP-DOS'.format(ID)
 )
 fig.savefig(
     pthSave,
@@ -64,7 +64,7 @@ lnd.plotTraps(fig, ax, size=200)
 srv.plotClean(fig, ax, bbox=bbox, frame=False, pad=cst.pad_i)
 srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
 fig.savefig(
-    path.join(OUT_PTH, '{}_TRP-COS.png'.format(ID)), 
+    path.join(OUT_PTH, '{}_TRP-DOS.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')

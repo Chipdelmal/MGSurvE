@@ -20,20 +20,18 @@ if not srv.isNotebook():
     (FXD_TRPS, TRPS_NUM) = (int(argv[2]), int(argv[1]))
 else:
     (FXD_TRPS, TRPS_NUM) = (True, 7)
+OUT_PTH = './sims_out/'
+GENS = 500
+PRINT_BLANK = False
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
-OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty'
-if FXD_TRPS:
-    ID = 'STP_DO_FXD'
-else:
-    ID = 'STP_DO_FXN'
-GENS = 500
+ID = 'STP_DO_FXD' if FXD_TRPS else 'STP_DO_FXN'
 (IX_SPLIT, DIAG_VAL) = (27, 0.1)
 ###############################################################################
 # Load Pointset
 ###############################################################################
-sites = pd.read_csv(path.join(OUT_PTH, 'GEO', 'stp_cluster_sites_pop_v5_fixed.csv'))
+sites = pd.read_csv(path.join('GEO', 'STP_LatLonN.csv'))
 sites['t'] = [0]*sites.shape[0]
 SAO_TOME_LL = sites.iloc[IX_SPLIT:]
 SAO_bbox = (
@@ -41,19 +39,15 @@ SAO_bbox = (
     (min(SAO_TOME_LL['lat']), max(SAO_TOME_LL['lat']))
 )
 SAO_cntr = [i[0]+(i[1]-i[0])/2 for i in SAO_bbox]
-# SAO_TOME_LL = SAO_TOME_LL .rename(
-#     columns={'lon': 'x', 'lat': 'y'}
-# )
 SAO_LIMITS = ((6.41, 6.79), (-0.0475, .45))
 # Get location of minor land-masses -------------------------------------------
-# SAO_FIXED = [tuple(SAO_TOME_LL.loc[i][['lon', 'lat']]) for i in (51, 239)]
 SAO_FIXED = [51-IX_SPLIT, 239-IX_SPLIT]
 FXD_NUM = len(SAO_FIXED)
 ###############################################################################
 # Load Migration Matrix
 ###############################################################################
 migration = np.genfromtxt(
-    path.join(OUT_PTH, 'GEO', 'kernel_cluster_v6a.csv'), delimiter=','
+    path.join('./GEO', 'STP_MigrationN.csv'), delimiter=','
 )
 msplit = migration[IX_SPLIT:,IX_SPLIT:]
 np.fill_diagonal(msplit, DIAG_VAL)
@@ -88,22 +82,22 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 # Plot Landscape
 ###############################################################################
-(fig, ax) = (
-    plt.figure(figsize=(15, 15)),
-    plt.axes(projection=ccrs.PlateCarree())
-)
-lnd.plotSites(fig, ax, size=250)
-# lnd.plotTraps(fig, ax)
-lnd.plotMigrationNetwork(
-    fig, ax, lineWidth=75, alphaMin=.2, alphaAmplitude=5
-)
-lnd.plotLandBoundary(fig, ax)
-srv.plotClean(fig, ax, bbox=lnd.landLimits)
-fig.savefig(
-    path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
-    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-)
-plt.close('all')
+if PRINT_BLANK:
+    (fig, ax) = (
+        plt.figure(figsize=(15, 15)),
+        plt.axes(projection=ccrs.PlateCarree())
+    )
+    lnd.plotSites(fig, ax, size=250)
+    lnd.plotMigrationNetwork(
+        fig, ax, lineWidth=75, alphaMin=.2, alphaAmplitude=5
+    )
+    lnd.plotLandBoundary(fig, ax)
+    srv.plotClean(fig, ax, bbox=lnd.landLimits)
+    fig.savefig(
+        path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
+        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+    )
+    plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 
