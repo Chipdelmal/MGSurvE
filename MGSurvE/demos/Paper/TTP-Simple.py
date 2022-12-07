@@ -52,7 +52,7 @@ traps = pd.DataFrame({
 tKer = {
     2: {
         'kernel': srv.sigmoidDecay,     
-        'params': {'A': 1, 'rate': .075, 'x0': 30}
+        'params': {'A': 1, 'rate': .06, 'x0': 30}
     },
     1: {
         'kernel': srv.exponentialDecay, 
