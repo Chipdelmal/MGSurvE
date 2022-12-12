@@ -50,10 +50,10 @@ traps = pd.DataFrame({
 })
 # Setup trap kernels ----------------------------------------------------------
 tKer = {
-    2: {
-        'kernel': srv.sigmoidDecay,     
-        'params': {'A': 1, 'rate': .06, 'x0': 30}
-    },
+    # 2: {
+    #     'kernel': srv.sigmoidDecay,     
+    #     'params': {'A': 1, 'rate': .06, 'x0': 30}
+    # },
     1: {
         'kernel': srv.exponentialDecay, 
         'params': {'A': 1, 'b': 0.0425}
@@ -82,7 +82,7 @@ lndGA = deepcopy(lnd)
     mating_params='auto', 
     mutation_params='auto', #{'mean': 0, 'sd': .1, 'mutpb': .4, 'ipb': .5}, 
     selection_params='auto',
-    fitFuns={'outer': np.mean, 'inner': np.mean}
+    fitFuns={'outer': np.mean, 'inner': np.max}
 )
 srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
 srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
@@ -98,7 +98,7 @@ lnd.plotSites(fig, ax, size=50)
 lnd.plotMigrationNetwork(fig, ax, lineWidth=7.5, alphaMin=.05, alphaAmplitude=7.5)
 lnd.plotTraps(fig, ax, zorders=(30, 25))
 # srv.plotFitness(fig, ax, min(logbook['min']), fmt='{:.5f}', fontSize=100)
-# srv.plotClean(fig, ax, bbox=YK_BBOX)
+srv.plotClean(fig, ax, bbox=YK_BBOX)
 # ax.scatter(145.70001928450462, -16.8055, zorder=10)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 
