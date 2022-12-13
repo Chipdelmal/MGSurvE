@@ -85,6 +85,16 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')
+# Traps Kernels ---------------------------------------------------------------
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
+(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd_hom, distRange=(0, 100), aspect=.175)
+ax.set_xlabel("Distance (m)")
+ax.set_ylabel("Attractiveness")
+fig.savefig(
+    path.join(OUT_PTH, '{}_{:02d}_KER.png'.format(ID, len(cst.typeTraps))), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+)
+plt.close('all')
 # Heterogeneous ---------------------------------------------------------------
 bbox = lnd_het.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd_het.trapsFixed)

@@ -84,7 +84,7 @@ lndGA = deepcopy(lnd)
     selection_params='auto',
     fitFuns={'outer': np.mean, 'inner': np.max}
 )
-srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
+srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 ###############################################################################
 # Plots
