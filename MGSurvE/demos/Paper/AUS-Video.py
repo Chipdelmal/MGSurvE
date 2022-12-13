@@ -20,7 +20,7 @@ warnings.filterwarnings("ignore")
 
 (OUT_PTH, LND_TYPE, ID) = (
     '/home/chipdelmal/Documents/WorkSims/MGSurvE_Panels/', 
-    'YKN', '08'
+    'TTP', '14'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')

@@ -5,11 +5,12 @@ import numpy as np
 import pandas as pd
 from os import path
 from copy import deepcopy
-import cartopy.crs as crs
+import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 
 ID = 'TTP'
+PRINT_BLANK = True
 ###############################################################################
 # File ID
 ###############################################################################
@@ -75,6 +76,26 @@ lnd = srv.Landscape(
 bbox = lnd.getBoundingBox()
 lndGA = deepcopy(lnd)
 ###############################################################################
+# Plot Landscape
+###############################################################################
+if PRINT_BLANK:
+    (fig, ax) = (
+        plt.figure(figsize=(15, 15)),
+        plt.axes(projection=ccrs.PlateCarree())
+    )
+    lnd.plotSites(fig, ax, size=50)
+    lnd.plotMigrationNetwork(
+        fig, ax, 
+        lineWidth=7.5, alphaMin=.05, alphaAmplitude=7.5
+    )
+    # lnd.plotLandBoundary(fig, ax)
+    srv.plotClean(fig, ax, bbox=lnd.landLimits)
+    fig.savefig(
+        path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
+        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+    )
+    plt.close('all')
+###############################################################################
 # Registering Functions for GA
 ############################################################################### 
 (lnd, logbook) = srv.optimizeTrapsGA(
@@ -92,7 +113,7 @@ srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl'
 # Landscape -------------------------------------------------------------------
 lnd = srv.loadLandscape(OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 (fig, ax) = (
-    plt.figure(figsize=(15, 15)), plt.axes(projection=crs.PlateCarree())
+    plt.figure(figsize=(15, 15)), plt.axes(projection=ccrs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=50)
 lnd.plotMigrationNetwork(fig, ax, lineWidth=7.5, alphaMin=.05, alphaAmplitude=7.5)
