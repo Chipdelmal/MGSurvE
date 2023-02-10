@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from os import path
 from copy import deepcopy
-import cartopy.crs as crs
+import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 
@@ -81,7 +81,7 @@ lndGA = deepcopy(lnd)
 if PRINT_BLANK:
     (fig, ax) = (
         plt.figure(figsize=(15, 15)),
-        plt.axes(projection=crs.PlateCarree())
+        plt.axes(projection=ccrs.PlateCarree())
     )
     lnd.plotSites(fig, ax, size=50)
     lnd.plotMigrationNetwork(
@@ -105,7 +105,7 @@ if PRINT_BLANK:
     selection_params='auto',
     fitFuns={'outer': np.mean, 'inner': np.max}
 )
-srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
+srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 ###############################################################################
 # Plots
@@ -113,7 +113,7 @@ srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl'
 # Landscape -------------------------------------------------------------------
 lnd = srv.loadLandscape(OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 (fig, ax) = (
-    plt.figure(figsize=(15, 15)), plt.axes(projection=crs.PlateCarree())
+    plt.figure(figsize=(15, 15)), plt.axes(projection=ccrs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=50)
 lnd.plotMigrationNetwork(fig, ax, lineWidth=7.5, alphaMin=.05, alphaAmplitude=7.5)
