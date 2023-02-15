@@ -79,10 +79,10 @@ dev_full:
 # Docker
 ###############################################################################
 docker_release:
-	- docker build -t chipdelmal/mgsurve:$(version) .
-	- docker push chipdelmal/mgsurve:$(version)
-	- docker build -t chipdelmal/splatstats:latest .
-	- docker push chipdelmal/splatstats:latest
+	# - docker build -t chipdelmal/mgsurve:$(version) .
+	# - docker push chipdelmal/mgsurve:$(version)
+	- docker build -t chipdelmal/mgsurve:latest .
+	- docker push chipdelmal/mgsurve:latest
 
 docker_run:
 	- docker run \
@@ -100,4 +100,4 @@ docker_build:
 ###############################################################################
 pypi-docker_release:
 	- make pypi
-	- make dockerExport
+	- make docker_release
