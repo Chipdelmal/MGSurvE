@@ -6,7 +6,7 @@ import MGSurvE.auxiliary as aux
 # Tests on distance
 ###############################################################################
 class TestDistance(unittest.TestCase):
-    def test_Vincinity(self):
+    def test_Vincenty(self):
         pointA = (6.250578, 53.478612)
         pointB = (5.916981, 50.752342)
 

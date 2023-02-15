@@ -569,7 +569,6 @@ def calcDiscreteFitnessPseudoInverse(
     trapXY = chromosomeIDtoXY(
         chromosome, landscape.pointID, landscape.pointCoords
     )
-    print(trapXY)
     fit = calcFitnessPseudoInverse(
         trapXY, landscape=landscape,
         optimFunction=optimFunction,

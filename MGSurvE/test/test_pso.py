@@ -77,7 +77,7 @@ def test_movable_pso():
     #     pad_inches=.1, dpi=300
     # )
    
-test_movable_pso()
+# test_movable_pso()
 
 def test_immovable_pso():
     # defining landscape ----------------------------------------------------
@@ -147,7 +147,7 @@ def test_immovable_pso():
     #     pad_inches=.1, dpi=300
     # )
 
-test_immovable_pso()
+# test_immovable_pso()
 
 ###############################################################################
 # Main

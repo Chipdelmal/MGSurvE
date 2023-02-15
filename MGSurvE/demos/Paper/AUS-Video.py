@@ -19,8 +19,8 @@ warnings.filterwarnings("ignore")
 # ffmpeg -start_number 0 -r 4 -f image2 -s 1920x1080 -i STP_10_%05d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -vcodec libx264 -preset veryslow -crf 15 -pix_fmt yuv420p OUTPUT_PATH.mp4
 
 (OUT_PTH, LND_TYPE, ID) = (
-    '/home/chipdelmal/Documents/WorkSims/MGSurvE_Benchmarks/STPVincenty', 
-    'STP_DO_FXD', '07'
+    '/home/chipdelmal/Documents/WorkSims/MGSurvE_Panels/', 
+    'TTP', '14'
 )
 fPat = '{}_{}_'.format(LND_TYPE, ID)
 IMG_PTH = path.join(OUT_PTH, fPat+'VID')
@@ -50,7 +50,7 @@ plt.close('all')
 ############################################################################### 
 (gaMin, gaTraps, gens) = (dat['min'], dat['traps'], dat.shape[0])
 bbox = lnd.getBoundingBox()
-i=10
+i=999
 for i in range(0, len(gaMin)):
     print("* Exporting frame {:05d}".format(i), end='\r')
     ###########################################################################

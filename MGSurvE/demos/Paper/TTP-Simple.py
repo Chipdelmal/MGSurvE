@@ -9,7 +9,7 @@ import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 
-ID = 'YKN'
+ID = 'TTP'
 PRINT_BLANK = True
 ###############################################################################
 # File ID
@@ -21,8 +21,8 @@ srv.makeFolder(OUT_PTH)
 # File ID
 ###############################################################################
 LND_PTH = './GEO/{}_LatLon.csv'.format(ID)
-TRPS_NUM = 8
-TRAP_TYP = [0, 0, 1, 0, 1, 1, 0, 2]
+TRPS_NUM = 14
+TRAP_TYP = [0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1]
 ###############################################################################
 # Load pointset
 ###############################################################################
@@ -44,16 +44,17 @@ mKer = {
 ###############################################################################
 nullTraps = [0]*TRPS_NUM
 cntr = ([np.mean(YK_LL['lon'])]*TRPS_NUM, [np.mean(YK_LL['lat'])]*TRPS_NUM)
+cntr = (cntr[0][:-1]+[145.70001928450462], cntr[1][:-1]+[-16.8055])
 traps = pd.DataFrame({
     'lon': cntr[0], 'lat': cntr[1], 
-    't': TRAP_TYP, 'f': nullTraps
+    't': TRAP_TYP, 'f': [0]*TRPS_NUM  # ([0]*(TRPS_NUM-1))+[1],
 })
 # Setup trap kernels ----------------------------------------------------------
 tKer = {
-    2: {
-        'kernel': srv.sigmoidDecay,     
-        'params': {'A': .88, 'rate': .075, 'x0': 30}
-    },
+    # 2: {
+    #     'kernel': srv.sigmoidDecay,     
+    #     'params': {'A': 1, 'rate': .06, 'x0': 30}
+    # },
     1: {
         'kernel': srv.exponentialDecay, 
         'params': {'A': 1, 'b': 0.0425}
@@ -99,7 +100,9 @@ if PRINT_BLANK:
 ############################################################################### 
 (lnd, logbook) = srv.optimizeTrapsGA(
     lndGA, pop_size='auto', generations=GENS,
-    mating_params='auto', mutation_params='auto', selection_params='auto',
+    mating_params='auto', 
+    mutation_params='auto', #{'mean': 0, 'sd': .1, 'mutpb': .4, 'ipb': .5}, 
+    selection_params='auto',
     fitFuns={'outer': np.mean, 'inner': np.max}
 )
 srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
@@ -110,14 +113,14 @@ srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl'
 # Landscape -------------------------------------------------------------------
 lnd = srv.loadLandscape(OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
 (fig, ax) = (
-    plt.figure(figsize=(15, 15)), 
-    plt.axes(projection=ccrs.PlateCarree())
+    plt.figure(figsize=(15, 15)), plt.axes(projection=ccrs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=50)
 lnd.plotMigrationNetwork(fig, ax, lineWidth=7.5, alphaMin=.05, alphaAmplitude=7.5)
 lnd.plotTraps(fig, ax, zorders=(30, 25))
 # srv.plotFitness(fig, ax, min(logbook['min']), fmt='{:.5f}', fontSize=100)
-srv.plotClean(fig, ax, bbox=lnd.landLimits)
+srv.plotClean(fig, ax, bbox=YK_BBOX)
+# ax.scatter(145.70001928450462, -16.8055, zorder=10)
 fig.savefig(
     path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300

@@ -34,7 +34,7 @@ setuptools.setup(
     extras_require={
         'dev': ['pytest', 'twine', 'wheel', 'sphinx', 'sphinx_rtd_theme'],
     },
-    license='MIT',
+    license='GPLv3',
     classifiers=[
         'Programming Language :: Python :: 3.9',
         "Programming Language :: Python :: 3.10",

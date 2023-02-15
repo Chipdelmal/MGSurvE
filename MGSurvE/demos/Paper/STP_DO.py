@@ -8,18 +8,14 @@ from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
 from numpy.random import uniform
-from deap import base, creator, algorithms, tools
 from sklearn.preprocessing import normalize
 import MGSurvE as srv
 import cartopy.crs as ccrs
 
-if srv.isNotebook():
-    FXD_TRPS =  True
-else:
-    FXD_TRPS =  (argv[1] == 'True')
+FXD_TRPS =  True
 PRINT_BLANK = False
-(TRPS_NUM, GENS) = (10, 200)
-DIAG_VAL = 0.01
+(TRPS_NUM, GENS) = (2+20, 1000)
+DIAG_VAL = 0
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
@@ -71,7 +67,7 @@ tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .005}}}
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
     traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS,
-    trapsRadii=[.75, .5, .4],
+    trapsRadii=[.9, .75, .5],
 )
 lndGA = deepcopy(lnd)
 bbox = lnd.getBoundingBox()
@@ -98,11 +94,11 @@ if PRINT_BLANK:
 ###############################################################################
 # GA Settings
 ############################################################################### 
-POP_SIZE = int(10*(lnd.trapsNumber*1.25))
+POP_SIZE = int(10*(lnd.trapsNumber*1.5))
 (MAT, MUT, SEL) = (
-    {'cxpb':  0.30, 'indpb': 0.35}, 
-    {'mutpb': 0.35, 'indpb': 0.50},
-    {'tSize': 3}
+    {'cxpb':  0.300, 'indpb': 0.35}, 
+    {'mutpb': 0.375, 'indpb': 0.50},
+    {'tSize': 5}
 )
 VERBOSE = True
 lndGA = deepcopy(lnd)
@@ -129,7 +125,7 @@ srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl'
 )
 lnd.plotSites(fig, ax, size=250)
 lnd.plotMigrationNetwork(
-    fig, ax, lineWidth=50, alphaMin=.1, alphaAmplitude=2.5
+    fig, ax, lineWidth=30, alphaMin=.25, alphaAmplitude=2.5
 )
 lnd.plotTraps(fig, ax, zorders=(25, 20))
 # srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
@@ -153,8 +149,7 @@ log = pd.DataFrame(logbook)
 log.rename(columns={'median': 'avg'}, inplace=True)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
 srv.plotGAEvolution(
-    fig, ax,
-    log,
+    fig, ax, log,
     colors={'mean': '#ffffff', 'envelope': '#1565c0'},
     alphas={'mean': .75, 'envelope': 0.5},
     aspect=1/3

@@ -49,7 +49,11 @@ points_het['t'] = np.random.choice(ptsTypes, ptsNum, p=cst.pTypesProb)
 # Defining Traps
 ###############################################################################
 nullT= cst.nullTraps
-traps = pd.DataFrame({'x': nullT, 'y': nullT, 't': cst.typeTraps , 'f': nullT})
+traps = pd.DataFrame({
+    'sid': nullT,
+    'x': nullT, 'y': nullT, 
+    't': cst.typeTraps , 'f': nullT
+})
 tKer = cst.tKer
 ###############################################################################
 # Setting Landscape Up
@@ -79,6 +83,16 @@ srv.plotClean(fig, ax, frame=False, bbox=bbox, pad=cst.pad_i)
 fig.savefig(
     path.join(OUT_PTH, '{}_LND_HOM.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
+)
+plt.close('all')
+# Traps Kernels ---------------------------------------------------------------
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
+(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd_hom, distRange=(0, 100), aspect=.175)
+ax.set_xlabel("Distance (m)")
+ax.set_ylabel("Attractiveness")
+fig.savefig(
+    path.join(OUT_PTH, '{}_{:02d}_KER.png'.format(ID, len(cst.typeTraps))), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
 # Heterogeneous ---------------------------------------------------------------
