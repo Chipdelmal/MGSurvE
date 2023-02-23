@@ -200,6 +200,43 @@ def test_MarkovFundamental():
     # Put tests together ------------------------------------------------------
     assert (equivalency)
 
+
+def test_meanTimeAndFundamentalTime():
+    ptsNum = 50
+    pTypesProb =[0.05, 0.70, 0.25]
+    bbox = ((-200, 200), (-150, 150))
+    ###########################################################################
+    # Pointset
+    ###########################################################################
+    (ptsNum, _) = (ptsNum, len(pTypesProb))
+    xy = srv.ptsRandUniform(ptsNum, bbox).T
+    points = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
+    mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
+    ###########################################################################
+    # Traps
+    ###########################################################################
+    traps = pd.DataFrame({
+        'x': [0, 0, 0, 0], 'y': [0, 0, 87.5, -87.5],
+        't': [0, 1, 0, 1], 'f': [0, 0, 0, 0]
+    })
+    tKer = {
+        0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .100}},
+        1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': .050}}
+    }
+    ###########################################################################
+    # Landscape
+    ###########################################################################
+    lnd = srv.Landscape(points, kernelParams=mKer, traps=traps, trapsKernels=tKer)
+    ###########################################################################
+    # Test and Compare
+    ###########################################################################
+    fund = srv.getDaysTillTrapped(lnd, fitFuns={'outer': np.sum, 'inner': np.sum})
+    expt = srv.getTimeToCapture(lnd, fitFuns={'outer': np.sum})
+    # Put tests together ------------------------------------------------------
+    equivalency = np.isclose(fund, expt)
+    assert (equivalency)
+
+
 ###############################################################################
 # Main
 ###############################################################################

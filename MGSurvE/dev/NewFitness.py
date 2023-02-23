@@ -57,6 +57,15 @@ lnd = srv.Landscape(points, kernelParams=mKer, traps=traps, trapsKernels=tKer)
 ###############################################################################
 P = lnd.trapsMigration
 
+srv.getDaysTillTrapped(lnd, fitFuns={'outer': np.sum, 'inner': np.sum})
+
+canonElems = getCanonicalElements(lnd.trapsMigration, lnd.pointNumber, lnd.trapsNumber)
+(Q, R, I) = [canonElems[d] for d in ('Q', 'R', 'I')]
+N = np.linalg.pinv(np.subtract(I, Q))
+t = np.matmul(N, np.ones(N.shape[0]))
+np.sum(t)
+
+
 def getCanonicalElements(tau, sitesN, trapsN):
     """ 
     """

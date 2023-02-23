@@ -158,7 +158,7 @@ def getMeanTimeToCapture(canonElems, pseudoInv=True, rcond=1e-20):
 
 def getTimeToCapture(
         landscape, 
-        fitFuns={'outer': np.max}, 
+        fitFuns={'outer': np.sum}, 
         pseudoInv=True, rcond=1e-10
     ):
     canonElems = getCanonicalElements(
