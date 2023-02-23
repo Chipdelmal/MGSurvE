@@ -125,6 +125,38 @@ def getFundamentalFitness(
 
 
 ###############################################################################
+# Extended fitness function
+###############################################################################
+def getCanonicalElements(tau, sitesN, trapsN):
+    """ Helper function to return canonical elements of the traps matrix (Q (tau), R (v), I).
+
+    Parameters:
+        tau (numpy array): Migration matrix with traps included
+        sitesN (int): Number of sites
+        trapsN (int): Number of traps
+
+    Returns:
+        (dict): Dictionary of elements in canonical matrix.
+    """
+    Q = tau[:sitesN, :sitesN]
+    R = tau[:sitesN, -trapsN:]
+    I = np.identity(Q.shape[0])
+    return {'Q': Q, 'R': R, 'I': I}
+
+def getMeanTimeToCapture(canonElems, pseudoInv=True, rcond=1e-20):
+    (Q, R, I) = [canonElems[d] for d in ('Q', 'R', 'I')]
+    # Get fundamental matrix
+    if pseudoInv:
+        N = np.linalg.pinv(np.subtract(I, Q), rcond=rcond)
+    else:
+        N = np.linalg.inv(np.subtract(I, Q))
+    # Calculate mean time to capture
+    t = np.matmul(N, np.ones(N.shape[0]))
+    B = np.matmul(N, R)
+    return 1
+
+
+###############################################################################
 # GA (Basic)
 ###############################################################################
 def initChromosome(trapsCoords, fixedTrapsMask, coordsRange):
