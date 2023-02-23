@@ -143,6 +143,7 @@ def getCanonicalElements(tau, sitesN, trapsN):
     I = np.identity(Q.shape[0])
     return {'Q': Q, 'R': R, 'I': I}
 
+
 def getMeanTimeToCapture(canonElems, pseudoInv=True, rcond=1e-20):
     (Q, R, I) = [canonElems[d] for d in ('Q', 'R', 'I')]
     # Get fundamental matrix
@@ -152,8 +153,22 @@ def getMeanTimeToCapture(canonElems, pseudoInv=True, rcond=1e-20):
         N = np.linalg.inv(np.subtract(I, Q))
     # Calculate mean time to capture
     t = np.matmul(N, np.ones(N.shape[0]))
-    B = np.matmul(N, R)
-    return 1
+    return t
+
+
+def getTimeToCapture(
+        landscape, 
+        fitFuns={'outer': np.max}, 
+        pseudoInv=True, rcond=1e-10
+    ):
+    canonElems = getCanonicalElements(
+        landscape.trapsMigration,
+        landscape.pointNumber, 
+        landscape.trapsNumber
+    )
+    t = getMeanTimeToCapture(canonElems, pseudoInv=pseudoInv, rcond=rcond)
+    fit = fitFuns['outer'](t)
+    return fit
 
 
 ###############################################################################
