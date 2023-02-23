@@ -59,35 +59,30 @@ P = lnd.trapsMigration
 
 srv.getDaysTillTrapped(lnd, fitFuns={'outer': np.sum, 'inner': np.sum})
 
-canonElems = getCanonicalElements(lnd.trapsMigration, lnd.pointNumber, lnd.trapsNumber)
+canonElems = srv.getCanonicalElements(lnd.trapsMigration, lnd.pointNumber, lnd.trapsNumber)
 (Q, R, I) = [canonElems[d] for d in ('Q', 'R', 'I')]
 N = np.linalg.pinv(np.subtract(I, Q))
 t = np.matmul(N, np.ones(N.shape[0]))
 np.sum(t)
 
+# def getCanonicalElements(tau, sitesN, trapsN):
+#     """ 
+#     """
+#     Q = tau[:sitesN, :sitesN]
+#     R = tau[:sitesN, -trapsN:]
+#     I = np.identity(Q.shape[0])
+#     return {'Q': Q, 'R': R, 'I': I}
+# P = np.array([
+#     [0, .5, 0, .5, 0],
+#     [.5, 0, .5, 0, 0],
+#     [0, .5, 0, 0, .5],
+#     [0, 0, 0, 1, 0],
+#     [0, 0, 0, 0, 1]
+# ])
+# canonElems = getCanonicalElements(P, 3, 2)
+# (Q, R, I) = [canonElems[d] for d in ('Q', 'R', 'I')]
+# N = np.linalg.pinv(np.subtract(I, Q))
+# t = np.matmul(N, np.ones(N.shape[0]))
+# B = np.matmul(N, R)
 
-def getCanonicalElements(tau, sitesN, trapsN):
-    """ 
-    """
-    Q = tau[:sitesN, :sitesN]
-    R = tau[:sitesN, -trapsN:]
-    I = np.identity(Q.shape[0])
-    return {'Q': Q, 'R': R, 'I': I}
-
-
-P = np.array([
-    [0, .5, 0, .5, 0],
-    [.5, 0, .5, 0, 0],
-    [0, .5, 0, 0, .5],
-    [0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 1]
-])
-
-
-canonElems = getCanonicalElements(P, 3, 2)
-(Q, R, I) = [canonElems[d] for d in ('Q', 'R', 'I')]
-N = np.linalg.pinv(np.subtract(I, Q))
-t = np.matmul(N, np.ones(N.shape[0]))
-B = np.matmul(N, R)
-
-B*t
+# B*t
