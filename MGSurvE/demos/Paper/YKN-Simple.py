@@ -39,6 +39,10 @@ mKer = {
     'kernelFunction': srv.zeroInflatedExponentialKernel,
     'kernelParams': {'params': srv.AEDES_EXP_PARAMS, 'zeroInflation': 0}
 }
+mDict = {
+    'kernel': srv.truncatedExponential, 
+    'params': {'params': srv.AEDES_EXP_PARAMS}
+}
 ###############################################################################
 # Defining Traps
 ###############################################################################
@@ -52,7 +56,7 @@ traps = pd.DataFrame({
 tKer = {
     2: {
         'kernel': srv.sigmoidDecay,     
-        'params': {'A': .88, 'rate': .075, 'x0': 30}
+        'params': {'A': .9, 'rate': .075, 'x0': 30}
     },
     1: {
         'kernel': srv.exponentialDecay, 
@@ -63,6 +67,7 @@ tKer = {
         'params': {'A': 1, 'k': .01, 's': .3, 'gamma': .975, 'epsilon': 0}
     }
 }
+meanDistances = [srv.nSolveKernel(tKer[i], 0.5, 20) for i in tKer.keys()]
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################

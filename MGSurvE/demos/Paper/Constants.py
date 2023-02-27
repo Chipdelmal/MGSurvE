@@ -7,7 +7,8 @@ out_pth = './sims_out/'
 # Landscape's bounding box
 bbox = ((-400, 400), (-300, 300))
 # Mosquito movement kernel
-mKer = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
+mKerZ = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': .75}
+mKerN = {'params': [.075, 1.0e-10, math.inf], 'zeroInflation': 0}
 # Number of sites and clusters in the environment
 ptsNum = 400
 (clsNum, clsRad) = (5, 175)

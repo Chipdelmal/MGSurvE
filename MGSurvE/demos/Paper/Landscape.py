@@ -13,9 +13,9 @@ import MGSurvE as srv
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 if srv.isNotebook():
-    (ID, OUT_PTH) = ("Poisson", "./sims_out/")
+    (ID, OUT_PTH, ZIK) = ("Poisson", "./sims_out/", "ZN")
 else:
-    (ID, OUT_PTH) = (sys.argv[1], cst.out_pth)
+    (ID, OUT_PTH, ZIK) = (sys.argv[1], cst.out_pth, sys.argv[2])
 ###############################################################################
 # Synthetic Landscape Selector
 ###############################################################################
@@ -58,7 +58,10 @@ tKer = cst.tKer
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
-(mKer, msk) = (cst.mKer, cst.msk)
+(mKer, msk) = (
+    (cst.mKerZ if ZIK=='ZI' else cst.mKerN), 
+    cst.msk
+)
 lnd_hom = srv.Landscape(
     points_hom, 
     kernelParams=mKer, 
@@ -72,6 +75,7 @@ lnd_het = srv.Landscape(
 ###############################################################################
 # Plot Landscapes
 ###############################################################################
+ID = f'{ZIK}-{ID}'
 # Homogeneous -----------------------------------------------------------------
 bbox = lnd_hom.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd_hom.trapsFixed)

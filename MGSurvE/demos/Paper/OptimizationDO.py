@@ -17,12 +17,13 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (GENS, VERBOSE, OUT_PTH) = (cst.gens, cst.verbose, cst.out_pth)
 if srv.isNotebook():
-    ID = 'Grid_LND_HOM'
+    (ID, ZIK) = ('Grid_LND_HOM', 'ZI')
 else:
-    ID = argv[1]
+    (ID, ZIK) = (argv[1], argv[2])
 ###############################################################################
 # Load Landscape
 ###############################################################################
+ID = f'{ZIK}-{ID}'
 lnd = srv.loadLandscape(OUT_PTH, ID)
 # Needed auxiliary variables --------------------------------------------------
 (bbox, trpMsk) = (lnd.getBoundingBox(), srv.genFixedTrapsMask(lnd.trapsFixed))
