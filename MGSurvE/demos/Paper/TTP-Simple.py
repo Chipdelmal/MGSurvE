@@ -103,7 +103,7 @@ if PRINT_BLANK:
     mating_params='auto', 
     mutation_params='auto', #{'mean': 0, 'sd': .1, 'mutpb': .4, 'ipb': .5}, 
     selection_params='auto',
-    fitFuns={'outer': np.mean, 'inner': np.max}
+    fitFuns={'outer': np.mean, 'inner': np.sum}
 )
 srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')

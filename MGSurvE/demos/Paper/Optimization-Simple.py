@@ -16,7 +16,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (GENS, VERBOSE, OUT_PTH) = (cst.gens, cst.verbose, cst.out_pth)
 if srv.isNotebook():
-    (ID, ZIK) = ('Grid_LND_HOM', 'ZI')
+    (ID, ZIK) = ('Grid_LND_HOM', 'ZN')
 else:
     (ID, ZIK) = (argv[1], argv[2])
 ###############################################################################

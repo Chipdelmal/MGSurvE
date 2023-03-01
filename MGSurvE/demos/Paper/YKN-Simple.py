@@ -105,7 +105,7 @@ if PRINT_BLANK:
 (lnd, logbook) = srv.optimizeTrapsGA(
     lndGA, pop_size='auto', generations=GENS,
     mating_params='auto', mutation_params='auto', selection_params='auto',
-    fitFuns={'outer': np.mean, 'inner': np.max}
+    fitFuns={'outer': np.mean, 'inner': np.sum}
 )
 srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
 srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')

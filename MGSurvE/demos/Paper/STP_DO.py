@@ -112,7 +112,7 @@ bboxRed = [(i[0]+r, i[1]-r) for (i, r) in zip(bbox,reduction)]
 (lnd, logbook) = srv.optimizeDiscreteTrapsGA(
     lndGA, pop_size=POP_SIZE, generations=GENS,
     mating_params=MAT, mutation_params=MUT, selection_params=SEL,
-    fitFuns={'outer': np.mean, 'inner': np.max}
+    fitFuns={'outer': np.mean, 'inner': np.sum}
 )
 srv.exportLog(logbook, OUT_PTH, '{}_LOG'.format(ID))
 srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
