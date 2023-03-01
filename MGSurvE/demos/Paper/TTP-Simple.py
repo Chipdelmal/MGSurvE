@@ -37,7 +37,7 @@ YK_BBOX = (
 # Movement Kernel -------------------------------------------------------------
 mKer = {
     'kernelFunction': srv.zeroInflatedExponentialKernel,
-    'kernelParams': {'params': srv.AEDES_EXP_PARAMS, 'zeroInflation': 0}
+    'kernelParams': {'params': srv.AEDES_EXP_PARAMS, 'zeroInflation': 1-0.28}
 }
 ###############################################################################
 # Defining Traps
