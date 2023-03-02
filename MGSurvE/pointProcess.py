@@ -60,7 +60,7 @@ def ptsRegularCircle(pointsNumber, radius, solStart=10):
         r = r+step
         nodesN = int(nodesN*2)
     # Convert to array and return
-    xy = np.array([x, y])
+    xy = np.array([x, y]).T
     return xy  
 
 
