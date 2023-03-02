@@ -36,7 +36,7 @@ def ptsRegularCircle(pointsNumber, radius, solStart=10):
     Parameters:
         pointsNumber (int): Approximate number of sites (real number will be lower).
         radius (float): Radius of the circle to set points on.
-
+        solStart (float): Starting point for the steps solver
     Returns:
         (numpy array): Points' coordinates.
     """

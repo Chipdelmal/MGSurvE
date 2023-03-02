@@ -13,7 +13,7 @@ import MGSurvE as srv
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 if srv.isNotebook():
-    (ID, OUT_PTH, ZIK) = ("Poisson", "./sims_out/", "ZN")
+    (ID, OUT_PTH, ZIK) = ("Circle", "./sims_out/", "ZN")
 else:
     (ID, OUT_PTH, ZIK) = (sys.argv[1], cst.out_pth, sys.argv[2])
 ###############################################################################
@@ -39,6 +39,11 @@ elif ID == 'Poisson':
         ptsNum, cst.clsNum, radius,
         bbox=bbox, polygon=None
     ).T
+elif ID == 'Circle':
+    (ptsNum, radius, ptsTypes) = (
+        cst.ptsNum, cst.bbox[0][1], len(cst.pTypesProb)
+    )
+    xy = srv.ptsRegularCircle(ptsNum, radius, solStart=20).T
 ptsNum = xy.shape[1]
 # Generate landscape with one point-type ......................................
 points_hom = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*ptsNum})
