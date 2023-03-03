@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>6. GA with Immovable Traps &mdash; MGSurvE  documentation</title>
@@ -11,10 +11,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,12 +27,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> MGSurvE
-            <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MGSurvE
+              <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -82,9 +86,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="demos.html">Tutorials</a> &raquo;</li>
-      <li><span class="section-number">6. </span>GA with Immovable Traps</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="demos.html">Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">6. </span>GA with Immovable Traps</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/GA_custom.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -95,11 +99,11 @@
            <div itemprop="articleBody">
              
   <section id="ga-with-immovable-traps">
-<h1><span class="section-number">6. </span>GA with Immovable Traps<a class="headerlink" href="#ga-with-immovable-traps" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">6. </span>GA with Immovable Traps<a class="headerlink" href="#ga-with-immovable-traps" title="Permalink to this heading"></a></h1>
 <p>The combination of <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> and <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a> makes it easy to extend GA functions to accommodate specific needs.
 In this tutorial, we will show how to use custom functions to optimize landscapes with immovable traps with different attractiveness levels.</p>
 <section id="setting-traps-up">
-<h2><span class="section-number">6.1. </span>Setting Traps Up<a class="headerlink" href="#setting-traps-up" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">6.1. </span>Setting Traps Up<a class="headerlink" href="#setting-traps-up" title="Permalink to this heading"></a></h2>
 <p>In this example, we will use two types of traps: one with high trapping efficacy but short radius (0), and one with lower trapping efficacy but wider radius (1):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tKer</span> <span class="o">=</span> <span class="p">{</span>
     <span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="n">srv</span><span class="o">.</span><span class="n">exponentialDecay</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mf">.1</span><span class="p">}},</span>
@@ -121,7 +125,7 @@ In this tutorial, we will show how to use custom functions to optimize landscape
 <p>Where the traps with outlined X marks, are immovable.</p>
 </section>
 <section id="built-in-custom-functions">
-<h2><span class="section-number">6.2. </span>Built-in Custom Functions<a class="headerlink" href="#built-in-custom-functions" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">6.2. </span>Built-in Custom Functions<a class="headerlink" href="#built-in-custom-functions" title="Permalink to this heading"></a></h2>
 <p>Now, if we used <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP’s</a> built-in creation, mutation, and crossover functions, all the traps would be moved to find the optimum traps’ distribution.
 As we want two of our traps to stay fixed in their positions, we are going to have to use different operators for these processes.
 Fortunately, <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> provides functions to do this: <code class="code docutils literal notranslate"><span class="pre">initChromosome</span></code>, <code class="code docutils literal notranslate"><span class="pre">cxBlend</span></code>, <code class="code docutils literal notranslate"><span class="pre">mutateChromosome</span></code>; which are based on <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP’s</a> original ones.</p>
@@ -140,7 +144,7 @@ Fortunately, <a class="reference external" href="https://github.com/Chipdelmal/M
 <p>With <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/optimization.py">initChromosome</a> and <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/optimization.py">cxBlend</a> having similar extensions for this case.</p>
 </section>
 <section id="registering-ga">
-<h2><span class="section-number">6.3. </span>Registering GA<a class="headerlink" href="#registering-ga" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">6.3. </span>Registering GA<a class="headerlink" href="#registering-ga" title="Permalink to this heading"></a></h2>
 <p>To do our optimization, we will follow the previous example’s structure, but with some minor modifications.
 The first one is to define our <code class="code docutils literal notranslate"><span class="pre">trpMsk</span></code> that will be needed for our custom functions (as previously mentioned):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lnd</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">Landscape</span><span class="p">(</span>
@@ -171,7 +175,7 @@ The first one is to define our <code class="code docutils literal notranslate"><
 <p>And that’s it. We can use all the predefined functions for selection and stats as we did before.</p>
 </section>
 <section id="optimize-ga">
-<h2><span class="section-number">6.4. </span>Optimize GA<a class="headerlink" href="#optimize-ga" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">6.4. </span>Optimize GA<a class="headerlink" href="#optimize-ga" title="Permalink to this heading"></a></h2>
 <p>With this in place, we can use the same workflow as we did in our <a class="reference external" href="https://chipdelmal.github.io/MGSurvE/build/html/GA.html">previous example</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="n">logbook</span><span class="p">)</span> <span class="o">=</span> <span class="n">algorithms</span><span class="o">.</span><span class="n">eaSimple</span><span class="p">(</span>
     <span class="n">pop</span><span class="p">,</span> <span class="n">toolbox</span><span class="p">,</span> <span class="n">cxpb</span><span class="o">=</span><span class="n">MAT</span><span class="p">[</span><span class="s1">&#39;cxpb&#39;</span><span class="p">],</span> <span class="n">mutpb</span><span class="o">=</span><span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;mutpb&#39;</span><span class="p">],</span> <span class="n">ngen</span><span class="o">=</span><span class="n">GENS</span><span class="p">,</span>
@@ -181,7 +185,7 @@ The first one is to define our <code class="code docutils literal notranslate"><
 </div>
 </section>
 <section id="results">
-<h2><span class="section-number">6.5. </span>Results<a class="headerlink" href="#results" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">6.5. </span>Results<a class="headerlink" href="#results" title="Permalink to this heading"></a></h2>
 <p>After running our landscape optimization, our landscape looks like this:</p>
 <img alt="_images/GA_DEMO_CX_TRP.jpg" src="_images/GA_DEMO_CX_TRP.jpg" />
 <p>Which kept the two traps as immovable in their place. We can verify this by inspecting <code class="code docutils literal notranslate"><span class="pre">lndGA.trapsCoords</span></code>:</p>
