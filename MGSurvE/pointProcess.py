@@ -7,8 +7,9 @@ import time
 import random
 import warnings
 import numpy as np
+from sympy import Symbol
 import numpy.random as rand
-from sklearn.cluster import KMeans
+from sympy.solvers import nsolve
 
 
 def ptsRegularGrid(pointsNumber, bbox):
@@ -27,6 +28,40 @@ def ptsRegularGrid(pointsNumber, bbox):
     coords = np.asarray(np.meshgrid(x, y)).T
     coords = np.concatenate(coords)
     return coords
+
+
+def ptsRegularCircle(pointsNumber, radius, solStart=10):
+    """ Creates concentric circles of points.
+    
+    Parameters:
+        pointsNumber (int): Approximate number of sites (real number will be lower).
+        radius (float): Radius of the circle to set points on.
+        solStart (float): Starting point for the steps solver
+    Returns:
+        (numpy array): Points' coordinates.
+    """
+    (pN, s, r) = (pointsNumber, Symbol('s'), radius)
+    # Solve for radius step size for approximate number of points
+    step = int(nsolve(2*(2**(r/s+1))-3-pN, s, solStart))
+    # Iterate through generated points (origin excluded)
+    (x, y, r, nodesN) = ([0], [0], step, 4)
+    for rad in np.arange(step, radius+1, step):
+        # Calculate angles for nodes
+        angleDelta = (2*math.pi)/nodesN
+        angles = np.arange(0, 2*math.pi, angleDelta)
+        # Map to xy coordinates
+        (xN, yN) = (
+            [rad*math.cos(a) for a in angles],
+            [rad*math.sin(a) for a in angles]
+        )
+        x.extend(xN)
+        y.extend(yN)
+        # Update variables
+        r = r+step
+        nodesN = int(nodesN*2)
+    # Convert to array and return
+    xy = np.array([x, y]).T
+    return xy  
 
 
 def ptsDonut(pointsNumber, radii, center=(0, 0)):

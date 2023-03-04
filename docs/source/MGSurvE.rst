@@ -4,14 +4,6 @@ MGSurvE package
 Submodules
 ----------
 
-MGSurvE.Demo\_STP module
-------------------------
-
-.. automodule:: MGSurvE.Demo_STP
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 MGSurvE.auxiliary module
 ------------------------
 

@@ -1,12 +1,16 @@
 
+import math
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from sympy.solvers import solve, nsolve
+from sympy import Symbol
 import MGSurvE as srv
 
-LND = 2
+LND = 3
 ptsNum = 100
-bbox = ((-10, 10), (-10, 10))
-radii = (20, 25)
+bbox = ((-100, 100), (-100, 100))
+radii = (20, 100)
 ###############################################################################
 # Select landscape type
 ###############################################################################
@@ -16,6 +20,8 @@ elif LND == 1:
     xy = srv.ptsDonut(ptsNum, radii).T
 elif LND == 2:
     xy = srv.ptsRandUniform(ptsNum, bbox).T
+elif LND == 3:
+    xy = srv.ptsRegularCircle(ptsNum, radii[-1]).T
 ###############################################################################
 # Generate landscape object
 ###############################################################################

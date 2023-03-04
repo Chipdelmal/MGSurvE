@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>11. Particle-Swarm Optimization (PSO) &mdash; MGSurvE  documentation</title>
@@ -11,10 +11,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,12 +27,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> MGSurvE
-            <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MGSurvE
+              <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -80,9 +84,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="demos.html">Tutorials</a> &raquo;</li>
-      <li><span class="section-number">11. </span>Particle-Swarm Optimization (PSO)</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="demos.html">Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">11. </span>Particle-Swarm Optimization (PSO)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/PSO.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -93,12 +97,12 @@
            <div itemprop="articleBody">
              
   <section id="particle-swarm-optimization-pso">
-<h1><span class="section-number">11. </span>Particle-Swarm Optimization (PSO)<a class="headerlink" href="#particle-swarm-optimization-pso" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">11. </span>Particle-Swarm Optimization (PSO)<a class="headerlink" href="#particle-swarm-optimization-pso" title="Permalink to this heading"></a></h1>
 <p>Particle-Swarm (PSO) is another optimization paradigm that can be used in <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a>.
 PSO can return more stable results in landscapes where the distances gradient is smooth (as particles tend to move towards the mimumim iteratively following this gradient).</p>
 <p>To use this paradigm, we once again internally leverage the <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a> framework, which can be used through some wrapper functions (special thanks to Lillian Weng, Ayden Salazar, Xingli Yu, Joanna Yoo for the implementation of the algorithm).</p>
 <section id="landscape">
-<h2><span class="section-number">11.1. </span>Landscape<a class="headerlink" href="#landscape" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">11.1. </span>Landscape<a class="headerlink" href="#landscape" title="Permalink to this heading"></a></h2>
 <p>This time, we’ll be using randomly-generated landscapes in a grid, uniform and ring layout.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">TYPE</span> <span class="o">==</span> <span class="s1">&#39;Grid&#39;</span><span class="p">:</span>
     <span class="p">(</span><span class="n">ptsNum</span><span class="p">,</span> <span class="n">ptsTypes</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ptsNum</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">pTypesProb</span><span class="p">))</span>
@@ -138,7 +142,7 @@ PSO can return more stable results in landscapes where the distances gradient is
 <img alt="_images/PSO_Uniform-LND.jpg" class="align-center" src="_images/PSO_Uniform-LND.jpg" />
 </section>
 <section id="pso">
-<h2><span class="section-number">11.2. </span>PSO<a class="headerlink" href="#pso" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">11.2. </span>PSO<a class="headerlink" href="#pso" title="Permalink to this heading"></a></h2>
 <p>Now, the PSO works by generating candidate hyper-dimensional particles (moving along trap-position space) that work in community to find the position that minimizes the target function.
 The variables to tweak to improve its performance are the particles speed (<code class="code docutils literal notranslate"><span class="pre">SPD</span></code>), and exploration distances (<code class="code docutils literal notranslate"><span class="pre">PHI</span></code>), along with the number of particles and generations (<code class="code docutils literal notranslate"><span class="pre">GENS</span></code> and <code class="code docutils literal notranslate"><span class="pre">PARTS</span></code> respectively).
 For this example, we will use a set of parameters that works heuristically well for these scenarios, although these might vary depending on the landscape:</p>
@@ -171,7 +175,7 @@ For this example, we will use a set of parameters that works heuristically well 
 </div>
 </section>
 <section id="export-results">
-<h2><span class="section-number">11.3. </span>Export Results<a class="headerlink" href="#export-results" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">11.3. </span>Export Results<a class="headerlink" href="#export-results" title="Permalink to this heading"></a></h2>
 <p>Finally, as we did before with our GA examples, we export our results:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">logbook</span><span class="p">)</span>
 <span class="n">srv</span><span class="o">.</span><span class="n">dumpLandscape</span><span class="p">(</span><span class="n">lnd</span><span class="p">,</span> <span class="n">OUT_PTH</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">-TRP&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ID</span><span class="p">,</span> <span class="n">TYPE</span><span class="p">),</span> <span class="n">fExt</span><span class="o">=</span><span class="s1">&#39;pkl&#39;</span><span class="p">)</span>
