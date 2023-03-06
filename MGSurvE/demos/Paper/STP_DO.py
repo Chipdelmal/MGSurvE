@@ -12,6 +12,13 @@ from sklearn.preprocessing import normalize
 import MGSurvE as srv
 import cartopy.crs as ccrs
 
+import os
+os.environ["OMP_NUM_THREADS"] = "24" # export OMP_NUM_THREADS=4
+os.environ["OPENBLAS_NUM_THREADS"] = "24" # export OPENBLAS_NUM_THREADS=4 
+os.environ["MKL_NUM_THREADS"] = "24" # export MKL_NUM_THREADS=6
+os.environ["VECLIB_MAXIMUM_THREADS"] = "24" # export VECLIB_MAXIMUM_THREADS=4
+os.environ["NUMEXPR_NUM_THREADS"] = "24" # export NUMEXPR_NUM_THREADS=6
+
 FXD_TRPS =  True
 PRINT_BLANK = False
 (TRPS_NUM, GENS) = (2+20, 1000)
@@ -42,7 +49,7 @@ FXD_NUM = len(SAO_FIXED)
 migration = np.genfromtxt(
     path.join('./GEO', 'STP_Migration.csv'), delimiter=','
 )
-np.fill_diagonal(migration, DIAG_VAL)
+# np.fill_diagonal(migration, DIAG_VAL)
 SAO_TOME_MIG = normalize(migration, axis=1, norm='l1')
 ###############################################################################
 # Defining Traps

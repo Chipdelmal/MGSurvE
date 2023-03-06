@@ -8,8 +8,16 @@ from copy import deepcopy
 import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
+import os
+os.environ["OMP_NUM_THREADS"] = "24" # export OMP_NUM_THREADS=4
+os.environ["OPENBLAS_NUM_THREADS"] = "24" # export OPENBLAS_NUM_THREADS=4 
+os.environ["MKL_NUM_THREADS"] = "24" # export MKL_NUM_THREADS=6
+os.environ["VECLIB_MAXIMUM_THREADS"] = "24" # export VECLIB_MAXIMUM_THREADS=4
+os.environ["NUMEXPR_NUM_THREADS"] = "24" # export NUMEXPR_NUM_THREADS=6
 
-ID = 'TTP'
+
+
+(ID, AP) = ('TTP', 'MX')
 PRINT_BLANK = True
 ###############################################################################
 # File ID
@@ -21,8 +29,8 @@ srv.makeFolder(OUT_PTH)
 # File ID
 ###############################################################################
 LND_PTH = './GEO/{}_LatLon.csv'.format(ID)
-TRPS_NUM = 14
-TRAP_TYP = [0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+TRPS_NUM = 8
+TRAP_TYP = [0, 0, 0, 0, 1, 1, 1, 1]
 ###############################################################################
 # Load pointset
 ###############################################################################
@@ -91,27 +99,28 @@ if PRINT_BLANK:
     # lnd.plotLandBoundary(fig, ax)
     srv.plotClean(fig, ax, bbox=lnd.landLimits)
     fig.savefig(
-        path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
+        path.join(OUT_PTH, '{}-{}_{:02d}_CLN.png'.format(ID, AP, TRPS_NUM)), 
         facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
     )
     plt.close('all')
 ###############################################################################
 # Registering Functions for GA
 ############################################################################### 
+outer = (np.max if AP=='MX' else np.mean)
 (lnd, logbook) = srv.optimizeTrapsGA(
     lndGA, pop_size='auto', generations=GENS,
     mating_params='auto', 
-    mutation_params='auto', #{'mean': 0, 'sd': .1, 'mutpb': .4, 'ipb': .5}, 
+    mutation_params='auto', # {'mean': 0, 'sd': .1, 'mutpb': .4, 'ipb': .5}, 
     selection_params='auto',
-    fitFuns={'outer': np.mean, 'inner': np.sum}
+    fitFuns={'outer': outer, 'inner': np.sum}
 )
-srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
-srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
+srv.exportLog(logbook, OUT_PTH, '{}-{}_{:02d}_LOG'.format(ID, AP, TRPS_NUM))
+srv.dumpLandscape(lnd, OUT_PTH, '{}-{}_{:02d}_TRP'.format(ID, AP, TRPS_NUM), fExt='pkl')
 ###############################################################################
 # Plots
 ###############################################################################
 # Landscape -------------------------------------------------------------------
-lnd = srv.loadLandscape(OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
+lnd = srv.loadLandscape(OUT_PTH, '{}-{}_{:02d}_TRP'.format(ID, AP, TRPS_NUM), fExt='pkl')
 (fig, ax) = (
     plt.figure(figsize=(15, 15)), plt.axes(projection=ccrs.PlateCarree())
 )
@@ -122,7 +131,7 @@ lnd.plotTraps(fig, ax, zorders=(30, 25))
 srv.plotClean(fig, ax, bbox=YK_BBOX)
 # ax.scatter(145.70001928450462, -16.8055, zorder=10)
 fig.savefig(
-    path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 
+    path.join(OUT_PTH, '{}-{}_{:02d}_TRP.png'.format(ID, AP, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
@@ -130,7 +139,7 @@ plt.close('all')
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
 (fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 100), aspect=.175)
 fig.savefig(
-    path.join(OUT_PTH, '{}_{:02d}_KER.png'.format(ID, TRPS_NUM)), 
+    path.join(OUT_PTH, '{}-{}_{:02d}_KER.png'.format(ID, AP, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
@@ -148,7 +157,7 @@ srv.plotGAEvolution(
 ax.set_ylim(-10, 5000)
 ax.set_aspect((1/3)/ax.get_data_ratio())
 fig.savefig(
-     path.join(OUT_PTH, '{}_{:02d}_GA.png'.format(ID, TRPS_NUM)), 
+     path.join(OUT_PTH, '{}-{}_{:02d}_GA.png'.format(ID, AP, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')

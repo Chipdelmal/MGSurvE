@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Installation &mdash; MGSurvE  documentation</title>
@@ -11,10 +11,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,12 +27,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> MGSurvE
-            <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MGSurvE
+              <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -68,8 +72,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Installation</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -80,13 +84,13 @@
            <div itemprop="articleBody">
              
   <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
 <p>It is strongly recommended to install and use <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">conda</a> for environment management, as some of MGSurvE’s dependencies might clash with specific packages versions.
 These installation instructions assume <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">conda</a> is already installed in the target system.</p>
 <section id="local-installation">
-<h2>Local Installation<a class="headerlink" href="#local-installation" title="Permalink to this headline"></a></h2>
+<h2>Local Installation<a class="headerlink" href="#local-installation" title="Permalink to this heading"></a></h2>
 <section id="uneventful-tested-on-linux">
-<h3>Uneventful (tested on Linux)<a class="headerlink" href="#uneventful-tested-on-linux" title="Permalink to this headline"></a></h3>
+<h3>Uneventful (tested on Linux)<a class="headerlink" href="#uneventful-tested-on-linux" title="Permalink to this heading"></a></h3>
 <p>Create a clean <code class="code docutils literal notranslate"><span class="pre">python=3.9</span></code> environment:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda create -n MGSurvE python=&quot;3.9&quot; -y</span>
 </pre></div>
@@ -104,7 +108,7 @@ These installation instructions assume <a class="reference external" href="https
 <p>If <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/index.html">cartopy</a> or <a class="reference external" href="https://pysal.org/libpysal/">libpysal</a> are not currently installed, we will get a warning that we can safely ignore (see the next section for more info); but if any of these steps resulted in an error, let’s have a look at the next section in this installation guide.</p>
 </section>
 <section id="additional-dependencies-and-installation-mishaps-sometimes-happens-on-macos">
-<h3>Additional Dependencies, and Installation Mishaps (sometimes happens on MacOS)<a class="headerlink" href="#additional-dependencies-and-installation-mishaps-sometimes-happens-on-macos" title="Permalink to this headline"></a></h3>
+<h3>Additional Dependencies, and Installation Mishaps (sometimes happens on MacOS)<a class="headerlink" href="#additional-dependencies-and-installation-mishaps-sometimes-happens-on-macos" title="Permalink to this heading"></a></h3>
 <p>Sometimes, either <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a>, <a class="reference external" href="https://pysal.org/libpysal/">libpysal</a>, or <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/index.html">cartopy</a> decide not to play nicely.
 For these cases, the following procedure might help.</p>
 <p>In a fresh environment on <code class="code docutils literal notranslate"><span class="pre">python=3.9</span></code> (or one in which the installation of MGSurvE failed), run the following commands to install <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a>:</p>
@@ -125,7 +129,7 @@ The easiest way to install these dependencies is through <a class="reference ext
 <p>If this installation fails, or if <code class="code docutils literal notranslate"><span class="pre">import</span> <span class="pre">MGSurvE</span></code> fails on python, we might need to have a look at the next section.</p>
 </section>
 <section id="bulletproof-installation-method">
-<h3>Bulletproof Installation Method<a class="headerlink" href="#bulletproof-installation-method" title="Permalink to this headline"></a></h3>
+<h3>Bulletproof Installation Method<a class="headerlink" href="#bulletproof-installation-method" title="Permalink to this heading"></a></h3>
 <p>If either of these approaches is failing, try the following chain of commands:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda create -n MGSurvE python=&quot;3.10&quot;</span>
 <span class="go">conda activate MGSurvE</span>
@@ -140,7 +144,7 @@ The easiest way to install these dependencies is through <a class="reference ext
 </section>
 </section>
 <section id="docker">
-<h2>Docker<a class="headerlink" href="#docker" title="Permalink to this headline"></a></h2>
+<h2>Docker<a class="headerlink" href="#docker" title="Permalink to this heading"></a></h2>
 <p>An alternative way to get <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> running is to download the latest <a class="reference external" href="https://hub.docker.com/r/chipdelmal/mgsurve">Docker image</a>.</p>
 <p>To get started with this approach, <a class="reference external" href="https://docs.docker.com/get-docker/">install Docker</a> on your system. Then, go to our <a class="reference external" href="https://hub.docker.com/r/chipdelmal/mgsurve">Docker image hub</a> and get the latest tag to pull from it. For example:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker pull chipdelmal/mgsurve:0.6.5.6</span>
