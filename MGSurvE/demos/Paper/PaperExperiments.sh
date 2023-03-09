@@ -1,7 +1,7 @@
 #!/bin/bash
 
 OPT=$1
-declare -a lnds=("Circle" "Grid" "Uniform" "Ring" "Poisson")
+declare -a lnds=("Grid" "Uniform" "Ring" "Circle" "Poisson")
 ###############################################################################
 # Setting landscapes up
 ###############################################################################
@@ -15,56 +15,40 @@ done
 ###############################################################################
 # Optimizing Continuous Traps
 ###############################################################################
-# echo "* [2/3] Optimizing landscapes"
-# if [ $OPT == "Simple" ];
-# then
-#     for lnd in ${lnds[@]}; do
-#         printf "\r\tOptimizing (Simple DO) $lnd Zero-Inflated..."
-#         python Optimization-Simple.py "${lnd}_LND_HOM" "ZI"
-#         python Optimization-Simple.py "${lnd}_LND_HET" "ZI"
-#         printf "\r\tOptimizing (Simple DO) $lnd Non Zero-Inflated..."
-#         python Optimization-Simple.py "${lnd}_LND_HOM" "ZN"
-#         python Optimization-Simple.py "${lnd}_LND_HET" "ZN"
-#         printf "\r\033[K"
-#     done
-# else
-#     for lnd in ${lnds[@]}; do
-#         printf "\r\tOptimizing (Simple CO) $lnd Zero-Inflated..."
-#         python Optimization.py "${lnd}_LND_HOM" "ZI"
-#         python Optimization.py "${lnd}_LND_HET" "ZI"
-#         printf "\r\tOptimizing (Simple CO) $lnd Non Zero-Inflated..."
-#         python Optimization.py "${lnd}_LND_HOM" "ZN"
-#         python Optimization.py "${lnd}_LND_HET" "ZN"
-#         printf "\r\033[K"
-#     done
-# fi
-# ###############################################################################
-# # Optimizing Discrete Traps
-# ###############################################################################
-# echo "* [3/3] Optimizing landscapes"
-# if [ $OPT == "Simple" ];
-# then
-#     for lnd in ${lnds[@]}; do
-#         printf "\r\tOptimizing (Complex DO) $lnd Zero-Inflated..."
-#         python OptimizationDO-Simple.py "${lnd}_LND_HOM" "ZI"
-#         python OptimizationDO-Simple.py "${lnd}_LND_HET" "ZI"
-#         printf "\r\tOptimizing (Complex DO) $lnd Non Zero-Inflated..."
-#         python OptimizationDO-Simple.py "${lnd}_LND_HOM" "ZI"
-#         python OptimizationDO-Simple.py "${lnd}_LND_HET" "ZI"
-#         printf "\r\033[K"
-#     done
-# else
-#     for lnd in ${lnds[@]}; do
-#         printf "\r\tOptimizing (Complex CO) $lnd Zero-Inflated..."
-#         python OptimizationDO.py "${lnd}_LND_HOM" "ZI"
-#         python OptimizationDO.py "${lnd}_LND_HET" "ZI"
-#         printf "\r\tOptimizing (Complex CO) $lnd Non Zero-Inflated..."
-#         python OptimizationDO.py "${lnd}_LND_HOM" "ZN"
-#         python OptimizationDO.py "${lnd}_LND_HET" "ZN"
-#         printf "\r\033[K"
-#     done
-# fi
-# ###############################################################################
-# # Goodbye
-# ###############################################################################
-# echo "* Done!"
+echo "* [2/3] Optimizing landscapes"
+if [ $OPT == "Simple" ];
+then
+    for lnd in ${lnds[@]}; do
+        python Optimization-Simple.py "${lnd}_LND_HOM" "ZI"
+        python Optimization-Simple.py "${lnd}_LND_HET" "ZI"
+        printf "\r\033[K"
+    done
+else
+    for lnd in ${lnds[@]}; do
+        python Optimization.py "${lnd}_LND_HOM" "ZI"
+        python Optimization.py "${lnd}_LND_HET" "ZI"
+        printf "\r\033[K"
+    done
+fi
+###############################################################################
+# Optimizing Discrete Traps
+###############################################################################
+echo "* [3/3] Optimizing landscapes"
+if [ $OPT == "Simple" ];
+then
+    for lnd in ${lnds[@]}; do
+        python OptimizationDO-Simple.py "${lnd}_LND_HOM" "ZI"
+        python OptimizationDO-Simple.py "${lnd}_LND_HET" "ZI"
+        printf "\r\033[K"
+    done
+else
+    for lnd in ${lnds[@]}; do
+        python OptimizationDO.py "${lnd}_LND_HOM" "ZI"
+        python OptimizationDO.py "${lnd}_LND_HET" "ZI"
+        printf "\r\033[K"
+    done
+fi
+###############################################################################
+# Goodbye
+###############################################################################
+echo "* Done!"

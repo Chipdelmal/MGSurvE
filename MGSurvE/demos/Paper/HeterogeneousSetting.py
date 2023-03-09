@@ -13,13 +13,6 @@ from deap import base, creator, algorithms, tools
 import Constants as cst
 import MGSurvE as srv
 import warnings
-warnings.filterwarnings('ignore', 'The iteration is not making good progress')
-
-os.environ["OMP_NUM_THREADS"]="4"
-os.environ["OPENBLAS_NUM_THREADS"]="4"
-os.environ["MKL_NUM_THREADS"]="4"
-os.environ["VECLIB_MAXIMUM_THREADS"]="4"
-os.environ["NUMEXPR_NUM_THREADS"]="4"
 
 (OUT_PTH, ID) = (cst.out_pth, 'SX')
 (ptsNum, trpsNum, bbox) = (200, 7, ((-100, 100), (-75, 75)))

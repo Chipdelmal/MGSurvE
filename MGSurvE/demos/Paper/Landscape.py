@@ -13,7 +13,7 @@ import MGSurvE as srv
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 if srv.isNotebook():
-    (ID, OUT_PTH, ZIK) = ("Circle", "./sims_out/", "ZN")
+    (ID, OUT_PTH, ZIK) = ("Ring", "./sims_out/", "ZI")
 else:
     (ID, OUT_PTH, ZIK) = (sys.argv[1], cst.out_pth, sys.argv[2])
 ###############################################################################
@@ -28,7 +28,7 @@ elif ID == 'Uniform':
     xy = srv.ptsRandUniform(ptsNum, bbox).T
 elif ID == 'Ring':
     (ptsNum, radii, ptsTypes) = (
-        cst.ptsNum, (cst.bbox[1][0], cst.bbox[0][0]), len(cst.pTypesProb)
+        cst.ptsNum, (cst.bbox[1][0], int(cst.bbox[1][0]*0.6)), len(cst.pTypesProb)
     )
     xy = srv.ptsDonut(ptsNum, radii).T
 elif ID == 'Poisson':
