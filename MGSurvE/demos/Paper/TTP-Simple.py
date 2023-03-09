@@ -16,7 +16,6 @@ os.environ["VECLIB_MAXIMUM_THREADS"] = "24" # export VECLIB_MAXIMUM_THREADS=4
 os.environ["NUMEXPR_NUM_THREADS"] = "24" # export NUMEXPR_NUM_THREADS=6
 
 
-
 (ID, AP) = ('TTP', 'MX')
 PRINT_BLANK = True
 ###############################################################################
@@ -30,7 +29,7 @@ srv.makeFolder(OUT_PTH)
 ###############################################################################
 LND_PTH = './GEO/{}_LatLon.csv'.format(ID)
 TRPS_NUM = 8
-TRAP_TYP = [0, 0, 0, 0, 1, 1, 1, 1]
+TRAP_TYP = [0, 0, 0, 0, 2, 2, 2, 2]
 ###############################################################################
 # Load pointset
 ###############################################################################
@@ -59,10 +58,10 @@ traps = pd.DataFrame({
 })
 # Setup trap kernels ----------------------------------------------------------
 tKer = {
-    # 2: {
-    #     'kernel': srv.sigmoidDecay,     
-    #     'params': {'A': 1, 'rate': .06, 'x0': 30}
-    # },
+    2: {
+        'kernel': srv.sigmoidDecay,     
+        'params': {'A': 1, 'rate': .06, 'x0': 30}
+    },
     1: {
         'kernel': srv.exponentialDecay, 
         'params': {'A': 1, 'b': 0.0425}
