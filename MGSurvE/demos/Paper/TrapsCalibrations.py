@@ -67,7 +67,11 @@ def exponentialDecay(x, A, B):
     prob = A * np.exp(-B * x)
     return prob
 
-spe = 'An. melas'
+def sigmoidDecay(x, A, rate, x0):
+    prob = A - A / (1 + math.e ** (-rate * (x - x0)))
+    return prob
+
+spe = 'Ae. other'
 (fig, ax) = plt.subplots(figsize=(10, 5))
 trps = np.array([i[0] for i in np.array(trapsGeom[spe]['calves'])])+np.array([i[0] for i in np.array(trapsGeom[spe]['co2'])])
 sums = np.sum(trps)
@@ -75,15 +79,17 @@ plt.plot([0]+distances, [1]+list(trps/sums))
 ax.set_xlim(0, 80)
 ax.set_ylim(0, 1)
 
+fnFit = sigmoidDecay
 (pars, covs) = curve_fit(
-    exponentialDecay, 
+    fnFit, 
     np.array([0]+distances), 
     np.array([1]+list(trps/sums))
 )
-fit_y = [exponentialDecay(d, pars[0], pars[1]) for d in ([0]+distances)]
+samps = np.arange(0, 80, 1)
+fit_y = [fnFit(d, *pars) for d in samps]
 (fig, ax) = plt.subplots(figsize=(10, 5))
 plt.plot([0]+distances, [1]+list(trps/sums), 'o', label='data')
-plt.plot([0]+distances, fit_y, '-', label='fit')
+plt.plot(samps, fit_y, '-', label='fit')
 plt.legend()
 ax.set_xlim(0, 80)
 ax.set_ylim(0, 1)
