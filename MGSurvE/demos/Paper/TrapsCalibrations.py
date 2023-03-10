@@ -55,8 +55,8 @@ for typ in ['calves', 'co2']:
         distances, trps/sums*100,
         sym, label=typ
     )
-ax.set_yscale('log')
-ax.set_xlim(0, distances[-1])
+# ax.set_yscale('symlog')
+ax.set_xlim(0, 80)
 ax.set_ylim(0, 100)
 plt.legend()
 
@@ -67,43 +67,45 @@ def exponentialDecay(x, A, B):
     prob = A * np.exp(-B * x)
     return prob
 
+spe = 'An. melas'
 (fig, ax) = plt.subplots(figsize=(10, 5))
-for typ in ['calves', 'co2', 'control']:
-    plt.plot(
-        distances, 
-        np.array(traps['An. other'][typ])+np.array(traps['An. melas'][typ])
-    )
-ax.set_xlim(0, distances[-1])
-ax.set_ylim(0, 10250)
+trps = np.array([i[0] for i in np.array(trapsGeom[spe]['calves'])])+np.array([i[0] for i in np.array(trapsGeom[spe]['co2'])])
+sums = np.sum(trps)
+plt.plot([0]+distances, [1]+list(trps/sums))
+ax.set_xlim(0, 80)
+ax.set_ylim(0, 1)
 
 (pars, covs) = curve_fit(
     exponentialDecay, 
-    distances, 
-    np.array(traps['An. other']['calves'])+np.array(traps['An. melas']['calves'])
+    np.array([0]+distances), 
+    np.array([1]+list(trps/sums))
 )
-fit_y = [exponentialDecay(d, pars[0], pars[1]) for d in distances]
-plt.plot(distances, np.array(traps['An. other']['calves'])+np.array(traps['An. melas']['calves']), 'o', label='data')
-plt.plot(distances, fit_y, '-', label='fit')
-plt.legend()
-
-
-
+fit_y = [exponentialDecay(d, pars[0], pars[1]) for d in ([0]+distances)]
 (fig, ax) = plt.subplots(figsize=(10, 5))
-for typ in ['calves', 'co2', 'control']:
-    plt.plot(
-        distances, 
-        np.array(traps['Ae. other'][typ])
-    )
-ax.set_xlim(0, distances[-1])
-ax.set_ylim(0, 1500)
-
-
-(pars, covs) = curve_fit(
-    exponentialDecay, 
-    distances, 
-    np.array(traps['Ae. other']['calves'])
-)
-fit_y = [exponentialDecay(d, pars[0], pars[1]) for d in distances]
-plt.plot(distances, np.array(traps['Ae. other']['calves']), 'o', label='data')
-plt.plot(distances, fit_y, '-', label='fit')
+plt.plot([0]+distances, [1]+list(trps/sums), 'o', label='data')
+plt.plot([0]+distances, fit_y, '-', label='fit')
 plt.legend()
+ax.set_xlim(0, 80)
+ax.set_ylim(0, 1)
+
+
+
+# (fig, ax) = plt.subplots(figsize=(10, 5))
+# for typ in ['calves', 'co2', 'control']:
+#     plt.plot(
+#         distances, 
+#         np.array(traps['Ae. other'][typ])
+#     )
+# ax.set_xlim(0, distances[-1])
+# ax.set_ylim(0, 1500)
+
+
+# (pars, covs) = curve_fit(
+#     exponentialDecay, 
+#     distances, 
+#     np.array(traps['Ae. other']['calves'])
+# )
+# fit_y = [exponentialDecay(d, pars[0], pars[1]) for d in distances]
+# plt.plot(distances, np.array(traps['Ae. other']['calves']), 'o', label='data')
+# plt.plot(distances, fit_y, '-', label='fit')
+# plt.legend()
