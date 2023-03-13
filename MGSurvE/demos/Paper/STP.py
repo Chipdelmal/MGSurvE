@@ -47,7 +47,7 @@ FXD_NUM = len(SAO_FIXED)
 migration = np.genfromtxt(
     path.join('./GEO', 'STP_Migration.csv'), delimiter=','
 )
-np.fill_diagonal(migration, DIAG_VAL)
+# np.fill_diagonal(migration, DIAG_VAL)
 SAO_TOME_MIG = normalize(migration, axis=1, norm='l1')
 ###############################################################################
 # Defining Traps
@@ -66,7 +66,7 @@ traps = pd.DataFrame({
     'lon': initLon, 'lat': initLat, 
     't': initTyp, 'f': initFxd
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .0075}}}
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': 0.13539445}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################

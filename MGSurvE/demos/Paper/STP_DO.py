@@ -67,7 +67,7 @@ traps = pd.DataFrame({
     'lon': initLon, 'lat': initLat, 
     't': initTyp, 'f': initFxd
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': .005}}}
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': 0.13539445}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
