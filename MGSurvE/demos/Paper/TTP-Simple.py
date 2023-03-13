@@ -16,12 +16,12 @@ os.environ["VECLIB_MAXIMUM_THREADS"] = "24" # export VECLIB_MAXIMUM_THREADS=4
 os.environ["NUMEXPR_NUM_THREADS"] = "24" # export NUMEXPR_NUM_THREADS=6
 
 
-(ID, AP) = ('TTP', 'MX')
+(ID, AP) = ('TTP', 'MN')
 PRINT_BLANK = True
 ###############################################################################
 # File ID
 ###############################################################################
-GENS = 1000
+GENS = 1500
 OUT_PTH = './sims_out/'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
@@ -29,7 +29,7 @@ srv.makeFolder(OUT_PTH)
 ###############################################################################
 LND_PTH = './GEO/{}_LatLon.csv'.format(ID)
 TRPS_NUM = 8
-TRAP_TYP = [0, 0, 0, 0, 2, 2, 2, 2]
+TRAP_TYP = [0, 0, 0, 0, 1, 1, 1, 1]
 ###############################################################################
 # Load pointset
 ###############################################################################
@@ -58,17 +58,13 @@ traps = pd.DataFrame({
 })
 # Setup trap kernels ----------------------------------------------------------
 tKer = {
-    2: {
-        'kernel': srv.sigmoidDecay,     
-        'params': {'A': 1, 'rate': .06, 'x0': 30}
-    },
     1: {
-        'kernel': srv.exponentialDecay, 
-        'params': {'A': 1, 'b': 0.0425}
+        'kernel': srv.sigmoidDecay,     
+        'params': {'A': .5, 'rate': .5, 'x0': 1/0.12690072}
     },
     0: {
-        'kernel': srv.exponentialAttractiveness,
-        'params': {'A': 1, 'k': .01, 's': .3, 'gamma': .975, 'epsilon': 0}
+        'kernel': srv.exponentialDecay, 
+        'params': {'A': .5, 'b': 0.12690072} # 0.0425}
     }
 }
 ###############################################################################
@@ -77,7 +73,7 @@ tKer = {
 lnd = srv.Landscape(
     YK_LL, 
     kernelFunction=mKer['kernelFunction'], kernelParams=mKer['kernelParams'],
-    traps=traps, trapsKernels=tKer, trapsRadii=[.9, .8, .75],
+    traps=traps, trapsKernels=tKer, trapsRadii=[.5, .4, .3],
     landLimits=YK_BBOX
 )
 bbox = lnd.getBoundingBox()
