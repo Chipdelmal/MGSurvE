@@ -71,7 +71,7 @@ def sigmoidDecay(x, rate, x0):
     prob = 1 - 1 / (1 + math.e ** (-rate * (x - x0)))
     return prob
 
-spe = 'An. melas'
+spe = 'Ae. other'
 (fig, ax) = plt.subplots(figsize=(10, 5))
 trps = np.array([i[0] for i in np.array(trapsGeom[spe]['calves'])])+np.array([i[0] for i in np.array(trapsGeom[spe]['co2'])])
 sums = np.sum(trps)
@@ -110,3 +110,13 @@ kernelDict = {
     'params': {'A': 1, 'b': parsE[0]}
 }
 dHalf = srv.nSolveKernel(kernelDict, 0.5, guess=0, latlon=False)
+
+
+fitS = [sigmoidDecay(d, 0.5, 1/parsE[0]) for d in samps]
+(fig, ax) = plt.subplots(figsize=(10, 5))
+plt.plot([0]+distances, [1]+list(trps/sums), 'o', label='data')
+plt.plot(samps, fitS, '-', label='Sigmoid')
+plt.plot(samps, fitE, '-', label='Exponential')
+plt.legend()
+ax.set_xlim(0, 80)
+ax.set_ylim(0, 1)
