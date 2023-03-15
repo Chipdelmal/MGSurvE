@@ -30,32 +30,32 @@ lnd = srv.loadLandscape(OUT_PTH, ID)
 # GA Settings
 ############################################################################### 
 TRPS_NUM = lnd.trapsCoords.shape[0]
-POP_SIZE = int(10*(lnd.trapsNumber*1.25))
+POP_SIZE = int(10*(lnd.trapsNumber*1.5))
 (MAT, MUT, SEL) = cst.gaParams
 lndGA = deepcopy(lnd)
 ###############################################################################
 # Registering Functions for GA
 ############################################################################### 
 (lnd, logbook) = srv.optimizeDiscreteTrapsGA(
-        lndGA, pop_size='auto', generations=GENS,
-        mating_params=MAT, mutation_params=MUT, selection_params=SEL,
-        fitFuns={'outer': np.mean, 'inner': np.sum}, verbose=VERBOSE
-    )
+    lndGA, pop_size=POP_SIZE, generations=GENS,
+    mating_params=MAT, mutation_params=MUT, selection_params=SEL,
+    fitFuns={'outer': np.mean, 'inner': np.sum}, verbose=VERBOSE
+)
+srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP-DOS'.format(ID), fExt='pkl')
 srv.exportLog(logbook, OUT_PTH, '{}_LOG-DOS'.format(ID))
 ###############################################################################
 # Plot GA
 ############################################################################### 
 (fig, ax) = plt.subplots(figsize=(15, 15))
 (fig, ax) = srv.plotGAEvolution(fig, ax, logbook)
-pthSave = path.join(
-    OUT_PTH, '{}_GAP-DOS'.format(ID)
-)
+pthSave = path.join(OUT_PTH, '{}_GAP-DOS'.format(ID))
 fig.savefig(
     pthSave,
     facecolor='w', bbox_inches='tight', 
     pad_inches=.1, dpi=300
 )
 # Export plots ----------------------------------------------------------------
+lnd = srv.loadLandscape(OUT_PTH, '{}_TRP-DOS'.format(ID), fExt='pkl')
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)

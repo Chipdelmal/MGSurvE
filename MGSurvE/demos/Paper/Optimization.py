@@ -109,6 +109,7 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=.1, dpi=cst.dpi
 )
 # Export plots ----------------------------------------------------------------
+lnd = srv.loadLandscape(OUT_PTH, '{}_TRP-COC'.format(ID), fExt='pkl')
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)

@@ -5,18 +5,18 @@ import MGSurvE as srv
 # Path for outputs
 out_pth = './sims_out/'
 # Landscape's bounding box
-bbox = ((-350, 350), (-350, 350))
+bbox = ((-50, 50), (-50, 50))
 # Mosquito movement kernel
 mKerZ = {'params': [0.01848777, 1.0e-10, math.inf], 'zeroInflation': .75}
 mKerN = {'params': [0.01848777, 1.0e-10, math.inf], 'zeroInflation': 0}
 # Number of sites and clusters in the environment
-ptsNum = 300
+ptsNum = 250
 (clsNum, clsRad) = (5, 175)
 # Probability for each point-type
 pTypesProb =[0.1, 0.7, 0.2]
 # Number and type of traps
 nullTraps = [0, 0, 0, 0, 0, 0, 0, 0]
-typeTraps = [0, 0, 0, 0, 0, 0, 1, 1]
+typeTraps = [0, 0, 0, 0, 1, 1, 1, 1]
 # Traps' kernels
 # tKer = {
 #     0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.80, 'b': .035}},
@@ -40,7 +40,7 @@ msk = [
     [0.90, 0.05, 0.05],
 ]
 # GA Settings
-(gens, verbose) = (1500, True)
+(gens, verbose) = (2000, True)
 gaParams = [
     {
         'mate': .3, 
