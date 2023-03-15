@@ -9,8 +9,8 @@ import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 
-ID = 'YKN'
-PRINT_BLANK = True
+(ID, AP) = ('YKN', 'MN')
+PRINT_BLANK = False
 ###############################################################################
 # File ID
 ###############################################################################
@@ -21,8 +21,8 @@ srv.makeFolder(OUT_PTH)
 # File ID
 ###############################################################################
 LND_PTH = './GEO/{}_LatLon.csv'.format(ID)
-TRPS_NUM = 8
-TRAP_TYP = [0, 0, 1, 0, 1, 1, 0, 1]
+TRAP_TYP = [0]*8 + [1]*8
+TRPS_NUM = len(TRAP_TYP)
 ###############################################################################
 # Load pointset
 ###############################################################################
@@ -54,27 +54,23 @@ traps = pd.DataFrame({
 })
 # Setup trap kernels ----------------------------------------------------------
 tKer = {
-    2: {
-        'kernel': srv.sigmoidDecay,     
-        'params': {'A': .9, 'rate': .075, 'x0': 30}
-    },
     1: {
-        'kernel': srv.exponentialDecay, 
-        'params': {'A': 1, 'b': 0.0425}
+        'kernel': srv.sigmoidDecay,     
+        'params': {'A': .5, 'rate': .5, 'x0': 1/0.12690072}
     },
     0: {
-        'kernel': srv.exponentialAttractiveness,
-        'params': {'A': 1, 'k': .01, 's': .3, 'gamma': .975, 'epsilon': 0}
+        'kernel': srv.exponentialDecay, 
+        'params': {'A': .5, 'b': 0.12690072}
     }
 }
-meanDistances = [srv.nSolveKernel(tKer[i], 0.5, 20) for i in tKer.keys()]
+# meanDistances = [srv.nSolveKernel(tKer[i], 0.5, 20) for i in tKer.keys()]
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
 lnd = srv.Landscape(
     YK_LL, 
     kernelFunction=mKer['kernelFunction'], kernelParams=mKer['kernelParams'],
-    traps=traps, trapsKernels=tKer, trapsRadii=[.9, .8, .75],
+    traps=traps, trapsKernels=tKer, trapsRadii=[.5, .4, .3],
     landLimits=YK_BBOX
 )
 bbox = lnd.getBoundingBox()
@@ -102,13 +98,16 @@ if PRINT_BLANK:
 ###############################################################################
 # Registering Functions for GA
 ############################################################################### 
+outer = (np.max if AP=='MX' else np.mean)
 (lnd, logbook) = srv.optimizeTrapsGA(
     lndGA, pop_size='auto', generations=GENS,
-    mating_params='auto', mutation_params='auto', selection_params='auto',
-    fitFuns={'outer': np.mean, 'inner': np.sum}
+    mating_params='auto', 
+    mutation_params='auto',
+    selection_params='auto',
+    fitFuns={'outer': outer, 'inner': np.sum}
 )
-srv.exportLog(logbook, OUT_PTH, '{}_{:02d}_LOG'.format(ID, TRPS_NUM))
-srv.dumpLandscape(lnd, OUT_PTH, '{}_{:02d}_TRP'.format(ID, TRPS_NUM), fExt='pkl')
+srv.exportLog(logbook, OUT_PTH, '{}-{}_{:02d}_LOG'.format(ID, AP, TRPS_NUM))
+srv.dumpLandscape(lnd, OUT_PTH, '{}-{}_{:02d}_TRP'.format(ID, AP, TRPS_NUM), fExt='pkl')
 ###############################################################################
 # Plots
 ###############################################################################
@@ -124,7 +123,7 @@ lnd.plotTraps(fig, ax, zorders=(30, 25))
 # srv.plotFitness(fig, ax, min(logbook['min']), fmt='{:.5f}', fontSize=100)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
-    path.join(OUT_PTH, '{}_{:02d}_TRP.png'.format(ID, TRPS_NUM)), 
+    path.join(OUT_PTH, '{}-{}_{:02d}_TRP.png'.format(ID, AP, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
@@ -150,9 +149,10 @@ srv.plotGAEvolution(
 ax.set_ylim(-10, 5000)
 ax.set_aspect((1/3)/ax.get_data_ratio())
 fig.savefig(
-     path.join(OUT_PTH, '{}_{:02d}_GA.png'.format(ID, TRPS_NUM)), 
+     path.join(OUT_PTH, '{}-{}_{:02d}_GA.png'.format(ID, AP, TRPS_NUM)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
+
 
 

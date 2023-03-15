@@ -16,12 +16,12 @@ os.environ["VECLIB_MAXIMUM_THREADS"] = "24" # export VECLIB_MAXIMUM_THREADS=4
 os.environ["NUMEXPR_NUM_THREADS"] = "24" # export NUMEXPR_NUM_THREADS=6
 
 
-(ID, AP) = ('TTP', 'MN')
+(ID, AP) = ('TTP', 'MX')
 PRINT_BLANK = True
 ###############################################################################
 # File ID
 ###############################################################################
-GENS = 1500
+GENS = 1000
 OUT_PTH = './sims_out/'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
@@ -139,6 +139,7 @@ fig.savefig(
 )
 plt.close('all')
 # GA --------------------------------------------------------------------------
+logbook = pd.read_csv(path.join(OUT_PTH, '{}-{}_{:02d}_LOG.csv'.format(ID, AP, TRPS_NUM)))
 log = pd.DataFrame(logbook)
 log.rename(columns={'median': 'avg'}, inplace=True)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
@@ -146,7 +147,7 @@ srv.plotGAEvolution(
     fig, ax,
     logbook,
     colors={'mean': '#ffffff', 'envelope': '#1565c0'},
-    alphas={'mean': .1, 'envelope': 0.5},
+    alphas={'mean': .3, 'envelope': 0.5},
     aspect=1/3
 )
 ax.set_ylim(-10, 5000)
