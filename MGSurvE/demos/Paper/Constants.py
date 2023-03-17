@@ -15,8 +15,8 @@ ptsNum = 250
 # Probability for each point-type
 pTypesProb =[0.1, 0.7, 0.2]
 # Number and type of traps
-nullTraps = [0, 0, 0, 0, 0, 0, 0, 0]
-typeTraps = [0, 0, 0, 0, 1, 1, 1, 1]
+nullTraps = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+typeTraps = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
 # Traps' kernels
 # tKer = {
 #     0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.80, 'b': .035}},
@@ -40,20 +40,20 @@ msk = [
     [0.90, 0.05, 0.05],
 ]
 # GA Settings
-(gens, verbose) = (2000, True)
+(gens, verbose) = (500, True)
 gaParams = [
     {
-        'mate': .3, 
+        'mate': .35, 
         'cxpb': 0.5,
         'indpb': 0.35,
         'alpha': .5
     }, 
     {
         'mean': 0, 'sd': min([i[1]-i[0] for i in bbox])/5, 
-        'mutpb': .4, 'ipb': .5, 
+        'mutpb': .5, 'ipb': .5, 
         'indpb': 0.35
     },
-    {'tSize': 3}
+    {'tSize': 5}
 ]
 # Plots
 (dpi, pad, pad_i) = (350, 0.05, (10, 10))

@@ -17,6 +17,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (GENS, VERBOSE, OUT_PTH) = (cst.gens, cst.verbose, cst.out_pth)
 if srv.isNotebook():
+    
     (ID, ZIK) = ('Grid_LND_HOM', 'ZI')
 else:
     (ID, ZIK) = (argv[1], argv[2])
@@ -101,9 +102,9 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 minFits= logbook.select("min")
 trapXY = srv.chromosomeIDtoXY(hof[0], lndGA.pointID, lndGA.pointCoords)
 lnd.updateTrapsCoords(trapXY)
-srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP-DOC'.format(ID))
+srv.dumpLandscape(lnd, OUT_PTH, '{}-{}_TRP-DOC'.format(ZIK, ID))
 dta = pd.DataFrame(logbook)
-srv.exportLog(logbook, OUT_PTH, '{}_LOG-DOC'.format(ID))
+srv.exportLog(logbook, OUT_PTH, '{}-{}_TRP-DOC'.format(ZIK, ID))
 ###############################################################################
 # Plot GA
 ############################################################################### 
@@ -116,7 +117,7 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=.1, dpi=cst.dpi
 )
 # Export plots ----------------------------------------------------------------
-lnd = srv.loadLandscape(OUT_PTH, '{}_TRP-DOC'.format(ID), fExt='pkl')
+lnd = srv.loadLandscape(OUT_PTH, '{}-{}_TRP-DOC'.format(ZIK, ID), fExt='pkl')
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
@@ -126,7 +127,7 @@ lnd.plotTraps(fig, ax, size=200)
 srv.plotClean(fig, ax, bbox=bbox, frame=False, pad=cst.pad_i)
 srv.plotFitness(fig, ax, min(minFits), zorder=30)
 fig.savefig(
-    path.join(OUT_PTH, '{}_TRP-DOC.png'.format(ID)), 
+    path.join(OUT_PTH, '{}-{}_TRP-DOC'.format(ZIK, ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')

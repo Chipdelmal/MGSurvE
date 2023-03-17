@@ -16,7 +16,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (GENS, VERBOSE, OUT_PTH) = (cst.gens, cst.verbose, cst.out_pth)
 if srv.isNotebook():
-    (ID, ZIK) = ('Grid_LND_HOM', 'ZI')
+    (ID, ZIK) = ('Uniform_LND_HOM', 'ZI')
 else:
     (ID, ZIK) = (argv[1], argv[2])
 ###############################################################################
@@ -42,7 +42,7 @@ lndGA = deepcopy(lnd)
     fitFuns={'outer': np.mean, 'inner': np.sum}, verbose=VERBOSE
 )
 srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP-DOS'.format(ID), fExt='pkl')
-srv.exportLog(logbook, OUT_PTH, '{}_LOG-DOS'.format(ID))
+srv.exportLog(logbook, OUT_PTH, '{}_TRP-DOS'.format(ID))
 ###############################################################################
 # Plot GA
 ############################################################################### 
@@ -63,7 +63,7 @@ lnd.plotSites(fig, ax, size=200)
 lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
 lnd.plotTraps(fig, ax, size=200)
 srv.plotClean(fig, ax, bbox=bbox, frame=False, pad=cst.pad_i)
-srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
+# srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
 fig.savefig(
     path.join(OUT_PTH, '{}_TRP-DOS.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
