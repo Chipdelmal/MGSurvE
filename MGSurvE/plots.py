@@ -94,7 +94,7 @@ def plotTraps(
         colors=cst.TRP_COLS, marker="X",
         edgecolors=('w', 'k'), lws=(2, 0), ls=':',
         size=350, zorders=(25, -5), fill=True,
-        transform=None, 
+        transform=None, transparencyHex='DD',
         **kwargs
     ):
     """ Plots the traps with the radii of effectiveness.
@@ -128,7 +128,7 @@ def plotTraps(
         (col, ec) = (colors[tType], edgecolors[0])
         if trapsFixed[i]:
             ec = edgecolors[1]
-        transp = 'DD'
+        transp = transparencyHex
         if not fill:
             transp = '00'
         ax.scatter(

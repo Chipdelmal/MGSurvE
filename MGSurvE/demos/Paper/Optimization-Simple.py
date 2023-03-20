@@ -57,7 +57,6 @@ fig.savefig(
 )
 # Export plots ----------------------------------------------------------------
 bbox = lnd.getBoundingBox()
-trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=200)
 lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)

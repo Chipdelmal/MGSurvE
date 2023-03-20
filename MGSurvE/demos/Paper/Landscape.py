@@ -70,12 +70,14 @@ tKer = cst.tKer
 lnd_hom = srv.Landscape(
     points_hom, 
     kernelParams=mKer, 
-    traps=traps, trapsKernels=tKer
+    traps=traps, trapsKernels=tKer,
+    trapsRadii=[.5, .4, .3]
 )
 lnd_het = srv.Landscape(
     points_het, maskingMatrix=msk, 
     kernelParams=mKer,
-    traps=traps, trapsKernels=tKer
+    traps=traps, trapsKernels=tKer,
+    trapsRadii=[.5, .4, .3]
 )
 ###############################################################################
 # Plot Landscapes

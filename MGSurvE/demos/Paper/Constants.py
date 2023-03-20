@@ -40,7 +40,7 @@ msk = [
     [0.90, 0.05, 0.05],
 ]
 # GA Settings
-(gens, verbose) = (1500, True)
+(gens, verbose) = (1000, True)
 gaParams = [
     {
         'mate': .3, 
