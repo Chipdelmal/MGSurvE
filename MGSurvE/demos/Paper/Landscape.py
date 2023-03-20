@@ -13,7 +13,7 @@ import MGSurvE as srv
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 if srv.isNotebook():
-    (ID, OUT_PTH, ZIK) = ("Ring", "./sims_out/", "ZI")
+    (ID, OUT_PTH, ZIK) = ("Grid", "./sims_out/", "ZI")
 else:
     (ID, OUT_PTH, ZIK) = (sys.argv[1], cst.out_pth, sys.argv[2])
 ###############################################################################
@@ -71,13 +71,13 @@ lnd_hom = srv.Landscape(
     points_hom, 
     kernelParams=mKer, 
     traps=traps, trapsKernels=tKer,
-    trapsRadii=[.5, .4, .3]
+    trapsRadii=[.5, .375, .25]
 )
 lnd_het = srv.Landscape(
     points_het, maskingMatrix=msk, 
     kernelParams=mKer,
     traps=traps, trapsKernels=tKer,
-    trapsRadii=[.5, .4, .3]
+    trapsRadii=[.5, .375, .25]
 )
 ###############################################################################
 # Plot Landscapes
