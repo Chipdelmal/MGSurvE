@@ -13,6 +13,13 @@ import Constants as cst
 import MGSurvE as srv
 warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
+import os
+os.environ["OMP_NUM_THREADS"] = "24" # export OMP_NUM_THREADS=4
+os.environ["OPENBLAS_NUM_THREADS"] = "24" # export OPENBLAS_NUM_THREADS=4 
+os.environ["MKL_NUM_THREADS"] = "24" # export MKL_NUM_THREADS=6
+os.environ["VECLIB_MAXIMUM_THREADS"] = "24" # export VECLIB_MAXIMUM_THREADS=4
+os.environ["NUMEXPR_NUM_THREADS"] = "24" # export NUMEXPR_NUM_THREADS=6
+
 
 (GENS, VERBOSE, OUT_PTH) = (cst.gens, cst.verbose, cst.out_pth)
 if srv.isNotebook():
@@ -22,7 +29,7 @@ else:
 ###############################################################################
 # Params for Combos
 ###############################################################################
-PREP = 'LngHi-'
+PREP = 'ShtHi-'
 fCombo = {
     'sum-men': [np.sum,  np.mean],
     'men-max': [np.mean, np.max ],
@@ -50,6 +57,9 @@ lndGA = deepcopy(lnd)
 ###############################################################################
 # Registering Functions for GA
 ###############################################################################
+print("*"*100)
+print("* Running {}".format(COMBO))
+print("*"*100)
 fitFuns = {'inner': fCombo[COMBO][0], 'outer': fCombo[COMBO][1]}
 (lnd, logbook) = srv.optimizeDiscreteTrapsGA(
     lndGA, pop_size=POP_SIZE, generations=GENS,
