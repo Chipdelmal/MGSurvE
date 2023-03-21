@@ -9,19 +9,19 @@ import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 
-(ID, AP) = ('YKN', 'MX')
+(ID, AP) = ('YKN', 'MN')
 PRINT_BLANK = False
 ###############################################################################
 # File ID
 ###############################################################################
-GENS = 1500
+GENS = 1000
 OUT_PTH = './sims_out/'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
 # File ID
 ###############################################################################
 LND_PTH = './GEO/{}_LatLon.csv'.format(ID)
-TRAP_TYP = [0]*8 + [1]*8
+TRAP_TYP = [0]*4 + [1]*4
 TRPS_NUM = len(TRAP_TYP)
 ###############################################################################
 # Load pointset
@@ -58,11 +58,11 @@ traps = pd.DataFrame({
 tKer = {
     1: {
         'kernel': srv.sigmoidDecay,     
-        'params': {'A': .5, 'rate': .5, 'x0': 1/0.12690072}
+        'params': {'A': 1.0, 'rate': .25, 'x0': 1/0.12690072}
     },
     0: {
         'kernel': srv.exponentialDecay, 
-        'params': {'A': .5, 'b': 0.12690072}
+        'params': {'A': 1.0, 'b': 0.12690072}
     }
 }
 # meanDistances = [srv.nSolveKernel(tKer[i], 0.5, 20) for i in tKer.keys()]
@@ -108,7 +108,7 @@ outer = (np.max if AP=='MX' else np.mean)
     mating_params='auto', 
     mutation_params='auto', 
     selection_params='auto',
-    fitFuns={'outer': outer, 'inner': np.sum}
+    fitFuns={'inner': np.max, 'outer': outer}
 )
 srv.exportLog(logbook, OUT_PTH, '{}D-{}_{:02d}_LOG'.format(ID, AP, TRPS_NUM))
 srv.dumpLandscape(lnd, OUT_PTH, '{}D-{}_{:02d}_TRP'.format(ID, AP, TRPS_NUM), fExt='pkl')
