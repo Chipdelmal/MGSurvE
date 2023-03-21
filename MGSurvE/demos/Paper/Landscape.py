@@ -71,13 +71,13 @@ lnd_hom = srv.Landscape(
     points_hom, 
     kernelParams=mKer, 
     traps=traps, trapsKernels=tKer,
-    trapsRadii=[.5, .375, .25]
+    trapsRadii=[0.900, 0.750, .500, .375, .250]
 )
 lnd_het = srv.Landscape(
     points_het, maskingMatrix=msk, 
     kernelParams=mKer,
     traps=traps, trapsKernels=tKer,
-    trapsRadii=[.5, .375, .25]
+    trapsRadii=[0.900, 0.750, .500, .375, .250]
 )
 ###############################################################################
 # Plot Landscapes
