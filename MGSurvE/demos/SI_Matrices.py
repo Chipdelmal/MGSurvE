@@ -50,6 +50,7 @@ lnd = srv.Landscape(
 lnd.distanceMatrix
 lnd.migrationMatrix
 lnd.maskedMigration
+lnd.trapsMigration
 # Plot landscape --------------------------------------------------------------
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax)

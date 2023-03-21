@@ -5,7 +5,7 @@ import MGSurvE as srv
 # Path for outputs
 out_pth = './sims_out/'
 # Landscape's bounding box
-bbox = ((-50, 50), (-50, 50))
+bbox = ((-150, 150), (-150, 150))
 # Mosquito movement kernel
 mKerZ = {'params': [0.01848777, 1.0e-10, math.inf], 'zeroInflation': .75}
 mKerN = {'params': [0.01848777, 1.0e-10, math.inf], 'zeroInflation': 0}
@@ -26,13 +26,23 @@ typeTraps = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
 tKer = {
     1: {
         'kernel': srv.sigmoidDecay,     
-        'params': {'A': .5, 'rate': .5, 'x0': 1/0.12690072}
+        'params': {'A': 1.0, 'rate': .25, 'x0': 1/0.12690072}
     },
     0: {
         'kernel': srv.exponentialDecay, 
-        'params': {'A': .5, 'b': 0.12690072}
+        'params': {'A': 1.0, 'b': 0.12690072}
     }
 }
+# tKer = {
+#     1: {
+#         'kernel': srv.sigmoidDecay,     
+#         'params': {'A': 1, 'rate': .25, 'x0': 1/0.0629534}
+#     },
+#     0: {
+#         'kernel': srv.exponentialDecay, 
+#         'params': {'A': 1, 'b': 0.0629534}
+#     }
+# }
 # Transition probabilities between point-types
 msk = [
     [0.05, 0.90, 0.05],
@@ -40,7 +50,7 @@ msk = [
     [0.90, 0.05, 0.05],
 ]
 # GA Settings
-(gens, verbose) = (500, True)
+(gens, verbose) = (10, True)
 gaParams = [
     {
         'mate': .35, 
