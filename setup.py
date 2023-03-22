@@ -32,7 +32,11 @@ setuptools.setup(
         'geopandas'
     ],
     extras_require={
-        'dev': ['pytest', 'twine', 'wheel', 'sphinx', 'sphinx_rtd_theme'],
+        'dev': [
+            'pytest', 'ipykernel'
+            'twine', 'wheel', 
+            'sphinx', 'sphinx_rtd_theme'
+        ],
     },
     license='GPLv3',
     classifiers=[
