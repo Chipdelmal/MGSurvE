@@ -5,7 +5,7 @@ import MGSurvE as srv
 # Path for outputs
 out_pth = './sims_out/'
 # Landscape's bounding box
-bbox = ((-150, 150), (-150, 150))
+bbox = ((-100, 100), (-100, 100))
 # Mosquito movement kernel
 mKerZ = {'params': [0.01848777, 1.0e-10, math.inf], 'zeroInflation': .75}
 mKerN = {'params': [0.01848777, 1.0e-10, math.inf], 'zeroInflation': 0}
@@ -38,11 +38,11 @@ tKer = {
 # tKer = {
 #     1: {
 #         'kernel': srv.sigmoidDecay,     
-#         'params': {'A': 1, 'rate': .25, 'x0': 1/0.0629534}
+#         'params': {'A': 0.5, 'rate': .25, 'x0': 1/0.0629534}
 #     },
 #     0: {
 #         'kernel': srv.exponentialDecay, 
-#         'params': {'A': 1, 'b': 0.0629534}
+#         'params': {'A': 0.5, 'b': 0.0629534}
 #     }
 # }
 # Transition probabilities between point-types
