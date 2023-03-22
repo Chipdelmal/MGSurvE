@@ -26,7 +26,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
     install_requires=[
-        'deap', 'numpy', 'scikit-learn', 'scipy', 'matplotlib', 'sympy',
+        'deap', 'numpy', 'scikit-learn', 'scipy', 'matplotlib==3.5.2', 'sympy',
         'ipython', 'jupyter', 'pandas', 'compress-pickle', 'dill', 
         'vincenty', 'haversine', 'networkx', 'pointpats', 'libpysal',
         'geopandas'
