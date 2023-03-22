@@ -21,7 +21,7 @@ srv.makeFolder(OUT_PTH)
 # File ID
 ###############################################################################
 LND_PTH = './GEO/{}_LatLon.csv'.format(ID)
-TRAP_TYP = [0]*4 + [1]*4
+TRAP_TYP = [0]*8 + [1]*8
 TRPS_NUM = len(TRAP_TYP)
 ###############################################################################
 # Load pointset
@@ -39,10 +39,6 @@ mKer = {
     'kernelFunction': srv.zeroInflatedExponentialKernel,
     'kernelParams': {'params': srv.AEDES_EXP_PARAMS, 'zeroInflation': 1-0.28}
 }
-mDict = {
-    'kernel': srv.truncatedExponential, 
-    'params': {'params': srv.AEDES_EXP_PARAMS}
-}
 ###############################################################################
 # Defining Traps
 ###############################################################################
@@ -58,11 +54,11 @@ traps = pd.DataFrame({
 tKer = {
     1: {
         'kernel': srv.sigmoidDecay,     
-        'params': {'A': 1.0, 'rate': .25, 'x0': 1/0.12690072}
+        'params': {'A': 1, 'rate': .25, 'x0': 1/0.0629534}
     },
     0: {
         'kernel': srv.exponentialDecay, 
-        'params': {'A': 1.0, 'b': 0.12690072}
+        'params': {'A': 1, 'b': 0.0629534}
     }
 }
 # meanDistances = [srv.nSolveKernel(tKer[i], 0.5, 20) for i in tKer.keys()]
@@ -72,7 +68,7 @@ tKer = {
 lnd = srv.Landscape(
     YK_LL, 
     kernelFunction=mKer['kernelFunction'], kernelParams=mKer['kernelParams'],
-    traps=traps, trapsKernels=tKer, trapsRadii=[.5, .4, .3],
+    traps=traps, trapsKernels=tKer, trapsRadii=[0.90, 0.75], #0.50, 0.25],
     landLimits=YK_BBOX
 )
 bbox = lnd.getBoundingBox()
@@ -108,7 +104,7 @@ outer = (np.max if AP=='MX' else np.mean)
     mating_params='auto', 
     mutation_params='auto', 
     selection_params='auto',
-    fitFuns={'inner': np.max, 'outer': outer}
+    fitFuns={'inner': np.mean, 'outer': outer}
 )
 srv.exportLog(logbook, OUT_PTH, '{}D-{}_{:02d}_LOG'.format(ID, AP, TRPS_NUM))
 srv.dumpLandscape(lnd, OUT_PTH, '{}D-{}_{:02d}_TRP'.format(ID, AP, TRPS_NUM), fExt='pkl')
