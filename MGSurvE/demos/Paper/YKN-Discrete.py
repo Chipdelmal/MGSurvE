@@ -15,6 +15,7 @@ if srv.isNotebook():
     (ID, AP, RID) = ('YKN', 'man', '001')
 else:
     (ID, AP, RID) = argv[1:]
+RID = int(RID)
 PRINT_BLANK = False
 ###############################################################################
 # File ID
