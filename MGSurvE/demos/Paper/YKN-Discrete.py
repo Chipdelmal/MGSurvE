@@ -4,12 +4,17 @@
 import numpy as np
 import pandas as pd
 from os import path
+from sys import argv
 from copy import deepcopy
 import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 
-(ID, AP) = ('YKN', 'MN')
+
+if srv.isNotebook():
+    (ID, AP, RID) = ('YKN', 'MN', '001')
+else:
+    (ID, AP, RID) = argv[1:]
 PRINT_BLANK = False
 ###############################################################################
 # File ID
@@ -58,11 +63,11 @@ traps = pd.DataFrame({
 tKer = {
     1: {
         'kernel': srv.sigmoidDecay,     
-        'params': {'A': 1.0, 'rate': .25, 'x0': 1/0.12690072}
+        'params': {'A': 0.5, 'rate': .25, 'x0': 1/0.0629534}
     },
     0: {
         'kernel': srv.exponentialDecay, 
-        'params': {'A': 1.0, 'b': 0.12690072}
+        'params': {'A': 0.5, 'b': 0.0629534}
     }
 }
 # meanDistances = [srv.nSolveKernel(tKer[i], 0.5, 20) for i in tKer.keys()]
@@ -72,7 +77,7 @@ tKer = {
 lnd = srv.Landscape(
     YK_LL, 
     kernelFunction=mKer['kernelFunction'], kernelParams=mKer['kernelParams'],
-    traps=traps, trapsKernels=tKer, trapsRadii=[.5, .4, .3],
+    traps=traps, trapsKernels=tKer, trapsRadii=[.50, .45, .40],
     landLimits=YK_BBOX
 )
 bbox = lnd.getBoundingBox()
@@ -93,14 +98,20 @@ if PRINT_BLANK:
     # lnd.plotLandBoundary(fig, ax)
     srv.plotClean(fig, ax, bbox=lnd.landLimits)
     fig.savefig(
-        path.join(OUT_PTH, '{}D_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
+        path.join(OUT_PTH, '{}D-{}_{:02d}-{:02d}_CLN.png'.format(ID, AP, TRPS_NUM, RID)), 
         facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
     )
     plt.close('all')
 ###############################################################################
 # Registering Functions for GA
-############################################################################### 
-outer = (np.max if AP=='MX' else np.mean)
+###############################################################################
+if (AP=='man'):
+    outer = np.mean
+elif (AP=='sum'):
+    outer = np.sum
+elif (AP=='max'):
+    outer = np.max
+# Optimize discrete -----------------------------------------------------------
 (lnd, logbook) = srv.optimizeDiscreteTrapsGA(
     lndGA, 
     generations=GENS,
@@ -108,15 +119,18 @@ outer = (np.max if AP=='MX' else np.mean)
     mating_params='auto', 
     mutation_params='auto', 
     selection_params='auto',
-    fitFuns={'inner': np.max, 'outer': outer}
+    fitFuns={'inner': np.sum, 'outer': np.sum}
 )
-srv.exportLog(logbook, OUT_PTH, '{}D-{}_{:02d}_LOG'.format(ID, AP, TRPS_NUM))
-srv.dumpLandscape(lnd, OUT_PTH, '{}D-{}_{:02d}_TRP'.format(ID, AP, TRPS_NUM), fExt='pkl')
+srv.exportLog(logbook, OUT_PTH, '{}D-{}_{:02d}-{:02d}_LOG'.format(ID, AP, TRPS_NUM, RID))
+srv.dumpLandscape(lnd, OUT_PTH, '{}D-{}_{:02d}-{:02d}_TRP'.format(ID, AP, TRPS_NUM, RID), fExt='pkl')
 ###############################################################################
 # Plots
 ###############################################################################
 # Landscape -------------------------------------------------------------------
-lnd = srv.loadLandscape(OUT_PTH, '{}D-{}_{:02d}_TRP'.format(ID, AP, TRPS_NUM), fExt='pkl')
+lnd = srv.loadLandscape(
+    OUT_PTH, '{}D-{}_{:02d}-{:02d}_TRP'.format(ID, AP, TRPS_NUM, RID), 
+    fExt='pkl'
+)
 (fig, ax) = (
     plt.figure(figsize=(15, 15)), 
     plt.axes(projection=ccrs.PlateCarree())
@@ -127,7 +141,7 @@ lnd.plotTraps(fig, ax, zorders=(30, 25))
 # srv.plotFitness(fig, ax, min(logbook['min']), fmt='{:.5f}', fontSize=100)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
-    path.join(OUT_PTH, '{}D-{}_{:02d}_TRP.png'.format(ID, AP, TRPS_NUM)), 
+    path.join(OUT_PTH, '{}D-{}_{:02d}-{:02d}_TRP.png'.format(ID, AP, TRPS_NUM, RID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
@@ -135,7 +149,7 @@ plt.close('all')
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
 (fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 100), aspect=.175)
 fig.savefig(
-    path.join(OUT_PTH, '{}D_{:02d}_KER.png'.format(ID, TRPS_NUM)), 
+    path.join(OUT_PTH, '{}D-{}_{:02d}-{:02d}_KER.png'.format(ID, AP, TRPS_NUM, RID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')
@@ -153,7 +167,7 @@ srv.plotGAEvolution(
 ax.set_ylim(-10, 5000)
 ax.set_aspect((1/3)/ax.get_data_ratio())
 fig.savefig(
-     path.join(OUT_PTH, '{}D-{}_{:02d}_GA.png'.format(ID, AP, TRPS_NUM)), 
+    path.join(OUT_PTH, '{}D-{}_{:02d}-{:02d}_GA.png'.format(ID, AP, TRPS_NUM, RID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
 plt.close('all')

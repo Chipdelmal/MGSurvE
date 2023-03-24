@@ -5,7 +5,7 @@ import MGSurvE as srv
 # Path for outputs
 out_pth = './sims_out/'
 # Landscape's bounding box
-bbox = ((-100, 100), (-100, 100))
+bbox = ((-150, 150), (-150, 150))
 # Mosquito movement kernel
 mKerZ = {'params': [0.01848777, 1.0e-10, math.inf], 'zeroInflation': .75}
 mKerN = {'params': [0.01848777, 1.0e-10, math.inf], 'zeroInflation': 0}
