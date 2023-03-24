@@ -24,27 +24,27 @@ typeTraps = [0, 0, 0, 0, 1, 1, 1, 1]
 #     2: {'kernel': srv.exponentialDecay, 'params': {'A': 0.75, 'b': .025}}
 # }
 # Long ------------------------------------------------------------------------
-tKer = {
-    1: {
-        'kernel': srv.sigmoidDecay,     
-        'params': {'A': 1.0, 'rate': .25, 'x0': 1/0.0409522}
-    },
-    0: {
-        'kernel': srv.exponentialDecay, 
-        'params': {'A': 1.0, 'b': 0.0409522}
-    }
-}
-# Short -----------------------------------------------------------------------
 # tKer = {
 #     1: {
 #         'kernel': srv.sigmoidDecay,     
-#         'params': {'A': 0.5, 'rate': .25, 'x0': 1/0.0629534}
+#         'params': {'A': 1.0, 'rate': .25, 'x0': 1/0.0409522}
 #     },
 #     0: {
 #         'kernel': srv.exponentialDecay, 
-#         'params': {'A': 0.5, 'b': 0.0629534}
+#         'params': {'A': 1.0, 'b': 0.0409522}
 #     }
 # }
+# Short -----------------------------------------------------------------------
+tKer = {
+    1: {
+        'kernel': srv.sigmoidDecay,     
+        'params': {'A': 0.5, 'rate': .25, 'x0': 1/0.0629534}
+    },
+    0: {
+        'kernel': srv.exponentialDecay, 
+        'params': {'A': 0.5, 'b': 0.0629534}
+    }
+}
 # Transition probabilities between point-types
 msk = [
     [0.05, 0.90, 0.05],

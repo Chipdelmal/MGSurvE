@@ -29,16 +29,16 @@ else:
 ###############################################################################
 # Params for Combos
 ###############################################################################
-PREP = 'LngHi-'
+PREP = 'ShtLo-'
 fCombo = {
     'sum-men': [np.sum,  np.mean],
-    'men-max': [np.mean, np.max ],
-    'max-men': [np.max,  np.mean],
-    'max-max': [np.max,  np.max ],
-    'men-men': [np.mean, np.mean],
-    'men-sum': [np.mean, np.sum ],
     'sum-max': [np.sum,  np.max ],
-    'max-sum': [np.max,  np.sum ],
+    'sum-sum': [np.sum,  np.sum ],
+    'sum-min': [np.sum,  np.min ],
+    'men-men': [np.mean, np.mean],
+    'men-max': [np.mean, np.max ],
+    'men-sum': [np.mean, np.sum ],
+    'men-min': [np.mean, np.min ],
 }
 ###############################################################################
 # Load Landscape
