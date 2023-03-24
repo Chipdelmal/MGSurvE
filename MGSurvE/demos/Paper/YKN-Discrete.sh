@@ -1,5 +1,9 @@
 #!/bin/bash
 
-for i in {1..30}; do
-    python YKN-Discrete.py "YKN" "man" "$1"
+for m in "sum" "man" "max"; do
+    echo "* Optimizing $m"
+    for i in {1..30}; do
+        echo "* Running iteration $i"
+        python YKN-Discrete.py "YKN" "$m" "$i"
+    done
 done

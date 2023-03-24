@@ -12,7 +12,7 @@ import MGSurvE as srv
 
 
 if srv.isNotebook():
-    (ID, AP, RID) = ('YKN', 'MN', '001')
+    (ID, AP, RID) = ('YKN', 'man', '001')
 else:
     (ID, AP, RID) = argv[1:]
 PRINT_BLANK = False
@@ -26,7 +26,7 @@ srv.makeFolder(OUT_PTH)
 # File ID
 ###############################################################################
 LND_PTH = './GEO/{}_LatLon.csv'.format(ID)
-TRAP_TYP = [0]*4 + [1]*4
+TRAP_TYP = [0]*8 + [1]*8
 TRPS_NUM = len(TRAP_TYP)
 ###############################################################################
 # Load pointset
@@ -43,10 +43,6 @@ YK_BBOX = (
 mKer = {
     'kernelFunction': srv.zeroInflatedExponentialKernel,
     'kernelParams': {'params': srv.AEDES_EXP_PARAMS, 'zeroInflation': 1-0.28}
-}
-mDict = {
-    'kernel': srv.truncatedExponential, 
-    'params': {'params': srv.AEDES_EXP_PARAMS}
 }
 ###############################################################################
 # Defining Traps
@@ -113,13 +109,13 @@ elif (AP=='max'):
     outer = np.max
 # Optimize discrete -----------------------------------------------------------
 (lnd, logbook) = srv.optimizeDiscreteTrapsGA(
-    lndGA, 
+    lndGA, verbose=False,
     generations=GENS,
     pop_size='auto',
     mating_params='auto', 
     mutation_params='auto', 
     selection_params='auto',
-    fitFuns={'inner': np.sum, 'outer': np.sum}
+    fitFuns={'inner': np.sum, 'outer': outer}
 )
 srv.exportLog(logbook, OUT_PTH, '{}D-{}_{:02d}-{:02d}_LOG'.format(ID, AP, TRPS_NUM, RID))
 srv.dumpLandscape(lnd, OUT_PTH, '{}D-{}_{:02d}-{:02d}_TRP'.format(ID, AP, TRPS_NUM, RID), fExt='pkl')
