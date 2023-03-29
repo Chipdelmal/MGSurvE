@@ -41,7 +41,7 @@ SCAL = [923, 1, 1]
 for (ix, trc) in enumerate(mins):
     ax.plot(trc.T/SCAL[ix], color=COLS[ix]+'88', lw=0.5)
 ax.set_xlim(0, GENS)
-ax.set_ylim(0, 150)
+ax.set_ylim(60, 150)
 ###############################################################################
 # Load Landscape
 ###############################################################################
@@ -50,11 +50,16 @@ lnd = srv.loadLandscape(
     OUT_PTH, lndFiles[0].split('/')[-1].split('.')[0], 
     fExt='pkl'
 )
-
+###############################################################################
+# Probe Landscape
+###############################################################################
 probe = [500, 501, 527, 213, 688, 243, 531, 449, 703, 585, 115, 131, 212, 555, 101, 460]
 
-gfend = 0
-probe = np.array([int(i) for i in logs[0][0]['traps'].iloc[GENS-gfend][1:-1].split(',')])
+(logIx, itr, gen) = (0, 1, 1000)
+probe = np.array([
+    int(i) for i in 
+    logs[logIx][itr]['traps'].iloc[gen][1:-1].split(',')
+])
 trapsCoords = srv.chromosomeIDtoXY(probe, lnd.pointID, lnd.pointCoords).T
 trapsLocs = pd.DataFrame(
     np.vstack([trapsCoords, lnd.trapsTypes, lnd.trapsFixed]).T, 
@@ -63,12 +68,24 @@ trapsLocs = pd.DataFrame(
 trapsLocs['t']=trapsLocs['t'].astype('int64')
 trapsLocs['f']=trapsLocs['f'].astype('int64')
 lnd.updateTraps(trapsLocs, lnd.trapsKernels)
-
+fitness = srv.calcDiscreteFitness(
+    probe, lnd, optimFunction=srv.getDaysTillTrapped,
+    optimFunctionArgs={'inner': np.sum, 'outer': np.sum}
+)[0]
+# Plot ------------------------------------------------------------------------
 (fig, ax) = (
     plt.figure(figsize=(15, 15)),
     plt.axes(projection=ccrs.PlateCarree())
 )
 lnd.plotSites(fig, ax, size=50)
-lnd.plotTraps(fig, ax, zorders=(30, 25))
-# srv.plotFitness(fig, ax, min(logbook['min']), fmt='{:.5f}', fontSize=100)
+lnd.plotTraps(fig, ax, zorders=(30, 25), transparencyHex='55')
+srv.plotFitness(
+    fig, ax, fitness, 
+    fmt='{:.5f}', fontSize=20, color='#00000066', pos=(0.75, 0.10)
+)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
+for (ix, xy) in enumerate(lnd.pointCoords):
+    ax.text(
+        xy[0], xy[1], int(ix), 
+        fontsize=3.5, zorder=10, ha='center', va='center_baseline'
+    )
