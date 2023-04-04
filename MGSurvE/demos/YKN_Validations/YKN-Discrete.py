@@ -20,7 +20,7 @@ PRINT_BLANK = False
 ###############################################################################
 # File ID
 ###############################################################################
-GENS = 1000
+GENS = 2000
 OUT_PTH = './sims_out/'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
@@ -112,10 +112,10 @@ elif (AP=='max'):
 (lnd, logbook) = srv.optimizeDiscreteTrapsGA(
     lndGA, verbose=False,
     generations=GENS,
-    pop_size='auto',
-    mating_params='auto', 
-    mutation_params='auto', 
-    selection_params='auto',
+    pop_size=int(10*(lnd.trapsNumber*1.5)),
+    mating_params={'cxpb': .4, 'indpb': 0.6}, 
+    mutation_params={'mutpb': .5, 'indpb': 0.6}, 
+    selection_params={'tSize': 5},
     fitFuns={'inner': np.sum, 'outer': outer}
 )
 srv.exportLog(logbook, OUT_PTH, '{}D-{}_{:02d}-{:02d}_LOG'.format(ID, AP, TRPS_NUM, RID))
