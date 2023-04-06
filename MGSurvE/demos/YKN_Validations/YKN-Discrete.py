@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+CORES = 32
+###############################################################################
+# Load libraries and limit cores
+###############################################################################
+import os
+os.environ["OMP_NUM_THREADS"] = str(CORES)
+os.environ["OPENBLAS_NUM_THREADS"] = str(CORES)
+os.environ["MKL_NUM_THREADS"] = str(CORES)
+os.environ["VECLIB_MAXIMUM_THREADS"] = str(CORES)
+os.environ["NUMEXPR_NUM_THREADS"] = str(CORES)
+# Load libraries --------------------------------------------------------------
 import numpy as np
 import pandas as pd
 from os import path
@@ -20,13 +31,13 @@ PRINT_BLANK = False
 ###############################################################################
 # File ID
 ###############################################################################
-GENS = 2000
+GENS = 5000
 OUT_PTH = './sims_out/'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
 # File ID
 ###############################################################################
-LND_PTH = './GEO/{}_LatLon.csv'.format(ID)
+LND_PTH = '../Paper/GEO/{}_LatLon.csv'.format(ID)
 TRAP_TYP = [0]*8 + [1]*8
 TRPS_NUM = len(TRAP_TYP)
 ###############################################################################
@@ -104,18 +115,21 @@ if PRINT_BLANK:
 ###############################################################################
 if (AP=='man'):
     outer = np.mean
+    mult = 1
 elif (AP=='sum'):
     outer = np.sum
+    mult = 923
 elif (AP=='max'):
     outer = np.max
+    mult = 3
 # Optimize discrete -----------------------------------------------------------
 (lnd, logbook) = srv.optimizeDiscreteTrapsGA(
-    lndGA, verbose=False,
+    lndGA, verbose=True,
     generations=GENS,
-    pop_size=int(10*(lnd.trapsNumber*1.5)),
-    mating_params={'cxpb': .4, 'indpb': 0.6}, 
-    mutation_params={'mutpb': .5, 'indpb': 0.6}, 
-    selection_params={'tSize': 5},
+    pop_size=int(10*(lnd.trapsNumber*1.25)),
+    mating_params={'cxpb': .3, 'indpb': 0.5}, 
+    mutation_params={'mutpb': .4, 'indpb': 0.5}, 
+    selection_params={'tSize': 4},
     fitFuns={'inner': np.sum, 'outer': outer}
 )
 srv.exportLog(logbook, OUT_PTH, '{}D-{}_{:02d}-{:02d}_LOG'.format(ID, AP, TRPS_NUM, RID))
@@ -161,7 +175,7 @@ srv.plotGAEvolution(
     alphas={'mean': .1, 'envelope': 0.5},
     aspect=1/3
 )
-ax.set_ylim(-10, 100)
+ax.set_ylim(0, 200)
 ax.set_aspect((1/3)/ax.get_data_ratio())
 fig.savefig(
     path.join(OUT_PTH, '{}D-{}_{:02d}-{:02d}_GA.png'.format(ID, AP, TRPS_NUM, RID)), 
