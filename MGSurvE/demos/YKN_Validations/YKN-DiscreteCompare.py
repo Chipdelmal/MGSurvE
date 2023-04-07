@@ -19,7 +19,7 @@ else:
 RID = int(RID)
 FPAT = 'YKND-{}_16*'
 (MPATS, COLS, SCAL) =  (
-    ['sum', 'man'], #, 'max'],
+    ['sum', 'man', 'max'],
     ['#072ac8', '#f72585', '#8338ec'],
     [923, 1, 1]
 )
@@ -28,6 +28,7 @@ GENS = 2000
 # File ID
 ###############################################################################
 OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Validations/YKND_2000'
+OUT_PTH = '/Users/sanchez.hmsc/Documents/GitHub/MGSurvE/MGSurvE/demos/YKN_Validations/sims_out'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
 # Load Files
