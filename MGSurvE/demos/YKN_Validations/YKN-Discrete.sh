@@ -6,7 +6,7 @@ NCL='\033[0m'
 
 for i in {1..10}; do
     printf "${WHT}* Iteration $i...${NCL}\n" 
-    for m in "man"; do # "max" "sum"; do 
+    for m in "max" "sum" "man"; do 
         printf "${RED}\t* Optimizing $m... ${NCL}\n"
         python YKN-Discrete.py "YKN" "$m" "$i"
     done
