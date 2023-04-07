@@ -8,6 +8,6 @@ for i in {1..10}; do
     printf "${WHT}* Iteration $i...${NCL}\n" 
     for m in "man"; do # "max" "sum"; do 
         printf "${RED}\t* Optimizing $m... ${NCL}\n"
-        python YKN-Discrete.py "YKN" "$m" "$i"
+        python YKN-Continuous.py "YKN" "$m" "$i"
     done
 done
