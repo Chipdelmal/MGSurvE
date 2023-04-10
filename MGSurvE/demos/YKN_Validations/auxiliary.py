@@ -12,12 +12,15 @@ def switchFunction(fid):
         return np.max
    
     
-def idStringToArray(string):
-    return np.array([int(i) for i in string[1:-1].split(',')])
+def idStringToArray(string, discrete=True):
+    if discrete:
+        return np.array([int(i) for i in string[1:-1].split(',')])
+    else:
+        return np.array([float(i) for i in string[1:-1].split(',')])
 
 
-def getBestTraps(log):
+def getBestTraps(log, discrete=True):
     idsStr = log.sort_values('min').iloc[0]
     (fit, trps) = (idsStr['min'], idsStr['traps'])
-    trpsArray = idStringToArray(trps)
+    trpsArray = idStringToArray(trps, discrete=discrete)
     return (fit, trpsArray)

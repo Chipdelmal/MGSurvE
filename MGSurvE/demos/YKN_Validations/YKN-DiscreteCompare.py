@@ -13,22 +13,22 @@ import auxiliary as aux
 
 
 if srv.isNotebook():
-    (ID, AP, RID) = ('YKND', 'man', '01')
+    (ID, AP, RID) = ('YKNC', 'man', '01')
 else:
     (ID, AP, RID) = argv[1:]
 RID = int(RID)
-FPAT = 'YKND-{}_16*'
+FPAT = ID+'-{}_16*'
 (MPATS, COLS, SCAL) =  (
-    ['sum', 'man', 'max'],
+    ['man', ], # 'sum' 'max'],
     ['#072ac8', '#f72585', '#8338ec'],
-    [923, 1, 1]
+    [1, 923, 1]
 )
-GENS = 2000
+GENS = 5000
 ###############################################################################
 # File ID
 ###############################################################################
-OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Validations/YKND_2000'
-OUT_PTH = '/Users/sanchez.hmsc/Documents/GitHub/MGSurvE/MGSurvE/demos/YKN_Validations/sims_out'
+OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Validations/YKND_5000'
+# OUT_PTH = '/Users/sanchez.hmsc/Documents/GitHub/MGSurvE/MGSurvE/demos/YKN_Validations/sims_out'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
 # Load Files
@@ -44,7 +44,7 @@ mins = [np.array([fc['min'] for fc in log]) for log in logs]
 ###############################################################################
 (fig, ax) = plt.subplots(figsize=(20, 6))
 for (ix, trc) in enumerate(mins):
-    ax.plot(trc.T/SCAL[ix], color=COLS[ix]+'88', lw=1)
+    ax.plot(trc.T/SCAL[ix], color=COLS[ix]+'66', lw=2)
 ax.set_xlim(0, GENS)
 ax.set_ylim(50, 100)
 fig.savefig(
@@ -54,7 +54,7 @@ fig.savefig(
 ###############################################################################
 # Load Landscape
 ###############################################################################
-lndFiles = sorted(glob(path.join(OUT_PTH, (FPAT+'TRP.pkl').format('sum'))))
+lndFiles = sorted(glob(path.join(OUT_PTH, (FPAT+'TRP.pkl').format('man'))))
 lnd = srv.loadLandscape(
     OUT_PTH, lndFiles[0].split('/')[-1].split('.')[0], 
     fExt='pkl'
@@ -64,15 +64,19 @@ lnd = srv.loadLandscape(
 #
 # probe = [500, 501, 527, 213, 688, 243, 531, 449, 703, 585, 115, 131, 212, 555, 101, 460]
 ###############################################################################
-(outer, itr, gen) = ('sum', 1, 2000)
+(outer, itr, gen) = ('man', 1, 5000)
 for outer in MPATS:
     logIx = MPATS.index(outer)
-    itrsFitsPos = [aux.getBestTraps(l) for l in logs[logIx]]
-    (fitVal, trpPos) = sorted(itrsFitsPos, key=lambda x: x[0])[0]
-    fitsFun = aux.switchFunction(MPATS[logIx])
-    # trpsStr = logs[logIx][itr]['traps'].iloc[gen]
-    # probe = aux.idStringToArray(trpsStr)
-    trapsCoords = srv.chromosomeIDtoXY(trpPos, lnd.pointID, lnd.pointCoords).T
+    if ID == 'YKND':
+        itrsFitsPos = [aux.getBestTraps(l) for l in logs[logIx]]
+        (fitVal, trpPos) = sorted(itrsFitsPos, key=lambda x: x[0])[0]
+        fitsFun = aux.switchFunction(MPATS[logIx])
+        trapsCoords = srv.chromosomeIDtoXY(trpPos, lnd.pointID, lnd.pointCoords).T
+    else:
+        itrsFitsPos = [aux.getBestTraps(l, discrete=False) for l in logs[logIx]]
+        (fitVal, trpPos) = sorted(itrsFitsPos, key=lambda x: x[0])[0]
+        fitsFun = aux.switchFunction(MPATS[logIx])
+        trapsCoords = np.reshape(trpPos, (-1, 2)).T
     trapsLocs = pd.DataFrame(
         np.vstack([trapsCoords, lnd.trapsTypes, lnd.trapsFixed]).T, 
         columns=['lon', 'lat', 't', 'f']
@@ -81,10 +85,16 @@ for outer in MPATS:
     trapsLocs['f'] = trapsLocs['f'].astype('int64')
     # Update landscape --------------------------------------------------------
     lnd.updateTraps(trapsLocs, lnd.trapsKernels)
-    fitness = srv.calcDiscreteFitness(
-        trpPos, lnd, optimFunction=srv.getDaysTillTrapped,
-        optimFunctionArgs={'inner': np.sum, 'outer': fitsFun}
-    )[0]/SCAL[logIx]
+    if ID == 'YKND':
+        fitness = srv.calcDiscreteFitness(
+            trpPos, lnd, optimFunction=srv.getDaysTillTrapped,
+            optimFunctionArgs={'inner': np.sum, 'outer': fitsFun}
+        )[0]/SCAL[logIx]
+    else:
+        fitness = srv.calcFitness(
+            trpPos, lnd, optimFunction=srv.getDaysTillTrapped,
+            optimFunctionArgs={'inner': np.sum, 'outer': fitsFun}
+        )[0]/SCAL[logIx]
     assert(np.isclose(fitVal, fitness*SCAL[logIx]))
     # Plot --------------------------------------------------------------------
     (fig, ax) = (
