@@ -10,10 +10,12 @@ import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 import auxiliary as aux
+plt.rcParams['axes.facecolor']='white'
+plt.rcParams['savefig.facecolor']='white'
 
 
 if srv.isNotebook():
-    (ID, AP, RID) = ('YKND', 'man', '01')
+    (ID, AP, RID) = ('YKNC', 'man', '01')
 else:
     (ID, AP, RID) = argv[1:]
 RID = int(RID)
@@ -69,7 +71,7 @@ for outer in MPATS:
     logIx = MPATS.index(outer)
     if ID == 'YKND':
         itrsFitsPos = [aux.getBestTraps(l) for l in logs[logIx]]
-        (fitVal, trpPos) = sorted(itrsFitsPos, key=lambda x: x[0])[1]
+        (fitVal, trpPos) = sorted(itrsFitsPos, key=lambda x: x[0])[0]
         fitsFun = aux.switchFunction(MPATS[logIx])
         trapsCoords = srv.chromosomeIDtoXY(trpPos, lnd.pointID, lnd.pointCoords).T
     else:
@@ -102,15 +104,15 @@ for outer in MPATS:
         plt.axes(projection=ccrs.PlateCarree())
     )
     lnd.plotSites(fig, ax, size=50)
-    lnd.plotMigrationNetwork(
-        fig, ax, 
-        lineWidth=20, alphaMin=.2, alphaAmplitude=15
-    )
-    # lnd.plotTraps(fig, ax, zorders=(30, 25), transparencyHex='55')
-    # srv.plotFitness(
-    #     fig, ax, fitness, 
-    #     fmt='{:.5f}', fontSize=20, color='#00000066', pos=(0.75, 0.10)
+    # lnd.plotMigrationNetwork(
+    #     fig, ax, 
+    #     lineWidth=20, alphaMin=.2, alphaAmplitude=15
     # )
+    lnd.plotTraps(fig, ax, zorders=(30, 25), transparencyHex='55')
+    srv.plotFitness(
+        fig, ax, fitness, 
+        fmt='{:.5f}', fontSize=20, color='#00000066', pos=(0.75, 0.10)
+    )
     srv.plotClean(fig, ax, bbox=lnd.landLimits)
     # for (ix, xy) in enumerate(lnd.pointCoords):
     #     ax.text(
@@ -119,5 +121,6 @@ for outer in MPATS:
     #     )
     fig.savefig(
         path.join(OUT_PTH, (FPAT[:-1]+'.png').format(outer)), 
-        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300,
+        transparent=False
     )
