@@ -10,6 +10,8 @@ import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 import auxiliary as aux
+plt.rcParams['axes.facecolor']='white'
+plt.rcParams['savefig.facecolor']='white'
 
 
 if srv.isNotebook():
@@ -102,12 +104,16 @@ for outer in MPATS:
         plt.axes(projection=ccrs.PlateCarree())
     )
     lnd.plotSites(fig, ax, size=50)
+    # lnd.plotMigrationNetwork(
+    #     fig, ax, 
+    #     lineWidth=20, alphaMin=.2, alphaAmplitude=15
+    # )
     lnd.plotTraps(fig, ax, zorders=(30, 25), transparencyHex='55')
     srv.plotFitness(
         fig, ax, fitness, 
         fmt='{:.5f}', fontSize=20, color='#00000066', pos=(0.75, 0.10)
     )
-    # srv.plotClean(fig, ax, bbox=lnd.landLimits)
+    srv.plotClean(fig, ax, bbox=lnd.landLimits)
     # for (ix, xy) in enumerate(lnd.pointCoords):
     #     ax.text(
     #         xy[0], xy[1], int(ix), 
@@ -115,5 +121,6 @@ for outer in MPATS:
     #     )
     fig.savefig(
         path.join(OUT_PTH, (FPAT[:-1]+'.png').format(outer)), 
-        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300,
+        transparent=False
     )
