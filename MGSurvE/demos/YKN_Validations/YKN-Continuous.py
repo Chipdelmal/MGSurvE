@@ -84,6 +84,7 @@ tKer = {
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
+print("\t\t* Exporting: {}".format(path.join(OUT_PTH, '{}C-{}_{:02d}-{:02d}'.format(ID, AP, TRPS_NUM, RID))))
 lnd = srv.Landscape(
     YK_LL, 
     kernelFunction=mKer['kernelFunction'], kernelParams=mKer['kernelParams'],
@@ -112,6 +113,7 @@ if PRINT_BLANK:
         facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
     )
     plt.close('all')
+
 ###############################################################################
 # Registering Functions for GA
 ############################################################################### 
@@ -125,7 +127,7 @@ elif (AP=='max'):
     outer = np.max
     mult = 3
 (lnd, logbook) = srv.optimizeTrapsGA(
-    lndGA, verbose=True,
+    lndGA, verbose=False,
     pop_size='auto', 
     generations=GENS,
     mating_params='auto', 
