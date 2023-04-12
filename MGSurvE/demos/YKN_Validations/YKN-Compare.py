@@ -10,12 +10,13 @@ import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 import auxiliary as aux
+from copy import deepcopy
 plt.rcParams['axes.facecolor']='white'
 plt.rcParams['savefig.facecolor']='white'
 
 
 if srv.isNotebook():
-    (ID, AP, RID) = ('YKNC', 'man', '01')
+    (ID, AP, RID) = ('YKND', 'man', '01')
 else:
     (ID, AP, RID) = argv[1:]
 RID = int(RID)
@@ -66,6 +67,7 @@ lnd = srv.loadLandscape(
 #
 # probe = [500, 501, 527, 213, 688, 243, 531, 449, 703, 585, 115, 131, 212, 555, 101, 460]
 ###############################################################################
+PRINT_IDS = {'sites': False, 'traps': True}
 (outer, itr, gen) = ('man', 1, 5000)
 for outer in MPATS:
     logIx = MPATS.index(outer)
@@ -114,13 +116,66 @@ for outer in MPATS:
         fmt='{:.5f}', fontSize=20, color='#00000066', pos=(0.75, 0.10)
     )
     srv.plotClean(fig, ax, bbox=lnd.landLimits)
-    # for (ix, xy) in enumerate(lnd.pointCoords):
-    #     ax.text(
-    #         xy[0], xy[1], int(ix), 
-    #         fontsize=3.5, zorder=10, ha='center', va='center_baseline'
-    #     )
+    if PRINT_IDS['sites']:
+        for (ix, xy) in enumerate(lnd.pointCoords):
+            ax.text(
+                xy[0], xy[1], int(ix), 
+                fontsize=3.5, zorder=10, ha='center', va='center_baseline'
+            )
+    if PRINT_IDS['traps']:
+        for (ix, xy) in enumerate(lnd.trapsCoords):
+            ax.text(
+                xy[0], xy[1], int(ix), 
+                fontsize=10, zorder=50, ha='center', va='center_baseline'
+            )
     fig.savefig(
         path.join(OUT_PTH, (FPAT[:-1]+'.png').format(outer)), 
         facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300,
         transparent=False
     )
+###############################################################################
+# Fine-grained optimization for discrete case
+###############################################################################
+# BRUTE_FORCE_TRAP_ID = 11
+# (outer, itr, gen) = ('man', 1, 5000)
+# lndBst = deepcopy(lnd)
+# if ID == 'YKND':
+#     itrsFitsPos = [aux.getBestTraps(l) for l in logs[logIx]]
+#     (fitVal, trpPos) = sorted(itrsFitsPos, key=lambda x: x[0])[0]
+#     bGA = {'fitVal': fitVal, 'trpPos': np.copy(trpPos)}
+#     fitsFun = aux.switchFunction(MPATS[logIx])
+#     for i in range(lnd.pointCoords.shape[0]):
+#         trpPos[BRUTE_FORCE_TRAP_ID] = i
+#         trapsCoords = srv.chromosomeIDtoXY(trpPos, lnd.pointID, lnd.pointCoords).T
+#         trapsLocs = pd.DataFrame(
+#             np.vstack([trapsCoords, lnd.trapsTypes, lnd.trapsFixed]).T, 
+#             columns=['lon', 'lat', 't', 'f']
+#         )
+#         trapsLocs['t'] = trapsLocs['t'].astype('int64')
+#         trapsLocs['f'] = trapsLocs['f'].astype('int64')
+#         lnd.updateTraps(trapsLocs, lnd.trapsKernels)
+#         fitness = srv.calcDiscreteFitness(
+#             trpPos, lnd, optimFunction=srv.getDaysTillTrapped,
+#             optimFunctionArgs={'inner': np.sum, 'outer': fitsFun}
+#         )[0]/SCAL[logIx]
+#         if fitness <= bGA['fitVal']:
+#             print("Better position found! (fitness: {})".format(fitness))
+#             bGA['fitVal'] = fitness
+#             lndBst = deepcopy(lnd)
+#     # Plot --------------------------------------------------------------------
+#     (fig, ax) = (
+#         plt.figure(figsize=(15, 15)),
+#         plt.axes(projection=ccrs.PlateCarree())
+#     )
+#     lndBst.plotSites(fig, ax, size=50)
+#     lndBst.plotTraps(fig, ax, zorders=(30, 25), transparencyHex='55')
+#     srv.plotFitness(
+#         fig, ax, bGA['fitVal'], 
+#         fmt='{:.5f}', fontSize=20, color='#00000066', pos=(0.75, 0.10)
+#     )
+#     srv.plotClean(fig, ax, bbox=lndBst.landLimits)
+#     fig.savefig(
+#         path.join(OUT_PTH, (FPAT[:-1]+'-BRUTE.png').format(outer)), 
+#         facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300,
+#         transparent=False
+#     )
