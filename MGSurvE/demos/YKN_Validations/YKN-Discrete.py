@@ -124,7 +124,7 @@ elif (AP=='max'):
     mult = 3
 # Optimize discrete -----------------------------------------------------------
 (lnd, logbook) = srv.optimizeDiscreteTrapsGA(
-    lndGA, verbose=True,
+    lndGA, verbose=False,
     generations=GENS,
     pop_size=int(10*(lnd.trapsNumber*1.25)),
     mating_params={'cxpb': .3, 'indpb': 0.5}, 

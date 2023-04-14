@@ -96,24 +96,30 @@ lndGA = deepcopy(lnd)
 ###############################################################################
 # Plot Landscape
 ###############################################################################
-if PRINT_BLANK:
-    (fig, ax) = (
-        plt.figure(figsize=(15, 15)),
-        plt.axes(projection=ccrs.PlateCarree())
-    )
-    lnd.plotSites(fig, ax, size=50)
-    lnd.plotMigrationNetwork(
-        fig, ax, 
-        lineWidth=7.5, alphaMin=.05, alphaAmplitude=7.5
-    )
-    # lnd.plotLandBoundary(fig, ax)
-    srv.plotClean(fig, ax, bbox=lnd.landLimits)
-    fig.savefig(
-        path.join(OUT_PTH, '{}C-{}_{:02d}-{:02d}_CLN.png'.format(ID, AP, TRPS_NUM, RID)), 
-        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-    )
-    plt.close('all')
-
+delta=0.000015
+dPad = (
+    (bbox[0][0]*(1+delta), bbox[0][1]*(1-delta)), 
+    (bbox[1][0]*(1-delta*20), bbox[1][1]*(1+delta*20))
+)
+mutBase = max([i[1]-i[0] for i in bbox])/2.5
+# if PRINT_BLANK:
+    # (fig, ax) = (
+    #     plt.figure(figsize=(15, 15)),
+    #     plt.axes(projection=ccrs.PlateCarree())
+    # )
+    # lnd.plotSites(fig, ax, size=50)
+    # # lnd.plotMigrationNetwork(
+    # #     fig, ax, 
+    # #     lineWidth=7.5, alphaMin=.05, alphaAmplitude=7.5
+    # # )
+    # # lnd.plotLandBoundary(fig, ax)
+    # srv.plotClean(fig, ax, bbox=dPad)
+#     srv.plotClean(fig, ax, bbox=lnd.landLimits)
+#     fig.savefig(
+#         path.join(OUT_PTH, '{}C-{}_{:02d}-{:02d}_CLN.png'.format(ID, AP, TRPS_NUM, RID)), 
+#         facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+#     )
+#     plt.close('all')
 ###############################################################################
 # Registering Functions for GA
 ############################################################################### 
@@ -126,13 +132,18 @@ elif (AP=='sum'):
 elif (AP=='max'):
     outer = np.max
     mult = 3
+
 (lnd, logbook) = srv.optimizeTrapsGA(
     lndGA, verbose=False,
+    bbox=dPad,
     pop_size='auto', 
     generations=GENS,
-    mating_params='auto', 
-    mutation_params='auto',
-    selection_params='auto',
+    mating_params={'cxpb': 0.5, 'alpha': 0.5}, 
+    mutation_params={
+        'mean': 0, 'sd': 0.0025, 
+        'mutpb': .4, 'ipb': .5
+    },
+    selection_params={'tSize': 3},
     fitFuns={'inner': np.sum, 'outer': outer}
 )
 srv.exportLog(logbook, OUT_PTH, '{}C-{}_{:02d}-{:02d}_LOG'.format(ID, AP, TRPS_NUM, RID))
