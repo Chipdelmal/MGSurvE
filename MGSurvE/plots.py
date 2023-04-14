@@ -153,6 +153,8 @@ def plotTraps(
                 edgecolor='#00000000', color=col, 
                 zorder=zorders[1]
             )
+        if latlon and not CARTOPY:
+            warnings.warn("Please install cartopy to plot the traps' radii of attractiveness!")
         else:
             for r in trapsKernels[tType]['radii']:
                 circle = plt.Circle(
