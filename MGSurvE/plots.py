@@ -103,7 +103,7 @@ def plotTraps(
         edgecolors=('w', 'k'), lws=(2, 0), ls=':',
         size=350, zorders=(25, -5), fill=True,
         transform=None, transparencyHex='DD',
-        latlon=False, proj=ccrs.PlateCarree(),
+        latlon=False, proj=None,
         **kwargs
     ):
     """ Plots the traps with the radii of effectiveness.
