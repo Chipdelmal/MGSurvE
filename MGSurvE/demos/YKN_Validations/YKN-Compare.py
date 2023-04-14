@@ -7,6 +7,8 @@ import pandas as pd
 from os import path
 from sys import argv
 import cartopy.crs as ccrs
+import shapely.geometry as sgeom
+from cartopy.geodesic import Geodesic
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 import auxiliary as aux
@@ -16,7 +18,7 @@ plt.rcParams['savefig.facecolor']='white'
 
 
 if srv.isNotebook():
-    (ID, AP, RID) = ('YKND', 'man', '01')
+    (ID, AP, RID) = ('YKNC', 'man', '01')
 else:
     (ID, AP, RID) = argv[1:]
 RID = int(RID)
@@ -47,12 +49,13 @@ mins = [np.array([fc['min'] for fc in log]) for log in logs]
 ###############################################################################
 (fig, ax) = plt.subplots(figsize=(20, 6))
 for (ix, trc) in enumerate(mins):
-    ax.plot(trc.T/SCAL[ix], color=COLS[ix]+'66', lw=2)
+    ax.plot(trc.T/SCAL[ix], color=COLS[ix]+'99', lw=0.75)
 ax.set_xlim(0, GENS)
 ax.set_ylim(50, 100)
+ax.set_aspect(15)
 fig.savefig(
     path.join(OUT_PTH, (FPAT[:-7]+'-GA.png')), 
-    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=350
 )
 ###############################################################################
 # Load Landscape
@@ -62,12 +65,20 @@ lnd = srv.loadLandscape(
     OUT_PTH, lndFiles[0].split('/')[-1].split('.')[0], 
     fExt='pkl'
 )
+# Traps Kernels ---------------------------------------------------------------
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
+(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 100), aspect=.175)
+fig.savefig(
+    path.join(OUT_PTH, '{}D-{}_KER.png'.format(ID, AP)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+)
+plt.close('all')
 ###############################################################################
 # Inspect Landscape
 #
 # probe = [500, 501, 527, 213, 688, 243, 531, 449, 703, 585, 115, 131, 212, 555, 101, 460]
 ###############################################################################
-PRINT_IDS = {'sites': False, 'traps': True}
+PRINT_IDS = {'sites': False, 'traps': False}
 (outer, itr, gen) = ('man', 1, 5000)
 for outer in MPATS:
     logIx = MPATS.index(outer)
@@ -100,17 +111,18 @@ for outer in MPATS:
             optimFunctionArgs={'inner': np.sum, 'outer': fitsFun}
         )[0]/SCAL[logIx]
     assert(np.isclose(fitVal, fitness*SCAL[logIx]))
-    # Plot --------------------------------------------------------------------
+    # Plot --------------------------------------------------------------------  
     (fig, ax) = (
         plt.figure(figsize=(15, 15)),
         plt.axes(projection=ccrs.PlateCarree())
     )
     lnd.plotSites(fig, ax, size=50)
-    # lnd.plotMigrationNetwork(
-    #     fig, ax, 
-    #     lineWidth=20, alphaMin=.2, alphaAmplitude=15
-    # )
-    lnd.plotTraps(fig, ax, zorders=(30, 25), transparencyHex='55')
+    lnd.updateTrapsRadii([0.250, 0.125, 0.100])
+    lnd.plotTraps(
+        fig, ax, 
+        zorders=(30, 25), transparencyHex='55', 
+        latlon=True, proj=ccrs.PlateCarree()
+    )
     srv.plotFitness(
         fig, ax, fitness, 
         fmt='{:.5f}', fontSize=20, color='#00000066', pos=(0.75, 0.10)
@@ -130,7 +142,7 @@ for outer in MPATS:
             )
     fig.savefig(
         path.join(OUT_PTH, (FPAT[:-1]+'.png').format(outer)), 
-        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300,
+        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=350,
         transparent=False
     )
 ###############################################################################
@@ -179,3 +191,22 @@ for outer in MPATS:
 #         facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300,
 #         transparent=False
 #     )
+
+
+import math
+from scipy.optimize import fsolve
+
+tKer = lnd.trapsKernels
+kernelDict = tKer[0]
+(yVal, guess) = (0.05, 0)
+
+(kFun, kPar) = (kernelDict['kernel'], kernelDict['params'])
+func = lambda delta : yVal-kFun(delta, **kPar)
+distance = fsolve(func, guess)
+distance
+
+math.atan(distance[0]/R)*(180/math.pi)
+
+lnd.landLimits[0][1]-lnd.landLimits[0][0]
+
+meanDistances = [srv.nSolveKernel(tKer[i], 0.5, 20) for i in tKer.keys()]

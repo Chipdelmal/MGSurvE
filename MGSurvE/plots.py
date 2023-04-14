@@ -6,6 +6,9 @@ import warnings
 import matplotlib
 from os import path
 from math import log
+import cartopy.crs as ccrs
+import shapely.geometry as sgeom
+from cartopy.geodesic import Geodesic
 import matplotlib.pyplot as plt
 import MGSurvE.constants as cst
 import networkx as nx
@@ -95,6 +98,7 @@ def plotTraps(
         edgecolors=('w', 'k'), lws=(2, 0), ls=':',
         size=350, zorders=(25, -5), fill=True,
         transform=None, transparencyHex='DD',
+        latlon=False, proj=ccrs.PlateCarree(),
         **kwargs
     ):
     """ Plots the traps with the radii of effectiveness.
@@ -119,10 +123,6 @@ def plotTraps(
 
     """
     (cNum, tNum) = (len(colors), len(trapsTypes))
-    # if (cNum-tNum) < 0:
-    #     raise Exception(
-    #         'Less colors ({}) than trap types ({})!'.format(cNum, tNum)
-    #     )
     for (i, trap) in enumerate(trapsCoords):
         tType = trapsTypes[i]
         (col, ec) = (colors[tType], edgecolors[0])
@@ -137,13 +137,25 @@ def plotTraps(
             s=size, zorder=zorders[0],
             edgecolors=ec, linewidths=lws[0]
         )
-        for r in trapsKernels[tType]['radii']:
-            circle = plt.Circle(
-                (trap[0], trap[1]), r, 
-                color=col, fill=fill, ls=ls, 
-                lw=lws[1], zorder=zorders[1]
+        # Draw Circles
+        if latlon:
+            (gd, geoms) = (Geodesic(), [])
+            for r in trapsKernels[tType]['radii']:
+                cp = gd.circle(lon=trap[0], lat=trap[1], radius=r)
+                geoms.append(sgeom.Polygon(cp))
+            ax.add_geometries(
+                geoms, crs=ccrs.PlateCarree(), 
+                edgecolor='#00000000', color=col, 
+                zorder=zorders[1]
             )
-            ax.add_patch(circle)
+        else:
+            for r in trapsKernels[tType]['radii']:
+                circle = plt.Circle(
+                    (trap[0], trap[1]), r, 
+                    color=col, fill=fill, ls=ls, 
+                    lw=lws[1], zorder=zorders[1]
+                )
+                ax.add_patch(circle)
     return (fig, ax)
 
 
@@ -465,6 +477,7 @@ def plotTrapsKernels(
         distRange=(0, 100), aspect=.3
     ):
     kers = lnd.trapsKernels
+    ktypes = list(lnd.trapsKernels.keys())
     # dMax = max(max([kers[i]['radii'] for i in range(len(kers))])) * maxSca
     dMax = distRange[1]
     # Generate figure
@@ -472,7 +485,7 @@ def plotTrapsKernels(
         ker = kers[i]
         dists = np.arange(0, dMax+1, dMax/100)
         probs = [ker['kernel'](d, **ker['params']) for d in dists]
-        ax.plot(dists, probs, color=colors[i], lw=4, alpha=alpha)
+        ax.plot(dists, probs, color=colors[ktypes[i]], lw=4, alpha=alpha)
     ax.set_xlim(0, dMax)
     ax.set_ylim(0, 1)
     ax.set_aspect(aspect/ax.get_data_ratio())

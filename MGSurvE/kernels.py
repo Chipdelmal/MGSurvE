@@ -172,7 +172,7 @@ def exponentialAttractiveness(dist, A=1, k=1, s=1, gamma=1, epsilon=1):
 ###############################################################################
 # Auxiliary
 ###############################################################################
-def nSolveKernel(kernelDict, yVal, guess=0, latlon=False, R=6371):
+def nSolveKernel(kernelDict, yVal, guess=0, latlon=False, R=6371e3):
     '''Calculates the distance it takes for the kernel to match a given probability (yVar).
 
     Args:
@@ -188,7 +188,7 @@ def nSolveKernel(kernelDict, yVal, guess=0, latlon=False, R=6371):
     func = lambda delta : yVal-kFun(delta, **kPar)
     distance = fsolve(func, guess)
     if latlon:
-        dist = math.atan(distance[0]/R)
+        dist = distance[0] # math.atan(distance[0]/R)*(180/math.pi)
     else:
         dist = distance[0]
     # Negative radius patch ---------------------------------------------------
