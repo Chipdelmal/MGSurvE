@@ -6,14 +6,19 @@ import warnings
 import matplotlib
 from os import path
 from math import log
-import cartopy.crs as ccrs
-import shapely.geometry as sgeom
-from cartopy.geodesic import Geodesic
 import matplotlib.pyplot as plt
 import MGSurvE.constants as cst
 import networkx as nx
 from sklearn.preprocessing import normalize
 import numpy as np
+
+try:
+    import cartopy.crs as ccrs
+    import shapely.geometry as sgeom
+    from cartopy.geodesic import Geodesic
+    CARTOPY = True
+except ImportError:
+    warnings.warn("Cartopy not installed. Lat/Long plots might be incorrect!")
 
 
 def plotSites(
@@ -138,7 +143,7 @@ def plotTraps(
             edgecolors=ec, linewidths=lws[0]
         )
         # Draw Circles
-        if latlon:
+        if latlon and CARTOPY:
             (gd, geoms) = (Geodesic(), [])
             for r in trapsKernels[tType]['radii']:
                 cp = gd.circle(lon=trap[0], lat=trap[1], radius=r)
