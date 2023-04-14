@@ -193,20 +193,16 @@ for outer in MPATS:
 #     )
 
 
-import math
-from scipy.optimize import fsolve
-
-tKer = lnd.trapsKernels
-kernelDict = tKer[0]
-(yVal, guess) = (0.05, 0)
-
-(kFun, kPar) = (kernelDict['kernel'], kernelDict['params'])
-func = lambda delta : yVal-kFun(delta, **kPar)
-distance = fsolve(func, guess)
-distance
-
-math.atan(distance[0]/R)*(180/math.pi)
-
-lnd.landLimits[0][1]-lnd.landLimits[0][0]
-
-meanDistances = [srv.nSolveKernel(tKer[i], 0.5, 20) for i in tKer.keys()]
+# import math
+# from scipy.optimize import fsolve
+# 
+# tKer = lnd.trapsKernels
+# kernelDict = tKer[0]
+# (yVal, guess) = (0.05, 0)
+# 
+# (kFun, kPar) = (kernelDict['kernel'], kernelDict['params'])
+# func = lambda delta : yVal-kFun(delta, **kPar)
+# distance = fsolve(func, guess)
+# distance
+# lnd.landLimits[0][1]-lnd.landLimits[0][0]
+# meanDistances = [srv.nSolveKernel(tKer[i], 0.5, 20) for i in tKer.keys()]
