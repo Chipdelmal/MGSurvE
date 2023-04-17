@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-CORES = 16
+CORES = 8
 ###############################################################################
 # Load libraries and limit cores
 ###############################################################################
@@ -80,14 +80,14 @@ traps = pd.DataFrame({
     'lon': initLon, 'lat': initLat, 
     't': initTyp, 'f': initFxd
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': 0.13539445}}}
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': 0.041674}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
     traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS,
-    trapsRadii=[.75, .5, .3],
+    trapsRadii=[1],
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
@@ -153,11 +153,17 @@ lnd = srv.loadLandscape(
     plt.figure(figsize=(15, 15)),
     plt.axes(projection=ccrs.PlateCarree())
 )
+lnd.updateTrapsRadii([0.999])
 lnd.plotSites(fig, ax, size=250)
 # lnd.plotMigrationNetwork(
 #     fig, ax, lineWidth=30, alphaMin=.25, alphaAmplitude=2.5
 # )
-lnd.plotTraps(fig, ax, zorders=(25, 20))
+lnd.plotTraps(
+    fig, ax, 
+    zorders=(30, 25), transparencyHex='55', 
+    latlon=True, proj=ccrs.PlateCarree()
+)
+srv.plotClean(fig, ax, bbox=lnd.landLimits)
 # srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
 lnd.plotLandBoundary(fig, ax)
 # srv.plotClean(fig, ax, bbox=lnd.landLimits)
@@ -184,7 +190,7 @@ srv.plotGAEvolution(
     alphas={'mean': .75, 'envelope': 0.5},
     aspect=1/3
 )
-ax.set_ylim(0, 250)
+ax.set_ylim(0, 1500)
 fig.savefig(
     path.join(OUT_PTH, '{}D-{}_{:02d}-{:02d}_GA.png'.format(ID, AP, TRPS_NUM, RID)),  
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
