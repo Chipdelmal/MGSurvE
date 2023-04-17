@@ -102,9 +102,9 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 minFits= logbook.select("min")
 trapXY = srv.chromosomeIDtoXY(hof[0], lndGA.pointID, lndGA.pointCoords)
 lnd.updateTrapsCoords(trapXY)
-srv.dumpLandscape(lnd, OUT_PTH, '{}-{}_TRP-DOC'.format(ZIK, ID))
+srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP-DOC'.format(ZIK, ID))
 dta = pd.DataFrame(logbook)
-srv.exportLog(logbook, OUT_PTH, '{}-{}_TRP-DOC'.format(ZIK, ID))
+srv.exportLog(logbook, OUT_PTH, '{}_LOG-DOC'.format(ZIK, ID))
 ###############################################################################
 # Plot GA
 ############################################################################### 
@@ -117,7 +117,7 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=.1, dpi=cst.dpi
 )
 # Export plots ----------------------------------------------------------------
-lnd = srv.loadLandscape(OUT_PTH, '{}-{}_TRP-DOC'.format(ZIK, ID), fExt='pkl')
+lnd = srv.loadLandscape(OUT_PTH, '{}_TRP-DOC'.format(ZIK, ID), fExt='pkl')
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)

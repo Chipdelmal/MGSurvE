@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+CORES = 8
+###############################################################################
+# Load libraries and limit cores
+###############################################################################
+import os
+os.environ["OMP_NUM_THREADS"] = str(CORES)
+os.environ["OPENBLAS_NUM_THREADS"] = str(CORES)
+os.environ["MKL_NUM_THREADS"] = str(CORES)
+os.environ["VECLIB_MAXIMUM_THREADS"] = str(CORES)
+os.environ["NUMEXPR_NUM_THREADS"] = str(CORES)
+# Load libraries --------------------------------------------------------------
 import warnings
 import numpy as np
 import pandas as pd
@@ -41,8 +52,8 @@ lndGA = deepcopy(lnd)
     mating_params=MAT, mutation_params=MUT, selection_params=SEL,
     fitFuns={'outer': np.mean, 'inner': np.sum}, verbose=VERBOSE
 )
-srv.dumpLandscape(lnd, OUT_PTH, '{}-{}_TRP-COS'.format(ZIK, ID), fExt='pkl')
-srv.exportLog(logbook, OUT_PTH, '{}-{}_TRP-COS'.format(ZIK, ID))
+srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP-COS'.format(ID), fExt='pkl')
+srv.exportLog(logbook, OUT_PTH, '{}_LOG-COS'.format(ID))
 ###############################################################################
 # Plot GA
 ###############################################################################
@@ -57,16 +68,16 @@ fig.savefig(
     pad_inches=.1, dpi=300
 )
 # Export plots ----------------------------------------------------------------
-lnd = srv.loadLandscape(OUT_PTH, '{}-{}_TRP-COS'.format(ZIK, ID), fExt='pkl')
+lnd = srv.loadLandscape(OUT_PTH, '{}_TRP-COS'.format(ID), fExt='pkl')
 bbox = lnd.getBoundingBox()
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=200)
-lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
+# lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
 lnd.plotTraps(fig, ax, size=200)
 srv.plotClean(fig, ax, bbox=bbox, frame=False, pad=cst.pad_i)
 # srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
 fig.savefig(
-    path.join(OUT_PTH, '{}-{}_TRP-COS.png'.format(ZIK, ID)), 
+    path.join(OUT_PTH, '{}_TRP-COS.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')

@@ -94,8 +94,8 @@ stats.register("traps", lambda fitnessValues: pop[fitnessValues.index(min(fitnes
 # Update with best results ----------------------------------------------------
 minFits= logbook.select("min")
 lnd.updateTrapsCoords(np.reshape(hof[0], (-1, 2)))
-srv.dumpLandscape(lnd, OUT_PTH, '{}-{}_TRP-COC'.format(ZIK, ID), fExt='pkl')
-srv.exportLog(logbook, OUT_PTH, '{}-{}_TRP-COC'.format(ZIK, ID))
+srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP-COS'.format(ID), fExt='pkl')
+srv.exportLog(logbook, OUT_PTH, '{}_LOG-COC'.format(ID))
 ###############################################################################
 # Plot GA
 ############################################################################### 
@@ -109,7 +109,7 @@ fig.savefig(
     facecolor='w', bbox_inches='tight', pad_inches=.1, dpi=cst.dpi
 )
 # Export plots ----------------------------------------------------------------
-lnd = srv.loadLandscape(OUT_PTH, '{}-{}_TRP-COC'.format(ZIK, ID), fExt='pkl')
+lnd = srv.loadLandscape(OUT_PTH, '{}-{}_TRP-COC'.format(ID), fExt='pkl')
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
@@ -119,7 +119,7 @@ lnd.plotTraps(fig, ax, size=200)
 srv.plotClean(fig, ax, bbox=bbox, frame=False, pad=cst.pad_i)
 srv.plotFitness(fig, ax, min(minFits), zorder=30)
 fig.savefig(
-    path.join(OUT_PTH, '{}-{}_TRP-COC.png'.format(ZIK, ID)), 
+    path.join(OUT_PTH, '{}_TRP-COC.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')

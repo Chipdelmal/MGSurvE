@@ -43,7 +43,7 @@ fitFuns = {'inner': np.max, 'outer': np.mean}
     fitFuns=fitFuns, verbose=VERBOSE
 )
 srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP-DOS'.format(ID), fExt='pkl')
-srv.exportLog(logbook, OUT_PTH, '{}_TRP-DOS'.format(ID))
+srv.exportLog(logbook, OUT_PTH, '{}_LOG-DOS'.format(ID))
 ###############################################################################
 # Plot GA
 ############################################################################### 

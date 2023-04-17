@@ -21,11 +21,11 @@ typeTraps = [0, 0, 0, 0, 1]
 tKer = {
     1: {
         'kernel': srv.sigmoidDecay,     
-        'params': {'A': 1, 'rate': .25, 'x0': 1/0.02}
+        'params': {'A': 0.75, 'rate': .125, 'x0': 1/0.025}
     },
     0: {
         'kernel': srv.exponentialDecay, 
-        'params': {'A': 1, 'b': 0.02}
+        'params': {'A': 0.75, 'b': 0.025}
     }
 }
 # Transition probabilities between point-types
