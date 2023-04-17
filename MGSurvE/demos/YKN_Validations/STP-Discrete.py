@@ -32,7 +32,7 @@ if not srv.isNotebook():
 else:
     (FXD_TRPS, AP, TRPS_NUM, RID) = (True, 'man', 10, '3')
 ID = 'STP'
-GENS = 5000
+GENS = 100
 OUT_PTH = './sims_out/'
 RID = int(RID)
 ###############################################################################
@@ -80,7 +80,7 @@ traps = pd.DataFrame({
     'lon': initLon, 'lat': initLat, 
     't': initTyp, 'f': initFxd
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': 0.041674}}}
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 0.041674}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
@@ -153,11 +153,11 @@ lnd = srv.loadLandscape(
     plt.figure(figsize=(15, 15)),
     plt.axes(projection=ccrs.PlateCarree())
 )
-lnd.updateTrapsRadii([0.999])
 lnd.plotSites(fig, ax, size=250)
 # lnd.plotMigrationNetwork(
 #     fig, ax, lineWidth=30, alphaMin=.25, alphaAmplitude=2.5
 # )
+lnd.updateTrapsRadii([0.250, 0.125, 0.100])
 lnd.plotTraps(
     fig, ax, 
     zorders=(30, 25), transparencyHex='55', 
@@ -174,7 +174,7 @@ fig.savefig(
 plt.close('all')
 # Plot Traps Kernels ----------------------------------------------------------
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
-(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 500), aspect=.175)
+(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 100), aspect=.175)
 fig.savefig(
     path.join(OUT_PTH, '{}D-{}_{:02d}-{:02d}_KER.png'.format(ID, AP, TRPS_NUM, RID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
