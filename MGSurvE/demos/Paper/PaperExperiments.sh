@@ -1,7 +1,7 @@
 #!/bin/bash
 
-OPT=$1
-declare -a lnds=("Grid" "Uniform" "Ring" "Circle" "Poisson")
+OPT="Simple"
+declare -a lnds=("Grid" "Uniform" "Ring" "Poisson")
 ###############################################################################
 # Setting landscapes up
 ###############################################################################
@@ -15,11 +15,13 @@ done
 ###############################################################################
 # Optimizing Continuous Traps
 ###############################################################################
-echo "* [2/3] Optimizing landscapes"
+echo "* [2/3] Optimizing continuous landscapes"
 if [ $OPT == "Simple" ];
 then
     for lnd in ${lnds[@]}; do
+        printf "\t* HOM ${lnd}..."
         python Optimization-Simple.py "${lnd}_LND_HOM" "ZI"
+        printf "\t* HET ${lnd}..."
         python Optimization-Simple.py "${lnd}_LND_HET" "ZI"
         printf "\r\033[K"
     done
@@ -33,11 +35,13 @@ fi
 ###############################################################################
 # Optimizing Discrete Traps
 ###############################################################################
-echo "* [3/3] Optimizing landscapes"
+echo "* [3/3] Optimizing discrete landscapes"
 if [ $OPT == "Simple" ];
 then
     for lnd in ${lnds[@]}; do
+        printf "\t* HOM ${lnd}..."
         python OptimizationDO-Simple.py "${lnd}_LND_HOM" "ZI"
+        printf "\t* HET ${lnd}..."
         python OptimizationDO-Simple.py "${lnd}_LND_HET" "ZI"
         printf "\r\033[K"
     done
