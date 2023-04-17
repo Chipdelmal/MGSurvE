@@ -16,7 +16,7 @@ ptsNum = 225
 pTypesProb =[0.1, 0.7, 0.2]
 # Number and type of traps
 nullTraps = [0, 0, 0, 0, 0]
-typeTraps = [0, 0, 0, 0, 1]
+typeTraps = [0, 0, 0, 0, 0]
 # Traps' kernels
 tKer = {
     1: {

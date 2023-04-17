@@ -1,0 +1,173 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from glob import glob
+import numpy as np
+import pandas as pd
+from os import path
+from sys import argv
+from glob import glob
+import cartopy.crs as ccrs
+import shapely.geometry as sgeom
+from cartopy.geodesic import Geodesic
+import matplotlib.pyplot as plt
+import MGSurvE as srv
+import auxiliary as aux
+from copy import deepcopy
+plt.rcParams['axes.facecolor']='#00000000'
+plt.rcParams['savefig.facecolor']='#00000000'
+
+
+if srv.isNotebook():
+    (ID, AP, TRP) = ('STPD', 'man', '05')
+else:
+    (ID, AP, TRP) = argv[1:]
+RID = int(TRP)
+FPAT = ID+'-'+AP+'_{}*'
+(TRPS, COLS) =  (
+    ['05', '10', ],# '15', '20'],
+    ['#ff70a6', '#072ac8', '#8338ec', '#f72585', '#0b2545'],
+)
+MPATS = ['man', ]
+GENS = 5000
+###############################################################################
+# File ID
+###############################################################################
+OUT_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Validations/{}_{}'.format(ID, GENS)
+srv.makeFolder(OUT_PTH)
+###############################################################################
+# Load Files
+###############################################################################
+(logs, traces) = ([], [])
+for trps in TRPS:
+    logFiles = sorted(glob(path.join(OUT_PTH, (FPAT+'LOG.csv').format(trps))))
+    logs.append([pd.read_csv(f) for f in logFiles])
+mins = [np.array([fc['min'] for fc in log]) for log in logs]
+###############################################################################
+# Plot GA Evolution
+###############################################################################
+(XRAN, YRAN) = ((0, 5000), (0, 5000))
+(fig, ax) = plt.subplots(figsize=(25, 3))
+for (ix, trc) in enumerate(mins):
+    ax.plot(trc.T, color=COLS[ix]+'77', lw=0.75)
+ax.set_xlim(0, GENS)
+ax.set_ylim(YRAN[0], YRAN[1])
+ax.hlines(np.arange(YRAN[0], YRAN[1]+25, 500), XRAN[0], XRAN[1], color='#00000033', lw=1, zorder=-10)
+ax.vlines(np.arange(XRAN[0], XRAN[1]+20, 500), YRAN[0], YRAN[1], color='#00000033', lw=1, zorder=-10)
+ax.set_xticks([])
+ax.set_yticks([])
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
+ax.spines['left'].set_visible(False)
+fig.savefig(
+    path.join(OUT_PTH, (FPAT[:-7]+'GA.png')), 
+    facecolor=None, bbox_inches='tight', transparent=True,
+    pad_inches=0, dpi=350
+)
+###############################################################################
+# Load Landscape
+###############################################################################
+for trps in TRPS:
+    lndFiles = sorted(glob(path.join(OUT_PTH, (FPAT+'TRP.pkl').format(trps))))
+    lnd = srv.loadLandscape(
+        OUT_PTH, lndFiles[0].split('/')[-1].split('.')[0], 
+        fExt='pkl'
+    )
+    # Traps Kernels ---------------------------------------------------------------
+    (XRAN, YRAN) = ((0, 100), (0, 1))
+    (fig, ax) = plt.subplots(1, 1, figsize=(25, 3), sharey=False)
+    (fig, ax) = srv.plotTrapsKernels(
+        fig, ax, lnd, distRange=(XRAN[0], XRAN[1]), aspect=.125
+    )
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.hlines(np.arange(YRAN[0], YRAN[1]+.25, .25), XRAN[0], XRAN[1], color='#00000055', lw=1, zorder=-10)
+    ax.vlines(np.arange(XRAN[0], XRAN[1]+20, 12.5), YRAN[0], YRAN[1], color='#00000055', lw=1, zorder=-10)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    fig.savefig(
+        path.join(OUT_PTH, '{}-{}_KER.png'.format(ID, trps)), 
+        facecolor=None, bbox_inches='tight', 
+        pad_inches=0, dpi=300, transparent=True
+    )
+    plt.close('all')
+###############################################################################
+# Inspect Landscape
+#
+# probe = [500, 501, 527, 213, 688, 243, 531, 449, 703, 585, 115, 131, 212, 555, 101, 460]
+###############################################################################
+PRINT_IDS = {'sites': False, 'traps': False}
+(outer, itr, gen) = ('man', 1, 5000)
+trps = '05'
+for (logIx, trps) in enumerate(TRPS):
+    lndFiles = sorted(glob(path.join(OUT_PTH, (FPAT+'TRP.pkl').format(trps))))
+    lnd = srv.loadLandscape(
+        OUT_PTH, lndFiles[0].split('/')[-1].split('.')[0], 
+        fExt='pkl'
+    )
+    if ID == 'STPD':
+        itrsFitsPos = [aux.getBestTraps(l) for l in logs[logIx]]
+        (fitVal, trpPos) = sorted(itrsFitsPos, key=lambda x: x[0])[0]
+        fitsFun = aux.switchFunction(MPATS[0])
+        trapsCoords = srv.chromosomeIDtoXY(trpPos, lnd.pointID, lnd.pointCoords).T
+    else:
+        itrsFitsPos = [aux.getBestTraps(l, discrete=False) for l in logs[logIx]]
+        (fitVal, trpPos) = sorted(itrsFitsPos, key=lambda x: x[0])[0]
+        fitsFun = aux.switchFunction(MPATS[logIx])
+        trapsCoords = np.reshape(trpPos, (-1, 2)).T
+    trapsLocs = pd.DataFrame(
+        np.vstack([trapsCoords, lnd.trapsTypes, lnd.trapsFixed]).T, 
+        columns=['lon', 'lat', 't', 'f']
+    )
+    trapsLocs['t'] = trapsLocs['t'].astype('int64')
+    trapsLocs['f'] = trapsLocs['f'].astype('int64')
+    # Update landscape --------------------------------------------------------
+    lnd.updateTraps(trapsLocs, lnd.trapsKernels)
+    if ID == 'STPD':
+        fitness = srv.calcDiscreteFitness(
+            trpPos, lnd, optimFunction=srv.getDaysTillTrapped,
+            optimFunctionArgs={'inner': np.sum, 'outer': fitsFun}
+        )[0]
+    else:
+        fitness = srv.calcFitness(
+            trpPos, lnd, optimFunction=srv.getDaysTillTrapped,
+            optimFunctionArgs={'inner': np.sum, 'outer': fitsFun}
+        )[0]
+    assert(np.isclose(fitVal, fitness))
+    # Plot --------------------------------------------------------------------  
+    (fig, ax) = (
+        plt.figure(figsize=(15, 15)),
+        plt.axes(projection=ccrs.PlateCarree())
+    )
+    lnd.plotSites(fig, ax, size=50)
+    lnd.updateTrapsRadii([0.250, 0.125, 0.100, 0.000000000000000001])
+    lnd.plotTraps(
+        fig, ax, 
+        zorders=(30, 25), transparencyHex='55', 
+        latlon=True, proj=ccrs.PlateCarree()
+    )
+    srv.plotFitness(
+        fig, ax, fitness, 
+        fmt='{:.5f}', fontSize=20, color='#00000066', pos=(0.75, 0.10)
+    )
+    srv.plotClean(fig, ax, bbox=lnd.landLimits)
+    if PRINT_IDS['sites']:
+        for (ix, xy) in enumerate(lnd.pointCoords):
+            ax.text(
+                xy[0], xy[1], int(ix), 
+                fontsize=3.5, zorder=10, ha='center', va='center_baseline'
+            )
+    if PRINT_IDS['traps']:
+        for (ix, xy) in enumerate(lnd.trapsCoords):
+            ax.text(
+                xy[0], xy[1], int(ix), 
+                fontsize=10, zorder=50, ha='center', va='center_baseline'
+            )
+    fig.savefig(
+        path.join(OUT_PTH, (FPAT[:-1]+'.png').format(trps)), 
+        facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=350,
+        transparent=False
+    )
