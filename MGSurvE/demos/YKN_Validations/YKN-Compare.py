@@ -13,21 +13,24 @@ import matplotlib.pyplot as plt
 import MGSurvE as srv
 import auxiliary as aux
 from copy import deepcopy
-plt.rcParams['axes.facecolor']='white'
-plt.rcParams['savefig.facecolor']='white'
+plt.rcParams['axes.facecolor']='#00000000'
+plt.rcParams['savefig.facecolor']='#00000000'
 
 
 if srv.isNotebook():
-    (ID, AP, RID) = ('YKNC', 'man', '01')
+    (ID, AP, RID) = ('YKND', 'man', '01')
 else:
     (ID, AP, RID) = argv[1:]
 RID = int(RID)
 FPAT = ID+'-{}_16*'
 (MPATS, COLS, SCAL) =  (
-    ['man', ], # 'sum' 'max'],
-    ['#072ac8', '#f72585', '#8338ec'],
-    [1, 923, 1]
+    ['man', 'max'], # 'sum' 'max'],
+    ['#072ac8', '#8338ec', '#f72585'],
+    [1, 1, 923]
 )
+MPATS = (['man', 'max'] if ID[-1]=='D' else ['man', ])
+if ID[-1] == 'C':
+    COLS = ['#90be6d', ]
 GENS = 5000
 ###############################################################################
 # File ID
@@ -47,15 +50,24 @@ mins = [np.array([fc['min'] for fc in log]) for log in logs]
 ###############################################################################
 # Plot GA Evolution
 ###############################################################################
-(fig, ax) = plt.subplots(figsize=(20, 6))
+(XRAN, YRAN) = ((0, 5000), (0, 150))
+(fig, ax) = plt.subplots(figsize=(25, 3))
 for (ix, trc) in enumerate(mins):
-    ax.plot(trc.T/SCAL[ix], color=COLS[ix]+'99', lw=0.75)
+    ax.plot(trc.T/SCAL[ix], color=COLS[ix]+'77', lw=1.25)
 ax.set_xlim(0, GENS)
-ax.set_ylim(50, 100)
-ax.set_aspect(15)
+ax.set_ylim(YRAN[0], YRAN[1])
+ax.hlines(np.arange(YRAN[0], YRAN[1]+25, 25), XRAN[0], XRAN[1], color='#00000033', lw=1, zorder=-10)
+ax.vlines(np.arange(XRAN[0], XRAN[1]+20, 500), YRAN[0], YRAN[1], color='#00000033', lw=1, zorder=-10)
+ax.set_xticks([])
+ax.set_yticks([])
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
+ax.spines['left'].set_visible(False)
 fig.savefig(
     path.join(OUT_PTH, (FPAT[:-7]+'-GA.png')), 
-    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=350
+    facecolor=None, bbox_inches='tight', transparent=True,
+    pad_inches=0, dpi=350
 )
 ###############################################################################
 # Load Landscape
@@ -66,11 +78,23 @@ lnd = srv.loadLandscape(
     fExt='pkl'
 )
 # Traps Kernels ---------------------------------------------------------------
-(fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
-(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 100), aspect=.175)
+(XRAN, YRAN) = ((0, 100), (0, 1))
+(fig, ax) = plt.subplots(1, 1, figsize=(25, 3), sharey=False)
+(fig, ax) = srv.plotTrapsKernels(
+    fig, ax, lnd, distRange=(XRAN[0], XRAN[1]), aspect=.125
+)
+ax.set_xticks([])
+ax.set_yticks([])
+ax.hlines(np.arange(YRAN[0], YRAN[1]+.25, .25), XRAN[0], XRAN[1], color='#00000055', lw=1, zorder=-10)
+ax.vlines(np.arange(XRAN[0], XRAN[1]+20, 12.5), YRAN[0], YRAN[1], color='#00000055', lw=1, zorder=-10)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
+ax.spines['left'].set_visible(False)
 fig.savefig(
     path.join(OUT_PTH, '{}D-{}_KER.png'.format(ID, AP)), 
-    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+    facecolor=None, bbox_inches='tight', 
+    pad_inches=0, dpi=300, transparent=True
 )
 plt.close('all')
 ###############################################################################
