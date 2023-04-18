@@ -30,7 +30,7 @@ import cartopy.feature as cfeature
 if not srv.isNotebook():
     (FXD_TRPS, AP, TRPS_NUM, RID) = (True, 'man', int(argv[1]), int(argv[2]))
 else:
-    (FXD_TRPS, AP, TRPS_NUM, RID) = (True, 'man', 10, '3')
+    (FXD_TRPS, AP, TRPS_NUM, RID) = (True, 'man', 5, '07')
 ID = 'STP'
 GENS = 5000
 OUT_PTH = './sims_out/'
@@ -135,7 +135,7 @@ elif (AP=='sum'):
 elif (AP=='max'):
     outer = np.max
 (lnd, logbook) = srv.optimizeDiscreteTrapsGA(
-    lndGA, pop_size=POP_SIZE, generations=GENS, verbose=False,
+    lndGA, pop_size=POP_SIZE, generations=GENS, verbose=True,
     mating_params=MAT, mutation_params=MUT, selection_params=SEL,
     fitFuns={'inner': np.sum, 'outer': outer}
 )

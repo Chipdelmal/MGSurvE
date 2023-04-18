@@ -25,8 +25,8 @@ else:
 RID = int(TRP)
 FPAT = ID+'-'+AP+'_{}*'
 (TRPS, COLS) =  (
-    ['05', '10', ],# '15', '20'],
-    ['#ff70a6', '#072ac8', '#8338ec', '#f72585', '#0b2545'],
+    ['05', '10', '15'], # '20'],
+    ['#390099', '#072ac8', '#ff70a6', '#7678ed'],
 )
 MPATS = ['man', ]
 GENS = 5000
@@ -42,18 +42,18 @@ srv.makeFolder(OUT_PTH)
 for trps in TRPS:
     logFiles = sorted(glob(path.join(OUT_PTH, (FPAT+'LOG.csv').format(trps))))
     logs.append([pd.read_csv(f) for f in logFiles])
-mins = [np.array([fc['min'] for fc in log]) for log in logs]
+mins = [np.array([fc['min'].values for fc in log]) for log in logs]
 ###############################################################################
 # Plot GA Evolution
 ###############################################################################
-(XRAN, YRAN) = ((0, 5000), (0, 5000))
+(XRAN, YRAN) = ((0, 2500), (0, 3000))
 (fig, ax) = plt.subplots(figsize=(25, 3))
 for (ix, trc) in enumerate(mins):
-    ax.plot(trc.T, color=COLS[ix]+'77', lw=0.75)
-ax.set_xlim(0, GENS)
+    ax.plot(trc.T, color=COLS[ix]+'77', lw=1.25)
+ax.set_xlim(0, XRAN[1])
 ax.set_ylim(YRAN[0], YRAN[1])
-ax.hlines(np.arange(YRAN[0], YRAN[1]+25, 500), XRAN[0], XRAN[1], color='#00000033', lw=1, zorder=-10)
-ax.vlines(np.arange(XRAN[0], XRAN[1]+20, 500), YRAN[0], YRAN[1], color='#00000033', lw=1, zorder=-10)
+ax.hlines(np.arange(YRAN[0], YRAN[1]+25, 1000), XRAN[0], XRAN[1], color='#00000055', lw=1, zorder=-10)
+ax.vlines(np.arange(XRAN[0], XRAN[1]+20, 250),  YRAN[0], YRAN[1], color='#00000055', lw=1, zorder=-10)
 ax.set_xticks([])
 ax.set_yticks([])
 ax.spines['top'].set_visible(False)
@@ -65,6 +65,7 @@ fig.savefig(
     facecolor=None, bbox_inches='tight', transparent=True,
     pad_inches=0, dpi=350
 )
+plt.close('all')
 ###############################################################################
 # Load Landscape
 ###############################################################################
@@ -142,18 +143,22 @@ for (logIx, trps) in enumerate(TRPS):
         plt.figure(figsize=(15, 15)),
         plt.axes(projection=ccrs.PlateCarree())
     )
-    lnd.plotSites(fig, ax, size=50)
-    lnd.updateTrapsRadii([0.250, 0.125, 0.100, 0.000000000000000001])
+    lnd.plotSites(fig, ax, size=250)
+    lnd.plotLandBoundary(fig, ax)
+    lnd.updateTrapsRadii([0.250, 0.125, 0.100])
+    # lnd.plotMigrationNetwork(
+    #     fig, ax, lineWidth=30, alphaMin=.25, alphaAmplitude=2.5
+    # )
     lnd.plotTraps(
-        fig, ax, 
-        zorders=(30, 25), transparencyHex='55', 
+        fig, ax, size=750,
+        zorders=(30, 25), transparencyHex='88', 
         latlon=True, proj=ccrs.PlateCarree()
     )
     srv.plotFitness(
         fig, ax, fitness, 
-        fmt='{:.5f}', fontSize=20, color='#00000066', pos=(0.75, 0.10)
+        fmt='{:.0f}', fontSize=20, color='#00000066', pos=(0.75, 0.10)
     )
-    srv.plotClean(fig, ax, bbox=lnd.landLimits)
+    srv.plotClean(fig, ax, bbox=((6.45, 6.77), (-0.02, 0.42)))
     if PRINT_IDS['sites']:
         for (ix, xy) in enumerate(lnd.pointCoords):
             ax.text(
@@ -171,3 +176,4 @@ for (logIx, trps) in enumerate(TRPS):
         facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=350,
         transparent=False
     )
+    plt.close('all')
