@@ -32,7 +32,7 @@ if not srv.isNotebook():
 else:
     (FXD_TRPS, AP, TRPS_NUM, RID) = (True, 'man', 10, '3')
 ID = 'STP'
-GENS = 100
+GENS = 5000
 OUT_PTH = './sims_out/'
 RID = int(RID)
 ###############################################################################
