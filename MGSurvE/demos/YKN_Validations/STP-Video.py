@@ -19,15 +19,15 @@ plt.rcParams['savefig.facecolor']='#00000000'
 
 
 if srv.isNotebook():
-    (ID, AP, RID) = ('YKNC', 'man', '02')
+    (ID, AP, TRPS, RID) = ('STPD', 'man', '05', '02')
 else:
-    (ID, AP, RID) = argv[1:]
-(GENS, RID, FPAT) = (5000, int(RID), ID+'-{}_16*')
+    (ID, AP, TRPS, RID) = argv[1:]
+(GENS, RID, FPAT) = (5000, int(RID), ID+'-{}_'+TRPS+'*')
 ###############################################################################
 # File ID
 ###############################################################################
 FNAME = FPAT.format(AP)[:-1]+'-{:02d}_'.format(RID)
-I_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Validations/YKND_5000'
+I_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Validations/STPD_5000/'
 O_PTH = path.join(I_PTH, 'VID_{}'.format(FNAME[:-1]))
 srv.makeFolder(O_PTH)
 ###############################################################################
@@ -40,10 +40,13 @@ srv.makeFolder(O_PTH)
 ###############################################################################
 # Plot Clean Landscape
 ###############################################################################
-(PROJ, FIGS, PAD, DPI) = (ccrs.PlateCarree(), (15, 15), 0, 300)
+(PROJ, FIGS, PAD, DPI, BND) = (
+    ccrs.PlateCarree(), (15, 15), 0, 300, ((6.45, 6.77), (-0.02, 0.42))
+)
 (fig, ax) = (plt.figure(figsize=FIGS), plt.axes(projection=PROJ))
-lnd.plotSites(fig, ax, size=50)
-srv.plotClean(fig, ax, bbox=lnd.landLimits)
+lnd.plotSites(fig, ax, size=250)
+lnd.plotLandBoundary(fig, ax)
+srv.plotClean(fig, ax, bbox=BND)
 fig.savefig(
     path.join(O_PTH, FNAME+'CLN.png'), 
     transparent=False, facecolor='w',
@@ -59,7 +62,7 @@ for gen in range(GENS)[0:]:
     print("* Exporting {:04d}/{:04d}".format(gen, GENS), end='\r')
     # Get traps ---------------------------------------------------------------
     trpEntry = log.iloc[gen]['traps']
-    if ID == 'YKND':
+    if ID == 'STPD':
         trpPos = aux.idStringToArray(trpEntry, discrete=True)
         trpCds = srv.chromosomeIDtoXY(trpPos, lnd.pointID, lnd.pointCoords).T
     else:
@@ -75,7 +78,7 @@ for gen in range(GENS)[0:]:
     lnd.updateTraps(trapsLocs, lnd.trapsKernels)
     lnd.updateTrapsRadii([0.250, 0.125, 0.100])
     # Calculate new fitness ---------------------------------------------------
-    if ID == 'YKND':
+    if ID == 'STPD':
         fitness = srv.calcDiscreteFitness(
             trpPos, lnd, optimFunction=srv.getDaysTillTrapped,
             optimFunctionArgs={'inner': np.sum, 'outer': fitFun}
@@ -90,7 +93,7 @@ for gen in range(GENS)[0:]:
     # lnd.plotSites(fig, ax, size=50)
     lnd.plotTraps(
         fig, ax, 
-        zorders=(30, 25), transparencyHex='55', 
+        zorders=(30, 25), size=750, transparencyHex='99', 
         latlon=True, proj=PROJ
     )
     ax.text(
@@ -105,7 +108,7 @@ for gen in range(GENS)[0:]:
         fontsize=25, color='#00000066',
         transform=ax.transAxes, zorder=5
     )
-    srv.plotClean(fig, ax, bbox=lnd.landLimits)
+    srv.plotClean(fig, ax, bbox=BND)
     fig.savefig(
         path.join(O_PTH, '{:04d}.png'.format(gen)), 
         transparent=True, facecolor=None,
