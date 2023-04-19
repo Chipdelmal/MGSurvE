@@ -17,6 +17,8 @@ from PIL import Image
 matplotlib.use('agg')
 import warnings
 warnings.filterwarnings("ignore")
+plt.rcParams['axes.facecolor']='#00000000'
+plt.rcParams['savefig.facecolor']='#00000000'
 
 
 if srv.isNotebook():
@@ -41,7 +43,7 @@ srv.makeFolder(O_PTH)
 ###############################################################################
 # Plot Clean Landscape
 ###############################################################################
-(PROJ, FIGS, PAD, DPI) = (ccrs.PlateCarree(), (15, 15), 0, 350)
+(PROJ, FIGS, PAD, DPI) = (ccrs.PlateCarree(), (15, 15), 0, 300)
 (fig, ax) = (plt.figure(figsize=FIGS), plt.axes(projection=PROJ))
 lnd.plotSites(fig, ax, size=50)
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
@@ -50,14 +52,13 @@ fig.savefig(
     transparent=False, facecolor='w',
     bbox_inches='tight', pad_inches=PAD, dpi=DPI
 )
-plt.close("all")
 ###############################################################################
 # Plot Optimization
 ###############################################################################
 fitFun = aux.switchFunction(AP)
 gen = 1000
 for gen in range(GENS)[:]:
-    print("* {:04d}/{:04d}".format(gen, GENS), end='\n')
+    print("* Exporting {:04d}/{:04d}".format(gen, GENS), end='\r')
     trpEntry = log.iloc[gen]['traps']
     if ID == 'YKND':
         trpPos = aux.idStringToArray(trpEntry, discrete=True)
@@ -77,17 +78,25 @@ for gen in range(GENS)[:]:
             trpPos, lnd, optimFunction=srv.getDaysTillTrapped,
             optimFunctionArgs={'inner': np.sum, 'outer': fitFun}
         )[0]
-        
     # Plot --------------------------------------------------------------------
     (fig, ax) = (plt.figure(figsize=FIGS), plt.axes(projection=PROJ))
+    # lnd.plotSites(fig, ax, size=50)
     lnd.plotTraps(
         fig, ax, 
         zorders=(30, 25), transparencyHex='55', 
         latlon=True, proj=PROJ
     )
-    srv.plotFitness(
-        fig, ax, fitness, 
-        fmt='{:.5f}', fontSize=20, color='#00000066', pos=(0.75, 0.10)
+    ax.text(
+        0.8, 0.07, '{:05d}'.format(gen),
+        horizontalalignment='right', verticalalignment='center',
+        fontsize=25, color='#00000066',
+        transform=ax.transAxes, zorder=5
+    )
+    ax.text(
+        0.8, 0.10, '{:.02f}'.format(fitness),
+        horizontalalignment='right', verticalalignment='center',
+        fontsize=25, color='#00000066',
+        transform=ax.transAxes, zorder=5
     )
     srv.plotClean(fig, ax, bbox=lnd.landLimits)
     fig.savefig(
@@ -95,9 +104,8 @@ for gen in range(GENS)[:]:
         transparent=True, facecolor=None,
         bbox_inches='tight', pad_inches=PAD, dpi=DPI
     )
-    plt.close("all")
     # Overlay Brute-force -----------------------------------------------------
-    time.sleep(.25)
+    # time.sleep(.1)
     background = Image.open(path.join(O_PTH, FNAME+'CLN.png')).convert('RGBA')
     foreground = Image.open(path.join(O_PTH, '{:04d}.png'.format(gen))).convert('RGBA')
     (w, h) = background.size

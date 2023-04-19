@@ -18,7 +18,7 @@ plt.rcParams['savefig.facecolor']='#00000000'
 
 
 if srv.isNotebook():
-    (ID, AP, RID) = ('YKNC', 'man', '01')
+    (ID, AP, RID) = ('YKND', 'man', '01')
 else:
     (ID, AP, RID) = argv[1:]
 RID = int(RID)
