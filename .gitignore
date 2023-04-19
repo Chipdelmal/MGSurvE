@@ -6,6 +6,7 @@ MGS_sims
 scratch
 demo_out
 sims_out
+video
 *.png
 *.csv
 mailAlerts.py
