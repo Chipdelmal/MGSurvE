@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import time
 import subprocess
 import numpy as np
 import pandas as pd
@@ -19,7 +20,7 @@ plt.rcParams['savefig.facecolor']='#00000000'
 
 
 if srv.isNotebook():
-    (ID, AP, RID) = ('YKNC', 'man', '02')
+    (ID, AP, RID) = ('YKND', 'man', '02')
 else:
     (ID, AP, RID) = argv[1:]
 (GENS, RID, FPAT) = (5000, int(RID), ID+'-{}_16*')
@@ -40,9 +41,13 @@ srv.makeFolder(O_PTH)
 ###############################################################################
 # Plot Clean Landscape
 ###############################################################################
-(PROJ, FIGS, PAD, DPI) = (ccrs.PlateCarree(), (15, 15), 0, 300)
+(PROJ, FIGS, PAD, DPI) = (ccrs.PlateCarree(), (15, 15), 0, 125)
 (fig, ax) = (plt.figure(figsize=FIGS), plt.axes(projection=PROJ))
-lnd.plotSites(fig, ax, size=50)
+lnd.plotSites(fig, ax, size=75)
+# lnd.plotMigrationNetwork(
+#     fig, ax, 
+#     lineWidth=7.5, alphaMin=.05, alphaAmplitude=7.5
+# )
 srv.plotClean(fig, ax, bbox=lnd.landLimits)
 fig.savefig(
     path.join(O_PTH, FNAME+'CLN.png'), 
@@ -90,20 +95,20 @@ for gen in range(GENS)[0:]:
     # lnd.plotSites(fig, ax, size=50)
     lnd.plotTraps(
         fig, ax, 
-        zorders=(30, 25), transparencyHex='55', 
-        latlon=True, proj=PROJ
+        size=500, transparencyHex='99', 
+        zorders=(30, 25), latlon=True, proj=PROJ
     )
     ax.text(
-        0.8, 0.07, '{:05d}'.format(gen),
-        horizontalalignment='right', verticalalignment='center',
-        fontsize=25, color='#00000066',
-        transform=ax.transAxes, zorder=5
+        0.315, 0.65, '{:.02f}'.format(fitness),
+        horizontalalignment='center', verticalalignment='center',
+        fontsize=50, color='#00000033', rotation=45,
+        transform=ax.transAxes, zorder=-10
     )
     ax.text(
-        0.8, 0.10, '{:.02f}'.format(fitness),
-        horizontalalignment='right', verticalalignment='center',
-        fontsize=25, color='#00000066',
-        transform=ax.transAxes, zorder=5
+        0.475, 0.475, '{:04d}'.format(gen),
+        horizontalalignment='center', verticalalignment='center',
+        fontsize=75, color='#00000011',
+        transform=ax.transAxes, zorder=-10
     )
     srv.plotClean(fig, ax, bbox=lnd.landLimits)
     fig.savefig(
@@ -113,7 +118,7 @@ for gen in range(GENS)[0:]:
     )
     plt.close("all")
     # Overlay Brute-force -----------------------------------------------------
-    # time.sleep(.1)
+    time.sleep(.1)
     background = Image.open(path.join(O_PTH, FNAME+'CLN.png')).convert('RGBA')
     foreground = Image.open(path.join(O_PTH, '{:04d}.png'.format(gen))).convert('RGBA')
     (w, h) = background.size
@@ -130,8 +135,9 @@ for gen in range(GENS)[0:]:
 #       -pix_fmt yuv420p OUTPUT_PATH.mp4"
 ############################################################################### 
 fmpegBse = "ffmpeg -start_number 0 -r 12 -f image2 -s 1920x1080 -i {}/%04d.png ".format(O_PTH)
-fmpegMid = "-vf pad=ceil(iw/2)*2:ceil(ih/2)*2 -pix_fmt yuv420p {}/{}.mp4 -y".format(O_PTH, FNAME)
+fmpegMid = "-vf 'pad=ceil(iw/2)*2:ceil(ih/2)*2' -pix_fmt yuv420p {}/{}.mp4 -y".format(O_PTH, FNAME)
 fmpegFll = fmpegBse+fmpegMid
-process = subprocess.Popen(fmpegFll.split(), stdout=subprocess.PIPE)
-(output, error) = process.communicate()
+print(fmpegFll)
+# process = subprocess.Popen(fmpegFll.split(), stdout=subprocess.PIPE)
+# (output, error) = process.communicate()
     

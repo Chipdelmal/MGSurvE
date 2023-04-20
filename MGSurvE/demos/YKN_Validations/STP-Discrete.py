@@ -135,7 +135,7 @@ elif (AP=='sum'):
 elif (AP=='max'):
     outer = np.max
 (lnd, logbook) = srv.optimizeDiscreteTrapsGA(
-    lndGA, pop_size=POP_SIZE, generations=GENS, verbose=True,
+    lndGA, pop_size=POP_SIZE, generations=GENS, verbose=False,
     mating_params=MAT, mutation_params=MUT, selection_params=SEL,
     fitFuns={'inner': np.sum, 'outer': outer}
 )
