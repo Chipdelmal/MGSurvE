@@ -118,7 +118,7 @@ for gen in range(GENS)[0:]:
     )
     plt.close("all")
     # Overlay Brute-force -----------------------------------------------------
-    time.sleep(.1)
+    time.sleep(.2)
     background = Image.open(path.join(O_PTH, FNAME+'CLN.png')).convert('RGBA')
     foreground = Image.open(path.join(O_PTH, '{:04d}.png'.format(gen))).convert('RGBA')
     (w, h) = background.size

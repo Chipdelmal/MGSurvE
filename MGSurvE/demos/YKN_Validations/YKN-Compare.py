@@ -30,7 +30,7 @@ FPAT = ID+'-{}_16*'
 )
 MPATS = (['man', 'max'] if ID[-1]=='D' else ['man', ])
 if ID[-1] == 'C':
-    COLS = ['#90be6d', ]
+    COLS = ['#ee964b', ]
 GENS = 5000
 ###############################################################################
 # File ID
@@ -149,7 +149,7 @@ for outer in MPATS:
     )
     srv.plotFitness(
         fig, ax, fitness, 
-        fmt='{:.5f}', fontSize=20, color='#00000066', pos=(0.75, 0.10)
+        fmt='{:.2f}', fontSize=25, color='#00000066', pos=(0.75, 0.10)
     )
     srv.plotClean(fig, ax, bbox=lnd.landLimits)
     if PRINT_IDS['sites']:
@@ -169,6 +169,7 @@ for outer in MPATS:
         facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=350,
         transparent=False
     )
+    plt.close('all')
 ###############################################################################
 # Fine-grained optimization for discrete case
 ###############################################################################

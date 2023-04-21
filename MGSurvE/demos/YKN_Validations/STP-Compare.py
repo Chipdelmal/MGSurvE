@@ -25,8 +25,8 @@ else:
 RID = int(TRP)
 FPAT = ID+'-'+AP+'_{}*'
 (TRPS, COLS) =  (
-    ['05', '10', '15'], # '20'],
-    ['#390099', '#072ac8', '#e01a4f', '#7678ed'],
+    ['05', '10', '15', '20'],
+    ['#390099', '#072ac8', '#e01a4f', '#ee964b'],
 )
 MPATS = ['man', ]
 GENS = 5000
@@ -156,7 +156,7 @@ for (logIx, trps) in enumerate(TRPS):
     )
     srv.plotFitness(
         fig, ax, fitness, 
-        fmt='{:.0f}', fontSize=20, color='#00000066', pos=(0.75, 0.10)
+        fmt='{:.0f}', fontSize=30, color='#00000066', pos=(0.75, 0.10)
     )
     srv.plotClean(fig, ax, bbox=((6.45, 6.77), (-0.02, 0.42)))
     if PRINT_IDS['sites']:
