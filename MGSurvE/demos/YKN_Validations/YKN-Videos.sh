@@ -10,7 +10,7 @@ NCL='\033[0m'
 #     python YKN-Video.py YKND man "$i"
 # done
 
-for i in {1..5}; do
+for i in {8..10}; do
     printf "${RED}* ID $i ...${NCL}\n" 
     python YKN-Video.py YKND max "$i"
 done

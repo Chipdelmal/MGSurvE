@@ -13,16 +13,17 @@ import matplotlib.pyplot as plt
 import MGSurvE as srv
 import auxiliary as aux
 from PIL import Image
-matplotlib.use('agg')
+# matplotlib.use('agg')
 plt.rcParams['axes.facecolor']='#00000000'
 plt.rcParams['savefig.facecolor']='#00000000'
 
 
 if srv.isNotebook():
-    (ID, AP, TRPS, RID) = ('STPD', 'man', '05', '02')
+    (ID, AP, TRPS, RID) = ('STPD', 'man', '5', '02')
 else:
     (ID, AP, TRPS, RID) = argv[1:]
-(GENS, RID, FPAT) = (5000, int(RID), ID+'-{}_'+TRPS+'*')
+TRPS = '{:02d}'.format(int(TRPS))
+(GENS, RID, FPAT) = (2500, int(RID), ID+'-{}_'+TRPS+'*')
 ###############################################################################
 # File ID
 ###############################################################################
@@ -41,7 +42,7 @@ srv.makeFolder(O_PTH)
 # Plot Clean Landscape
 ###############################################################################
 (PROJ, FIGS, PAD, DPI, BND) = (
-    ccrs.PlateCarree(), (15, 15), 0, 300, ((6.45, 6.77), (-0.02, 0.42))
+    ccrs.PlateCarree(), (15, 15), 0, 125, ((6.45, 6.77), (-0.02, 0.42))
 )
 (fig, ax) = (plt.figure(figsize=FIGS), plt.axes(projection=PROJ))
 lnd.plotSites(fig, ax, size=250)
@@ -57,7 +58,7 @@ plt.close("all")
 # Plot Optimization
 ###############################################################################
 fitFun = aux.switchFunction(AP)
-gen = 1000
+gen = 0
 for gen in range(GENS)[0:]:
     print("* Exporting {:04d}/{:04d}".format(gen, GENS), end='\r')
     # Get traps ---------------------------------------------------------------
@@ -97,16 +98,16 @@ for gen in range(GENS)[0:]:
         latlon=True, proj=PROJ
     )
     ax.text(
-        0.8, 0.07, '{:05d}'.format(gen),
-        horizontalalignment='right', verticalalignment='center',
-        fontsize=25, color='#00000066',
-        transform=ax.transAxes, zorder=5
+        0.825, 0.375, '{:.0f}'.format(fitness),
+        horizontalalignment='center', verticalalignment='center',
+        fontsize=50, color='#00000033', rotation=55,
+        transform=ax.transAxes, zorder=-10
     )
     ax.text(
-        0.8, 0.10, '{:.02f}'.format(fitness),
-        horizontalalignment='right', verticalalignment='center',
-        fontsize=25, color='#00000066',
-        transform=ax.transAxes, zorder=5
+        0.4, 0.5, '{:04d}'.format(gen),
+        horizontalalignment='center', verticalalignment='center',
+        fontsize=75, color='#00000008',
+        transform=ax.transAxes, zorder=-10
     )
     srv.plotClean(fig, ax, bbox=BND)
     fig.savefig(
@@ -132,7 +133,7 @@ for gen in range(GENS)[0:]:
 #       -vcodec libx264 -preset veryslow -crf 15 
 #       -pix_fmt yuv420p OUTPUT_PATH.mp4"
 ############################################################################### 
-fmpegBse = "ffmpeg -start_number 0 -r 12 -f image2 -s 1920x1080 -i {}/%04d.png ".format(O_PTH)
+fmpegBse = "ffmpeg -start_number 0 -r 24 -f image2 -s 1920x1080 -i {}/%04d.png ".format(O_PTH)
 fmpegMid = "-vf pad=ceil(iw/2)*2:ceil(ih/2)*2 -pix_fmt yuv420p {}/{}.mp4 -y".format(O_PTH, FNAME)
 fmpegFll = fmpegBse+fmpegMid
 process = subprocess.Popen(fmpegFll.split(), stdout=subprocess.PIPE)
