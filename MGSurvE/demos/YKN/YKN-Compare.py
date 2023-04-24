@@ -47,6 +47,10 @@ for mPat in MPATS:
     logFiles = sorted(glob(path.join(OUT_PTH, (FPAT+'LOG.csv').format(mPat))))
     logs.append([pd.read_csv(f) for f in logFiles])
 mins = [np.array([fc['min'] for fc in log]) for log in logs]
+minFits = [m[-1] for m in mins[0]]
+minVal = min(minFits) 
+minIdx = minFits. index(minVal)
+print('{} @ {}'.format(minVal, minIdx+1))
 ###############################################################################
 # Plot GA Evolution
 ###############################################################################

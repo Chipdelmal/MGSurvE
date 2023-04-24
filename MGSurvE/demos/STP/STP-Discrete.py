@@ -20,11 +20,10 @@ from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
 from numpy.random import uniform
-from deap import base, creator, algorithms, tools
 from sklearn.preprocessing import normalize
 import MGSurvE as srv
 import cartopy.crs as ccrs
-import cartopy.feature as cfeature
+
 
 
 if not srv.isNotebook():
@@ -43,7 +42,7 @@ ID = 'STP' if FXD_TRPS else 'STPN'
 ###############################################################################
 # Load Pointset
 ###############################################################################
-sites = pd.read_csv(path.join('../Paper/GEO', 'STP_LatLonN.csv'))
+sites = pd.read_csv(path.join('./GEO', 'STP_LatLonN.csv'))
 sites['t'] = [0]*sites.shape[0]
 SAO_TOME_LL = sites.iloc[IX_SPLIT:]
 SAO_bbox = (
@@ -59,7 +58,7 @@ FXD_NUM = len(SAO_FIXED)
 # Load Migration Matrix
 ###############################################################################
 migration = np.genfromtxt(
-    path.join('../Paper/GEO', 'STP_MigrationN.csv'), delimiter=','
+    path.join('./GEO', 'STP_MigrationN.csv'), delimiter=','
 )
 msplit = migration[IX_SPLIT:,IX_SPLIT:]
 # np.fill_diagonal(msplit, DIAG_VAL)

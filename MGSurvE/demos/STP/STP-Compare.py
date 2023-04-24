@@ -19,7 +19,7 @@ plt.rcParams['savefig.facecolor']='#00000000'
 
 
 if srv.isNotebook():
-    (ID, AP, TRP) = ('STPD', 'man', '05')
+    (ID, AP, TRP) = ('STPD', 'man', '10')
 else:
     (ID, AP, TRP) = argv[1:]
 RID = int(TRP)
@@ -43,6 +43,10 @@ for trps in TRPS:
     logFiles = sorted(glob(path.join(OUT_PTH, (FPAT+'LOG.csv').format(trps))))
     logs.append([pd.read_csv(f) for f in logFiles])
 mins = [np.array([fc['min'].values for fc in log]) for log in logs]
+minFits = [m[2500] for m in mins[3]]
+minVal = min(minFits) 
+minIdx = minFits. index(minVal)
+print('{} @ {}'.format(minVal, minIdx+1))
 ###############################################################################
 # Plot GA Evolution
 ###############################################################################
