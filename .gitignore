@@ -12,8 +12,6 @@ video
 # *.csv
 mailAlerts.py
 /MGSurve/demos/*.png
-!/MGSurvE/demos/Paper/GEO/STP_LatLon.csv
-!/MGSurvE/demos/Paper/GEO/STP_Migration.csv
 
 # VSCode
 *.vscode
