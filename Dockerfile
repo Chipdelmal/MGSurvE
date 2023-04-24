@@ -7,10 +7,7 @@ LABEL maintainer="Hector M. Sanchez C. <sanchez.hmsc@berkeley.edu>"
 RUN apt-get update \
     && apt-get install nano \
     && rm -rf /var/lib/apt/lists/* \
-    && mkdir MGSurvE \
-    && mkdir MGSurvE/Paper \
-    && mkdir MGSurvE/Paper/GEO \
-    && mkdir MGSurvE/Demos 
+    && mkdir MGSurvE
 WORKDIR /MGSurvE
 ###############################################################################
 # Copy Requirements and License
@@ -20,13 +17,15 @@ COPY LICENSE .
 ###############################################################################
 # Copy Paper and Demo Experiments Files
 ###############################################################################
-COPY ./MGSurvE/demos/Paper/GEO ./Paper/GEO
-COPY ./MGSurvE/demos/Paper/*.py ./Paper/
-COPY ./MGSurvE/demos/Paper/*.sh ./Paper/
-COPY ./MGSurvE/demos/*.sh ./Demos/
-COPY ./MGSurvE/demos/*.py ./Demos/
+COPY ./MGSurvE/ .
 ###############################################################################
 # Install Packages
 ###############################################################################
-RUN conda env update --file requirements.yml -n base --prune \
-    && rm requirements.yml
+RUN conda update -n base -c defaults conda \
+    && conda env update --file requirements.yml -n base --prune \
+    && rm requirements.yml \
+    && conda install deap -y \ 
+    && conda install cartopy -y \
+    && conda install libpysal -y \
+    && pip install MGSurvE
+

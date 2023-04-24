@@ -85,15 +85,11 @@ docker_release:
 	- docker push chipdelmal/mgsurve:latest
 
 docker_run:
-	- docker run \
-		-v "$(pwd)"/MGS_sims/paper:/MGSurvE/Paper/sims_out \
-		-v "$(pwd)"/MGS_sims/demos:/MGSurvE/Demos/demos_out \
-		-it mgsurve:dev bash
+	- docker run -it mgsurve:dev bash
 
 docker_build:
 	- docker rmi mgsurve:dev -f
 	- docker build -t mgsurve:dev .
-
 
 ###############################################################################
 # Full Release
