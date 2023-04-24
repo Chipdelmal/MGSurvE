@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-CORES = 16
+CORES = 8
 ###############################################################################
 # Load libraries and limit cores
 ###############################################################################
@@ -20,17 +20,16 @@ from sys import argv
 from copy import deepcopy
 import matplotlib.pyplot as plt
 from numpy.random import uniform
-from deap import base, creator, algorithms, tools
 from sklearn.preprocessing import normalize
 import MGSurvE as srv
 import cartopy.crs as ccrs
-import cartopy.feature as cfeature
+
 
 
 if not srv.isNotebook():
     (FXD_TRPS, AP, TRPS_NUM, RID) = (True, 'man', int(argv[1]), int(argv[2]))
 else:
-    (FXD_TRPS, AP, TRPS_NUM, RID) = (True, 'man', 10, '3')
+    (FXD_TRPS, AP, TRPS_NUM, RID) = (True, 'man', 5, '07')
 ID = 'STP'
 GENS = 5000
 OUT_PTH = './sims_out/'
@@ -43,7 +42,7 @@ ID = 'STP' if FXD_TRPS else 'STPN'
 ###############################################################################
 # Load Pointset
 ###############################################################################
-sites = pd.read_csv(path.join('../Paper/GEO', 'STP_LatLonN.csv'))
+sites = pd.read_csv(path.join('./GEO', 'STP_LatLonN.csv'))
 sites['t'] = [0]*sites.shape[0]
 SAO_TOME_LL = sites.iloc[IX_SPLIT:]
 SAO_bbox = (
@@ -59,7 +58,7 @@ FXD_NUM = len(SAO_FIXED)
 # Load Migration Matrix
 ###############################################################################
 migration = np.genfromtxt(
-    path.join('../Paper/GEO', 'STP_MigrationN.csv'), delimiter=','
+    path.join('./GEO', 'STP_MigrationN.csv'), delimiter=','
 )
 msplit = migration[IX_SPLIT:,IX_SPLIT:]
 # np.fill_diagonal(msplit, DIAG_VAL)
@@ -80,14 +79,14 @@ traps = pd.DataFrame({
     'lon': initLon, 'lat': initLat, 
     't': initTyp, 'f': initFxd
 })
-tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 1, 'b': 0.13539445}}}
+tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': 0.5, 'b': 0.041674}}}
 ###############################################################################
 # Setting Landscape Up
 ###############################################################################
 lnd = srv.Landscape(
     SAO_TOME_LL, migrationMatrix=SAO_TOME_MIG,
     traps=traps, trapsKernels=tKer, landLimits=SAO_LIMITS,
-    trapsRadii=[.75, .5, .3],
+    trapsRadii=[1],
 )
 bbox = lnd.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
@@ -157,7 +156,13 @@ lnd.plotSites(fig, ax, size=250)
 # lnd.plotMigrationNetwork(
 #     fig, ax, lineWidth=30, alphaMin=.25, alphaAmplitude=2.5
 # )
-lnd.plotTraps(fig, ax, zorders=(25, 20))
+lnd.updateTrapsRadii([0.250, 0.125, 0.100])
+lnd.plotTraps(
+    fig, ax, 
+    zorders=(30, 25), transparencyHex='55', 
+    latlon=True, proj=ccrs.PlateCarree()
+)
+srv.plotClean(fig, ax, bbox=lnd.landLimits)
 # srv.plotFitness(fig, ax, min(dta['min']), fmt='{:.2f}')
 lnd.plotLandBoundary(fig, ax)
 # srv.plotClean(fig, ax, bbox=lnd.landLimits)
@@ -168,7 +173,7 @@ fig.savefig(
 plt.close('all')
 # Plot Traps Kernels ----------------------------------------------------------
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
-(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 500), aspect=.175)
+(fig, ax) = srv.plotTrapsKernels(fig, ax, lnd, distRange=(0, 100), aspect=.175)
 fig.savefig(
     path.join(OUT_PTH, '{}D-{}_{:02d}-{:02d}_KER.png'.format(ID, AP, TRPS_NUM, RID)), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
@@ -184,7 +189,7 @@ srv.plotGAEvolution(
     alphas={'mean': .75, 'envelope': 0.5},
     aspect=1/3
 )
-ax.set_ylim(0, 250)
+ax.set_ylim(0, 1500)
 fig.savefig(
     path.join(OUT_PTH, '{}D-{}_{:02d}-{:02d}_GA.png'.format(ID, AP, TRPS_NUM, RID)),  
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300

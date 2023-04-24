@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+CORES = 8
+###############################################################################
+# Load libraries and limit cores
+###############################################################################
+import os
+os.environ["OMP_NUM_THREADS"] = str(CORES)
+os.environ["OPENBLAS_NUM_THREADS"] = str(CORES)
+os.environ["MKL_NUM_THREADS"] = str(CORES)
+os.environ["VECLIB_MAXIMUM_THREADS"] = str(CORES)
+os.environ["NUMEXPR_NUM_THREADS"] = str(CORES)
+# Load libraries --------------------------------------------------------------
 import warnings
 import numpy as np
 import pandas as pd
@@ -16,7 +27,7 @@ warnings.filterwarnings('ignore', 'The iteration is not making good progress')
 
 (GENS, VERBOSE, OUT_PTH) = (cst.gens, cst.verbose, cst.out_pth)
 if srv.isNotebook():
-    (ID, ZIK) = ('Grid_LND_HOM', 'ZI')
+    (ID, ZIK) = ('Ring_LND_HOM', 'ZI')
 else:
     (ID, ZIK) = (argv[1], argv[2])
 ###############################################################################
@@ -35,38 +46,38 @@ POP_SIZE = int(10*(lnd.trapsNumber*1.5))
 lndGA = deepcopy(lnd)
 ###############################################################################
 # Registering Functions for GA
-###############################################################################
-fitFuns = {'inner': np.max, 'outer': np.mean}
-(lnd, logbook) = srv.optimizeDiscreteTrapsGA(
-    lndGA, pop_size=POP_SIZE, generations=GENS,
+############################################################################### 
+(lnd, logbook) = srv.optimizeTrapsGA(
+    lndGA, pop_size='auto', generations=GENS,
     mating_params=MAT, mutation_params=MUT, selection_params=SEL,
-    fitFuns=fitFuns, verbose=VERBOSE
+    fitFuns={'outer': np.mean, 'inner': np.sum}, verbose=VERBOSE
 )
-srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP-DOS'.format(ID), fExt='pkl')
-srv.exportLog(logbook, OUT_PTH, '{}_TRP-DOS'.format(ID))
+srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP-COS'.format(ID), fExt='pkl')
+srv.exportLog(logbook, OUT_PTH, '{}_LOG-COS'.format(ID))
 ###############################################################################
 # Plot GA
-############################################################################### 
+###############################################################################
+logbook = pd.read_csv(path.join(OUT_PTH, '{}_LOG-COS.csv'.format(ID)))
+log = pd.DataFrame(logbook)
 (fig, ax) = plt.subplots(figsize=(15, 15))
 (fig, ax) = srv.plotGAEvolution(fig, ax, logbook)
-pthSave = path.join(OUT_PTH, '{}_GAP-DOS'.format(ID))
+pthSave = path.join( OUT_PTH, '{}_GAP-COS'.format(ID))
 fig.savefig(
     pthSave,
     facecolor='w', bbox_inches='tight', 
     pad_inches=.1, dpi=300
 )
 # Export plots ----------------------------------------------------------------
-lnd = srv.loadLandscape(OUT_PTH, '{}_TRP-DOS'.format(ID), fExt='pkl')
+lnd = srv.loadLandscape(OUT_PTH, '{}_TRP-COS'.format(ID), fExt='pkl')
 bbox = lnd.getBoundingBox()
-trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=200)
-lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
+# lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
 lnd.plotTraps(fig, ax, size=200)
 srv.plotClean(fig, ax, bbox=bbox, frame=False, pad=cst.pad_i)
 # srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
 fig.savefig(
-    path.join(OUT_PTH, '{}_TRP-DOS.png'.format(ID)), 
+    path.join(OUT_PTH, '{}_TRP-COS.png'.format(ID)), 
     facecolor='w', bbox_inches='tight', pad_inches=cst.pad, dpi=cst.dpi
 )
 plt.close('all')

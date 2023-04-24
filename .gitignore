@@ -4,8 +4,10 @@ dockerData
 demos_out
 MGS_sims
 scratch
+deprecated
 demo_out
 sims_out
+video
 *.png
 *.csv
 mailAlerts.py
