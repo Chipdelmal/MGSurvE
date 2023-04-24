@@ -9,7 +9,7 @@ demo_out
 sims_out
 video
 *.png
-*.csv
+# *.csv
 mailAlerts.py
 /MGSurve/demos/*.png
 !/MGSurvE/demos/Paper/GEO/STP_LatLon.csv
