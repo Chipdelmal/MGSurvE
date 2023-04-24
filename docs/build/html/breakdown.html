@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pkg Breakdown &mdash; MGSurvE  documentation</title>
@@ -11,10 +11,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,16 +27,12 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            MGSurvE
-              <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
+            <a href="index.html" class="icon icon-home"> MGSurvE
+            <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -81,8 +77,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Pkg Breakdown</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Pkg Breakdown</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/breakdown.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -93,12 +89,12 @@
            <div itemprop="articleBody">
              
   <section id="pkg-breakdown">
-<h1>Pkg Breakdown<a class="headerlink" href="#pkg-breakdown" title="Permalink to this heading"></a></h1>
+<h1>Pkg Breakdown<a class="headerlink" href="#pkg-breakdown" title="Permalink to this headline"></a></h1>
 <p><a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> is built around a <a class="reference external" href="../html/generated/MGSurvE.landscape.html#module-MGSurvE.landscape">landscape</a>
 object which stores the information of the sites’ and traps’ positions, along with the mosquito movement information.</p>
 <img alt="_images/MGSurvEDiagSingleSex.jpg" src="_images/MGSurvEDiagSingleSex.jpg" />
 <section id="workflow">
-<h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this heading"></a></h2>
+<h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this headline"></a></h2>
 <p>A general workflow in <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> looks as follows:</p>
 <ol class="arabic simple">
 <li><dl class="simple">
@@ -143,22 +139,22 @@ object which stores the information of the sites’ and traps’ positions, alon
 </section>
 <hr class="docutils" />
 <section id="components">
-<h2>Components<a class="headerlink" href="#components" title="Permalink to this heading"></a></h2>
+<h2>Components<a class="headerlink" href="#components" title="Permalink to this headline"></a></h2>
 <p>The <code class="code docutils literal notranslate"><span class="pre">landscape</span></code> object contains several elements that make it easy to define, calculate, plot and export our study sites.</p>
 <section id="point-and-traps-coordinates-lnd-pointcoords-lnd-trapscoords">
-<h3>Point and Traps Coordinates (<code class="code docutils literal notranslate"><span class="pre">lnd.pointCoords</span></code>, <code class="code docutils literal notranslate"><span class="pre">lnd.trapsCoords</span></code>)<a class="headerlink" href="#point-and-traps-coordinates-lnd-pointcoords-lnd-trapscoords" title="Permalink to this heading"></a></h3>
+<h3>Point and Traps Coordinates (<code class="code docutils literal notranslate"><span class="pre">lnd.pointCoords</span></code>, <code class="code docutils literal notranslate"><span class="pre">lnd.trapsCoords</span></code>)<a class="headerlink" href="#point-and-traps-coordinates-lnd-pointcoords-lnd-trapscoords" title="Permalink to this headline"></a></h3>
 <p>These two numpy arrays contain the information on the locations of points of interest in the landscape. Their ordering matters in terms of how secondary objects are calculated and stored throughout the code
 (distances and migration matrices preserve the order defined in these structures).</p>
 </section>
 <section id="kernel-function-lnd-kernelfunction">
-<h3>Kernel Function (<code class="code docutils literal notranslate"><span class="pre">lnd.kernelFunction</span></code>)<a class="headerlink" href="#kernel-function-lnd-kernelfunction" title="Permalink to this heading"></a></h3>
+<h3>Kernel Function (<code class="code docutils literal notranslate"><span class="pre">lnd.kernelFunction</span></code>)<a class="headerlink" href="#kernel-function-lnd-kernelfunction" title="Permalink to this headline"></a></h3>
 <p>This function defines the probability for individuals to move from one point to another in a time-step. In their most basic form, they calculate a probability <code class="code docutils literal notranslate"><span class="pre">p</span></code> as a function of the distance <code class="code docutils literal notranslate"><span class="pre">d</span></code>
 between points. This <code class="code docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">function</span></code> is run to calculate the <code class="code docutils literal notranslate"><span class="pre">lnd.migrationMatrix</span></code> from the <code class="code docutils literal notranslate"><span class="pre">lnd.distanceMatrix</span></code>. It can be defined to take into account other landscape features (such as altitude)
 if the parameters are provided (this would not pose a substantial computational burden as it is run only once to setup the landscape).</p>
 <img alt="_images/expo.jpg" src="_images/expo.jpg" />
 </section>
 <section id="traps-kernels-lnd-trapskernels">
-<h3>Traps Kernels (<code class="code docutils literal notranslate"><span class="pre">lnd.trapsKernels</span></code>)<a class="headerlink" href="#traps-kernels-lnd-trapskernels" title="Permalink to this heading"></a></h3>
+<h3>Traps Kernels (<code class="code docutils literal notranslate"><span class="pre">lnd.trapsKernels</span></code>)<a class="headerlink" href="#traps-kernels-lnd-trapskernels" title="Permalink to this headline"></a></h3>
 <p>Additional functions that calculate the relation between distance <code class="code docutils literal notranslate"><span class="pre">d</span></code> from the trap to the site from which the individual is moving from, and probability <code class="code docutils literal notranslate"><span class="pre">p</span></code> to fall into a trap (depending on the type of trap to account for attractiveness).
 These functions are stored in a dictionary where each entry defines the properties for every trap type.</p>
 <p>More complicated functions can be used to account for complex features such as elevation, land-type, and more; but, as these functions need to be run on each iteration of optimization cycles,
@@ -166,24 +162,24 @@ the more complicated they become, the more processing power that will be require
 <img alt="_images/TrapKernels.jpg" class="align-center" src="_images/TrapKernels.jpg" />
 </section>
 <section id="distances-matrix-lnd-distancematrix">
-<h3>Distances Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.distanceMatrix</span></code>)<a class="headerlink" href="#distances-matrix-lnd-distancematrix" title="Permalink to this heading"></a></h3>
+<h3>Distances Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.distanceMatrix</span></code>)<a class="headerlink" href="#distances-matrix-lnd-distancematrix" title="Permalink to this headline"></a></h3>
 <p>This numpy array contains the distances between all the points in the landscape in the order that they are stored in the
 <code class="code docutils literal notranslate"><span class="pre">pointCoords</span></code>. This matrix is calculated point-wise by using the <code class="code docutils literal notranslate"><span class="pre">distance</span> <span class="pre">function</span></code> provided to the <code class="code docutils literal notranslate"><span class="pre">landscape</span></code> object.</p>
 </section>
 <section id="migration-matrix-lnd-migrationmatrix">
-<h3>Migration Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.migrationMatrix</span></code>)<a class="headerlink" href="#migration-matrix-lnd-migrationmatrix" title="Permalink to this heading"></a></h3>
+<h3>Migration Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.migrationMatrix</span></code>)<a class="headerlink" href="#migration-matrix-lnd-migrationmatrix" title="Permalink to this headline"></a></h3>
 <p>This matrix contains the probabilities of individuals to migrate from point <code class="code docutils literal notranslate"><span class="pre">a</span></code> (row) to point <code class="code docutils literal notranslate"><span class="pre">b</span></code> (column) across
 the landscape in a time-step. This matrix is internally calculated using the <code class="code docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">function</span></code> and the distance between sites.</p>
 <img alt="_images/01.jpg" src="_images/01.jpg" />
 </section>
 <section id="masked-migration-matrix-lnd-maskedmigration">
-<h3>Masked Migration Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.maskedMigration</span></code>)<a class="headerlink" href="#masked-migration-matrix-lnd-maskedmigration" title="Permalink to this heading"></a></h3>
+<h3>Masked Migration Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.maskedMigration</span></code>)<a class="headerlink" href="#masked-migration-matrix-lnd-maskedmigration" title="Permalink to this headline"></a></h3>
 <p>Similar to the <code class="code docutils literal notranslate"><span class="pre">migration</span> <span class="pre">matrix</span></code> but this matrix takes into account the point-types for the probability of movement
 (as provided <code class="code docutils literal notranslate"><span class="pre">traps</span> <span class="pre">mask</span></code> array). If no <code class="code docutils literal notranslate"><span class="pre">traps</span> <span class="pre">mask</span></code> is provided, this matrix is equal to the <code class="code docutils literal notranslate"><span class="pre">migration</span> <span class="pre">matrix</span></code>.</p>
 <img alt="_images/02.jpg" src="_images/02.jpg" />
 </section>
 <section id="traps-matrix-lnd-trapsmigration">
-<h3>Traps Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.trapsMigration</span></code>)<a class="headerlink" href="#traps-matrix-lnd-trapsmigration" title="Permalink to this heading"></a></h3>
+<h3>Traps Matrix (<code class="code docutils literal notranslate"><span class="pre">lnd.trapsMigration</span></code>)<a class="headerlink" href="#traps-matrix-lnd-trapsmigration" title="Permalink to this headline"></a></h3>
 <p>Finally, the <code class="code docutils literal notranslate"><span class="pre">traps</span> <span class="pre">matrix</span></code> contains the probabilities of individuals moving between all the points of the landscape (including
 the traps).</p>
 <img alt="_images/03.jpg" src="_images/03.jpg" />
@@ -191,12 +187,12 @@ the traps).</p>
 </section>
 <hr class="docutils" />
 <section id="optimization">
-<h2>Optimization<a class="headerlink" href="#optimization" title="Permalink to this heading"></a></h2>
+<h2>Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline"></a></h2>
 <p>Some knowledge on basic constrained-optimization operations is needed to make the most of our framework.
 In particular, on Genetic Algorithms and/or Particle-Swarm Optimization; as these are the two alternatives that are provided out-of-the-box with <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a>.
 Most applications are easy to extend from our <a class="reference external" href="./demos.html">tutorials</a> and only require tweaks on the optimization hyper-parameters, but more tailored applications might need some extensions.</p>
 <section id="genetic-algorithm-ga">
-<h3>Genetic Algorithm (GA)<a class="headerlink" href="#genetic-algorithm-ga" title="Permalink to this heading"></a></h3>
+<h3>Genetic Algorithm (GA)<a class="headerlink" href="#genetic-algorithm-ga" title="Permalink to this headline"></a></h3>
 <p><a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> is designed to integrate into the <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a> Genetic Algorithm framework.
 We provide some of the basic functions necessary to make the integration as seamless as possible, namely:</p>
 <ul class="simple">
@@ -211,7 +207,7 @@ We provide some of the basic functions necessary to make the integration as seam
 <img alt="_images/SM1-005-TRP.jpg" src="_images/SM1-005-TRP.jpg" />
 </section>
 <section id="particle-swarm-optimization-pso">
-<h3>Particle-Swarm Optimization (PSO)<a class="headerlink" href="#particle-swarm-optimization-pso" title="Permalink to this heading"></a></h3>
+<h3>Particle-Swarm Optimization (PSO)<a class="headerlink" href="#particle-swarm-optimization-pso" title="Permalink to this headline"></a></h3>
 <p>In <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> we also include PSO optimization through the <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a> framework.
 For PSO, in contrast to GA, we provide a full wrapper object that takes care of all the needed operations within its methods.
 As such, this alternative is not as flexible as the GA one, but it might prove faster and more stable in certain optimization scenarios.</p>
