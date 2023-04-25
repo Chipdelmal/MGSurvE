@@ -23,7 +23,7 @@ import MGSurvE as srv
 
 
 if srv.isNotebook():
-    (ID, AP, RID) = ('YKN', 'man', '001')
+    (ID, AP, RID) = ('YKN', 'mean', '001')
 else:
     (ID, AP, RID) = argv[1:]
 GENS = 5000
@@ -112,7 +112,7 @@ if PRINT_BLANK:
 ###############################################################################
 # Registering Functions for GA
 ###############################################################################
-if (AP=='man'):
+if (AP=='mean'):
     outer = np.mean
 elif (AP=='sum'):
     outer = np.sum

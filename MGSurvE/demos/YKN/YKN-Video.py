@@ -20,7 +20,7 @@ plt.rcParams['savefig.facecolor']='#00000000'
 
 
 if srv.isNotebook():
-    (ID, AP, RID) = ('YKNC', 'man', '02')
+    (ID, AP, RID) = ('YKNC', 'mean', '02')
 else:
     (ID, AP, RID) = argv[1:]
 (GENS, RID, FPAT) = (5000, int(RID), ID+'-{}_16*')
@@ -28,7 +28,7 @@ else:
 # File ID
 ###############################################################################
 FNAME = FPAT.format(AP)[:-1]+'-{:02d}_'.format(RID)
-I_PTH = '/home/chipdelmal/Documents/WorkSims/MGSurvE_Validations/YKND_5000'
+I_PTH = './sims_out/'
 O_PTH = path.join(I_PTH, 'VID_{}'.format(FNAME[:-1]))
 srv.makeFolder(O_PTH)
 ###############################################################################
@@ -79,17 +79,6 @@ for gen in range(GENS)[0:]:
     trapsLocs['f'] = trapsLocs['f'].astype('int64')
     lnd.updateTraps(trapsLocs, lnd.trapsKernels)
     lnd.updateTrapsRadii([0.250, 0.125, 0.100])
-    # Calculate new fitness ---------------------------------------------------
-    # if ID == 'YKND':
-    #     fitness = srv.calcDiscreteFitness(
-    #         trpPos, lnd, optimFunction=srv.getDaysTillTrapped,
-    #         optimFunctionArgs={'inner': np.sum, 'outer': fitFun}
-    #     )[0]
-    # else:
-    #     fitness = srv.calcFitness(
-    #         trpPos, lnd, optimFunction=srv.getDaysTillTrapped,
-    #         optimFunctionArgs={'inner': np.sum, 'outer': fitFun}
-    #     )[0]
     fitness = log['min'].iloc[gen]
     # Plot --------------------------------------------------------------------
     (fig, ax) = (plt.figure(figsize=FIGS), plt.axes(projection=PROJ))
@@ -138,7 +127,6 @@ for gen in range(GENS)[0:]:
 fmpegBse = "ffmpeg -start_number 0 -r 12 -f image2 -s 1920x1080 -i {}/%04d.png ".format(O_PTH)
 fmpegMid = "-vf pad=ceil(iw/2)*2:ceil(ih/2)*2 -pix_fmt yuv420p {}/{}.mp4 -y".format('/'.join(O_PTH.split('/')[:-1]), FNAME)
 fmpegFll = fmpegBse+fmpegMid
-print(fmpegFll)
 process = subprocess.Popen(fmpegFll.split(), stdout=subprocess.PIPE)
 (output, error) = process.communicate()
     

@@ -78,17 +78,6 @@ for gen in range(GENS)[0:]:
     trapsLocs['f'] = trapsLocs['f'].astype('int64')
     lnd.updateTraps(trapsLocs, lnd.trapsKernels)
     lnd.updateTrapsRadii([0.250, 0.125, 0.100])
-    # Calculate new fitness ---------------------------------------------------
-    # if ID == 'STPD':
-    #     fitness = srv.calcDiscreteFitness(
-    #         trpPos, lnd, optimFunction=srv.getDaysTillTrapped,
-    #         optimFunctionArgs={'inner': np.sum, 'outer': fitFun}
-    #     )[0]
-    # else:
-    #     fitness = srv.calcFitness(
-    #         trpPos, lnd, optimFunction=srv.getDaysTillTrapped,
-    #         optimFunctionArgs={'inner': np.sum, 'outer': fitFun}
-    #     )[0]
     fitness = log['min'].iloc[gen]
     # Plot --------------------------------------------------------------------
     (fig, ax) = (plt.figure(figsize=FIGS), plt.axes(projection=PROJ))
