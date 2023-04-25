@@ -1,4 +1,5 @@
 # FROM python: "3.10-alpine"
+
 FROM continuumio/miniconda3
 LABEL maintainer="Hector M. Sanchez C. <sanchez.hmsc@berkeley.edu>"
 ###############################################################################

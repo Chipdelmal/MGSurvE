@@ -26,12 +26,12 @@ if srv.isNotebook():
     (ID, AP, RID) = ('YKN', 'man', '001')
 else:
     (ID, AP, RID) = argv[1:]
+GENS = 5000
 RID = int(RID)
 PRINT_BLANK = False
 ###############################################################################
 # File ID
 ###############################################################################
-GENS = 5000
 OUT_PTH = './sims_out/'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
@@ -114,13 +114,10 @@ if PRINT_BLANK:
 ###############################################################################
 if (AP=='man'):
     outer = np.mean
-    mult = 1
 elif (AP=='sum'):
     outer = np.sum
-    mult = 923
 elif (AP=='max'):
     outer = np.max
-    mult = 3
 # Optimize discrete -----------------------------------------------------------
 (lnd, logbook) = srv.optimizeDiscreteTrapsGA(
     lndGA, verbose=False,

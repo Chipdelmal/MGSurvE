@@ -102,37 +102,16 @@ dPad = (
     (bbox[1][0]*(1-delta*20), bbox[1][1]*(1+delta*20))
 )
 mutBase = max([i[1]-i[0] for i in bbox])/2.5
-# if PRINT_BLANK:
-    # (fig, ax) = (
-    #     plt.figure(figsize=(15, 15)),
-    #     plt.axes(projection=ccrs.PlateCarree())
-    # )
-    # lnd.plotSites(fig, ax, size=50)
-    # # lnd.plotMigrationNetwork(
-    # #     fig, ax, 
-    # #     lineWidth=7.5, alphaMin=.05, alphaAmplitude=7.5
-    # # )
-    # # lnd.plotLandBoundary(fig, ax)
-    # srv.plotClean(fig, ax, bbox=dPad)
-#     srv.plotClean(fig, ax, bbox=lnd.landLimits)
-#     fig.savefig(
-#         path.join(OUT_PTH, '{}C-{}_{:02d}-{:02d}_CLN.png'.format(ID, AP, TRPS_NUM, RID)), 
-#         facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-#     )
-#     plt.close('all')
 ###############################################################################
 # Registering Functions for GA
 ############################################################################### 
 if (AP=='man'):
     outer = np.mean
-    mult = 1
 elif (AP=='sum'):
     outer = np.sum
-    mult = 923
 elif (AP=='max'):
     outer = np.max
-    mult = 3
-
+# Optimize continuous ---------------------------------------------------------
 (lnd, logbook) = srv.optimizeTrapsGA(
     lndGA, verbose=False,
     bbox=dPad,
