@@ -149,13 +149,13 @@ def plotTraps(
                 cp = gd.circle(lon=trap[0], lat=trap[1], radius=r)
                 geoms.append(sgeom.Polygon(cp))
             ax.add_geometries(
-                geoms, crs=ccrs.PlateCarree(), 
+                geoms, crs=proj, 
                 edgecolor='#00000000', color=col, 
                 zorder=zorders[1]
             )
         if latlon and not CARTOPY:
             warnings.warn("Please install cartopy to plot the traps' radii of attractiveness!")
-        else:
+        if not latlon:
             for r in trapsKernels[tType]['radii']:
                 circle = plt.Circle(
                     (trap[0], trap[1]), r, 

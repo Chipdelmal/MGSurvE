@@ -433,7 +433,7 @@ class Landscape:
             self.trapsKernels, self.trapsFixed,
             colors=colors, marker=marker,
             edgecolor=edgecolor, lws=lws, ls=ls,
-            size=size, zorders=zorders,
+            size=size, zorders=zorders, latlon=self.latlon,
             **kwargs
         )
         return (fig, ax)
