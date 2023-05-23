@@ -28,14 +28,14 @@ FPAT = ID+'-{}_16*'
     ['#072ac8', '#8338ec', '#f72585'],
     [1, 1, 923]
 )
-MPATS = (['man', 'max'] if ID[-1]=='D' else ['man', ])
+MPATS = (['man', 'max'] if ID[-1]=='D' else ['man', 'max'])
 if ID[-1] == 'C':
-    COLS = ['#e01a4f', ]
+    COLS = ['#e01a4f', '#a2d2ff']
 GENS = 5000
 ###############################################################################
 # File ID
 ###############################################################################
-OUT_PTH = './sims_out/'
+OUT_PTH = '/Users/sanchez.hmsc/Documents/WorkSims/MGSurvE_Validations/YKND_5000/'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
 # Load Files
@@ -148,7 +148,7 @@ for outer in MPATS:
     lnd.plotTraps(
         fig, ax, 
         zorders=(30, 25), transparencyHex='55', 
-        latlon=True, proj=ccrs.PlateCarree()
+        proj=ccrs.PlateCarree()
     )
     srv.plotFitness(
         fig, ax, fitness, 
