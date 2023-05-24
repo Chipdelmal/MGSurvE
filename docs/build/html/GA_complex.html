@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>8. GA with Sex Kernels &mdash; MGSurvE  documentation</title>
@@ -11,10 +11,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,12 +28,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> MGSurvE
-            <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MGSurvE
+              <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -85,9 +90,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="demos.html">Tutorials</a> &raquo;</li>
-      <li><span class="section-number">8. </span>GA with Sex Kernels</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="demos.html">Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8. </span>GA with Sex Kernels</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/GA_complex.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -98,18 +103,18 @@
            <div itemprop="articleBody">
              
   <section id="ga-with-sex-kernels">
-<h1><span class="section-number">8. </span>GA with Sex Kernels<a class="headerlink" href="#ga-with-sex-kernels" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">8. </span>GA with Sex Kernels<a class="headerlink" href="#ga-with-sex-kernels" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> can be used to optimize movement kernels that depend on the sex of individuals.
 In this tutorial, we will show an example of this by optimizing a landscape with males and females, and showing how encoding this information changes the result of the GA algorithm.</p>
 <section id="the-workflow">
-<h2><span class="section-number">8.1. </span>The Workflow<a class="headerlink" href="#the-workflow" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">8.1. </span>The Workflow<a class="headerlink" href="#the-workflow" title="Permalink to this heading"></a></h2>
 <p>The way <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> encodes sex-based information is by generating different landscapes and combining the information in the GA fitness function.
 This can be summarized in the following diagram:</p>
 <img alt="_images/MGSurvEDiagMultiSex.jpg" src="_images/MGSurvEDiagMultiSex.jpg" />
 <p>In which the information of the movement mask, traps kernels, and migration kernels; are sex-based, while the rest of the information is common to both landscapes.</p>
 </section>
 <section id="defining-movement">
-<h2><span class="section-number">8.2. </span>Defining Movement<a class="headerlink" href="#defining-movement" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">8.2. </span>Defining Movement<a class="headerlink" href="#defining-movement" title="Permalink to this heading"></a></h2>
 <p>We will use a random uniform points placement for our landscape:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ptsNum</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="n">bbox</span> <span class="o">=</span> <span class="p">((</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
@@ -136,7 +141,7 @@ This can be summarized in the following diagram:</p>
 </div>
 </section>
 <section id="defining-traps">
-<h2><span class="section-number">8.3. </span>Defining Traps<a class="headerlink" href="#defining-traps" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">8.3. </span>Defining Traps<a class="headerlink" href="#defining-traps" title="Permalink to this heading"></a></h2>
 <p>For our traps, we will definte male traps to be less efficient at capturing individuals than females:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nullTraps</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">TRPS_NUM</span>
 <span class="n">traps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">nullTraps</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">nullTraps</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">nullTraps</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="n">nullTraps</span><span class="p">})</span>
@@ -153,7 +158,7 @@ This can be summarized in the following diagram:</p>
 <p>both in terms of radius and actual trapping efficiency.</p>
 </section>
 <section id="setting-landscape-up">
-<h2><span class="section-number">8.4. </span>Setting Landscape Up<a class="headerlink" href="#setting-landscape-up" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">8.4. </span>Setting Landscape Up<a class="headerlink" href="#setting-landscape-up" title="Permalink to this heading"></a></h2>
 <p>With that in place, we can define our male and female landscapes independently:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lndM</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">Landscape</span><span class="p">(</span>
     <span class="n">points</span><span class="p">,</span> <span class="n">traps</span><span class="o">=</span><span class="n">traps</span><span class="p">,</span>
@@ -173,7 +178,7 @@ This can be summarized in the following diagram:</p>
 <img alt="_images/UNIF_SX01_CLN.jpg" src="_images/UNIF_SX01_CLN.jpg" />
 </section>
 <section id="setting-ga-up">
-<h2><span class="section-number">8.5. </span>Setting GA Up<a class="headerlink" href="#setting-ga-up" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">8.5. </span>Setting GA Up<a class="headerlink" href="#setting-ga-up" title="Permalink to this heading"></a></h2>
 <p>In terms of the GA, most of the code remains the same, except that in the <code class="code docutils literal notranslate"><span class="pre">calcSexFitness</span></code> function,
 we might want to define which sex should take priority in terms of catches for the optimizer. We do this
 by defining a “weight” for each one:</p>
@@ -235,7 +240,7 @@ This function takes the two landscapes and calculates the fitness as a weighted 
 <p>For the code on the optimization function, have a look at this <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/optimization.py">link</a>.</p>
 </section>
 <section id="run-optimizer">
-<h2><span class="section-number">8.6. </span>Run Optimizer<a class="headerlink" href="#run-optimizer" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">8.6. </span>Run Optimizer<a class="headerlink" href="#run-optimizer" title="Permalink to this heading"></a></h2>
 <p>We are now ready to run our optimizer as we have done in previous examples:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="n">logbook</span><span class="p">)</span> <span class="o">=</span> <span class="n">algorithms</span><span class="o">.</span><span class="n">eaSimple</span><span class="p">(</span>
     <span class="n">pop</span><span class="p">,</span> <span class="n">toolbox</span><span class="p">,</span> <span class="n">cxpb</span><span class="o">=</span><span class="n">MAT</span><span class="p">[</span><span class="s1">&#39;cxpb&#39;</span><span class="p">],</span> <span class="n">mutpb</span><span class="o">=</span><span class="n">MUT</span><span class="p">[</span><span class="s1">&#39;mutpb&#39;</span><span class="p">],</span> <span class="n">ngen</span><span class="o">=</span><span class="n">GENS</span><span class="p">,</span>
@@ -245,14 +250,14 @@ This function takes the two landscapes and calculates the fitness as a weighted 
 </div>
 </section>
 <section id="results">
-<h2><span class="section-number">8.7. </span>Results<a class="headerlink" href="#results" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">8.7. </span>Results<a class="headerlink" href="#results" title="Permalink to this heading"></a></h2>
 <p>After our code was run, we get the following result:</p>
 <img alt="_images/UNIF_SX01_TRP.jpg" src="_images/UNIF_SX01_TRP.jpg" />
 <p>where the traps’ effectiveness radii for male (purple) and female (magenta), are highlighted and the combined fitness is displayed in text.</p>
 <p>As a final note, we want to highlight that this is a simple way to combine the information on both kernels, but different implementations involving multi-objective optimizations can be implemented and used within both <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> and <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a>.</p>
 </section>
 <section id="another-example">
-<h2><span class="section-number">8.8. </span>Another Example<a class="headerlink" href="#another-example" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">8.8. </span>Another Example<a class="headerlink" href="#another-example" title="Permalink to this heading"></a></h2>
 <p>In our previous example, it was a bit difficult to see the difference in using the two kernels for movement and traps, but
 we have coded a <a class="reference external" href="https://github.com/Chipdelmal/MoNeT_DA/tree/main/NET/MGS">pipeline</a> that exports the male (left top), female (left bottom), and combined landscapes (right) to compare the differences:</p>
 <img alt="_images/SM1-005-TRP.jpg" src="_images/SM1-005-TRP.jpg" />

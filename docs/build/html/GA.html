@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>5. GA Optimization &mdash; MGSurvE  documentation</title>
@@ -11,10 +11,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,12 +28,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> MGSurvE
-            <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MGSurvE
+              <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -81,9 +86,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="demos.html">Tutorials</a> &raquo;</li>
-      <li><span class="section-number">5. </span>GA Optimization</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="demos.html">Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5. </span>GA Optimization</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/GA.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -94,18 +99,18 @@
            <div itemprop="articleBody">
              
   <section id="ga-optimization">
-<h1><span class="section-number">5. </span>GA Optimization<a class="headerlink" href="#ga-optimization" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">5. </span>GA Optimization<a class="headerlink" href="#ga-optimization" title="Permalink to this heading"></a></h1>
 <p>In this demo, we will be optimizing the traps’ positions to minimize the time it takes for a mosquito to get caught.
 This is done with the <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP package</a>, as it allows much flexibility and implementation speedups.</p>
 <section id="the-workflow">
-<h2><span class="section-number">5.1. </span>The Workflow<a class="headerlink" href="#the-workflow" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.1. </span>The Workflow<a class="headerlink" href="#the-workflow" title="Permalink to this heading"></a></h2>
 <p>The way <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> and <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP</a> communicate to each other is through the traps’ positions and the fitness function.
 Our landscape object contains the information we need to calculate the migration and trapping metrics on our environment, and our optimizer should be able to modify the traps’ locations to test which positions are the best ones given a cost function.
 For this to happen, we will create a copy of our landscape object (as it will be modified in place), which will be constantly updated through the traps’ positions by the <a class="reference external" href="https://deap.readthedocs.io/en/master/">DEAP framework</a>:</p>
 <img alt="_images/MGSurvEDiagSingleSex.jpg" src="_images/MGSurvEDiagSingleSex.jpg" />
 </section>
 <section id="landscape-and-traps">
-<h2><span class="section-number">5.2. </span>Landscape and Traps<a class="headerlink" href="#landscape-and-traps" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.2. </span>Landscape and Traps<a class="headerlink" href="#landscape-and-traps" title="Permalink to this heading"></a></h2>
 <p>We are going to use a “donut” landscape as a testbed, so we define our pointset as:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ptsNum</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">radii</span> <span class="o">=</span> <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
@@ -136,7 +141,7 @@ all the traps are the same type (<code class="code docutils literal notranslate"
 <img alt="_images/demo_GA1.jpg" src="_images/demo_GA1.jpg" />
 </section>
 <section id="genetic-algorithm">
-<h2><span class="section-number">5.3. </span>Genetic Algorithm<a class="headerlink" href="#genetic-algorithm" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.3. </span>Genetic Algorithm<a class="headerlink" href="#genetic-algorithm" title="Permalink to this heading"></a></h2>
 <p>To get started with setting up the GA, we define the population size, generations (<code class="code docutils literal notranslate"><span class="pre">GENS</span></code>), mating (<code class="code docutils literal notranslate"><span class="pre">MAT</span></code>), mutation (<code class="code docutils literal notranslate"><span class="pre">MUT</span></code>) and selection (<code class="code docutils literal notranslate"><span class="pre">SEL</span></code>) parameters:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">GENS</span><span class="p">,</span> <span class="n">VERBOSE</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 <span class="n">POP_SIZE</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="p">(</span><span class="n">lnd</span><span class="o">.</span><span class="n">trapsNumber</span><span class="o">*</span><span class="mf">1.25</span><span class="p">))</span>
@@ -222,7 +227,7 @@ to allow immovable traps to be laid in the landscape, but we will stick to <a cl
 <p>This will take some time depending on the number of generations and the size of the landscape/traps (check out our <a class="reference external" href="./benchmarks.html">benchmarks</a> for more info) but once it’s done running, we can get our resulting optimized positions.</p>
 </section>
 <section id="summary-and-plotting">
-<h2><span class="section-number">5.4. </span>Summary and Plotting<a class="headerlink" href="#summary-and-plotting" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.4. </span>Summary and Plotting<a class="headerlink" href="#summary-and-plotting" title="Permalink to this heading"></a></h2>
 <p>Having the results of the GA in our hands, we can get our best chromosome (stored in the <code class="code docutils literal notranslate"><span class="pre">hof</span></code> object) and re-shape it so that it is structured as traps locations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bestChromosome</span> <span class="o">=</span> <span class="n">hof</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">bestPositions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">bestChromosome</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>

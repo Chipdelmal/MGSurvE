@@ -15,6 +15,7 @@
       BASIC_EXP_TRAP
       MKRS
       MCOL
+      PINK_NAVY
       TRP_COLS
       LAND_TUPLES
    

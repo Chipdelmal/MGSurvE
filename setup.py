@@ -35,7 +35,7 @@ setuptools.setup(
         'dev': [
             'pytest', 'ipykernel'
             'twine', 'wheel', 
-            'sphinx', 'sphinx_rtd_theme'
+            'sphinx', 'sphinx_rtd_theme', 'chardet'
         ],
     },
     license='GPLv3',

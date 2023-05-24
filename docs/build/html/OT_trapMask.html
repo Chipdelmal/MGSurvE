@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>9. Stage-Specific Traps &mdash; MGSurvE  documentation</title>
@@ -11,10 +11,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,12 +28,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> MGSurvE
-            <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MGSurvE
+              <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -81,9 +86,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="demos.html">Tutorials</a> &raquo;</li>
-      <li><span class="section-number">9. </span>Stage-Specific Traps</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="demos.html">Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">9. </span>Stage-Specific Traps</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/OT_trapMask.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -94,12 +99,12 @@
            <div itemprop="articleBody">
              
   <section id="stage-specific-traps">
-<h1><span class="section-number">9. </span>Stage-Specific Traps<a class="headerlink" href="#stage-specific-traps" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">9. </span>Stage-Specific Traps<a class="headerlink" href="#stage-specific-traps" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="https://github.com/Chipdelmal/MGSurvE">MGSurvE</a> can deal with situations in which individuals are more attracted to certain traps if they are moving from one point-type to another
 (analogous to making them more attracted towards traps that target their movement towards a particular resource).
 To do this, we setup a “trap mask” in which we define how the weight of the kernel is affected by a given point-type.</p>
 <section id="setting-point-process-up">
-<h2><span class="section-number">9.1. </span>Setting Point-Process Up<a class="headerlink" href="#setting-point-process-up" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">9.1. </span>Setting Point-Process Up<a class="headerlink" href="#setting-point-process-up" title="Permalink to this heading"></a></h2>
 <p>To begin with this example, we will setup a rectangular landscape with 200 points in it which can be one of three point types:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xy</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">ptsRandUniform</span><span class="p">(</span><span class="n">ptsNum</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 <span class="n">pType</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">PTS_TYPE</span><span class="p">,</span> <span class="n">xy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -117,7 +122,7 @@ To do this, we setup a “trap mask” in which we define how the weight of the 
 </div>
 </section>
 <section id="setting-traps-up">
-<h2><span class="section-number">9.2. </span>Setting Traps Up<a class="headerlink" href="#setting-traps-up" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">9.2. </span>Setting Traps Up<a class="headerlink" href="#setting-traps-up" title="Permalink to this heading"></a></h2>
 <p>For this demo, we will use two different traps, which we will lay down manually:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">traps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
     <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">85</span><span class="p">,</span> <span class="mi">75</span><span class="p">],</span>
@@ -136,7 +141,7 @@ To do this, we setup a “trap mask” in which we define how the weight of the 
 <p>Where both trap types attract individuals from every point-type equally.</p>
 </section>
 <section id="traps-mask">
-<h2><span class="section-number">9.3. </span>Traps Mask<a class="headerlink" href="#traps-mask" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">9.3. </span>Traps Mask<a class="headerlink" href="#traps-mask" title="Permalink to this heading"></a></h2>
 <p>To modify the attractiveness levels for each point-type, we add our traps mask:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tMsk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span>
     <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
@@ -149,7 +154,7 @@ The way to interpret each cell would be: how much does the probability of gettin
 So, for example, if a mosquito is coming out the point-type 1, and there’s a trap of type 0, the probability of getting caught by the trap’s kernel is divided by half.</p>
 </section>
 <section id="full-landscape">
-<h2><span class="section-number">9.4. </span>Full Landscape<a class="headerlink" href="#full-landscape" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">9.4. </span>Full Landscape<a class="headerlink" href="#full-landscape" title="Permalink to this heading"></a></h2>
 <p>With this setup, we can now generate our landscape:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lnd</span> <span class="o">=</span> <span class="n">srv</span><span class="o">.</span><span class="n">Landscape</span><span class="p">(</span>
     <span class="n">points</span><span class="p">,</span>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>13. Discrete GA in a Realistic Landscape &mdash; MGSurvE  documentation</title>
@@ -11,10 +11,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,12 +28,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> MGSurvE
-            <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MGSurvE
+              <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -80,9 +85,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="demos.html">Tutorials</a> &raquo;</li>
-      <li><span class="section-number">13. </span>Discrete GA in a Realistic Landscape</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="demos.html">Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">13. </span>Discrete GA in a Realistic Landscape</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/GA_STPDO.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -93,10 +98,10 @@
            <div itemprop="articleBody">
              
   <section id="discrete-ga-in-a-realistic-landscape">
-<h1><span class="section-number">13. </span>Discrete GA in a Realistic Landscape<a class="headerlink" href="#discrete-ga-in-a-realistic-landscape" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">13. </span>Discrete GA in a Realistic Landscape<a class="headerlink" href="#discrete-ga-in-a-realistic-landscape" title="Permalink to this heading"></a></h1>
 <p>In this example, we will compare the results obtained in our <a class="reference external" href="https://chipdelmal.github.io/MGSurvE/build/html/GA_STP.html">realistic landscape continuous optimization demo</a> with the optimization done in a discrete-based setting.</p>
 <section id="setting-landscape-up">
-<h2><span class="section-number">13.1. </span>Setting Landscape Up<a class="headerlink" href="#setting-landscape-up" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">13.1. </span>Setting Landscape Up<a class="headerlink" href="#setting-landscape-up" title="Permalink to this heading"></a></h2>
 <p>The first thing we need to do is to generate our traps dataframe with its <code class="code docutils literal notranslate"><span class="pre">sid</span></code>’s (explained in the <a class="reference external" href="https://chipdelmal.github.io/MGSurvE/build/html/GA_discrete.html">“GA Discrete Optimization” tutorial</a>).
 In this case, we know we want two traps to be located in the northernmost and southernmost islands of the main body of land (which correspond to the indices 24 and 212 of our sites):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Defining the indices of our fixed traps</span>
@@ -124,7 +129,7 @@ In this case, we know we want two traps to be located in the northernmost and so
 </div>
 </section>
 <section id="setting-ga-up">
-<h2><span class="section-number">13.2. </span>Setting GA Up<a class="headerlink" href="#setting-ga-up" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">13.2. </span>Setting GA Up<a class="headerlink" href="#setting-ga-up" title="Permalink to this heading"></a></h2>
 <p>Similar to our <a class="reference external" href="https://chipdelmal.github.io/MGSurvE/build/html/GA_discrete.html">previous tutorial</a>, we change the registered functions on our GA for their discrete versions:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Chromosome initializer</span>
 <span class="n">toolbox</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
@@ -160,7 +165,7 @@ In this case, we know we want two traps to be located in the northernmost and so
 <p>For more information on these operators, have a look at their <a class="reference external" href="https://chipdelmal.github.io/MGSurvE/build/html/generated/MGSurvE.optimization.html#module-MGSurvE.optimization">API</a> entries.</p>
 </section>
 <section id="result">
-<h2><span class="section-number">13.3. </span>Result<a class="headerlink" href="#result" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">13.3. </span>Result<a class="headerlink" href="#result" title="Permalink to this heading"></a></h2>
 <a class="reference internal image-reference" href="_images/STP_DO_FXD_10_TRP.jpg"><img alt="_images/STP_DO_FXD_10_TRP.jpg" class="align-center" src="_images/STP_DO_FXD_10_TRP.jpg" style="width: 100%;" /></a>
 </section>
 </section>
