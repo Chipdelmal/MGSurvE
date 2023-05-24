@@ -7,6 +7,7 @@ LABEL maintainer="Hector M. Sanchez C. <sanchez.hmsc@berkeley.edu>"
 ###############################################################################
 RUN apt-get update \
     && apt-get install nano \
+    && apt-get install gcc -y \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir MGSurvE
 WORKDIR /MGSurvE
@@ -23,10 +24,16 @@ COPY ./MGSurvE/ .
 # Install Packages
 ###############################################################################
 RUN conda update -n base -c defaults conda \
-    && conda env update --file requirements.yml -n base --prune \
-    && rm requirements.yml \
-    && conda install deap -y \ 
+    && conda config --set offline false \
+    && conda config --add channels conda-forge \
+    && conda config --add channels bioconda \
+    && conda install gdal -y \
+    && conda install fiona -y \
+    && conda install pyproj -y \
     && conda install cartopy -y \
     && conda install libpysal -y \
+    && conda install -c conda-forge deap -y \ 
+    # && conda env update --file requirements.yml -n base --prune \
+    # && rm requirements.yml \
     && pip install MGSurvE
 

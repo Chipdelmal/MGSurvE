@@ -19,7 +19,6 @@ dependencies:
   - charset-normalizer
   - cryptography
   - cycler
-  - deap
   - fonttools
   - freetype
   - geos
