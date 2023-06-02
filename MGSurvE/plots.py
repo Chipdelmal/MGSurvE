@@ -103,7 +103,7 @@ def plotTraps(
         edgecolors=('w', 'k'), lws=(2, 0), ls=':',
         size=350, zorders=(25, -5), fill=True,
         transform=None, transparencyHex='DD',
-        latlon=False, proj=None, plotArea=True,
+        latlon=False, proj=None,
         **kwargs
     ):
     """ Plots the traps with the radii of effectiveness.
@@ -153,7 +153,7 @@ def plotTraps(
                 edgecolor='#00000000', color=col, 
                 zorder=zorders[1]
             )
-        if latlon and not CARTOPY and plotArea:
+        if latlon and not CARTOPY:
             warnings.warn("Please install cartopy to plot the traps' radii of attractiveness!")
         if not latlon:
             for r in trapsKernels[tType]['radii']:
