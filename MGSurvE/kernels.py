@@ -116,6 +116,29 @@ def zeroInflatedExponentialKernel(
     return tauN
 
 
+def exponentialKernel(distMat, decay=cst.AEDES_EXP_PARAMS[0]):
+    '''Calculates the migration matrix using a decaying exponential function.
+
+    Args:
+        distMat (numpy array): Distances matrix.
+        decay (float): Exponential decay rate
+
+    Returns:
+        numpy array: Migration matrix.
+    '''
+    coordsNum = len(distMat)
+    migrMat = np.empty((coordsNum, coordsNum))
+    for (i, row) in enumerate(distMat):
+        for (j, dst) in enumerate(row):
+            migrMat[i][j] = math.exp(-decay*dst)
+        for j in range(len(row)):
+            if np.isnan(migrMat[i][j]):
+                # print("NaN Warning (check points locations, distances might be too large.")
+                migrMat[i][j] = 0
+    tauN = normalize(migrMat, axis=1, norm='l1')
+    return tauN
+
+
 ###############################################################################
 # Exponential Decay
 ###############################################################################

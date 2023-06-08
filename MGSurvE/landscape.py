@@ -422,7 +422,7 @@ class Landscape:
             fig, ax, 
             colors=cst.TRP_COLS, marker="X",
             edgecolor='w', lws=(2, 0), ls=':',
-            size=300, zorders=(25, -5), plotArea=True,
+            size=300, zorders=(25, -5),
             **kwargs
         ):
         """Plots the traps locations.
