@@ -3,34 +3,37 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - _libgcc_mutex
-  - _openmp_mutex
+  - alabaster
   - appdirs
+  - babel
   - beautifulsoup4
+  - blas
+  - bottleneck
   - brotli
   - brotli-bin
   - brotlipy
+  - bs4
   - bzip2
   - c-ares
   - ca-certificates
   - cartopy
-  - certifi
   - cffi
-  - charset-normalizer
+  - colorama
+  - contourpy
   - cryptography
   - cycler
+  - deap
+  - et_xmlfile
   - fonttools
   - freetype
   - geos
-  - giflib
   - idna
+  - imagesize
+  - importlib-metadata
   - jinja2
-  - jpeg
-  - keyutils
   - kiwisolver
   - krb5
   - lcms2
-  - ld_impl_linux-64
   - lerc
   - libblas
   - libbrotlicommon
@@ -38,42 +41,39 @@ dependencies:
   - libbrotlienc
   - libcblas
   - libcurl
+  - libcxx
   - libdeflate
   - libedit
   - libev
   - libffi
-  - libgcc-ng
-  - libgfortran-ng
+  - libgfortran
   - libgfortran5
-  - libgomp
+  - libjpeg-turbo
   - liblapack
   - libnghttp2
-  - libnsl
   - libopenblas
   - libpng
-  - libpysal
+  - libsqlite
   - libssh2
-  - libstdcxx-ng
   - libtiff
-  - libuuid
-  - libwebp
   - libwebp-base
   - libxcb
   - libzlib
-  - lz4-c
-  - markupsafe
-  - matplotlib-base
+  - llvm-openmp
   - munkres
   - ncurses
+  - numexpr
+  - numpy
   - openjpeg
+  - openpyxl
   - openssl
-  - packaging
-  - pandas
   - pillow
   - pip
+  - pooch
   - proj
   - pthread-stubs
   - pycparser
+  - pygments
   - pyopenssl
   - pyparsing
   - pyproj
@@ -82,69 +82,150 @@ dependencies:
   - python
   - python-dateutil
   - python_abi
-  - pytz
   - readline
-  - requests
-  - scipy
   - setuptools
   - shapely
   - six
-  - soupsieve
+  - snowballstemmer
+  - sphinxcontrib-applehelp
+  - sphinxcontrib-devhelp
+  - sphinxcontrib-htmlhelp
+  - sphinxcontrib-jsmath
+  - sphinxcontrib-qthelp
+  - sphinxcontrib-serializinghtml
   - sqlite
   - tk
-  - tzdata
   - unicodedata2
-  - urllib3
   - wheel
   - xorg-libxau
   - xorg-libxdmcp
   - xz
+  - zipp
   - zlib
   - zstd
   - pip:
-      - alabaster
-      - babel
+      - anyio
+      - appnope
+      - argon2-cffi
+      - argon2-cffi-bindings
+      - arrow
+      - asttokens
+      - attrs
+      - backcall
       - bleach
+      - certifi
+      - chardet
+      - charset-normalizer
       - click
       - click-plugins
       - cligj
-      - commonmark
+      - comm
+      - compress-pickle
+      - debugpy
+      - decorator
+      - defusedxml
       - dill
       - docutils
+      - executing
+      - fastjsonschema
       - fiona
+      - fqdn
+      - geojson
       - geopandas
       - haversine
-      - imagesize
-      - importlib-metadata
       - ipykernel
-      - jeepney
+      - ipython
+      - ipython-genutils
+      - ipywidgets
+      - isoduration
+      - jaraco-classes
+      - jedi
+      - joblib
+      - jsonpointer
+      - jsonschema
+      - jupyter
+      - jupyter-client
+      - jupyter-console
+      - jupyter-core
+      - jupyter-events
+      - jupyter-server
+      - jupyter-server-terminals
+      - jupyterlab-pygments
+      - jupyterlab-widgets
       - keyring
+      - libpysal
+      - lxml
+      - markdown-it-py
+      - markupsafe
+      - matplotlib
+      - matplotlib-inline
+      - mdurl
       - mgsurve
+      - mistune
+      - more-itertools
       - mpmath
       - munch
+      - nbclassic
+      - nbclient
+      - nbconvert
+      - nbformat
+      - nest-asyncio
       - networkx
-      - numpy
-      - opencv-contrib-python
+      - notebook
+      - notebook-shim
+      - osmpythontools
+      - packaging
+      - pandas
+      - pandocfilters
+      - parso
+      - pexpect
+      - pickleshare
       - pkginfo
+      - platformdirs
       - pointpats
+      - prometheus-client
+      - prompt-toolkit
       - psutil
-      - pygments
-      - pytest-faulthandler
+      - ptyprocess
+      - pure-eval
+      - pyrsistent
+      - python-json-logger
+      - pytz
+      - pyyaml
+      - pyzmq
+      - qtconsole
+      - qtpy
       - readme-renderer
+      - requests
       - requests-toolbelt
+      - rfc3339-validator
       - rfc3986
+      - rfc3986-validator
       - rich
-      - secretstorage
-      - snowballstemmer
+      - scikit-learn
+      - scipy
+      - send2trash
+      - sniffio
+      - soupsieve
       - sphinx
       - sphinx-rtd-theme
-      - sphinxcontrib-applehelp
-      - sphinxcontrib-devhelp
-      - sphinxcontrib-htmlhelp
-      - sphinxcontrib-jsmath
-      - sphinxcontrib-qthelp
-      - sphinxcontrib-serializinghtml
+      - sphinxcontrib-jquery
+      - stack-data
       - sympy
+      - terminado
+      - threadpoolctl
+      - tinycss2
+      - tornado
+      - traitlets
       - twine
+      - tzdata
+      - ujson
+      - uri-template
+      - urllib3
+      - vincenty
+      - wcwidth
+      - webcolors
       - webencodings
-      - zipp
+      - websocket-client
+      - widgetsnbextension
+      - xarray
