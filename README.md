@@ -20,7 +20,7 @@ To install the package's latest stable version run (usage of [anaconda](https://
 pip install MGSurvE
 ```
 
-MGSurvE requires the installation of the [DEAP](https://deap.readthedocs.io/en/master/) optimization package, which should be installed automatically with our previous `pip` command. This package can also be installed with `conda install deap`, if needed; or by having a look at [DEAP's documentation](https://pypi.org/project/deap/) for additional methods. Please have a look at our [installation instructions](https://chipdelmal.github.io/MGSurvE/build/html/installation.html) for common issues with some of the dependencies. Alternatively, pre-build images from [our Dockerhub](https://hub.docker.com/repository/docker/chipdelmal/mgsurve) can be pulled and used to avoid dependencies issues. 
+MGSurvE requires the installation of the [DEAP](https://deap.readthedocs.io/en/master/) optimization package, which should be installed automatically with our previous `pip` command. This package can also be installed with `conda install -c conda-forge deap`, if needed; or by having a look at [DEAP's documentation](https://pypi.org/project/deap/) for additional methods. Please have a look at our [installation instructions](https://chipdelmal.github.io/MGSurvE/build/html/installation.html) for common issues with some of the dependencies. Alternatively, pre-build images from [our Dockerhub](https://hub.docker.com/repository/docker/chipdelmal/mgsurve) can be pulled and used to avoid dependencies issues. 
 
 
 
