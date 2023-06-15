@@ -25,12 +25,12 @@ RID = int(RID)
 FPAT = ID+'-{}_16*'
 (MPATS, COLS, SCAL) =  (
     ['man', 'max'],
-    ['#072ac8', '#8338ec', '#f72585'],
+    ['#072ac877', '#8338ec77', '#f7258577'],
     [1, 1, 923]
 )
 MPATS = (['man', 'max'] if ID[-1]=='D' else ['man', 'max'])
 if ID[-1] == 'C':
-    COLS = ['#e01a4f', '#a2d2ff']
+    COLS = ['#e01a4f77', '#a2d2ff00'] #'#a2d2ff']
 GENS = 5000
 ###############################################################################
 # File ID
@@ -56,7 +56,7 @@ print('{} @ {}'.format(minVal, minIdx+1))
 (XRAN, YRAN) = ((0, 5000), (0, 150))
 (fig, ax) = plt.subplots(figsize=(25, 3))
 for (ix, trc) in enumerate(mins):
-    ax.plot(trc.T/SCAL[ix], color=COLS[ix]+'77', lw=1.25)
+    ax.plot(trc.T/SCAL[ix], color=COLS[ix], lw=1.25)
 ax.set_xlim(0, GENS)
 ax.set_ylim(YRAN[0], YRAN[1])
 ax.hlines(np.arange(YRAN[0], YRAN[1]+25, 25), XRAN[0], XRAN[1], color='#00000033', lw=1, zorder=-10)
