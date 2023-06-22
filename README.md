@@ -5,13 +5,14 @@ MGSurvE is a project that optimizes mosquito traps' placement in complex heterog
 Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/) for more info and our [pypi](https://pypi.org/project/MGSurvE/) package for detailed [installation instructions](https://chipdelmal.github.io/MGSurvE/build/html/installation.html), and [tutorials](https://chipdelmal.github.io/MGSurvE/build/html/demos.html).
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/MGSurvE)](https://pypi.org/project/MGSurvE/)
-[![PyPI version](https://badge.fury.io/py/MGSurvE.svg)](https://badge.fury.io/py/MGSurvE) 
-[![Docker](https://img.shields.io/docker/v/chipdelmal/mgsurve?color=success&label=docker%20img)](https://hub.docker.com/repository/docker/chipdelmal/mgsurve)
+[![PyPI version](https://badge.fury.io/py/MGSurvE.svg)](https://badge.fury.io/py/MGSurvE)
 [![Unit Tests](https://github.com/chipdelmal/MGSurvE/actions/workflows/PyTests.yml/badge.svg)](https://github.com/Chipdelmal/MGSurvE/tree/main/MGSurvE/test)
 [![Flake8](https://github.com/chipdelmal/MGSurvE/actions/workflows/Flake8.yml/badge.svg)](https://github.com/Chipdelmal/MGSurvE/blob/main/.github/workflows/Flake8.yml)
 [![Conda](https://github.com/chipdelmal/MGSurvE/actions/workflows/Anaconda.yml/badge.svg)](https://github.com/Chipdelmal/MGSurvE/blob/main/.github/workflows/Anaconda.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Chipdelmal/MGSurvE)
+<!-- [![Docker](https://img.shields.io/docker/v/chipdelmal/mgsurve?color=success&label=docker%20img)](https://hub.docker.com/repository/docker/chipdelmal/mgsurve)-->
+
 
 
 To install the package's latest stable version run (usage of [anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html) for environment management is strongly recommended):
