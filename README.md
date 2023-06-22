@@ -6,7 +6,7 @@ Please have a look at the [documentation](https://chipdelmal.github.io/MGSurvE/)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/MGSurvE)](https://pypi.org/project/MGSurvE/)
 [![PyPI version](https://badge.fury.io/py/MGSurvE.svg)](https://badge.fury.io/py/MGSurvE) 
-[![Docker](https://img.shields.io/docker/v/chipdelmal/mgsurve?color=success&label=docker%20img)](https://hub.docker.com/repository/docker/chipdelmal/mgsurve)
+<!-- [![Docker](https://img.shields.io/docker/v/chipdelmal/mgsurve?color=success&label=docker%20img)](https://hub.docker.com/repository/docker/chipdelmal/mgsurve)-->
 [![Unit Tests](https://github.com/chipdelmal/MGSurvE/actions/workflows/PyTests.yml/badge.svg)](https://github.com/Chipdelmal/MGSurvE/tree/main/MGSurvE/test)
 [![Flake8](https://github.com/chipdelmal/MGSurvE/actions/workflows/Flake8.yml/badge.svg)](https://github.com/Chipdelmal/MGSurvE/blob/main/.github/workflows/Flake8.yml)
 [![Conda](https://github.com/chipdelmal/MGSurvE/actions/workflows/Anaconda.yml/badge.svg)](https://github.com/Chipdelmal/MGSurvE/blob/main/.github/workflows/Anaconda.yml)
