@@ -45,7 +45,7 @@ Additionally, all of the demos can be run from our docker container as follows.
 
 .. code-block:: console
 
-   docker pull chipdelmal/mgsurve:0.6.5.6
+   docker pull chipdelmal/mgsurve
 
 
 2. Run the container and attach the folder for the results:
