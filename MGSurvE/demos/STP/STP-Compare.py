@@ -19,11 +19,10 @@ plt.rcParams['savefig.facecolor']='#00000000'
 
 
 if srv.isNotebook():
-    (ID, AP, TRP) = ('STPD', 'mean', '10')
+    (ID, AP) = ('STPD', 'man')
 else:
-    (ID, AP, TRP) = argv[1:]
+    (ID, AP) = argv[1:]
 GENS = 5000
-RID = int(TRP)
 FPAT = ID+'-'+AP+'_{}*'
 (TRPS, COLS) =  (
     ['05', '10', '15', '20'],

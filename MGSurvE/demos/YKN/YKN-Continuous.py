@@ -23,7 +23,7 @@ import MGSurvE as srv
 
 
 if srv.isNotebook():
-    (ID, AP, RID) = ('YKN', 'mean', '001')
+    (ID, AP, RID) = ('YKN', 'man', '001')
 else:
     (ID, AP, RID) = argv[1:]
 RID = int(RID)
@@ -105,7 +105,7 @@ mutBase = max([i[1]-i[0] for i in bbox])/2.5
 ###############################################################################
 # Registering Functions for GA
 ############################################################################### 
-if (AP=='mean'):
+if (AP=='man'):
     outer = np.mean
 elif (AP=='sum'):
     outer = np.sum

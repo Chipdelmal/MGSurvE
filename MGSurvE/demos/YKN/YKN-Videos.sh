@@ -19,3 +19,8 @@ for i in {1..10}; do
     printf "${RED}* ID $i ...${NCL}\n" 
     python YKN-Video.py YKNC man "$i"
 done
+
+for i in {1..10}; do
+    printf "${RED}* ID $i ...${NCL}\n" 
+    python YKN-Video.py YKNC max "$i"
+done

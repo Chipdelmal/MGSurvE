@@ -35,7 +35,7 @@ GENS = 5000
 ###############################################################################
 # File ID
 ###############################################################################
-OUT_PTH = '/Users/sanchez.hmsc/Documents/WorkSims/MGSurvE_Validations/YKND_5000/'
+OUT_PTH = './sims_out/'
 srv.makeFolder(OUT_PTH)
 ###############################################################################
 # Load Files
@@ -102,8 +102,6 @@ fig.savefig(
 plt.close('all')
 ###############################################################################
 # Inspect Landscape
-#
-# probe = [500, 501, 527, 213, 688, 243, 531, 449, 703, 585, 115, 131, 212, 555, 101, 460]
 ###############################################################################
 PRINT_IDS = {'sites': False, 'traps': False}
 (outer, itr, gen) = ('man', 1, 5000)
@@ -173,64 +171,3 @@ for outer in MPATS:
         transparent=False
     )
     plt.close('all')
-###############################################################################
-# Fine-grained optimization for discrete case
-###############################################################################
-# BRUTE_FORCE_TRAP_ID = 11
-# (outer, itr, gen) = ('man', 1, 5000)
-# lndBst = deepcopy(lnd)
-# if ID == 'YKND':
-#     itrsFitsPos = [aux.getBestTraps(l) for l in logs[logIx]]
-#     (fitVal, trpPos) = sorted(itrsFitsPos, key=lambda x: x[0])[0]
-#     bGA = {'fitVal': fitVal, 'trpPos': np.copy(trpPos)}
-#     fitsFun = aux.switchFunction(MPATS[logIx])
-#     for i in range(lnd.pointCoords.shape[0]):
-#         trpPos[BRUTE_FORCE_TRAP_ID] = i
-#         trapsCoords = srv.chromosomeIDtoXY(trpPos, lnd.pointID, lnd.pointCoords).T
-#         trapsLocs = pd.DataFrame(
-#             np.vstack([trapsCoords, lnd.trapsTypes, lnd.trapsFixed]).T, 
-#             columns=['lon', 'lat', 't', 'f']
-#         )
-#         trapsLocs['t'] = trapsLocs['t'].astype('int64')
-#         trapsLocs['f'] = trapsLocs['f'].astype('int64')
-#         lnd.updateTraps(trapsLocs, lnd.trapsKernels)
-#         fitness = srv.calcDiscreteFitness(
-#             trpPos, lnd, optimFunction=srv.getDaysTillTrapped,
-#             optimFunctionArgs={'inner': np.sum, 'outer': fitsFun}
-#         )[0]/SCAL[logIx]
-#         if fitness <= bGA['fitVal']:
-#             print("Better position found! (fitness: {})".format(fitness))
-#             bGA['fitVal'] = fitness
-#             lndBst = deepcopy(lnd)
-#     # Plot --------------------------------------------------------------------
-#     (fig, ax) = (
-#         plt.figure(figsize=(15, 15)),
-#         plt.axes(projection=ccrs.PlateCarree())
-#     )
-#     lndBst.plotSites(fig, ax, size=50)
-#     lndBst.plotTraps(fig, ax, zorders=(30, 25), transparencyHex='55')
-#     srv.plotFitness(
-#         fig, ax, bGA['fitVal'], 
-#         fmt='{:.5f}', fontSize=20, color='#00000066', pos=(0.75, 0.10)
-#     )
-#     srv.plotClean(fig, ax, bbox=lndBst.landLimits)
-#     fig.savefig(
-#         path.join(OUT_PTH, (FPAT[:-1]+'-BRUTE.png').format(outer)), 
-#         facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300,
-#         transparent=False
-#     )
-
-
-# import math
-# from scipy.optimize import fsolve
-# 
-# tKer = lnd.trapsKernels
-# kernelDict = tKer[0]
-# (yVal, guess) = (0.05, 0)
-# 
-# (kFun, kPar) = (kernelDict['kernel'], kernelDict['params'])
-# func = lambda delta : yVal-kFun(delta, **kPar)
-# distance = fsolve(func, guess)
-# distance
-# lnd.landLimits[0][1]-lnd.landLimits[0][0]
-# meanDistances = [srv.nSolveKernel(tKer[i], 0.5, 20) for i in tKer.keys()]

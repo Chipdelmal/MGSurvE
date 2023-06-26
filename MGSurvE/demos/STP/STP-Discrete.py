@@ -25,7 +25,9 @@ import MGSurvE as srv
 import cartopy.crs as ccrs
 
 
-
+###############################################################################
+# Bash and user inputs
+###############################################################################
 if not srv.isNotebook():
     (FXD_TRPS, AP, TRPS_NUM, RID) = (True, 'man', int(argv[1]), int(argv[2]))
 else:
@@ -33,7 +35,9 @@ else:
 ID = 'STP'
 GENS = 5000
 OUT_PTH = './sims_out/'
+# Convert variables and create output folder ----------------------------------
 RID = int(RID)
+srv.makeFolder(OUT_PTH)
 ###############################################################################
 # Debugging fixed traps at land masses
 ###############################################################################
@@ -93,22 +97,22 @@ trpMsk = srv.genFixedTrapsMask(lnd.trapsFixed)
 ###############################################################################
 # Plot Landscape
 ###############################################################################
-# (fig, ax) = (
-#     plt.figure(figsize=(15, 15)),
-#     plt.axes(projection=ccrs.PlateCarree())
-# )
-# lnd.plotSites(fig, ax, size=250)
-# # lnd.plotTraps(fig, ax)
-# lnd.plotMigrationNetwork(
-#     fig, ax, lineWidth=60, alphaMin=.1, alphaAmplitude=5,
-# )
-# lnd.plotLandBoundary(fig, ax)
-# srv.plotClean(fig, ax, bbox=lnd.landLimits)
-# fig.savefig(
-#     path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
-#     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
-# )
-# plt.close('all')
+(fig, ax) = (
+    plt.figure(figsize=(15, 15)),
+    plt.axes(projection=ccrs.PlateCarree())
+)
+lnd.plotSites(fig, ax, size=250)
+# lnd.plotTraps(fig, ax)
+lnd.plotMigrationNetwork(
+    fig, ax, lineWidth=60, alphaMin=.1, alphaAmplitude=5,
+)
+lnd.plotLandBoundary(fig, ax)
+srv.plotClean(fig, ax, bbox=lnd.landLimits)
+fig.savefig(
+    path.join(OUT_PTH, '{}_{:02d}_CLN.png'.format(ID, TRPS_NUM)), 
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
+)
+plt.close('all')
 ###############################################################################
 # GA Settings
 ############################################################################### 
