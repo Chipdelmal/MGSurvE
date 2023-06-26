@@ -22,9 +22,14 @@ import matplotlib.pyplot as plt
 import MGSurvE as srv
 
 
+###############################################################################
+# Bash and user inputs
+###############################################################################
 if srv.isNotebook():
+    # User input (interactive session)
     (ID, AP, RID) = ('YKN', 'mean', '001')
 else:
+    # Bash call input
     (ID, AP, RID) = argv[1:]
 GENS = 5000
 RID = int(RID)

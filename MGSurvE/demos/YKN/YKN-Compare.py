@@ -17,9 +17,14 @@ plt.rcParams['axes.facecolor']='#00000000'
 plt.rcParams['savefig.facecolor']='#00000000'
 
 
+###############################################################################
+# Bash and user inputs
+###############################################################################
 if srv.isNotebook():
+    # User input (interactive session)
     (ID, AP, RID) = ('YKNC', 'man', '01')
 else:
+    # Bash call input
     (ID, AP, RID) = argv[1:]
 RID = int(RID)
 FPAT = ID+'-{}_16*'

@@ -28,10 +28,12 @@ import cartopy.crs as ccrs
 ###############################################################################
 # Bash and user inputs
 ###############################################################################
-if not srv.isNotebook():
-    (FXD_TRPS, AP, TRPS_NUM, RID) = (True, 'man', int(argv[1]), int(argv[2]))
-else:
+if srv.isNotebook():
+    # User input (interactive session)
     (FXD_TRPS, AP, TRPS_NUM, RID) = (True, 'man', 5, '07')
+else:
+    # Bash call input
+    (FXD_TRPS, AP, TRPS_NUM, RID) = (True, 'man', int(argv[1]), int(argv[2]))
 ID = 'STP'
 GENS = 5000
 OUT_PTH = './sims_out/'

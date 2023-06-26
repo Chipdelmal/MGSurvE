@@ -21,10 +21,14 @@ import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import MGSurvE as srv
 
-
+###############################################################################
+# Bash and user inputs
+###############################################################################
 if srv.isNotebook():
+    # User input (interactive session)
     (ID, AP, RID) = ('YKN', 'man', '001')
 else:
+    # Bash call input
     (ID, AP, RID) = argv[1:]
 RID = int(RID)
 PRINT_BLANK = False
