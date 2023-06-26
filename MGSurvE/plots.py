@@ -158,9 +158,10 @@ def plotTraps(
         if not latlon:
             for r in trapsKernels[tType]['radii']:
                 circle = plt.Circle(
-                    (trap[0], trap[1]), r, 
-                    color=col, fill=fill, ls=ls, 
-                    lw=lws[1], zorder=zorders[1]
+                    (trap[0], trap[1]), r,
+                    color=col, fill=fill, ls=ls,
+                    zorder=zorders[1]
+                    # lw=lws[1], 
                 )
                 ax.add_patch(circle)
     return (fig, ax)
