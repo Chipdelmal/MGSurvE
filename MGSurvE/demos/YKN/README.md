@@ -1,5 +1,6 @@
 # Yorkeys Knob Demo
 
+Code required to replicate the "Discrete and continuous optimization on a suburban landscape (*Ae. aegypti* in Queensland, Australia)" demo of our publication. Please note that this example requires intermediate to advanced understanding of the MGSurvE framework. To get started with these concepts please have a look at our [documentation's tutorials](https://chipdelmal.github.io/MGSurvE/build/html/demos.html).
 
 ## [YKN-Continuous](./YKN-Continuous.py) and [YKN-Discrete](./YKN-Discrete.py)
 
