@@ -29,7 +29,7 @@ setuptools.setup(
         'deap', 'numpy', 'scikit-learn', 'scipy', 'matplotlib', 'sympy',
         'ipython', 'jupyter', 'pandas', 'compress-pickle', 'dill', 
         'vincenty', 'haversine', 'networkx', 'pointpats', 'libpysal',
-        'geopandas', 'sympy'
+        'geopandas', 'sympy', 'termcolor'
     ],
     extras_require={
         'dev': [
