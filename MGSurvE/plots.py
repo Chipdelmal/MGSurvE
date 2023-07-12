@@ -100,7 +100,7 @@ def plotTraps(
         fig, ax,
         trapsCoords, trapsTypes, trapsKernels, trapsFixed,
         colors=cst.TRP_COLS, marker="X",
-        edgecolors=('w', 'k'), lws=(2, 0), ls=':',
+        edgecolors=('w', 'k'), lws=(2, 1), ls=':',
         size=350, zorders=(25, -5), fill=True,
         transform=None, transparencyHex='DD',
         latlon=False, proj=None,

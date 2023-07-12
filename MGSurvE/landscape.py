@@ -421,7 +421,7 @@ class Landscape:
     def plotTraps(self,
             fig, ax, 
             colors=cst.TRP_COLS, marker="X",
-            edgecolor='w', lws=(2, 0), ls=':',
+            edgecolor='w', lws=(2, 1), ls=':',
             size=300, zorders=(25, -5),
             **kwargs
         ):
