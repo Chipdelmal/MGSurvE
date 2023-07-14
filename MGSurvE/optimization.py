@@ -565,6 +565,16 @@ def calcSexFitness(
     return (fitVal, )
 
 def chromosomeIDtoXY(chromosome, ptsID, pointCoords):
+    """Converts a sites-ID crhomosome into a set of XY or lon-lat coordinates.
+
+    Parameters:
+        chromosome (list): Discrete optimization chromosome.
+        ptsID (list): Set of IDs for the sites (usually lnd.pointID).
+        pointCoords (numpy array): Set of coordinates for matching points IDs (usually lnd.pointCoords)
+        
+    Returns:
+        (numpy array): Traps positions xy or lon-lat pairs as defined by the selected sites IDs.
+    """    
     siteIndex = [ptsID.index(i) for i in chromosome]
     trapXY = np.asarray([pointCoords[i] for i in siteIndex])
     return trapXY

@@ -481,9 +481,22 @@ def saveFig(
 
 def plotTrapsKernels(
         fig, ax, lnd,
-        colors=cst.TRP_COLS, maxSca=5, alpha=.75,
+        colors=cst.TRP_COLS, alpha=.75,
         distRange=(0, 100), aspect=.3
     ):
+    """ Creates a distance-attractiveness plot for kernels present in the landscape.
+
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        colors (list of hex): List of colors to be used in the kernel profiles.
+        alpha (float): Opacity for the traces.
+        distRange (tuple): Distances range for the x-axis.
+        aspect (float): Aspect ratio for the axes.
+    
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+    """ 
     kers = lnd.trapsKernels
     ktypes = list(lnd.trapsKernels.keys())
     # dMax = max(max([kers[i]['radii'] for i in range(len(kers))])) * maxSca
@@ -501,7 +514,9 @@ def plotTrapsKernels(
 
 
 def plotsClearMemory():
-    # https://stackoverflow.com/questions/28757348/how-to-clear-memory-completely-of-all-matplotlib-plots
+    """ Forces matplotlib to clear all memory (probably an overkill).
+        https://stackoverflow.com/questions/28757348/how-to-clear-memory-completely-of-all-matplotlib-plots
+    """
     allfignums = matplotlib.pyplot.get_fignums()
     for i in allfignums:
         fig = matplotlib.pyplot.figure(i)
