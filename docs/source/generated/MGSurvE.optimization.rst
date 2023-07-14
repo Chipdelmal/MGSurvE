@@ -24,7 +24,6 @@
       cxDiscreteUniform
       exportLog
       genFixedTrapsMask
-      getCanonicalElements
       getDaysTillTrapped
       getDaysTillTrappedPseudoInverse
       getDaysTillTrappedVector
@@ -33,8 +32,6 @@
       getFundamentalMatrixPseudoInverse
       getFundamentalVector
       getMarkovAbsorbing
-      getMeanTimeToCapture
-      getTimeToCapture
       importLog
       initChromosome
       initChromosomeMixed

@@ -16,7 +16,6 @@
       ptsDonut
       ptsPossion
       ptsRandUniform
-      ptsRegularCircle
       ptsRegularGrid
    
    
