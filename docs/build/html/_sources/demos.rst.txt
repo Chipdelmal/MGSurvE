@@ -54,7 +54,7 @@ Additionally, all of the demos can be run from our docker container as follows.
 
    docker run \
          -v "$(pwd)"/MGS_demos:/MGSurvE/Demos/demos_out \
-         -it chipdelmal/mgsurve:0.6.5.6 bash
+         -it chipdelmal/mgsurve:1.0.0.0 bash
 
 
 3. Navigate to the "Demos" folder where all of the scripts are located:
