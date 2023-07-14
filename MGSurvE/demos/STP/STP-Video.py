@@ -90,7 +90,7 @@ for gen in range(GENS)[0:]:
     lnd.plotTraps(
         fig, ax, 
         zorders=(30, 25), size=750, transparencyHex='99', 
-        latlon=True, proj=PROJ
+        proj=PROJ
     )
     ax.text(
         0.825, 0.375, '{:.0f}'.format(fitness),

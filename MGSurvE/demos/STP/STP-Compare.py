@@ -160,7 +160,7 @@ for (logIx, trps) in enumerate(TRPS):
     lnd.plotTraps(
         fig, ax, size=750,
         zorders=(30, 25), transparencyHex='88', 
-        latlon=True, proj=ccrs.PlateCarree()
+        proj=ccrs.PlateCarree()
     )
     srv.plotFitness(
         fig, ax, fitness, 

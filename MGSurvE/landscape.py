@@ -278,9 +278,25 @@ class Landscape:
         self.trapsMigration[:ptsN, ptsN:] = np.copy(trapProbs)
         self.trapsMigration = normalize(self.trapsMigration, axis=1, norm='l1')
     def updateTrapsCoords(self, trapsCoords):
+        """Updates current trap coordinates.
+        
+        Parameters:
+            trapsCoords (numpy array):
+        """
         self.trapsCoords = trapsCoords
         self.calcTrapsDistances()
         self.calcTrapsMigration()
+    def updateTrapsCoordsByID(self, trapPositionsID):
+        """Updates current trap coordinates by sites ID.
+        
+        Parameters:
+            trapPositionsID (numpy array):
+        """
+        trapXY = opt.chromosomeIDtoXY(
+            trapPositionsID, self.pointID, self.pointCoords
+        )
+        self.trapsSiteID = trapPositionsID
+        self.updateTrapsCoords(trapXY)
     def updateTraps(self, traps, trapsKernels):
         """Updates the traps locations and migration matrices (in place).
 
