@@ -90,9 +90,20 @@ def getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN, rcond=1e-20):
     return F
 
 def getFundamentalVector(tau, sitesN):
-    # Equivalent to:
-    #   np.sum(srv.getFundamentalMatrix(tau, sitesN, trapsN), axis=1)
-    #   np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)
+    """ Get Markov's fundamental vector.
+    
+    Equivalent to:
+      np.sum(srv.getFundamentalMatrix(tau, sitesN, trapsN), axis=1)
+      np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)
+
+    Parameters:
+        tau (numpy array): Traps migration matrix in canonical form.
+        sitesN (int): Number of sites.
+
+    Returns:
+        (numpy array): Time to fall into absorbing states from anywhere in landscape.
+    """
+
     Q = tau[:sitesN, :sitesN]
     I = np.identity(Q.shape[0])
     o = np.ones(Q.shape[0])
@@ -145,6 +156,16 @@ def getCanonicalElements(tau, sitesN, trapsN):
 
 
 def getMeanTimeToCapture(canonElems, pseudoInv=True, rcond=1e-20):
+    """Calculates the average time to capture given the Q, R, I Markov canonical elements.
+
+    Args:
+        canonElems (dict): Dictionary containing the Q, R, and I matrices as calculated by Markov's fundamental matrix.
+        pseudoInv (bool, optional): Boolean to choose either normal matrix inverse or matrix pseudo-inverse. Defaults to True.
+        rcond (_type_, optional): Limit condation for floating precision on pseudo-inverse. Defaults to 1e-20.
+
+    Returns:
+        float: Mean time to capture.
+    """    
     (Q, R, I) = [canonElems[d] for d in ('Q', 'R', 'I')]
     # Get fundamental matrix
     if pseudoInv:
@@ -161,6 +182,15 @@ def getTimeToCapture(
         fitFuns={'outer': np.sum}, 
         pseudoInv=True, rcond=1e-10
     ):
+    """Wrapper function for 'getMeanTimeToCapture' given a landscape.
+
+    Args:
+        landscappe (object): Landscape object
+        fitFuns (dict): Dictionary containing the outer function for summarize.
+
+    Returns:
+        float: Mean time to capture.
+    """ 
     canonElems = getCanonicalElements(
         landscape.trapsMigration,
         landscape.pointNumber, 
@@ -374,6 +404,16 @@ def cxDiscreteUniform(ind1, ind2, fixedTraps, indpb=.5):
 # GA (Extended)
 ###############################################################################
 def mutShuffleIndexes(individual, typeOptimMask, indpb=.5):
+    """Shuffles allele indices in pairs.
+
+    Args:
+        individual (list): Chromosome for optimization
+        typeOptimMask (bool numpy array): Array of bools that define which alleles can be mutated (1).
+        indpb (float, optional): Mutation probability for each independent allele. Defaults to 0.5.
+
+    Returns:
+        list: Mutated chromosome
+    """    
     (size, clen) = (len(typeOptimMask), len(individual))
     for i in range(size):
         # If the allele can be mutated and was sampled
@@ -400,6 +440,19 @@ def initChromosomeMixed(
         coordsRange, trapsPool, 
         indpb=.75
     ):
+    """Generates a compound chromosome for optimization with a coordinates-type composition (currently unusued).
+
+    Args:
+        trapsCoords (numpy array): Current traps positions.
+        fxdTrpsMsk (bool numpy array): Array of bools that define which alleles can be mutated (1). 
+        typeOptimMask (bool numpy array): Array of bools that define which alleles can be mutated (1).
+        coordsRange (numpy array): Allowed trap coordinates for init.
+        trapsPool (integers array): Types of traps available in the pool.
+        indpb (float, optional): Allele mutation probability. Defaults to .75.
+
+    Returns:
+        list: Randomly-generated chromosome.
+    """    
     coordSect = initChromosome(trapsCoords, fixedTrapsMask, coordsRange)
     typesInit = mutShuffleIndexes(trapsPool, typeOptimMask, indpb)[0]
     return [float(i) for i in coordSect]+list(typesInit)
@@ -417,6 +470,20 @@ def mutateChromosomeMixed(
             'indpb': 0.5
         }
     ):
+    """Generates a compound chromosome for optimization with a coordinates-type composition (currently unusued).
+
+    Args:
+        trapsCoords (numpy array): Current traps positions.
+        fxdTrpsMsk (bool numpy array): Array of bools that define which alleles can be mutated (1). 
+        typeOptimMask (bool numpy array): Array of bools that define which alleles can be mutated (1).
+        mutCoordFun (function): Coordinates mutation function.
+        mutCoordArgs (dictionary): Coordinates mutation function's arguments.
+        mutTypeFun (function): Trap types mutation function.
+        mutTypeArgs (dictionary): Trap types mutation function's arguments.
+
+    Returns:
+        list: Mutated chromosome.
+    """    
     # Split chromosome in parts -----------------------------------------------
     (coordsSect, typesSect) = (
         chromosome[:len(fixedTrapsMask)], 
@@ -480,6 +547,15 @@ def getDaysTillTrappedPseudoInverse(
 def getDaysTillTrappedVector(
         landscape, fitFuns={'outer': np.mean, 'inner': None}
     ):
+    """Gets the number of timesteps until a walker falls into a trap in vector form.
+
+    Parameters:
+        landscape (object): Landscape object to use for the analysis.
+        fitFuns (dict): Dictionary with the outer (row) and inner (col) functions to use on the matrix.
+
+    Returns:
+        (float): Number of days for mosquitoes to fall into traps given the fitFuns.
+    """
     funVct = getFundamentalVector(
         landscape.trapsMigration, 
         landscape.pointNumber
