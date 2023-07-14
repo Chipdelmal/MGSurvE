@@ -1,4 +1,4 @@
-'''Data-Visualization functions (thanks to Elijah Bartolome in the impelemntation of some of the visualization functions).
+'''Data-Visualization functions (thanks to Elijah Bartolome in the implementation of some of the visualization functions).
 
 '''
 
