@@ -27,13 +27,7 @@ RUN conda update -n base -c defaults conda \
     && conda config --set offline false \
     && conda config --add channels conda-forge \
     && conda config --add channels bioconda \
-    && conda install gdal -y \
-    && conda install fiona -y \
-    && conda install pyproj -y \
-    && conda install cartopy -y \
-    && conda install libpysal -y \
-    && conda install -c conda-forge deap -y \ 
-    # && conda env update --file requirements.yml -n base --prune \
-    # && rm requirements.yml \
+    && conda install gdal fiona pyproj cartopy libpysal -y \
+    && conda install -c conda-forge deap nodejs osmnx basemap-data-hires -y \ 
     && pip install MGSurvE
 
