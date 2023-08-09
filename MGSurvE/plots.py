@@ -239,8 +239,8 @@ def plotMatrix(
     )
     if trapsNumber is not None:
         sitesNumber = matrix.shape[0] - trapsNumber
-        plt.axhline(sitesNumber-.5, color=linecolor, ls=linestyle, lw=lw)
-        plt.axvline(sitesNumber-.5, color=linecolor, ls=linestyle, lw=lw)
+        ax.axhline(sitesNumber-.5, color=linecolor, ls=linestyle, lw=lw)
+        ax.axvline(sitesNumber-.5, color=linecolor, ls=linestyle, lw=lw)
     if not ticks:
         ax.set_xticks([]) 
         ax.set_yticks([]) 
