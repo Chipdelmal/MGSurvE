@@ -79,10 +79,11 @@ dev_full:
 # Docker
 ###############################################################################
 docker_release:
-	- docker build -t chipdelmal/mgsurve:$(version) .
-	- docker push chipdelmal/mgsurve:$(version)
-	- docker build -t chipdelmal/mgsurve:latest .
-	- docker push chipdelmal/mgsurve:latest
+	- docker buildx build . \
+		--platform=linux/amd64,linux/arm64,linux/x86_64 \
+		-t chipdelmal/mgsurve:$(version) \
+		-t chipdelmal/mgsurve:latest \
+		--push
 
 docker_run:
 	- docker run -it mgsurve:dev bash
