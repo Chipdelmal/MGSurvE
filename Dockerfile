@@ -27,6 +27,8 @@ RUN conda update -n base -c defaults conda \
     && conda config --set offline false \
     && conda config --add channels conda-forge \
     && conda config --add channels bioconda \
+    && conda install -n base conda-libmamba-solver \
+    && conda config --set solver libmamba \
     && conda install gdal fiona pyproj cartopy libpysal -y \
     && conda install -c conda-forge deap nodejs osmnx basemap-data-hires -y \ 
     && pip install MGSurvE
