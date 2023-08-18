@@ -69,9 +69,12 @@ dev:
 
 dev_full: 
 	- yes | pip install pytest sphinx sphinx_rtd_theme chardet twine wheel jupyter
-	- conda update -n base -c defaults conda 
-	- conda config --add channels bioconda
-	- conda config --add channels conda-forge
+	- conda update -n base -c defaults conda -y
+	- conda update -n base -c conda-forge conda -y
+	- conda install -n base conda-libmamba-solver -y
+	- conda config --set solver libmamba -y
+	- conda config --add channels bioconda -y
+	- conda config --add channels conda-forge -y
 	- conda install gdal fiona pyproj cartopy libpysal -y
 	- conda install -c conda-forge deap nodejs osmnx basemap-data-hires -y
 	- pip install .
