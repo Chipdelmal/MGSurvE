@@ -80,7 +80,7 @@ dev_full:
 ###############################################################################
 docker_release:
 	- docker buildx build . \
-		--platform=linux/amd64,linux/arm64,linux/x86_64 \
+		--platform=linux/amd64,linux/arm64 \
 		-t chipdelmal/mgsurve:$(version) \
 		-t chipdelmal/mgsurve:latest \
 		--push
