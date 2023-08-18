@@ -33,7 +33,7 @@ setuptools.setup(
     ],
     extras_require={
         'dev': [
-            'pytest', 'ipykernel'
+            'pytest', 'ipykernel', 'jupyter',
             'twine', 'wheel', 
             'sphinx', 'sphinx_rtd_theme', 'chardet'
         ],

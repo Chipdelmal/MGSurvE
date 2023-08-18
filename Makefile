@@ -68,12 +68,14 @@ dev:
 	- make test
 
 dev_full: 
-	- pip install .
-	- pip install pytest
+	- yes | pip install pytest sphinx sphinx_rtd_theme chardet twine wheel jupyter
+	- conda update -n base -c defaults conda 
+	- conda config --add channels bioconda
 	- conda config --add channels conda-forge
-	- conda install -c conda-forge deap -y
-	- conda install -c conda-forge libpysal -y
-	- conda install -c conda-forge cartopy -y
+	- conda install gdal fiona pyproj cartopy libpysal -y
+	- conda install -c conda-forge deap nodejs osmnx basemap-data-hires -y
+	- pip install .
+
 
 ###############################################################################
 # Docker
