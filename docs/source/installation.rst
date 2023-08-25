@@ -8,7 +8,21 @@ These installation instructions assume `conda <https://docs.conda.io/en/latest/m
 Local Installation
 ^^^^^^^^^^^^^^^^^^^^^
 
-Uneventful (tested on Linux)
+MGSurvE makes use of some external dependencies to make the most of its capabilities. Some of these, such as `DEAP <https://deap.readthedocs.io/en/master/>`_, are strict requirements but others are optional, such as:
+
+*  `cartopy <https://scitools.org.uk/cartopy/docs/latest/index.html>`_: needed for geographical landscapes plots and manipulations (not needed if we will be working with Euclidean landscapes but highly recommended nevertheless)
+*  `libpysal <https://pysal.org/libpysal/>`_: not strictly required by MGSurvE but useful if we wanted to do more complex point-sampling operations
+*  `osmnx <https://osmnx.readthedocs.io/en/stable/>`_: not required but pretty useful for interacting with `OpenStreetMap <https://www.openstreetmap.org/>`_ data
+
+
+Taking this into account, we provide some alternatives we have tested to get MGSurvE setup. The core software is installed by following the 
+`Uneventful Base Installation <https://chipdelmal.github.io/MGSurvE/build/html/installation.html##uneventful-base-installation>`_, whereas installing the package with all the dependencies is achieved through the 
+`Additional Dependencies and Installation Mishaps <https://chipdelmal.github.io/MGSurvE/build/html/installation.html#additional-dependencies-and-installation-mishaps>`_ or 
+`Bulletproof Installation Method <https://chipdelmal.github.io/MGSurvE/build/html/installation.html#bulletproof-installation-method>`_, as described in this webpage. Finally, if everything described before fails, we can download a 
+`Docker Image <https://hub.docker.com/repository/docker/chipdelmal/mgsurve>`_ following the `docker <https://chipdelmal.github.io/MGSurvE/build/html/installation.html#docker>`_ set of instructions.
+
+
+Uneventful Base Installation
 --------------------------
 
 Create a clean :code:`python=3.9` environment:
@@ -39,7 +53,7 @@ If this ran correctly, try importing the package from the terminal with:
 If `cartopy <https://scitools.org.uk/cartopy/docs/latest/index.html>`_ or `libpysal <https://pysal.org/libpysal/>`_ are not currently installed, we will get a warning that we can safely ignore (see the next section for more info); but if any of these steps resulted in an error, let's have a look at the next section in this installation guide.
 
 
-Additional Dependencies, and Installation Mishaps (sometimes happens on MacOS)
+Additional Dependencies, and Installation Mishaps
 --------------------------
 
 
@@ -55,18 +69,7 @@ In a fresh environment on :code:`python=3.9` (or one in which the installation o
    conda install deap -y
 
 
-With this package installed, we can proceed and install MGSurvE:
-
-
-.. code-block:: console
-
-   pip install MGSurvE
-
-which should be enough to get us started.
-
-
-
-Finally, let's install `cartopy <https://scitools.org.uk/cartopy/docs/latest/index.html>`_ (for geo-features plotting), and `libpysal <https://pysal.org/libpysal/>`_ (to generate poisson-distributed pointsets). 
+Now, let's install `cartopy <https://scitools.org.uk/cartopy/docs/latest/index.html>`_ (for geo-features plotting), and `libpysal <https://pysal.org/libpysal/>`_ (to generate poisson-distributed pointsets). 
 The easiest way to install these dependencies is through `anaconda <https://www.anaconda.com/products/individual>`_:
 
 
@@ -76,8 +79,14 @@ The easiest way to install these dependencies is through `anaconda <https://www.
    conda install libpysal -y
 
 
-   
-If this installation fails, or if :code:`import MGSurvE` fails on python, we might need to have a look at the next section.
+With these packages installed, we can proceed and install MGSurvE:
+
+
+.. code-block:: console
+
+   pip install MGSurvE
+
+which should be enough to get us started. If this installation fails, or if :code:`import MGSurvE` fails on python, we might need to have a look at the next section.
 
 
 Bulletproof Installation Method
@@ -90,10 +99,13 @@ If either of these approaches is failing, try the following chain of commands:
 
    conda create -n MGSurvE python="3.10"
    conda activate MGSurvE
-   conda config --add channels conda-forge
-   conda install -c conda-forge deap -y
-   conda install -c conda-forge libpysal -y
-   conda install -c conda-forge cartopy -y
+   conda update -n base -c defaults conda
+   conda config --add channels conda-forge 
+   conda config --add channels bioconda 
+   conda install -n base conda-libmamba-solver 
+   conda config --set solver libmamba 
+   conda install gdal fiona pyproj cartopy libpysal -y 
+   conda install -c conda-forge deap nodejs osmnx basemap-data-hires -y 
    pip install MGSurvE
 
 
