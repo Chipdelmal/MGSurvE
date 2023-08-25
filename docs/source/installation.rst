@@ -102,8 +102,6 @@ If either of these approaches is failing, try the following chain of commands:
    conda update -n base -c defaults conda
    conda config --add channels conda-forge 
    conda config --add channels bioconda 
-   conda install -n base conda-libmamba-solver 
-   conda config --set solver libmamba 
    conda install gdal fiona pyproj cartopy libpysal -y 
    conda install -c conda-forge deap nodejs osmnx basemap-data-hires -y 
    pip install MGSurvE
