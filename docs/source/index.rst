@@ -15,11 +15,6 @@ Our `tutorials <demos.html>`_ sections contains several use-case examples!
 
 
 
-.. note::
-
-   This project is under active development and testing.
-
-
 Features
 ------------
 
@@ -45,13 +40,12 @@ To this end, we have integrated the following features into our package (with mo
 Demos
 ------------
 
-Have a look at our `YouTube playlist <https://youtube.com/playlist?list=PLRzY6w7pvIWrOSwOlu_MXbOr14wx9xuwT>`_  for some use examples!
-
-.. raw:: html
-
-   <center><iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLRzY6w7pvIWrOSwOlu_MXbOr14wx9xuwT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
 
 
+Have a look at our `tutorials <./demos.html>`_ and `upcoming webinar <https://github.com/Chipdelmal/MGSurvE_Webinar2023>`_ for more demonstrations and materials on how to get started with our software!
+
+.. image:: https://github.com/Chipdelmal/MGSurvE_Webinar2023/raw/main/media/banner.png
+   :target: https://github.com/Chipdelmal/MGSurvE_Webinar2023
 
 ------------
 
