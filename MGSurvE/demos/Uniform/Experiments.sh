@@ -35,23 +35,23 @@ fi
 ###############################################################################
 # Optimizing Discrete Traps
 ###############################################################################
-# echo "* [3/3] Optimizing discrete landscapes"
-# if [ $OPT == "Complex" ];
-# then
-#     for lnd in ${lnds[@]}; do
-#         python OptimizationDO.py "${lnd}_LND_HOM" "ZI"
-#         python OptimizationDO.py "${lnd}_LND_HET" "ZI"
-#         printf "\r\033[K"
-#     done
-# else
-#     for lnd in ${lnds[@]}; do
-#         printf "\t* HOM ${lnd}..."
-#         python OptimizationDO-Simple.py "${lnd}_LND_HOM" "ZI"
-#         printf "\t* HET ${lnd}..."
-#         python OptimizationDO-Simple.py "${lnd}_LND_HET" "ZI"
-#         printf "\r\033[K"
-#     done
-# fi
+echo "* [3/3] Optimizing discrete landscapes"
+if [ $OPT == "Complex" ];
+then
+    for lnd in ${lnds[@]}; do
+        python OptimizationDO.py "${lnd}_LND_HOM" "ZI"
+        python OptimizationDO.py "${lnd}_LND_HET" "ZI"
+        printf "\r\033[K"
+    done
+else
+    for lnd in ${lnds[@]}; do
+        printf "\t* HOM ${lnd}..."
+        python OptimizationDO-Simple.py "${lnd}_LND_HOM" "ZI"
+        printf "\t* HET ${lnd}..."
+        python OptimizationDO-Simple.py "${lnd}_LND_HET" "ZI"
+        printf "\r\033[K"
+    done
+fi
 ###############################################################################
 # Goodbye
 ###############################################################################
