@@ -88,7 +88,7 @@ bbox = lnd_hom.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd_hom.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd_hom.plotSites(fig, ax, size=200)
-# lnd_hom.plotMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
+lnd_hom.plotMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
 # lnd_hom.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=False, bbox=bbox, pad=cst.pad_i)
 fig.savefig(

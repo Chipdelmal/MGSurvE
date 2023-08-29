@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+CORES = 8
+###############################################################################
+# Load libraries and limit cores
+###############################################################################
+import os
+os.environ["OMP_NUM_THREADS"] = str(CORES)
+os.environ["OPENBLAS_NUM_THREADS"] = str(CORES)
+os.environ["MKL_NUM_THREADS"] = str(CORES)
+os.environ["VECLIB_MAXIMUM_THREADS"] = str(CORES)
+os.environ["NUMEXPR_NUM_THREADS"] = str(CORES)
+# Load libraries --------------------------------------------------------------
 import warnings
 import numpy as np
 import pandas as pd
@@ -36,7 +47,7 @@ lndGA = deepcopy(lnd)
 ###############################################################################
 # Registering Functions for GA
 ###############################################################################
-fitFuns = {'inner': np.max, 'outer': np.mean}
+fitFuns = {'inner': np.sum, 'outer': np.max}
 (lnd, logbook) = srv.optimizeDiscreteTrapsGA(
     lndGA, pop_size=POP_SIZE, generations=GENS,
     mating_params=MAT, mutation_params=MUT, selection_params=SEL,

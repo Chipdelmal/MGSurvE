@@ -50,7 +50,7 @@ lndGA = deepcopy(lnd)
 (lnd, logbook) = srv.optimizeTrapsGA(
     lndGA, pop_size='auto', generations=GENS,
     mating_params=MAT, mutation_params=MUT, selection_params=SEL,
-    fitFuns={'outer': np.mean, 'inner': np.sum}, verbose=VERBOSE
+    fitFuns={'outer': np.max, 'inner': np.sum}, verbose=VERBOSE
 )
 srv.dumpLandscape(lnd, OUT_PTH, '{}_TRP-COS'.format(ID), fExt='pkl')
 srv.exportLog(logbook, OUT_PTH, '{}_LOG-COS'.format(ID))
@@ -72,7 +72,7 @@ lnd = srv.loadLandscape(OUT_PTH, '{}_TRP-COS'.format(ID), fExt='pkl')
 bbox = lnd.getBoundingBox()
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd.plotSites(fig, ax, size=200)
-# lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
+lnd.plotMaskedMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
 lnd.plotTraps(fig, ax, size=200)
 srv.plotClean(fig, ax, bbox=bbox, frame=False, pad=cst.pad_i)
 # srv.plotFitness(fig, ax, min(logbook['min']), zorder=30)
