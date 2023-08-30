@@ -7,26 +7,20 @@ out_pth = './sims_out/'
 # Landscape's bounding box
 bbox = ((-100, 100), (-100, 100))
 # Mosquito movement kernel
-mKerZ = {'params': [0.0125, 1.0e-10, math.inf], 'zeroInflation': .5}
-mKerN = {'params': [0.0125, 1.0e-10, math.inf], 'zeroInflation': 0}
+mKerZ = mKer = {'params': srv.MEDIUM_MOV_EXP_PARAMS, 'zeroInflation': .50} 
+mKerN = mKer = {'params': srv.MEDIUM_MOV_EXP_PARAMS, 'zeroInflation': .25} 
 # Number of sites and clusters in the environment
-ptsNum = 200
+ptsNum = 150
 (clsNum, clsRad) = (5, 175)
 # Probability for each point-type
 pTypesProb =[0.1, 0.7, 0.2]
 # Number and type of traps
 nullTraps = [0, 0, 0, 0, 0]
-typeTraps = [0, 0, 0, 0, 0]
+typeTraps = [0, 0, 0, 1, 0]
 # Traps' kernels
 tKer = {
-    1: {
-        'kernel': srv.sigmoidDecay,     
-        'params': {'A': 0.75, 'rate': .125, 'x0': 1/0.01}
-    },
-    0: {
-        'kernel': srv.exponentialDecay, 
-        'params': {'A': 0.75, 'b': 0.01}
-    }
+    0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .100}},
+    1: {'kernel': srv.exponentialDecay, 'params': {'A': .50, 'b': .125}}
 }
 # Transition probabilities between point-types
 msk = [

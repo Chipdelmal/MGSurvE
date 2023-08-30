@@ -28,7 +28,7 @@ elif ID == 'Uniform':
     xy = srv.ptsRandUniform(ptsNum, bbox).T
 elif ID == 'Ring':
     (ptsNum, radii, ptsTypes) = (
-        cst.ptsNum, (cst.bbox[1][0], int(cst.bbox[1][0]*0.6)), len(cst.pTypesProb)
+        cst.ptsNum, (cst.bbox[1][0], int(cst.bbox[1][0]*0.75)), len(cst.pTypesProb)
     )
     xy = srv.ptsDonut(ptsNum, radii).T
 elif ID == 'Poisson':
@@ -71,13 +71,13 @@ lnd_hom = srv.Landscape(
     points_hom, 
     kernelParams=mKer, 
     traps=traps, trapsKernels=tKer,
-    trapsRadii=[.90, .75, .50]
+    trapsRadii=[.75, .50, .1]
 )
 lnd_het = srv.Landscape(
     points_het, maskingMatrix=msk, 
     kernelParams=mKer,
     traps=traps, trapsKernels=tKer,
-    trapsRadii=[.90, .75, .50]
+    trapsRadii=[.75, .50, .1]
 )
 ###############################################################################
 # Plot Landscapes
@@ -88,7 +88,7 @@ bbox = lnd_hom.getBoundingBox()
 trpMsk = srv.genFixedTrapsMask(lnd_hom.trapsFixed)
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 15), sharey=False)
 lnd_hom.plotSites(fig, ax, size=200)
-lnd_hom.plotMigrationNetwork(fig, ax, alphaMin=.5, lineWidth=50)
+lnd_hom.plotMaskedMigrationNetwork(fig, ax, alphaMin=.6, lineWidth=25)
 # lnd_hom.plotTraps(fig, ax)
 srv.plotClean(fig, ax, frame=False, bbox=bbox, pad=cst.pad_i)
 fig.savefig(

@@ -19,16 +19,16 @@ echo "* [2/3] Optimizing continuous landscapes"
 if [ $OPT == "Complex" ];
 then
     for lnd in ${lnds[@]}; do
-        python Optimization.py "${lnd}_LND_HOM" "ZI"
-        python Optimization.py "${lnd}_LND_HET" "ZI"
+        python Optimization.py "${lnd}_LND_HOM" "ZN"
+        python Optimization.py "${lnd}_LND_HET" "ZN"
         printf "\r\033[K"
     done
 else
     for lnd in ${lnds[@]}; do
         printf "\t* HOM ${lnd}..."
-        python Optimization-Simple.py "${lnd}_LND_HOM" "ZI"
+        python Optimization-Simple.py "${lnd}_LND_HOM" "ZN"
         printf "\t* HET ${lnd}..."
-        python Optimization-Simple.py "${lnd}_LND_HET" "ZI"
+        python Optimization-Simple.py "${lnd}_LND_HET" "ZN"
         printf "\r\033[K"
     done
 fi
@@ -39,16 +39,16 @@ echo "* [3/3] Optimizing discrete landscapes"
 if [ $OPT == "Complex" ];
 then
     for lnd in ${lnds[@]}; do
-        python OptimizationDO.py "${lnd}_LND_HOM" "ZI"
-        python OptimizationDO.py "${lnd}_LND_HET" "ZI"
+        python OptimizationDO.py "${lnd}_LND_HOM" "ZN"
+        python OptimizationDO.py "${lnd}_LND_HET" "ZN"
         printf "\r\033[K"
     done
 else
     for lnd in ${lnds[@]}; do
         printf "\t* HOM ${lnd}..."
-        python OptimizationDO-Simple.py "${lnd}_LND_HOM" "ZI"
+        python OptimizationDO-Simple.py "${lnd}_LND_HOM" "ZN"
         printf "\t* HET ${lnd}..."
-        python OptimizationDO-Simple.py "${lnd}_LND_HET" "ZI"
+        python OptimizationDO-Simple.py "${lnd}_LND_HET" "ZN"
         printf "\r\033[K"
     done
 fi
