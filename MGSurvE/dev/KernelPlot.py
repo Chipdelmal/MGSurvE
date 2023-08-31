@@ -34,7 +34,7 @@ mKer = {'params': srv.MEDIUM_MOV_EXP_PARAMS, 'zeroInflation': .25}
 nullTraps = [0, 0, 0, 0]
 traps = pd.DataFrame({
     'x': [0, 0, 0, 0], 
-    'y': [0, 0, 0, 0], #[0, 0, 87.5, -87.5],
+    'y': [0, 0, 0, 0],
     't': [0, 1, 0, 1], 
     'f': [0, 0, 0, 0]
 })
