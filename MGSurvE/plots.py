@@ -2,12 +2,14 @@
 
 '''
 
+import math
 import warnings
 import matplotlib
 from os import path
 from math import log
 import matplotlib.pyplot as plt
 import MGSurvE.constants as cst
+import MGSurvE.matrices as mat
 import networkx as nx
 from sklearn.preprocessing import normalize
 import numpy as np
@@ -510,6 +512,44 @@ def plotTrapsKernels(
     ax.set_xlim(0, dMax)
     ax.set_ylim(0, 1)
     ax.set_aspect(aspect/ax.get_data_ratio())
+    return (fig, ax)
+
+
+def plotMovementKernel(
+        fig, ax, xPoints, lnd,
+        colors=('#8093f1', '#ec0868', '#7371fc22'),
+        lineWidths=(4, 8, 0.5)
+    ):
+    """ Generates a relative movement kernel plot.
+
+    Parameters:
+        fig (matplotlib): Matplotlib fig object.
+        ax (matplotlib): Matplotlib ax object.
+        xPoints (np array): Set of points 
+        colors (list of hex): List of colors to be used in the kernel profiles (zero inflation, kernel, vlines).
+        lineWidths (list of floats): List of line widths to be used in the kernel profiles (zero inflation, kernel, vlines)
+    Returns:
+        (fig, ax): Matplotlib (fig, ax) tuple.
+    """ 
+    x = xPoints
+    step = ('zeroInflation' in lnd.kernelParams.keys())
+    if step and x[0]!=0:
+        x = np.array([0]+list(x))
+    y = np.array([0]*(x.shape[0]))
+    xy = np.array([x, y]).T
+    distMat = mat.calcDistanceMatrix(xy, distFun=math.dist)
+    kernMat = lnd.kernelFunction(distMat, **lnd.kernelParams)
+    if not step:
+        ax.plot(x, kernMat, lw=4)
+    else:
+        ax.plot(x[1:], kernMat[0][1:], lw=lineWidths[0], color=colors[0])
+        ax.plot([0, 0], [0, kernMat[0][0]], lw=lineWidths[1], color=colors[1])
+    ax.vlines(x[1:], ymin=0, ymax=1, zorder=5, lw=lineWidths[2], color=colors[2])
+    ax.set_xlim(x[0], x[-1])
+    if kernMat[0, 0] > 0.5:
+        ax.set_ylim(0, 1)
+    else:
+        ax.set_ylim(0, 0.5)
     return (fig, ax)
 
 

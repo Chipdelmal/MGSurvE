@@ -49,19 +49,7 @@ lnd = srv.Landscape(points, kernelParams=mKer, traps=traps, trapsKernels=tKer)
 ###############################################################################
 # Plot Kernel
 ###############################################################################
-step = ('zeroInflation' in lnd.kernelParams.keys())
-x = np.arange(0, 20, 1)
-y = [0]*x.shape[0]
-xy = np.array([x, y]).T
-distMat = srv.calcDistanceMatrix(xy, distFun=math.dist)
-kernMat = lnd.kernelFunction(distMat, **lnd.kernelParams)
+x = np.array(list(np.arange(1, 25, 1)))
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 5), sharey=False)
-if not step:
-    ax.plot(x, kernMat, lw=4)
-    ax.scatter(x, kernMat[0], zorder=5, marker='x', s=50)
-else:
-    ax.plot(x[1:], kernMat[0][1:], lw=4, color='#8093f1')
-    ax.plot([0, 0], [0, kernMat[0][0]], lw=8, color='#ec0868')
-    ax.vlines(x[1:], ymin=0, ymax=1, zorder=5, lw=0.5, alpha=0.25, color='#7371fc')
-ax.set_xlim(x[0], x[-1])
-ax.set_ylim(0, 0.5) # kernMat[0, 0])
+(fig, ax) = srv.plotMovementKernel(fig, ax, x, lnd)
+
