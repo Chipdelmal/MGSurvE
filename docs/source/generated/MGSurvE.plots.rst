@@ -20,6 +20,7 @@
       plotLandBoundary
       plotMatrix
       plotMigrationNetwork
+      plotMovementKernel
       plotSites
       plotTraps
       plotTrapsKernels
