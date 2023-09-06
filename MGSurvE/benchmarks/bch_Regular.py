@@ -18,10 +18,12 @@ import warnings
 import numpy as np
 import pandas as pd
 from os import path
+from tqdm import tqdm
 from time import perf_counter
 from itertools import product
 import matplotlib.pyplot as plt
 from compress_pickle import dump, load
+from termcolor import colored, cprint
 import auxiliary as aux
 import MGSurvE as srv
 
@@ -30,8 +32,8 @@ PTH_O = './sims_out/'
 BBOX = ((-100, 100), (-100, 100))
 srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
-(GENS, REPS, DISCRETE) = (50, 10, True)
-(PTS_RAN, TRP_RAN) = ((10, 100, 10), (1, 10, 1))
+(GENS, REPS, DISCRETE) = (100, 10, True)
+(PTS_RAN, TRP_RAN) = ((1, 10, 2), (1, 10, 2))
 SUM_STAT = np.median
 ###############################################################################
 # Generate factorial tuples
@@ -46,7 +48,8 @@ TIME = {}
 ###############################################################################
 ix = 0
 (ptsNum, trpNum) = FACTORIAL[ix]
-for (ptsNum, trpNum) in FACTORIAL:
+cprint(f"* Running {len(FACTORIAL)} experiments. Please wait!", "red", "on_black")
+for (ptsNum, trpNum) in tqdm(FACTORIAL):
     # Setup sites -------------------------------------------------------------
     xy = srv.ptsRandUniform(ptsNum, BBOX).T
     pts = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
@@ -95,5 +98,11 @@ xy = ax.plot(rsG[0], rsG[1], 'k.', ms=5, alpha=.75, marker='x')
 cc = ax.contour(rsS[0], rsS[1], rsS[2], colors='#000000', linewidths=.5, alpha=1)
 cs = ax.contourf(rsS[0], rsS[1], rsS[2], cmap=cmap, extend='max')
 ax.set_xlabel("Number of Sites")
-ax.set_xlabel("Number of Traps")
-ax.colorbar()
+ax.set_ylabel("Number of Traps")
+ax.set_aspect('equal')
+cbar = fig.colorbar(cs, ax=ax, ticks=np.linspace(0, 1, 5))
+cbar.ax.set_ylabel('Time (minutes)')
+fig.savefig(
+    path.join(PTH_O, f'timings_{app}.png'), 
+    facecolor='w', bbox_inches='tight', pad_inches=0, dpi=300
+)

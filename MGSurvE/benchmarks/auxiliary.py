@@ -41,3 +41,9 @@ def calcResponseSurface(
     grid = (xN, yN, zN)
     surf = (xi, yi, zi)
     return {'ranges': ranges, 'grid': grid, 'surface': surf}
+
+
+def forceAspect(ax, aspect=1):
+    im = ax.get_images()
+    extent =  im[0].get_extent()
+    ax.set_aspect(abs((extent[1]-extent[0])/(extent[3]-extent[2]))/aspect)
