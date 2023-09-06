@@ -32,7 +32,7 @@ PTH_O = './sims_out/'
 BBOX = ((-100, 100), (-100, 100))
 srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
-(GENS, REPS, DISCRETE) = (100, 10, True)
+(GENS, REPS, DISCRETE) = (1000, 10, True)
 (PTS_RAN, TRP_RAN) = ((1, 10, 2), (1, 10, 2))
 SUM_STAT = np.median
 ###############################################################################
@@ -99,6 +99,7 @@ cc = ax.contour(rsS[0], rsS[1], rsS[2], colors='#000000', linewidths=.5, alpha=1
 cs = ax.contourf(rsS[0], rsS[1], rsS[2], cmap=cmap, extend='max')
 ax.set_xlabel("Number of Sites")
 ax.set_ylabel("Number of Traps")
+ax.set_title(f"Runtime over {GENS} generations ({app})")
 ax.set_aspect('equal')
 cbar = fig.colorbar(cs, ax=ax, ticks=np.linspace(0, 1, 5))
 cbar.ax.set_ylabel('Time (minutes)')
