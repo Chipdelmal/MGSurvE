@@ -24,6 +24,7 @@ from time import perf_counter
 from itertools import product
 from SALib.sample import latin
 import matplotlib.pyplot as plt
+import matplotlib.ticker as tkr
 from compress_pickle import dump, load
 from termcolor import colored, cprint
 import auxiliary as aux
@@ -36,8 +37,8 @@ BBOX = ((-100, 100), (-100, 100))
 srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
 (SEED, CORNERS) = (randint(0, 9999), True)
-(GENS, REPS, DISCRETE, LAT_EXP) = (500, 5, True, 30)
-(PTS_RAN, TRP_RAN) = ((20, 200, 20), (2, 25, 4))
+(GENS, REPS, DISCRETE) = (500, 5, True)
+(PTS_RAN, TRP_RAN, LAT_EXP) = ((10, 200, 20), (1, 24, 4), 30)
 (SUM_STAT, INTERP) = (np.median, 'cubic')
 ###############################################################################
 # Generate factorial tuples
@@ -108,7 +109,7 @@ for (ptsNum, trpNum) in tqdm(LATIN):
 # Analyze resulting dictionary
 ###############################################################################
 app = ('DSC' if DISCRETE else 'CNT')
-title = ('Discrete' if DISCRETE else 'Continuous')
+title = ('discrete' if DISCRETE else 'continuous')
 FILES = glob(path.join(PTH_O, f"timings_{app}*.bz"))
 TIMES_LIST = [load(f) for f in FILES]
 TIME = {k: v for d in TIMES_LIST for k, v in d.items()}
@@ -118,19 +119,25 @@ rs = aux.calcResponseSurface(x, y, z, mthd=INTERP)
 (a, b) = ((min(x), max(x)), (min(y), max(y)))
 (ran, rsG, rsS) = (rs['ranges'], rs['grid'], rs['surface'])
 # Plot ------------------------------------------------------------------------
-cmap = srv.colorPaletteFromHexList(['#ffffff', '#8093f1'])
+if DISCRETE:
+    cmap = srv.colorPaletteFromHexList(['#ffffff', '#8093f1', '#3a0ca3'])
+else:
+    cmap = srv.colorPaletteFromHexList(['#ffffff', '#ffafcc', '#f72585'])
 (lc, lw, ls) = ('#000000DD', 0.2, ":")
 (fig, ax) = plt.subplots(figsize=(11, 10))
 xy = ax.plot(rsG[0], rsG[1], 'k.', ms=5, alpha=.5, marker='x')
-cc = ax.contour(rsS[0], rsS[1], rsS[2], colors='#000000', linewidths=.5, alpha=1)
+# cc = ax.contour(rsS[0], rsS[1], rsS[2], colors='#000000', linewidths=.5, alpha=1)
 cs = ax.contourf(rsS[0], rsS[1], rsS[2], cmap=cmap, extend='max')
 ax.set_xlabel("Number of Traps")
 ax.set_ylabel("Number of Sites")
-ax.set_title(f"Runtime over {2*GENS} generations ({title})")
+ax.set_title(f"Runtime over {2*GENS} generations\n({title} optimization on {len(TIME)} samples)")
 ax.vlines(list(set(x)), min(y), max(y), color=lc, lw=lw, ls=ls)
 ax.hlines(list(set(y)), min(x), max(x), color=lc, lw=lw, ls=ls)
 # ax.set_aspect('equal')
-cbar = fig.colorbar(cs, ax=ax, ticks=np.linspace(0, max(z), 10))
+cbar = fig.colorbar(
+    cs, ax=ax, ticks=np.linspace(0, max(z), 5), 
+    format=tkr.FormatStrFormatter('%.f')
+)
 cbar.ax.set_ylabel('Time (minutes)')
 fig.savefig(
     path.join(PTH_O, f'timings_{app}.png'), 
