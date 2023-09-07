@@ -38,7 +38,7 @@ srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
 (SEED, CORNERS) = (randint(0, 9999), True)
 (GENS, REPS, DISCRETE) = (500, 5, True)
-(PTS_RAN, TRP_RAN, LAT_EXP) = ((10, 200, 20), (1, 24, 4), 30)
+(PTS_RAN, TRP_RAN, LAT_EXP) = ((10, 200, 20), (1, 24, 4), 51)
 (SUM_STAT, INTERP) = (np.median, 'cubic')
 ###############################################################################
 # Generate factorial tuples
