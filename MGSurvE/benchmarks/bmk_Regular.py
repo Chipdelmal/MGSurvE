@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-CORES = 8
+CORES = 16
 ###############################################################################
 # Load libraries and limit cores
 ###############################################################################
@@ -18,8 +18,10 @@ import numpy as np
 import pandas as pd
 from os import path
 from tqdm import tqdm
+from glob import glob
 from time import perf_counter
 from itertools import product
+from SALib.sample import latin
 import matplotlib.pyplot as plt
 from compress_pickle import dump, load
 from termcolor import colored, cprint
@@ -32,9 +34,10 @@ PTH_O = './sims_out/'
 BBOX = ((-100, 100), (-100, 100))
 srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
-(GENS, REPS, DISCRETE) = (500, 10, True)
+SEED = 1029
+(GENS, REPS, DISCRETE, LAT_EXP) = (500, 5, True, 6)
 (PTS_RAN, TRP_RAN) = ((20, 220, 20), (4, 28, 4))
-(SUM_STAT, INTERP) = (np.median, 'cubic')
+(SUM_STAT, INTERP) = (np.median, 'linear')
 ###############################################################################
 # Generate factorial tuples
 ###############################################################################
@@ -44,15 +47,32 @@ FACTORIAL = list(product(*[
 ]))
 TIME = {}
 ###############################################################################
+# Generate LHS tuples
+###############################################################################
+problem = {
+    'num_vars': 2,
+    'names': ['sites', 'traps'],
+    'bounds': [
+        [PTS_RAN[0], PTS_RAN[1]], 
+        [TRP_RAN[0], TRP_RAN[1]]
+    ]
+}
+LATIN = np.around(latin.sample(problem, LAT_EXP, seed=SEED)).astype(int)
+CORNERS = [
+    [PTS_RAN[1], TRP_RAN[1]], [PTS_RAN[0], TRP_RAN[0]],
+    [PTS_RAN[0], TRP_RAN[1]], [PTS_RAN[1], TRP_RAN[0]]
+]
+LATIN = np.vstack((CORNERS, LATIN))
+###############################################################################
 # Iteration cycle
 ###############################################################################
-ix = 0
+ix = -1
 (ptsNum, trpNum) = FACTORIAL[ix]
 cprint(
-    f"* Running {len(FACTORIAL)} experiments with {REPS} repetitions and {GENS} generations each. Please wait!", 
+    f"* Running {len(LATIN)} experiments with {REPS} repetitions and {GENS} generations each. Please wait!", 
     "red", "on_black"
 )
-for (ptsNum, trpNum) in tqdm(FACTORIAL[::-1]):
+for (ptsNum, trpNum) in tqdm(LATIN):
     # Setup sites -------------------------------------------------------------
     xy = srv.ptsRandUniform(ptsNum, BBOX).T
     pts = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
@@ -64,12 +84,12 @@ for (ptsNum, trpNum) in tqdm(FACTORIAL[::-1]):
     lnd = srv.Landscape(pts, traps=traps, trapsKernels=tKer)
     # Time iterations ---------------------------------------------------------
     timings = []
-    for rep in range(REPS):
+    for rep in tqdm(range(REPS)):
         t0_rep = perf_counter()
         # Optimize ------------------------------------------------------------
         if not DISCRETE:
             (lnd, logbook) = srv.optimizeTrapsGA(
-                lnd, generations=GENS, pop_size='auto', verbose=False,
+                lnd, generations=GENS, pop_size='auto', verbose=True,
                 mating_params='auto', mutation_params='auto', 
                 selection_params='auto', fitFuns={'inner': np.sum, 'outer': np.max}
             )
@@ -84,26 +104,32 @@ for (ptsNum, trpNum) in tqdm(FACTORIAL[::-1]):
     TIME[(lnd.pointNumber, lnd.trapsNumber)] = timings
     # Export results ----------------------------------------------------------
     app = ('DSC' if DISCRETE else 'CNT')
-    dump(TIME, path.join(PTH_O, f'timings_{app}.bz2'))
+    dump(TIME, path.join(PTH_O, f'timings_{app}-{SEED}.bz2'))
 ###############################################################################
 # Analyze resulting dictionary
 ###############################################################################
 app = ('DSC' if DISCRETE else 'CNT')
-TIME = load(path.join(PTH_O, f'timings_{app}.bz2'))
-cmap = srv.colorPaletteFromHexList(['#ffffff', '#8093f1'])
-# Plot ------------------------------------------------------------------------
+title = ('Discrete' if DISCRETE else 'Continuous')
+FILES = glob(path.join(PTH_O, f"timings_{app}*.bz"))
+TIMES_LIST = [load(f) for f in FILES]
+TIME = {k: v for d in TIMES_LIST for k, v in d.items()}
 (y, x) = np.array(list(TIME.keys())).T
-z = np.array([SUM_STAT(i)/60 for i in TIME.values()])
+z = np.array([2*SUM_STAT(i)/60 for i in TIME.values()])
 rs = aux.calcResponseSurface(x, y, z, mthd=INTERP)
 (a, b) = ((min(x), max(x)), (min(y), max(y)))
 (ran, rsG, rsS) = (rs['ranges'], rs['grid'], rs['surface'])
-(fig, ax) = plt.subplots(figsize=(10, 10))
-xy = ax.plot(rsG[0], rsG[1], 'k.', ms=1.5, alpha=.5, marker='o')
+# Plot ------------------------------------------------------------------------
+cmap = srv.colorPaletteFromHexList(['#ffffff', '#8093f1'])
+(lc, lw, ls) = ('#000000DD', 0.2, ":")
+(fig, ax) = plt.subplots(figsize=(11, 10))
+xy = ax.plot(rsG[0], rsG[1], 'k.', ms=5, alpha=.5, marker='x')
 cc = ax.contour(rsS[0], rsS[1], rsS[2], colors='#000000', linewidths=.5, alpha=1)
 cs = ax.contourf(rsS[0], rsS[1], rsS[2], cmap=cmap, extend='max')
 ax.set_xlabel("Number of Traps")
 ax.set_ylabel("Number of Sites")
-ax.set_title(f"Runtime over {GENS} generations ({app})")
+ax.set_title(f"Runtime over {2*GENS} generations ({title})")
+ax.vlines(list(set(x)), min(y), max(y), color=lc, lw=lw, ls=ls)
+ax.hlines(list(set(y)), min(x), max(x), color=lc, lw=lw, ls=ls)
 # ax.set_aspect('equal')
 cbar = fig.colorbar(cs, ax=ax, ticks=np.linspace(0, max(z), 10))
 cbar.ax.set_ylabel('Time (minutes)')
