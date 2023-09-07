@@ -14,7 +14,6 @@ os.environ["NUMEXPR_NUM_THREADS"] = str(CORES)
 # Load libraries --------------------------------------------------------------
 import warnings
 warnings.filterwarnings("ignore")
-import warnings
 import numpy as np
 import pandas as pd
 from os import path
@@ -27,14 +26,15 @@ from termcolor import colored, cprint
 import auxiliary as aux
 import MGSurvE as srv
 
+
 # Constants for output --------------------------------------------------------
 PTH_O = './sims_out/'
 BBOX = ((-100, 100), (-100, 100))
 srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
-(GENS, REPS, DISCRETE) = (1000, 10, True)
-(PTS_RAN, TRP_RAN) = ((1, 10, 2), (1, 10, 2))
-SUM_STAT = np.median
+(GENS, REPS, DISCRETE) = (500, 10, True)
+(PTS_RAN, TRP_RAN) = ((20, 220, 20), (4, 28, 4))
+(SUM_STAT, INTERP) = (np.median, 'cubic')
 ###############################################################################
 # Generate factorial tuples
 ###############################################################################
@@ -48,8 +48,11 @@ TIME = {}
 ###############################################################################
 ix = 0
 (ptsNum, trpNum) = FACTORIAL[ix]
-cprint(f"* Running {len(FACTORIAL)} experiments. Please wait!", "red", "on_black")
-for (ptsNum, trpNum) in tqdm(FACTORIAL):
+cprint(
+    f"* Running {len(FACTORIAL)} experiments with {REPS} repetitions and {GENS} generations each. Please wait!", 
+    "red", "on_black"
+)
+for (ptsNum, trpNum) in tqdm(FACTORIAL[::-1]):
     # Setup sites -------------------------------------------------------------
     xy = srv.ptsRandUniform(ptsNum, BBOX).T
     pts = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
@@ -59,10 +62,11 @@ for (ptsNum, trpNum) in tqdm(FACTORIAL):
     tKer = {0: {'kernel': srv.exponentialDecay, 'params': {'A': .75, 'b': .1}}}
     # Instantiate landscape ---------------------------------------------------
     lnd = srv.Landscape(pts, traps=traps, trapsKernels=tKer)
-    # Optimize ----------------------------------------------------------------
+    # Time iterations ---------------------------------------------------------
     timings = []
     for rep in range(REPS):
         t0_rep = perf_counter()
+        # Optimize ------------------------------------------------------------
         if not DISCRETE:
             (lnd, logbook) = srv.optimizeTrapsGA(
                 lnd, generations=GENS, pop_size='auto', verbose=False,
@@ -88,20 +92,20 @@ app = ('DSC' if DISCRETE else 'CNT')
 TIME = load(path.join(PTH_O, f'timings_{app}.bz2'))
 cmap = srv.colorPaletteFromHexList(['#ffffff', '#8093f1'])
 # Plot ------------------------------------------------------------------------
-(x, y) = np.array(list(TIME.keys())).T
-z = np.array([SUM_STAT(i) for i in TIME.values()])
-rs = aux.calcResponseSurface(x, y, z)
+(y, x) = np.array(list(TIME.keys())).T
+z = np.array([SUM_STAT(i)/60 for i in TIME.values()])
+rs = aux.calcResponseSurface(x, y, z, mthd=INTERP)
 (a, b) = ((min(x), max(x)), (min(y), max(y)))
 (ran, rsG, rsS) = (rs['ranges'], rs['grid'], rs['surface'])
 (fig, ax) = plt.subplots(figsize=(10, 10))
-xy = ax.plot(rsG[0], rsG[1], 'k.', ms=5, alpha=.75, marker='x')
+xy = ax.plot(rsG[0], rsG[1], 'k.', ms=1.5, alpha=.5, marker='o')
 cc = ax.contour(rsS[0], rsS[1], rsS[2], colors='#000000', linewidths=.5, alpha=1)
 cs = ax.contourf(rsS[0], rsS[1], rsS[2], cmap=cmap, extend='max')
-ax.set_xlabel("Number of Sites")
-ax.set_ylabel("Number of Traps")
+ax.set_xlabel("Number of Traps")
+ax.set_ylabel("Number of Sites")
 ax.set_title(f"Runtime over {GENS} generations ({app})")
-ax.set_aspect('equal')
-cbar = fig.colorbar(cs, ax=ax, ticks=np.linspace(0, 1, 5))
+# ax.set_aspect('equal')
+cbar = fig.colorbar(cs, ax=ax, ticks=np.linspace(0, max(z), 10))
 cbar.ax.set_ylabel('Time (minutes)')
 fig.savefig(
     path.join(PTH_O, f'timings_{app}.png'), 
