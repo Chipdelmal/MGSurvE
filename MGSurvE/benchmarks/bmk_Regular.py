@@ -36,8 +36,8 @@ BBOX = ((-100, 100), (-100, 100))
 srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
 (SEED, CORNERS) = (randint(0, 9999), True)
-(GENS, REPS, DISCRETE, LAT_EXP) = (500, 5, True, 16)
-(PTS_RAN, TRP_RAN) = ((20, 100, 20), (4, 12, 4))
+(GENS, REPS, DISCRETE, LAT_EXP) = (500, 5, True, 30)
+(PTS_RAN, TRP_RAN) = ((20, 200, 20), (2, 25, 4))
 (SUM_STAT, INTERP) = (np.median, 'cubic')
 ###############################################################################
 # Generate factorial tuples
@@ -134,5 +134,5 @@ cbar = fig.colorbar(cs, ax=ax, ticks=np.linspace(0, max(z), 10))
 cbar.ax.set_ylabel('Time (minutes)')
 fig.savefig(
     path.join(PTH_O, f'timings_{app}.png'), 
-    facecolor='w', bbox_inches='tight', pad_inches=0, dpi=300
+    facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
 )
