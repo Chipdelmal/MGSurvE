@@ -19,6 +19,7 @@ import pandas as pd
 from os import path
 from tqdm import tqdm
 from glob import glob
+from random import randint
 from time import perf_counter
 from itertools import product
 from SALib.sample import latin
@@ -34,10 +35,10 @@ PTH_O = './sims_out/'
 BBOX = ((-100, 100), (-100, 100))
 srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
-SEED = 1029
-(GENS, REPS, DISCRETE, LAT_EXP) = (500, 5, True, 6)
-(PTS_RAN, TRP_RAN) = ((20, 220, 20), (4, 28, 4))
-(SUM_STAT, INTERP) = (np.median, 'linear')
+(SEED, CORNERS) = (randint(0, 9999), True)
+(GENS, REPS, DISCRETE, LAT_EXP) = (500, 5, True, 16)
+(PTS_RAN, TRP_RAN) = ((20, 100, 20), (4, 12, 4))
+(SUM_STAT, INTERP) = (np.median, 'cubic')
 ###############################################################################
 # Generate factorial tuples
 ###############################################################################
@@ -52,17 +53,15 @@ TIME = {}
 problem = {
     'num_vars': 2,
     'names': ['sites', 'traps'],
-    'bounds': [
-        [PTS_RAN[0], PTS_RAN[1]], 
-        [TRP_RAN[0], TRP_RAN[1]]
-    ]
+    'bounds': [[PTS_RAN[0], PTS_RAN[1]], [TRP_RAN[0], TRP_RAN[1]]]
 }
 LATIN = np.around(latin.sample(problem, LAT_EXP, seed=SEED)).astype(int)
-CORNERS = [
-    [PTS_RAN[1], TRP_RAN[1]], [PTS_RAN[0], TRP_RAN[0]],
-    [PTS_RAN[0], TRP_RAN[1]], [PTS_RAN[1], TRP_RAN[0]]
-]
-LATIN = np.vstack((CORNERS, LATIN))
+if CORNERS:
+    CORNERS = [
+        [PTS_RAN[1], TRP_RAN[1]], [PTS_RAN[0], TRP_RAN[0]],
+        [PTS_RAN[0], TRP_RAN[1]], [PTS_RAN[1], TRP_RAN[0]]
+    ]
+    LATIN = np.vstack((CORNERS, LATIN))
 ###############################################################################
 # Iteration cycle
 ###############################################################################
@@ -104,7 +103,7 @@ for (ptsNum, trpNum) in tqdm(LATIN):
     TIME[(lnd.pointNumber, lnd.trapsNumber)] = timings
     # Export results ----------------------------------------------------------
     app = ('DSC' if DISCRETE else 'CNT')
-    dump(TIME, path.join(PTH_O, f'timings_{app}-{SEED}.bz2'))
+    dump(TIME, path.join(PTH_O, f'timings_{app}-{SEED:04d}.bz2'))
 ###############################################################################
 # Analyze resulting dictionary
 ###############################################################################
