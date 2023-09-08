@@ -19,6 +19,7 @@
       plotGAEvolution
       plotMatrix
       plotMigrationNetwork
+      plotMovementKernel
       plotSites
       plotTraps
       plotTrapsKernels
