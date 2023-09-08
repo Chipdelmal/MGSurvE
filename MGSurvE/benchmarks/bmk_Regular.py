@@ -18,6 +18,7 @@ import numpy as np
 import pandas as pd
 from os import path
 from tqdm import tqdm
+from sys import argv
 from glob import glob
 from random import randint
 from time import perf_counter
@@ -26,11 +27,16 @@ from SALib.sample import latin
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tkr
 from compress_pickle import dump, load
-from termcolor import colored, cprint
+from termcolor import cprint
 import auxiliary as aux
 import MGSurvE as srv
 
 
+if srv.isNotebook():
+    DISCRETE = True
+else:
+    # Bash call input
+    DISCRETE = int(argv[1])
 # Constants for output --------------------------------------------------------
 PTH_O = './sims_out/'
 BBOX = ((-100, 100), (-100, 100))
@@ -38,15 +44,20 @@ srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
 (SEED, CORNERS) = (randint(0, 9999), True)
 (GENS, REPS, DISCRETE) = (500, 5, True)
-(PTS_RAN, TRP_RAN, LAT_EXP) = ((10, 200, 20), (1, 24, 4), 51)
-(SUM_STAT, INTERP) = (np.median, 'cubic')
+(PTS_RAN, TRP_RAN, LAT_EXP) = ((5, 400, 20), (1, 30, 4), 46)
+(SUM_STAT, INTERP) = (np.median, 'linear')
+###############################################################################
+# Check for seed repetition
+###############################################################################
+app = ('DSC' if DISCRETE else 'CNT')
+FILES = glob(path.join(PTH_O, f"timings_{app}*.bz"))
+usedSeeds = set([int(i.split('-')[-1].split('.')[0]) for i in FILES])
+while SEED in usedSeeds:
+    SEED = randint(0, 9999)
 ###############################################################################
 # Generate factorial tuples
 ###############################################################################
-FACTORIAL = list(product(*[
-    list(range(*PTS_RAN)), 
-    list(range(*TRP_RAN))
-]))
+FACTORIAL = list(product(*[list(range(*PTS_RAN)), list(range(*TRP_RAN))]))
 TIME = {}
 ###############################################################################
 # Generate LHS tuples
@@ -108,17 +119,20 @@ for (ptsNum, trpNum) in tqdm(LATIN):
 ###############################################################################
 # Analyze resulting dictionary
 ###############################################################################
+scale = 2
 app = ('DSC' if DISCRETE else 'CNT')
 title = ('discrete' if DISCRETE else 'continuous')
 FILES = glob(path.join(PTH_O, f"timings_{app}*.bz"))
 TIMES_LIST = [load(f) for f in FILES]
 TIME = {k: v for d in TIMES_LIST for k, v in d.items()}
 (y, x) = np.array(list(TIME.keys())).T
-z = np.array([2*SUM_STAT(i)/60 for i in TIME.values()])
+z = np.array([scale*SUM_STAT(i)/60 for i in TIME.values()])
 rs = aux.calcResponseSurface(x, y, z, mthd=INTERP)
 (a, b) = ((min(x), max(x)), (min(y), max(y)))
 (ran, rsG, rsS) = (rs['ranges'], rs['grid'], rs['surface'])
 # Plot ------------------------------------------------------------------------
+(cmin, cmax, cdelta) = (0, 30*scale, 5)
+levels = np.arange(cmin, cmax+cdelta, cdelta)
 if DISCRETE:
     cmap = srv.colorPaletteFromHexList(['#ffffff', '#8093f1', '#3a0ca3'])
 else:
@@ -126,11 +140,11 @@ else:
 (lc, lw, ls) = ('#000000DD', 0.2, ":")
 (fig, ax) = plt.subplots(figsize=(11, 10))
 xy = ax.plot(rsG[0], rsG[1], 'k.', ms=5, alpha=.5, marker='x')
-# cc = ax.contour(rsS[0], rsS[1], rsS[2], colors='#000000', linewidths=.5, alpha=1)
-cs = ax.contourf(rsS[0], rsS[1], rsS[2], cmap=cmap, extend='max')
+# cc = ax.contour(rsS[0], rsS[1], rsS[2], levels=levels, colors='#000000', linewidths=.5, alpha=1)
+cs = ax.contourf(rsS[0], rsS[1], rsS[2], levels=levels, cmap=cmap, extend='max')
 ax.set_xlabel("Number of Traps")
 ax.set_ylabel("Number of Sites")
-ax.set_title(f"Runtime over {2*GENS} generations\n({title} optimization on {len(TIME)} samples)")
+ax.set_title(f"Runtime over {scale*GENS} generations\n({title} optimization on {len(TIME)} samples)")
 ax.vlines(list(set(x)), min(y), max(y), color=lc, lw=lw, ls=ls)
 ax.hlines(list(set(y)), min(x), max(x), color=lc, lw=lw, ls=ls)
 # ax.set_aspect('equal')
@@ -139,6 +153,8 @@ cbar = fig.colorbar(
     format=tkr.FormatStrFormatter('%.f')
 )
 cbar.ax.set_ylabel('Time (minutes)')
+cbar_ticks = np.linspace(cmin, cmax, num=len(levels), endpoint=True)
+cbar.set_ticks(cbar_ticks)
 fig.savefig(
     path.join(PTH_O, f'timings_{app}.png'), 
     facecolor='w', bbox_inches='tight', pad_inches=0.1, dpi=300
