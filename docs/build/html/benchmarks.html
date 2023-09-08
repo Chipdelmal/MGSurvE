@@ -84,7 +84,7 @@ Specifically, these variables both impact the calculation of Markov’s Fundamen
 We ran a set of experiments limiting our server to use 16 cores and ran 5 repetitions of a set of sites-traps combinations (Latin Hypercube Sampling schemes were used) to test how the optimizations time scales (GA parameters were set to <code class="code docutils literal notranslate"><span class="pre">auto</span></code> for consistency).
 Both optimization routines (discrete and continuous) were ran over 500 generations, as that gets us a good sample of the timing for each parameter combination (after the optimization algorithm’s memory allocation and initial function calls have taken place).
 We are, however, scaling the timing to 1000 generations (doubling it) because that’s closer to the expected number of generations we would run for an optimization task.</p>
-<a class="reference internal image-reference" href="_images/timings_DSC.png"><img alt="_images/timings_DSC.png" src="_images/timings_DSC.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="_images/timings_DSC.jpg"><img alt="_images/timings_DSC.jpg" src="_images/timings_DSC.jpg" style="width: 100%;" /></a>
 <p>Our server has 44 physical cores (two “Intel(R) Xeon(R) CPU E5-2696 v4 &#64; 2.20GHz”) and 256Gb RAM but, as was previously mentioned, was limited to 16 cores for benchmarking purposes.</p>
 </section>
 

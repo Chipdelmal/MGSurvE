@@ -11,7 +11,7 @@ Both optimization routines (discrete and continuous) were ran over 500 generatio
 We are, however, scaling the timing to 1000 generations (doubling it) because that's closer to the expected number of generations we would run for an optimization task.
 
 
-.. image:: ../../img/timings_DSC.png
+.. image:: ../../img/timings_DSC.jpg
     :width: 100%
 
 
