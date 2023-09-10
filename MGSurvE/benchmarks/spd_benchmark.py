@@ -45,6 +45,7 @@ srv.makeFolder(PTH_O)
 (SEED, CORNERS) = (randint(0, 9999), True)
 (GENS, REPS, DISCRETE) = (500, 5, True)
 (PTS_RAN, TRP_RAN, LAT_EXP) = ((5, 400, 20), (1, 30, 4), 46)
+(BAN_PTS, BAN_TRP) = ((0, 200), (0, 20))
 (SUM_STAT, INTERP) = (np.median, 'linear')
 ###############################################################################
 # Check for seed repetition
@@ -70,8 +71,8 @@ problem = {
 LATIN = np.around(latin.sample(problem, LAT_EXP, seed=SEED)).astype(int)
 if CORNERS:
     CORNERS = [
-        [PTS_RAN[1], TRP_RAN[1]], [PTS_RAN[0], TRP_RAN[0]],
-        [PTS_RAN[0], TRP_RAN[1]], [PTS_RAN[1], TRP_RAN[0]]
+        [PTS_RAN[0], TRP_RAN[0]], [PTS_RAN[1], TRP_RAN[0]], 
+        [PTS_RAN[0], TRP_RAN[1]], [PTS_RAN[1], TRP_RAN[1]], 
     ]
     LATIN = np.vstack((CORNERS, LATIN))
 ###############################################################################
@@ -80,10 +81,18 @@ if CORNERS:
 ix = -1
 (ptsNum, trpNum) = FACTORIAL[ix]
 cprint(
-    f"* Running {len(LATIN)} experiments with {REPS} repetitions and {GENS} generations each. Please wait!", 
+    f"* Running {len(LATIN)} experiments with {REPS} repetitions and {GENS} generations each on {app} setting!", 
     "red", "on_black"
 )
+BAN_ENABLED = (BAN_PTS is not None) and (BAN_TRP is not None)
 for (ptsNum, trpNum) in tqdm(LATIN):
+    IN_BAN_RANGE = (ptsNum in range(*BAN_PTS)) and (trpNum in range(*BAN_TRP))
+    if BAN_ENABLED and IN_BAN_RANGE:
+        cprint(
+            f"* Skipped (s: {ptsNum}, t: {trpNum})!", 
+            "light_magenta", "on_black"
+        )
+        continue
     # Setup sites -------------------------------------------------------------
     xy = srv.ptsRandUniform(ptsNum, BBOX).T
     pts = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
@@ -131,13 +140,13 @@ rs = aux.calcResponseSurface(x, y, z, mthd=INTERP)
 (a, b) = ((min(x), max(x)), (min(y), max(y)))
 (ran, rsG, rsS) = (rs['ranges'], rs['grid'], rs['surface'])
 # Plot ------------------------------------------------------------------------
-(cmin, cmax, cdelta) = (0, 30*scale, 5)
+(cmin, cmax, cdelta) = (0, 60*scale, 10)
 levels = np.arange(cmin, cmax+cdelta, cdelta)
 if DISCRETE:
     cmap = srv.colorPaletteFromHexList(['#ffffff', '#8093f1', '#3a0ca3'])
 else:
     cmap = srv.colorPaletteFromHexList(['#ffffff', '#ffafcc', '#f72585'])
-(lc, lw, ls) = ('#000000DD', 0.2, ":")
+(lc, lw, ls) = ('#000000DD', 0.15, ":")
 (fig, ax) = plt.subplots(figsize=(11, 10))
 xy = ax.plot(rsG[0], rsG[1], 'k.', ms=5, alpha=.5, marker='x')
 # cc = ax.contour(rsS[0], rsS[1], rsS[2], levels=levels, colors='#000000', linewidths=.5, alpha=1)
