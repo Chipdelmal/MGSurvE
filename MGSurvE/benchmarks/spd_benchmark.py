@@ -42,9 +42,9 @@ PTH_O = './sims_out/'
 BBOX = ((-100, 100), (-100, 100))
 srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
-(SEED, CORNERS) = (randint(0, 9999), True)
-(GENS, REPS, DISCRETE) = (500, 5, True)
-(PTS_RAN, TRP_RAN, LAT_EXP) = ((5, 400, 20), (1, 30, 4), 46)
+(SEED, CORNERS) = (randint(0, 9999), False)
+(GENS, REPS, DISCRETE, LHS) = (500, 5, True, False)
+(PTS_RAN, TRP_RAN, LAT_EXP) = ((25, 425, 25), (5, 35, 5), 50)
 (BAN_PTS, BAN_TRP) = ((0, 200), (0, 20))
 (SUM_STAT, INTERP) = (np.median, 'linear')
 ###############################################################################
@@ -59,6 +59,7 @@ while SEED in usedSeeds:
 # Generate factorial tuples
 ###############################################################################
 FACTORIAL = list(product(*[list(range(*PTS_RAN)), list(range(*TRP_RAN))]))
+FACTORIAL = sorted(FACTORIAL, key=lambda x: x[1])
 TIME = {}
 ###############################################################################
 # Generate LHS tuples
@@ -80,12 +81,18 @@ if CORNERS:
 ###############################################################################
 ix = -1
 (ptsNum, trpNum) = FACTORIAL[ix]
+SAMPLE = (LATIN if LHS else FACTORIAL)
 cprint(
-    f"* Running {len(LATIN)} experiments with {REPS} repetitions and {GENS} generations each on {app} setting!", 
+    f"* Running {len(SAMPLE)} experiments with {REPS} repetitions and {GENS} generations each on {app} setting!", 
     "red", "on_black"
 )
 BAN_ENABLED = (BAN_PTS is not None) and (BAN_TRP is not None)
-for (ptsNum, trpNum) in tqdm(LATIN):
+BAN_RANGE = [
+    (ptsNum in range(*BAN_PTS)) and (trpNum in range(*BAN_TRP)) 
+    for (ptsNum, trpNum) in SAMPLE
+]
+
+for (ptsNum, trpNum) in tqdm(SAMPLE):
     IN_BAN_RANGE = (ptsNum in range(*BAN_PTS)) and (trpNum in range(*BAN_TRP))
     if BAN_ENABLED and IN_BAN_RANGE:
         cprint(
