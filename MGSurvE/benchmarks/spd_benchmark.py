@@ -79,27 +79,28 @@ if CORNERS:
 ###############################################################################
 # Iteration cycle
 ###############################################################################
-ix = -1
-(ptsNum, trpNum) = FACTORIAL[ix]
+# ix = -1
+# (ptsNum, trpNum) = FACTORIAL[ix]
 SAMPLE = (LATIN if LHS else FACTORIAL)
+# Filter ban range ------------------------------------------------------------
+BAN_ENABLED = (BAN_PTS is not None) and (BAN_TRP is not None)
+if BAN_ENABLED:
+    BAN_RANGE = [
+        (ptsNum in range(*BAN_PTS)) and (trpNum in range(*BAN_TRP)) 
+        for (ptsNum, trpNum) in SAMPLE
+    ]
+    SAMPLE = [(s[0], s[1]) for (ix, s) in enumerate(SAMPLE) if not BAN_RANGE[ix]]
+# Filter already run ----------------------------------------------------------
+FILES = glob(path.join(PTH_O, f"timings_{app}*.bz"))
+TIMES_LIST = [load(f) for f in FILES]
+TIME = {k: v for d in TIMES_LIST for k, v in d.items()}
+SAMPLE = [s for s in SAMPLE if not (tuple(s) in set(TIME))]
+# Iteration cycle -------------------------------------------------------------
 cprint(
     f"* Running {len(SAMPLE)} experiments with {REPS} repetitions and {GENS} generations each on {app} setting!", 
     "red", "on_black"
 )
-BAN_ENABLED = (BAN_PTS is not None) and (BAN_TRP is not None)
-BAN_RANGE = [
-    (ptsNum in range(*BAN_PTS)) and (trpNum in range(*BAN_TRP)) 
-    for (ptsNum, trpNum) in SAMPLE
-]
-
 for (ptsNum, trpNum) in tqdm(SAMPLE):
-    IN_BAN_RANGE = (ptsNum in range(*BAN_PTS)) and (trpNum in range(*BAN_TRP))
-    if BAN_ENABLED and IN_BAN_RANGE:
-        cprint(
-            f"* Skipped (s: {ptsNum}, t: {trpNum})!", 
-            "light_magenta", "on_black"
-        )
-        continue
     # Setup sites -------------------------------------------------------------
     xy = srv.ptsRandUniform(ptsNum, BBOX).T
     pts = pd.DataFrame({'x': xy[0], 'y': xy[1], 't': [0]*xy.shape[1]})
