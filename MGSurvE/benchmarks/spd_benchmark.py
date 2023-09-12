@@ -44,9 +44,9 @@ srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
 (SEED, CORNERS) = (randint(0, 9999), False)
 (GENS, REPS, DISCRETE, LHS) = (500, 5, True, False)
-(PTS_RAN, TRP_RAN, LAT_EXP) = ((25, 425, 25), (5, 35, 5), 50)
+(PTS_RAN, TRP_RAN, LAT_EXP) = ((50, 450, 50), (5, 35, 5), 50)
 (BAN_PTS, BAN_TRP) = ((0, 200), (0, 20))
-(SUM_STAT, INTERP) = (np.median, 'linear')
+(SUM_STAT, INTERP) = (np.median, 'cubic')
 ###############################################################################
 # Check for seed repetition
 ###############################################################################
@@ -148,15 +148,15 @@ rs = aux.calcResponseSurface(x, y, z, mthd=INTERP)
 (a, b) = ((min(x), max(x)), (min(y), max(y)))
 (ran, rsG, rsS) = (rs['ranges'], rs['grid'], rs['surface'])
 # Plot ------------------------------------------------------------------------
-(cmin, cmax, cdelta) = (0, 60*scale, 10)
+(cmin, cmax, cdelta) = (0, 90*scale, 10)
 levels = np.arange(cmin, cmax+cdelta, cdelta)
 if DISCRETE:
     cmap = srv.colorPaletteFromHexList(['#ffffff', '#8093f1', '#3a0ca3'])
 else:
     cmap = srv.colorPaletteFromHexList(['#ffffff', '#ffafcc', '#f72585'])
-(lc, lw, ls) = ('#000000DD', 0.15, ":")
+(lc, lw, ls) = ('#000000DD', 0.1, ":")
 (fig, ax) = plt.subplots(figsize=(11, 10))
-xy = ax.plot(rsG[0], rsG[1], 'k.', ms=5, alpha=.5, marker='x')
+xy = ax.plot(rsG[0], rsG[1], 'k.', ms=1.25, alpha=.5, marker='o')
 # cc = ax.contour(rsS[0], rsS[1], rsS[2], levels=levels, colors='#000000', linewidths=.5, alpha=1)
 cs = ax.contourf(rsS[0], rsS[1], rsS[2], levels=levels, cmap=cmap, extend='max')
 ax.set_xlabel("Number of Traps")
