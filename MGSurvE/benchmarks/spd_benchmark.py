@@ -44,7 +44,7 @@ srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
 (SEED, CORNERS) = (randint(0, 9999), False)
 (GENS, REPS, DISCRETE, LHS) = (500, 5, True, False)
-(PTS_RAN, TRP_RAN, LAT_EXP) = ((50, 450, 50), (5, 35, 5), 50)
+(PTS_RAN, TRP_RAN, LAT_EXP) = ((50, 450, 50), (5, 35, 5), 150)
 (BAN_PTS, BAN_TRP) = ((0, 200), (0, 20))
 (SUM_STAT, INTERP) = (np.median, 'cubic')
 ###############################################################################
@@ -164,6 +164,8 @@ ax.set_ylabel("Number of Sites")
 ax.set_title(f"Runtime over {scale*GENS} generations\n({title} optimization on {len(TIME)} samples)")
 ax.vlines(list(set(x)), min(y), max(y), color=lc, lw=lw, ls=ls)
 ax.hlines(list(set(y)), min(x), max(x), color=lc, lw=lw, ls=ls)
+ax.vlines(range(5, max(x), 5), min(y), max(y), lw=lw*3, ls=ls)
+ax.hlines(range(50, max(y), 50), min(x), max(x), lw=lw*3, ls=ls)
 # ax.set_aspect('equal')
 cbar = fig.colorbar(
     cs, ax=ax, ticks=np.linspace(0, max(z), 5), 
