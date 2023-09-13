@@ -35,7 +35,6 @@ import MGSurvE as srv
 if srv.isNotebook():
     DISCRETE = True
 else:
-    # Bash call input
     DISCRETE = int(argv[1])
 # Constants for output --------------------------------------------------------
 PTH_O = './sims_out/'
@@ -43,8 +42,8 @@ BBOX = ((-100, 100), (-100, 100))
 srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
 (SEED, CORNERS) = (randint(0, 9999), False)
-(GENS, REPS, DISCRETE, LHS) = (500, 5, True, False)
-(PTS_RAN, TRP_RAN, LAT_EXP) = ((50, 450, 50), (5, 35, 5), 150)
+(GENS, REPS, LHS) = (500, 5, False)
+(PTS_RAN, TRP_RAN, LAT_EXP) = ((50, 450, 50), (5, 35, 5), 200)
 (BAN_PTS, BAN_TRP) = ((0, 200), (0, 20))
 (SUM_STAT, INTERP) = (np.median, 'cubic')
 ###############################################################################
@@ -82,6 +81,7 @@ if CORNERS:
 # ix = -1
 # (ptsNum, trpNum) = FACTORIAL[ix]
 SAMPLE = (LATIN if LHS else FACTORIAL)
+SAMPLE = FACTORIAL+[list(i) for i in LATIN]
 # Filter ban range ------------------------------------------------------------
 BAN_ENABLED = (BAN_PTS is not None) and (BAN_TRP is not None)
 if BAN_ENABLED:
@@ -156,7 +156,7 @@ else:
     cmap = srv.colorPaletteFromHexList(['#ffffff', '#ffafcc', '#f72585'])
 (lc, lw, ls) = ('#000000DD', 0.1, ":")
 (fig, ax) = plt.subplots(figsize=(11, 10))
-xy = ax.plot(rsG[0], rsG[1], 'k.', ms=1.25, alpha=.5, marker='o')
+xy = ax.plot(rsG[0], rsG[1], 'k.', ms=1.25, alpha=.5, marker='o', zorder=10)
 # cc = ax.contour(rsS[0], rsS[1], rsS[2], levels=levels, colors='#000000', linewidths=.5, alpha=1)
 cs = ax.contourf(rsS[0], rsS[1], rsS[2], levels=levels, cmap=cmap, extend='max')
 ax.set_xlabel("Number of Traps")
