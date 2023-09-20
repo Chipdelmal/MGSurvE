@@ -20,6 +20,7 @@ from os import path
 from tqdm import tqdm
 from sys import argv
 from glob import glob
+from random import shuffle
 from random import randint
 from time import perf_counter
 from itertools import product
@@ -33,7 +34,7 @@ import MGSurvE as srv
 
 
 if srv.isNotebook():
-    DISCRETE = True
+    DISCRETE = False
 else:
     DISCRETE = int(argv[1])
 # Constants for output --------------------------------------------------------
@@ -41,10 +42,10 @@ PTH_O = './sims_out/'
 BBOX = ((-100, 100), (-100, 100))
 srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
-(SEED, CORNERS) = (randint(0, 9999), False)
+(SEED, CORNERS) = (randint(0, 9999), True)
 (GENS, REPS, LHS) = (500, 5, False)
-(PTS_RAN, TRP_RAN, LAT_EXP) = ((50, 450, 50), (5, 35, 5), 200)
-(BAN_PTS, BAN_TRP) = ((0, 200), (0, 20))
+(PTS_RAN, TRP_RAN, LAT_EXP) = ((50, 425, 50), (5, 32, 5), 10)
+(BAN_PTS, BAN_TRP) = (None, None) # ((0, 200), (0, 20))
 (SUM_STAT, INTERP) = (np.median, 'linear')
 ###############################################################################
 # Check for seed repetition
@@ -95,6 +96,7 @@ FILES = glob(path.join(PTH_O, f"timings_{app}*.bz"))
 TIMES_LIST = [load(f) for f in FILES]
 TIME = {k: v for d in TIMES_LIST for k, v in d.items()}
 SAMPLE = [s for s in SAMPLE if not (tuple(s) in set(TIME))]
+shuffle(SAMPLE)
 # Iteration cycle -------------------------------------------------------------
 cprint(
     f"* Running {len(SAMPLE)} experiments with {REPS} repetitions and {GENS} generations each on {app} setting!", 
@@ -117,7 +119,7 @@ for (ptsNum, trpNum) in tqdm(SAMPLE):
         # Optimize ------------------------------------------------------------
         if not DISCRETE:
             (lnd, logbook) = srv.optimizeTrapsGA(
-                lnd, generations=GENS, pop_size='auto', verbose=True,
+                lnd, generations=GENS, pop_size='auto', verbose=False,
                 mating_params='auto', mutation_params='auto', 
                 selection_params='auto', fitFuns={'inner': np.sum, 'outer': np.max}
             )
@@ -159,7 +161,7 @@ levels = np.arange(cmin, cmax+cdelta, cdelta)
 if DISCRETE:
     cmap = srv.colorPaletteFromHexList(['#ffffff', '#8093f1', '#3a0ca3'])
 else:
-    cmap = srv.colorPaletteFromHexList(['#ffffff', '#ffafcc', '#f72585'])
+    cmap = srv.colorPaletteFromHexList(['#ffffff', '#cdb4db', '#8338ec'])
 (lc, lw, ls) = ('#000000DD', 0.1, ":")
 (fig, ax) = plt.subplots(figsize=(11, 10))
 xy = ax.plot(rsG[0], rsG[1], 'k.', ms=1.25, alpha=.5, marker='o', zorder=10)
