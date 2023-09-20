@@ -45,7 +45,7 @@ srv.makeFolder(PTH_O)
 (GENS, REPS, LHS) = (500, 5, False)
 (PTS_RAN, TRP_RAN, LAT_EXP) = ((50, 450, 50), (5, 35, 5), 200)
 (BAN_PTS, BAN_TRP) = ((0, 200), (0, 20))
-(SUM_STAT, INTERP) = (np.median, 'cubic')
+(SUM_STAT, INTERP) = (np.median, 'linear')
 ###############################################################################
 # Check for seed repetition
 ###############################################################################
@@ -137,11 +137,17 @@ for (ptsNum, trpNum) in tqdm(SAMPLE):
 # Analyze resulting dictionary
 ###############################################################################
 scale = 2
+(XRAN, YRAN) = ((0, 30), (0, 400))
 app = ('DSC' if DISCRETE else 'CNT')
 title = ('discrete' if DISCRETE else 'continuous')
 FILES = glob(path.join(PTH_O, f"timings_{app}*.bz"))
 TIMES_LIST = [load(f) for f in FILES]
 TIME = {k: v for d in TIMES_LIST for k, v in d.items()}
+(XAXIS, YAXIS) = (
+    {(i, 0): 0 for i in range(0, YRAN[1]+PTS_RAN[-1], int(PTS_RAN[-1]/2))},
+    {(0, i): 0 for i in range(0, XRAN[1]+TRP_RAN[-1], int(TRP_RAN[-1]/2))}
+)
+TIME = TIME | XAXIS | YAXIS
 (y, x) = np.array(list(TIME.keys())).T
 z = np.array([scale*SUM_STAT(i)/60 for i in TIME.values()])
 rs = aux.calcResponseSurface(x, y, z, mthd=INTERP)
@@ -166,6 +172,8 @@ ax.vlines(list(set(x)), min(y), max(y), color=lc, lw=lw, ls=ls)
 ax.hlines(list(set(y)), min(x), max(x), color=lc, lw=lw, ls=ls)
 ax.vlines(range(5, max(x), 5), min(y), max(y), lw=lw*3, ls=ls)
 ax.hlines(range(50, max(y), 50), min(x), max(x), lw=lw*3, ls=ls)
+ax.set_xlim(*XRAN)
+ax.set_ylim(*YRAN)
 # ax.set_aspect('equal')
 cbar = fig.colorbar(
     cs, ax=ax, ticks=np.linspace(0, max(z), 5), 
