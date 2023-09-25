@@ -44,9 +44,9 @@ srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
 (SEED, CORNERS) = (randint(0, 9999), True)
 (GENS, REPS, LHS) = (500, 5, False)
-(PTS_RAN, TRP_RAN, LAT_EXP) = ((50, 425, 50), (5, 32, 5), 10)
+(PTS_RAN, TRP_RAN, LAT_EXP) = ((50, 400, 50), (5, 30, 5), 100)
 (BAN_PTS, BAN_TRP) = (None, None) # ((0, 200), (0, 20))
-(SUM_STAT, INTERP) = (np.median, 'linear')
+(SUM_STAT, INTERP) = (np.mean, 'linear')
 ###############################################################################
 # Check for seed repetition
 ###############################################################################
@@ -146,8 +146,8 @@ FILES = glob(path.join(PTH_O, f"timings_{app}*.bz"))
 TIMES_LIST = [load(f) for f in FILES]
 TIME = {k: v for d in TIMES_LIST for k, v in d.items()}
 (XAXIS, YAXIS) = (
-    {(i, 0): 0 for i in range(0, YRAN[1]+PTS_RAN[-1], int(PTS_RAN[-1]/2))},
-    {(0, i): 0 for i in range(0, XRAN[1]+TRP_RAN[-1], int(TRP_RAN[-1]/2))}
+    {(i, 0): 0 for i in range(0, YRAN[1]+PTS_RAN[-1], int(PTS_RAN[-1]/1))},
+    {(0, i): 0 for i in range(0, XRAN[1]+TRP_RAN[-1], int(TRP_RAN[-1]/1))}
 )
 TIME = TIME | XAXIS | YAXIS
 (y, x) = np.array(list(TIME.keys())).T
@@ -161,7 +161,8 @@ levels = np.arange(cmin, cmax+cdelta, cdelta)
 if DISCRETE:
     cmap = srv.colorPaletteFromHexList(['#ffffff', '#8093f1', '#3a0ca3'])
 else:
-    cmap = srv.colorPaletteFromHexList(['#ffffff', '#cdb4db', '#8338ec'])
+    cmap = srv.colorPaletteFromHexList(['#ffffff', '#8093f1', '#3a0ca3'])
+    # ['#ffffff', '#ffafcc', '#ff006e'])
 (lc, lw, ls) = ('#000000DD', 0.1, ":")
 (fig, ax) = plt.subplots(figsize=(11, 10))
 xy = ax.plot(rsG[0], rsG[1], 'k.', ms=1.25, alpha=.5, marker='o', zorder=10)
