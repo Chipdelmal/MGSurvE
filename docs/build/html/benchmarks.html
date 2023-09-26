@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Benchmarks &mdash; MGSurvE  documentation</title>
@@ -11,11 +11,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,12 +28,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> MGSurvE
-            <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MGSurvE
+              <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -60,8 +64,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Benchmarks</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Benchmarks</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/benchmarks.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -81,6 +85,7 @@ We ran a set of experiments limiting our server to use 16 cores and ran 5 repeti
 Both optimization routines (discrete and continuous) were ran over 500 generations, as that gets us a good sample of the timing for each parameter combination (after the optimization algorithm’s memory allocation and initial function calls have taken place).
 We are, however, scaling the timing to 1000 generations (doubling it) because that’s closer to the expected number of generations we would run for an optimization task.</p>
 <a class="reference internal image-reference" href="_images/timings_DSC.jpg"><img alt="_images/timings_DSC.jpg" src="_images/timings_DSC.jpg" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="_images/timings_CNT.jpg"><img alt="_images/timings_CNT.jpg" src="_images/timings_CNT.jpg" style="width: 100%;" /></a>
 <p>Our server has 44 physical cores (two “Intel(R) Xeon(R) CPU E5-2696 v4 &#64; 2.20GHz”) and 256Gb RAM but, as was previously mentioned, was limited to 16 cores for benchmarking purposes.</p>
 </section>
 
