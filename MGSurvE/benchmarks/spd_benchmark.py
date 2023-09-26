@@ -43,8 +43,8 @@ BBOX = ((-100, 100), (-100, 100))
 srv.makeFolder(PTH_O)
 # Experiment constants --------------------------------------------------------
 (SEED, CORNERS) = (randint(0, 9999), True)
-(GENS, REPS, LHS) = (500, 5, False)
-(PTS_RAN, TRP_RAN, LAT_EXP) = ((50, 400, 50), (5, 30, 5), 100)
+(GENS, REPS, LHS, FCT) = (500, 5, True, False)
+(PTS_RAN, TRP_RAN, LAT_EXP) = ((10, 400, 50), (2, 30, 5), 150)
 (BAN_PTS, BAN_TRP) = (None, None) # ((0, 200), (0, 20))
 (SUM_STAT, INTERP) = (np.mean, 'linear')
 ###############################################################################
@@ -81,8 +81,12 @@ if CORNERS:
 ###############################################################################
 # ix = -1
 # (ptsNum, trpNum) = FACTORIAL[ix]
-SAMPLE = (LATIN if LHS else FACTORIAL)
-SAMPLE = FACTORIAL+[list(i) for i in LATIN]
+if LHS and (not FCT):
+    SAMPLE = LATIN
+elif (not LHS) and FCT:
+    SAMPLE = FACTORIAL
+else: 
+    SAMPLE = FACTORIAL+[list(i) for i in LATIN]
 # Filter ban range ------------------------------------------------------------
 BAN_ENABLED = (BAN_PTS is not None) and (BAN_TRP is not None)
 if BAN_ENABLED:
@@ -96,7 +100,8 @@ FILES = glob(path.join(PTH_O, f"timings_{app}*.bz"))
 TIMES_LIST = [load(f) for f in FILES]
 TIME = {k: v for d in TIMES_LIST for k, v in d.items()}
 SAMPLE = [s for s in SAMPLE if not (tuple(s) in set(TIME))]
-shuffle(SAMPLE)
+# shuffle(SAMPLE)
+SAMPLE.sort(key=lambda x: (x[0]/10 + x[1]))
 # Iteration cycle -------------------------------------------------------------
 cprint(
     f"* Running {len(SAMPLE)} experiments with {REPS} repetitions and {GENS} generations each on {app} setting!", 
@@ -170,7 +175,7 @@ xy = ax.plot(rsG[0], rsG[1], 'k.', ms=1.25, alpha=.5, marker='o', zorder=10)
 cs = ax.contourf(rsS[0], rsS[1], rsS[2], levels=levels, cmap=cmap, extend='max')
 ax.set_xlabel("Number of Traps")
 ax.set_ylabel("Number of Sites")
-ax.set_title(f"Runtime over {scale*GENS} generations\n({title} optimization on {len(TIME)} samples)")
+ax.set_title(f"Runtime over {scale*GENS} generations\n({title} optimization with {len(TIME)} samples)")
 ax.vlines(list(set(x)), min(y), max(y), color=lc, lw=lw, ls=ls)
 ax.hlines(list(set(y)), min(x), max(x), color=lc, lw=lw, ls=ls)
 ax.vlines(range(5, max(x), 5), min(y), max(y), lw=lw*3, ls=ls)
