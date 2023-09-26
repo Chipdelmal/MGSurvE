@@ -15,8 +15,8 @@ We are, however, scaling the timing to 1000 generations (doubling it) because th
     :width: 100%
 
 
-.. .. |pic2| image:: ../../img/timings_CNT.png
-..     :width: 100%
+.. image:: ../../img/timings_CNT.jpg
+    :width: 100%
 
 
 Our server has 44 physical cores (two "Intel(R) Xeon(R) CPU E5-2696 v4 @ 2.20GHz") and 256Gb RAM but, as was previously mentioned, was limited to 16 cores for benchmarking purposes.
