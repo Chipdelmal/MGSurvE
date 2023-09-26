@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MGSurvE package &mdash; MGSurvE  documentation</title>
@@ -11,11 +11,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -26,12 +26,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> MGSurvE
-            <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MGSurvE
+              <img src="_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -58,8 +62,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>MGSurvE package</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">MGSurvE package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/MGSurvE.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -89,7 +93,7 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.auxiliary.</span></span><span class="sig-name descname"><span class="pre">dumpLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fExt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bz2'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.auxiliary.dumpLandscape" title="Permalink to this definition"></a></dt>
 <dd><p>Exports a serialized landscape to disk.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>landscape</strong> (<em>object</em>) – Landscape object to export.</p></li>
 <li><p><strong>fPath</strong> (<em>path</em>) – Path to where the landscape will be exported.</p></li>
@@ -105,7 +109,7 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.auxiliary.</span></span><span class="sig-name descname"><span class="pre">exportLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.auxiliary.exportLandscape" title="Permalink to this definition"></a></dt>
 <dd><p>Exports a landscape to disk to CSV files (for use in MGDrivE).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>landscape</strong> (<em>object</em>) – Landscape object to export.</p></li>
 <li><p><strong>fPath</strong> (<em>path</em>) – Path to where the landscape will be exported.</p></li>
@@ -126,10 +130,10 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.auxiliary.</span></span><span class="sig-name descname"><span class="pre">isNotebook</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.auxiliary.isNotebook" title="Permalink to this definition"></a></dt>
 <dd><p>Checks if the script is running from a Jupyter environment.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Flags Jupyter environment.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>bool</p>
 </dd>
 </dl>
@@ -140,17 +144,17 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.auxiliary.</span></span><span class="sig-name descname"><span class="pre">loadLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fExt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bz2'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.auxiliary.loadLandscape" title="Permalink to this definition"></a></dt>
 <dd><p>Loads a serialized landscape from disk.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fPath</strong> (<em>path</em>) – Path from where the landscape will be loaded.</p></li>
 <li><p><strong>fName</strong> (<em>string</em>) – Filename.</p></li>
 <li><p><strong>fExt</strong> (<em>string</em>) – File extension.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Landscape object.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(object)</p>
 </dd>
 </dl>
@@ -161,7 +165,7 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.auxiliary.</span></span><span class="sig-name descname"><span class="pre">makeFolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.auxiliary.makeFolder" title="Permalink to this definition"></a></dt>
 <dd><p>Crates a folder in the specified directory.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>path</strong> (<em>string</em>) – Path of the folder than needs to be created.</p>
 </dd>
 </dl>
@@ -172,7 +176,7 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.auxiliary.</span></span><span class="sig-name descname"><span class="pre">makeFolders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pathsList</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.auxiliary.makeFolders" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a list of folders if they don’t exist.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>paths</strong> (<em>list</em>) – List path to the desired directories.</p>
 </dd>
 </dl>
@@ -183,16 +187,16 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.auxiliary.</span></span><span class="sig-name descname"><span class="pre">vincentyDistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.auxiliary.vincentyDistance" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the Vincenty arc distance between points.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pointA</strong> (<em>tuple</em>) – First point in (lon, lat) format.</p></li>
 <li><p><strong>pointB</strong> (<em>tuple</em>) – Second point in (lon, lat) format.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Distance between points</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(float)</p>
 </dd>
 </dl>
@@ -207,13 +211,13 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.colors.</span></span><span class="sig-name descname"><span class="pre">colorPaletteFromHexList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.colors.colorPaletteFromHexList" title="Permalink to this definition"></a></dt>
 <dd><p>Generates a matplotlib-compliant cmap from a list of hex colors.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>clist</strong> (<em>list</em>) – List of hex codes (eg. ‘#f72585’) to blend in the map.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Matplotlib’s colormap object.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>cmap</p>
 </dd>
 </dl>
@@ -286,7 +290,7 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">exponentialAttractiveness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.exponentialAttractiveness" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the probability of moving between points as a complex decaying exponential.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dist</strong> (<em>float</em>) – Distance between points.</p></li>
 <li><p><strong>A</strong> (<em>float</em>) – Maximum amplitude at distance 0 (attractiveness).</p></li>
@@ -296,10 +300,10 @@
 <li><p><strong>epsilon</strong> (<em>float</em>) – Error term</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Movement probability.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -310,17 +314,17 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">exponentialDecay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.exponentialDecay" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the probability of moving between points as a decaying exponential.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dist</strong> (<em>float</em>) – Distance between points.</p></li>
 <li><p><strong>A</strong> (<em>float</em>) – Maximum amplitude at distance 0.</p></li>
 <li><p><strong>b</strong> (<em>float</em>) – Decay rate (higher means tighter kernel).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Movement probability.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -331,16 +335,16 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">exponentialKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distMat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01848777</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.exponentialKernel" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the migration matrix using a decaying exponential function.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>distMat</strong> (<em>numpy array</em>) – Distances matrix.</p></li>
 <li><p><strong>decay</strong> (<em>float</em>) – Exponential decay rate</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Migration matrix.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy array</p>
 </dd>
 </dl>
@@ -351,13 +355,13 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">inverseLinearStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.75,</span> <span class="pre">1]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.inverseLinearStep" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the zero-inflated linear distance-based movement probability.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>distMat</strong> (<em>numpy array</em>) – Distances matrix.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Migration matrix.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy array</p>
 </dd>
 </dl>
@@ -368,17 +372,17 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">nSolveKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernelDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yVal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latlon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6371000.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.nSolveKernel" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the distance it takes for the kernel to match a given probability (yVar).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>kernelDict</strong> (<em>dict</em>) – Dictionary with the kernel info {‘kernel’, ‘params’}.</p></li>
 <li><p><strong>yVal</strong> (<em>float</em>) – Probability for which we are solving the distance.</p></li>
 <li><p><strong>guess</strong> (<em>float</em>) – Initial guess for the distance.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Distance for the probability value.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -389,7 +393,7 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">sigmoidDecay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.sigmoidDecay" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the probability of moving between points as a sigmod.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dist</strong> (<em>float</em>) – Distance between points.</p></li>
 <li><p><strong>A</strong> (<em>float</em>) – Maximum amplitude at distance 0.</p></li>
@@ -397,10 +401,10 @@
 <li><p><strong>x0</strong> (<em>float</em>) – The x value of the sigmoid’s midpoint</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Movement probability.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -411,16 +415,16 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">truncatedExponential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.01848777,</span> <span class="pre">1e-10,</span> <span class="pre">inf]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.truncatedExponential" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the zero-inflated exponential distance-based movement probability.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>distance</strong> (<em>float</em>) – Distances matrix.</p></li>
 <li><p><strong>params</strong> (<em>list</em>) – Shape distribution parameters [rate, a, b].</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Migration probability.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -431,17 +435,17 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">zeroInflatedExponentialKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distMat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.01848777,</span> <span class="pre">1e-10,</span> <span class="pre">inf]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zeroInflation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.zeroInflatedExponentialKernel" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the migration matrix using a zero-inflated exponential function.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>distMat</strong> (<em>numpy array</em>) – Distances matrix.</p></li>
 <li><p><strong>params</strong> (<em>list</em>) – Shape distribution parameters [rate, a, b].</p></li>
 <li><p><strong>zeroInflation</strong> (<em>float</em>) – Probability to stay in the same place.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Migration matrix.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy array</p>
 </dd>
 </dl>
@@ -452,13 +456,13 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.kernels.</span></span><span class="sig-name descname"><span class="pre">zeroInflatedLinearMigrationKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distMat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.75,</span> <span class="pre">1]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.kernels.zeroInflatedLinearMigrationKernel" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the zero-inflated linear distance-based movement probability.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>distMat</strong> (<em>numpy array</em>) – Distances matrix.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Migration matrix.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy array</p>
 </dd>
 </dl>
@@ -474,7 +478,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Stores the information for a mosquito landscape. Works with different point-types in the form of matrices and coordinates.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>points</strong> (<em>pandas dataframe</em>) – Sites positions with mandatory {x,y} coordinates and optional {t: type, a: attractiveness} values for each site in the landscape.</p></li>
 <li><p><strong>kernelFunction</strong> (<em>function</em>) – Function that determines de relationship between distances and migration probabilities.</p></li>
@@ -542,7 +546,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MGSurvE.landscape.Landscape.getDaysTillTrapped">
-<span class="sig-name descname"><span class="pre">getDaysTillTrapped</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.getDaysTillTrapped" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getDaysTillTrapped</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">max&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.getDaysTillTrapped" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the number of timesteps until a walker falls into a trap</p>
 </dd></dl>
 
@@ -591,7 +595,7 @@
 <span class="sig-name descname"><span class="pre">updateTraps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsKernels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.updateTraps" title="Permalink to this definition"></a></dt>
 <dd><p>Updates the traps locations and migration matrices (in place).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>traps</strong> (<em>pandas dataframe</em>) – </p></li>
 <li><p><strong>trapsKernel</strong> (<em>dictionary</em>) – </p></li>
@@ -605,7 +609,7 @@
 <span class="sig-name descname"><span class="pre">updateTrapsCoords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trapsCoords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.updateTrapsCoords" title="Permalink to this definition"></a></dt>
 <dd><p>Updates current trap coordinates.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>trapsCoords</strong> (<em>numpy array</em>) – </p>
 </dd>
 </dl>
@@ -616,7 +620,7 @@
 <span class="sig-name descname"><span class="pre">updateTrapsCoordsByID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trapPositionsID</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.landscape.Landscape.updateTrapsCoordsByID" title="Permalink to this definition"></a></dt>
 <dd><p>Updates current trap coordinates by sites ID.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>trapPositionsID</strong> (<em>numpy array</em>) – </p>
 </dd>
 </dl>
@@ -638,16 +642,16 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.matrices.</span></span><span class="sig-name descname"><span class="pre">calcAttractiveness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">migrationMtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attractionVector</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.matrices.calcAttractiveness" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the effects of attractiveness in the migration matrix.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>migrationMtx</strong> (<em>numpy array</em>) – Original migration matrix (Tau).</p></li>
 <li><p><strong>attractivenessVct</strong> (<em>numpy array</em>) – Relative attractiveness modifier for sites.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Full migration matrix with attractiveness effects.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -658,16 +662,16 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.matrices.</span></span><span class="sig-name descname"><span class="pre">calcDistanceMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointCoords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distFun=&lt;built-in</span> <span class="pre">function</span> <span class="pre">dist&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.matrices.calcDistanceMatrix" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the distance matrix between all the provided coordinates.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pointCoords</strong> (<em>numpy array</em>) – Coordinates of the sites.</p></li>
 <li><p><strong>distFun</strong> (<em>function</em>) – Distance function to be used in the computations.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Distances matrix</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -678,17 +682,17 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.matrices.</span></span><span class="sig-name descname"><span class="pre">calcMaskedMigrationMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">migrationMatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maskingMatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointTypes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.matrices.calcMaskedMigrationMatrix" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the masked migration matrix between points according to their types.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>migrationMatrix</strong> (<em>numpy array</em>) – Migration probabilities amongst points.</p></li>
 <li><p><strong>maskingMatrix</strong> (<em>numpy array</em>) – Transition probabilities between point-types.</p></li>
 <li><p><strong>pointTypes</strong> (<em>numpy vector</em>) – Point-types for each one of the sites in the matrix (in the same order).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Masked migration matrix</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -699,7 +703,7 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.matrices.</span></span><span class="sig-name descname"><span class="pre">calcTrapsProbabilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trapsDistances</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsTypes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsKernels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsMask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointTypes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.matrices.calcTrapsProbabilities" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the traps probabilities given distances to points in the landscape and their effectiveness kernels.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>trapsDistances</strong> (<em>numpy array</em>) – Distances to all points.</p></li>
 <li><p><strong>trapsTypes</strong> (<em>numpy array</em>) – Types of the traps.</p></li>
@@ -708,10 +712,10 @@
 <li><p><strong>pointTypes</strong> (<em>list</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Traps probabilities</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -722,17 +726,17 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.matrices.</span></span><span class="sig-name descname"><span class="pre">calcTrapsToPointsDistances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trapsCoords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointCoords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dFun=&lt;built-in</span> <span class="pre">function</span> <span class="pre">dist&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.matrices.calcTrapsToPointsDistances" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the distances matrix between the traps and the sites.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>trapsCoords</strong> (<em>numpy array</em>) – Coordinates of the traps.</p></li>
 <li><p><strong>pointsCoords</strong> (<em>numpy array</em>) – Coordinates of the sites.</p></li>
 <li><p><strong>dFun</strong> (<em>function</em>) – Distance function to be used in the computations.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Distances matrix</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -743,16 +747,16 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.matrices.</span></span><span class="sig-name descname"><span class="pre">genVoidFullMigrationMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">migrationMatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsNumber</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.matrices.genVoidFullMigrationMatrix" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates a migration matrix with sections for traps (Xi) to be filled in place.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>migrationMatrix</strong> (<em>numpy array</em>) – Migration matrix without any traps (Tau).</p></li>
 <li><p><strong>trapsNumber</strong> (<em>int</em>) – Number of traps in the landscape</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Full migration matrix with no traps effects</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -773,10 +777,10 @@
 <p>GA Operators to calculate fitness and perform operations to search through optimization space.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.calcDiscreteFitness">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">calcDiscreteFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.calcDiscreteFitness" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">calcDiscreteFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">max&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.calcDiscreteFitness" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the fitness function of the landscape given a chromosome (in place, so not thread-safe).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chromosome</strong> (<em>list</em>) – Discrete optimization chromosome.</p></li>
 <li><p><strong>landscape</strong> (<em>object</em>) – Landscape object to use for the analysis.</p></li>
@@ -784,10 +788,10 @@
 <li><p><strong>optimFunctionArgs</strong> (<em>dict</em>) – Dictionary with the outer (row) and inner (col) functions to use on the matrix.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Landscape’s fitness function.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(tuple of floats)</p>
 </dd>
 </dl>
@@ -795,10 +799,10 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.calcDiscreteFitnessPseudoInverse">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">calcDiscreteFitnessPseudoInverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrappedPseudoInverse&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcond=1e-30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.calcDiscreteFitnessPseudoInverse" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">calcDiscreteFitnessPseudoInverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrappedPseudoInverse&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">max&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcond=1e-30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.calcDiscreteFitnessPseudoInverse" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the fitness function of the landscape given a chromosome (in place, so not thread-safe).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chromosome</strong> (<em>list</em>) – Discrete optimization chromosome.</p></li>
 <li><p><strong>landscape</strong> (<em>object</em>) – Landscape object to use for the analysis.</p></li>
@@ -807,10 +811,10 @@
 <li><p><strong>rcond</strong> (<em>float</em>) – Cutoff for small singular values.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Landscape’s fitness function.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(tuple of floats)</p>
 </dd>
 </dl>
@@ -818,10 +822,10 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.calcDiscreteSexFitness">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">calcDiscreteSexFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscapeMale=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscapeFemale=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weightMale=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weightFemale=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.calcDiscreteSexFitness" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">calcDiscreteSexFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscapeMale=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscapeFemale=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weightMale=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weightFemale=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">max&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.calcDiscreteSexFitness" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the fitness function of a Male/Female set of landscapes with a weighted sum of the time-to catch between them.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chromosome</strong> (<em>floats numpy array</em>) – GA’s float chromosome generated by initChromosome.</p></li>
 <li><p><strong>landscapeMale</strong> (<em>object</em>) – Male landscape object to use for the analysis.</p></li>
@@ -832,10 +836,10 @@
 <li><p><strong>optimFunctionArgs</strong> (<em>dict</em>) – Dictionary with the outer (row) and inner (col) functions to use on the matrix.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Landscape’s fitness function.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(tuple of floats)</p>
 </dd>
 </dl>
@@ -843,10 +847,10 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.calcFitness">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">calcFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscape=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.calcFitness" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">calcFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscape=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">max&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.calcFitness" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the fitness function of the landscape given a chromosome (in place, so not thread-safe).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chromosome</strong> (<em>floats numpy array</em>) – GA’s float chromosome generated by initChromosome.</p></li>
 <li><p><strong>landscape</strong> (<em>object</em>) – Landscape object to use for the analysis.</p></li>
@@ -854,10 +858,10 @@
 <li><p><strong>optimFunctionArgs</strong> (<em>dict</em>) – Dictionary with the outer (row) and inner (col) functions to use on the matrix.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Landscape’s fitness function.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(tuple of floats)</p>
 </dd>
 </dl>
@@ -865,10 +869,10 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.calcFitnessPseudoInverse">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">calcFitnessPseudoInverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscape=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrappedPseudoInverse&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcond=1e-30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.calcFitnessPseudoInverse" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">calcFitnessPseudoInverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscape=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrappedPseudoInverse&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">max&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcond=1e-30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.calcFitnessPseudoInverse" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the fitness function of the landscape given a chromosome using the matrix pseudo-inverse function (in place, so not thread-safe).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chromosome</strong> (<em>floats numpy array</em>) – GA’s float chromosome generated by initChromosome.</p></li>
 <li><p><strong>landscape</strong> (<em>object</em>) – Landscape object to use for the analysis.</p></li>
@@ -877,10 +881,10 @@
 <li><p><strong>rcond</strong> (<em>float</em>) – Cutoff for small singular values.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Landscape’s fitness function.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(tuple of floats)</p>
 </dd>
 </dl>
@@ -888,10 +892,10 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.calcSexFitness">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">calcSexFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscapeMale=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscapeFemale=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weightMale=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weightFemale=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.calcSexFitness" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">calcSexFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscapeMale=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscapeFemale=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weightMale=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weightFemale=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">max&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.calcSexFitness" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the fitness function of a Male/Female set of landscapes with a weighted sum of the time-to catch between them.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chromosome</strong> (<em>floats numpy array</em>) – GA’s float chromosome generated by initChromosome.</p></li>
 <li><p><strong>landscapeMale</strong> (<em>object</em>) – Male landscape object to use for the analysis.</p></li>
@@ -902,10 +906,10 @@
 <li><p><strong>optimFunctionArgs</strong> (<em>dict</em>) – Dictionary with the outer (row) and inner (col) functions to use on the matrix.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Landscape’s fitness function.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(tuple of floats)</p>
 </dd>
 </dl>
@@ -916,17 +920,17 @@
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">chromosomeIDtoXY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ptsID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointCoords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.chromosomeIDtoXY" title="Permalink to this definition"></a></dt>
 <dd><p>Converts a sites-ID crhomosome into a set of XY or lon-lat coordinates.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chromosome</strong> (<em>list</em>) – Discrete optimization chromosome.</p></li>
 <li><p><strong>ptsID</strong> (<em>list</em>) – Set of IDs for the sites (usually lnd.pointID).</p></li>
 <li><p><strong>pointCoords</strong> (<em>numpy array</em>) – Set of coordinates for matching points IDs (usually lnd.pointCoords)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Traps positions xy or lon-lat pairs as defined by the selected sites IDs.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -939,7 +943,7 @@
 <p>This implementation is similar to DEAP’s cxBlend (<a class="reference external" href="https://deap.readthedocs.io/en/master/api/tools.html#deap.tools.cxBlend">https://deap.readthedocs.io/en/master/api/tools.html#deap.tools.cxBlend</a>).
 Follow this link for the original code: <a class="reference external" href="https://github.com/DEAP/deap/blob/master/deap/tools/crossover.py">https://github.com/DEAP/deap/blob/master/deap/tools/crossover.py</a></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ind1</strong> (<em>floats numpy array</em>) – GA’s float chromosome generated by initChromosome.</p></li>
 <li><p><strong>ind2</strong> (<em>floats numpy array</em>) – GA’s float chromosome generated by initChromosome.</p></li>
@@ -947,10 +951,10 @@ Follow this link for the original code: <a class="reference external" href="http
 <li><p><strong>alpha</strong> (<em>float</em>) – weight for each of the chromosomes.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Mated individuals.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(list of chromosomes)</p>
 </dd>
 </dl>
@@ -961,7 +965,7 @@ Follow this link for the original code: <a class="reference external" href="http
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">cxDiscreteUniform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ind1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ind2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixedTraps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indpb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.cxDiscreteUniform" title="Permalink to this definition"></a></dt>
 <dd><p>Mates two chromosomes in place by swapping alleles between them.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ind1</strong> (<em>list</em>) – Chromosome of the first parent in the mating operation.</p></li>
 <li><p><strong>ind2</strong> (<em>list</em>) – Chromosome of the first parent in the mating operation.</p></li>
@@ -969,10 +973,10 @@ Follow this link for the original code: <a class="reference external" href="http
 <li><p><strong>indpb</strong> (<em>float</em><em>, </em><em>optional</em>) – Mutation probability for each independent allele. Defaults to 0.5.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Mated individuals.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(list of chromosomes)</p>
 </dd>
 </dl>
@@ -983,7 +987,7 @@ Follow this link for the original code: <a class="reference external" href="http
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">exportLog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logbook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.exportLog" title="Permalink to this definition"></a></dt>
 <dd><p>Dumps a dataframe with the report of the GA’s history.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>logbook</strong> (<em>object</em>) – DEAP GA object.</p></li>
 <li><p><strong>outPath</strong> (<em>path</em>) – Path where the file will be exported.</p></li>
@@ -998,16 +1002,16 @@ Follow this link for the original code: <a class="reference external" href="http
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">genFixedTrapsMask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trapsFixed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.genFixedTrapsMask" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a mask for the fixed traps (non-movable).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>trapsFixed</strong> (<em>bool numpy array</em>) – Boolean array with the traps that are not movable (lnd.trapsFixed).</p></li>
 <li><p><strong>dims</strong> (<em>int</em>) – Unused for now, but it’s the number of dimensions for the landscape.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Mask of the elements that can be moved in the GA operations.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -1018,17 +1022,17 @@ Follow this link for the original code: <a class="reference external" href="http
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">getCanonicalElements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sitesN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.getCanonicalElements" title="Permalink to this definition"></a></dt>
 <dd><p>Helper function to return canonical elements of the traps matrix (Q (tau), R (v), I).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tau</strong> (<em>numpy array</em>) – Migration matrix with traps included</p></li>
 <li><p><strong>sitesN</strong> (<em>int</em>) – Number of sites</p></li>
 <li><p><strong>trapsN</strong> (<em>int</em>) – Number of traps</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Dictionary of elements in canonical matrix.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(dict)</p>
 </dd>
 </dl>
@@ -1036,19 +1040,19 @@ Follow this link for the original code: <a class="reference external" href="http
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.getDaysTillTrapped">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">getDaysTillTrapped</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.getDaysTillTrapped" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">getDaysTillTrapped</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">max&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.getDaysTillTrapped" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the number of timesteps until a walker falls into a trap.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>landscape</strong> (<em>object</em>) – Landscape object to use for the analysis.</p></li>
 <li><p><strong>fitFuns</strong> (<em>dict</em>) – Dictionary with the outer (row) and inner (col) functions to use on the matrix.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Number of days for mosquitoes to fall into traps given the fitFuns.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(float)</p>
 </dd>
 </dl>
@@ -1056,20 +1060,20 @@ Follow this link for the original code: <a class="reference external" href="http
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.getDaysTillTrappedPseudoInverse">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">getDaysTillTrappedPseudoInverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcond=1e-30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.getDaysTillTrappedPseudoInverse" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">getDaysTillTrappedPseudoInverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">max&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcond=1e-30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.getDaysTillTrappedPseudoInverse" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the number of timesteps until a walker falls into a trap (using pseudo-inverse matrix function).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>landscape</strong> (<em>object</em>) – Landscape object to use for the analysis.</p></li>
 <li><p><strong>fitFuns</strong> (<em>dict</em>) – Dictionary with the outer (row) and inner (col) functions to use on the matrix.</p></li>
 <li><p><strong>rcond</strong> (<em>float</em>) – Cutoff for small singular values.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Number of days for mosquitoes to fall into traps given the fitFuns.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(float)</p>
 </dd>
 </dl>
@@ -1080,16 +1084,16 @@ Follow this link for the original code: <a class="reference external" href="http
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">getDaysTillTrappedVector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.getDaysTillTrappedVector" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the number of timesteps until a walker falls into a trap in vector form.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>landscape</strong> (<em>object</em>) – Landscape object to use for the analysis.</p></li>
 <li><p><strong>fitFuns</strong> (<em>dict</em>) – Dictionary with the outer (row) and inner (col) functions to use on the matrix.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Number of days for mosquitoes to fall into traps given the fitFuns.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(float)</p>
 </dd>
 </dl>
@@ -1097,19 +1101,19 @@ Follow this link for the original code: <a class="reference external" href="http
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.getFundamentalFitness">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">getFundamentalFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fundamentalMatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.getFundamentalFitness" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">getFundamentalFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fundamentalMatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">max&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.getFundamentalFitness" title="Permalink to this definition"></a></dt>
 <dd><p>Get fitness from Markov’s fundamental matrix.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fundamentalMatrix</strong> (<em>numpy array</em>) – Markov’s fundamental matrix (calcFundamentalMatrix)</p></li>
 <li><p><strong>fitFuns</strong> (<em>dict</em>) – Dictionary containing the inner (row) and outer (col) operations for the fundamental matrix.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Summarized fitness function for the fundamental matrix.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(float)</p>
 </dd>
 </dl>
@@ -1124,17 +1128,17 @@ Follow this link for the original code: <a class="reference external" href="http
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tau</strong> (<em>numpy array</em>) – Traps migration matrix in canonical form.</p></li>
 <li><p><strong>sitesN</strong> (<em>int</em>) – Number of sites.</p></li>
 <li><p><strong>trapsN</strong> (<em>int</em>) – Number of traps.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Time to fall into absorbing states from anywhere in landscape.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -1149,7 +1153,7 @@ Follow this link for the original code: <a class="reference external" href="http
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tau</strong> (<em>numpy array</em>) – Traps migration matrix in canonical form.</p></li>
 <li><p><strong>sitesN</strong> (<em>int</em>) – Number of sites.</p></li>
@@ -1157,10 +1161,10 @@ Follow this link for the original code: <a class="reference external" href="http
 <li><p><strong>rcond</strong> (<em>float</em>) – Cutoff for small singular values.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Time to fall into absorbing states from anywhere in landscape.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -1176,16 +1180,16 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tau</strong> (<em>numpy array</em>) – Traps migration matrix in canonical form.</p></li>
 <li><p><strong>sitesN</strong> (<em>int</em>) – Number of sites.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Time to fall into absorbing states from anywhere in landscape.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -1196,16 +1200,16 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">getMarkovAbsorbing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tauCan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.getMarkovAbsorbing" title="Permalink to this definition"></a></dt>
 <dd><p>Get Markov’s absorbing states (deprecated).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tauCan</strong> (<em>numpy array</em>) – Traps migration matrix in canonical form.</p></li>
 <li><p><strong>trapsN</strong> (<em>int</em>) – Number of traps.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Time to fall into absorbing states from anywhere in landscape.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -1216,17 +1220,17 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">getMeanTimeToCapture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">canonElems</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pseudoInv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.getMeanTimeToCapture" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the average time to capture given the Q, R, I Markov canonical elements.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>canonElems</strong> (<em>dict</em>) – Dictionary containing the Q, R, and I matrices as calculated by Markov’s fundamental matrix.</p></li>
 <li><p><strong>pseudoInv</strong> (<em>bool</em><em>, </em><em>optional</em>) – Boolean to choose either normal matrix inverse or matrix pseudo-inverse. Defaults to True.</p></li>
 <li><p><strong>rcond</strong> (<em>_type_</em><em>, </em><em>optional</em>) – Limit condation for floating precision on pseudo-inverse. Defaults to 1e-20.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Mean time to capture.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -1237,16 +1241,16 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">getTimeToCapture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitFuns={'outer':</span> <span class="pre">&lt;function</span> <span class="pre">sum&gt;}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pseudoInv=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcond=1e-10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.getTimeToCapture" title="Permalink to this definition"></a></dt>
 <dd><p>Wrapper function for ‘getMeanTimeToCapture’ given a landscape.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>landscappe</strong> (<em>object</em>) – Landscape object</p></li>
 <li><p><strong>fitFuns</strong> (<em>dict</em>) – Dictionary containing the outer function for summarize.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Mean time to capture.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -1257,16 +1261,16 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">importLog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.importLog" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the number of timesteps until a walker falls into a trap.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>LOG_PTH</strong> (<em>path</em>) – Path where the file is stored.</p></li>
 <li><p><strong>F_NAME</strong> (<em>dict</em>) – Filename with extension.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>GA optimization log.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(pandas dataframe)</p>
 </dd>
 </dl>
@@ -1277,17 +1281,17 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">initChromosome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trapsCoords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixedTrapsMask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordsRange</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.initChromosome" title="Permalink to this definition"></a></dt>
 <dd><p>Generates a random uniform chromosome for GA optimization.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>trapsCoords</strong> (<em>int</em>) – Number of traps to lay down in the landscape.</p></li>
-<li><p><strong>fixedTrapsMask</strong> (<em>list of bools</em>) – Mask with coordinates that can be moved (true) and which can’t (false).</p></li>
-<li><p><strong>coordsRange</strong> (<em>tuple of tuples of floats</em>) – </p></li>
+<li><p><strong>fixedTrapsMask</strong> (<em>list</em><em> of </em><em>bools</em>) – Mask with coordinates that can be moved (true) and which can’t (false).</p></li>
+<li><p><strong>coordsRange</strong> (<em>tuple</em><em> of </em><em>tuples</em><em> of </em><em>floats</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>List of xy coordinates for the traps’ positions.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(list)</p>
 </dd>
 </dl>
@@ -1298,7 +1302,7 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">initChromosomeMixed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trapsCoords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixedTrapsMask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typeOptimMask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordsRange</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsPool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indpb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.initChromosomeMixed" title="Permalink to this definition"></a></dt>
 <dd><p>Generates a compound chromosome for optimization with a coordinates-type composition (currently unusued).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>trapsCoords</strong> (<em>numpy array</em>) – Current traps positions.</p></li>
 <li><p><strong>fxdTrpsMsk</strong> (<em>bool numpy array</em>) – Array of bools that define which alleles can be mutated (1).</p></li>
@@ -1308,10 +1312,10 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <li><p><strong>indpb</strong> (<em>float</em><em>, </em><em>optional</em>) – Allele mutation probability. Defaults to .75.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Randomly-generated chromosome.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
@@ -1322,17 +1326,17 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">initDiscreteChromosome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ptsIds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixedTraps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsSiteID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">banSites</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.initDiscreteChromosome" title="Permalink to this definition"></a></dt>
 <dd><p>Generates a random uniform chromosome for discrete GA optimizations (from available sites).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ptsIds</strong> (<em>list</em>) – List of points ids as stored in landscape (lnd.pointID).</p></li>
 <li><p><strong>fixedTraps</strong> (<em>list</em>) – List of flags on traps that can be moved (lnd.trapsFixed).</p></li>
 <li><p><strong>banSites</strong> (<em>set</em>) – List of sites that should not be taken into account for optimization (lnd.trapsBan).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>List of sites at which the traps are located for GA optimization.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
@@ -1343,17 +1347,17 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">mutShuffleIndexes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">individual</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typeOptimMask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indpb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.mutShuffleIndexes" title="Permalink to this definition"></a></dt>
 <dd><p>Shuffles allele indices in pairs.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>individual</strong> (<em>list</em>) – Chromosome for optimization</p></li>
 <li><p><strong>typeOptimMask</strong> (<em>bool numpy array</em>) – Array of bools that define which alleles can be mutated (1).</p></li>
 <li><p><strong>indpb</strong> (<em>float</em><em>, </em><em>optional</em>) – Mutation probability for each independent allele. Defaults to 0.5.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Mutated chromosome</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
@@ -1364,7 +1368,7 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">mutateChromosome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixedTrapsMask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randFun=&lt;built-in</span> <span class="pre">method</span> <span class="pre">normal</span> <span class="pre">of</span> <span class="pre">numpy.random.mtrand.RandomState</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randArgs={'loc':</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'scale':</span> <span class="pre">0.1}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indpb=0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.mutateChromosome" title="Permalink to this definition"></a></dt>
 <dd><p>Mutates a chromosome with a probability distribution based on the mutation mask (in place).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chromosome</strong> (<em>floats numpy array</em>) – GA’s float chromosome generated by initChromosome.</p></li>
 <li><p><strong>fxdTrpsMsk</strong> (<em>bool numpy array</em>) – Array of bools that define which alleles can be mutated (1).</p></li>
@@ -1373,10 +1377,10 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <li><p><strong>indpb</strong> (<em>float</em>) – Independent probability to mutate each allele.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Selectively-mutated chromosome.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array list)</p>
 </dd>
 </dl>
@@ -1387,7 +1391,7 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">mutateChromosomeAsymmetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixedTrapsMask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randFun=&lt;built-in</span> <span class="pre">method</span> <span class="pre">normal</span> <span class="pre">of</span> <span class="pre">numpy.random.mtrand.RandomState</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randArgs={'x':</span> <span class="pre">{'loc':</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'scale':</span> <span class="pre">0.1}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'y':</span> <span class="pre">{'loc':</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'scale':</span> <span class="pre">0.1}}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indpb=0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.mutateChromosomeAsymmetric" title="Permalink to this definition"></a></dt>
 <dd><p>Mutates a chromosome with a probability distribution based on the mutation mask with different probabilities for XY elements (in place).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chromosome</strong> (<em>floats numpy array</em>) – GA’s float chromosome generated by initChromosome.</p></li>
 <li><p><strong>fxdTrpsMsk</strong> (<em>bool numpy array</em>) – Array of bools that define which alleles can be mutated (1).</p></li>
@@ -1396,10 +1400,10 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <li><p><strong>indpb</strong> (<em>float</em>) – Independent probability to mutate each allele.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Selectively-mutated chromosome.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array list)</p>
 </dd>
 </dl>
@@ -1410,7 +1414,7 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">mutateChromosomeMixed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixedTrapsMask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typeOptimMask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutCoordFun=&lt;function</span> <span class="pre">mutateChromosome&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutCoordArgs={'indpb':</span> <span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'randArgs':</span> <span class="pre">{'loc':</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'scale':</span> <span class="pre">10}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'randFun':</span> <span class="pre">&lt;built-in</span> <span class="pre">method</span> <span class="pre">normal</span> <span class="pre">of</span> <span class="pre">numpy.random.mtrand.RandomState</span> <span class="pre">object&gt;}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutTypeFun=&lt;function</span> <span class="pre">mutShuffleIndexes&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutTypeArgs={'indpb':</span> <span class="pre">0.5}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.mutateChromosomeMixed" title="Permalink to this definition"></a></dt>
 <dd><p>Generates a compound chromosome for optimization with a coordinates-type composition (currently unusued).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>trapsCoords</strong> (<em>numpy array</em>) – Current traps positions.</p></li>
 <li><p><strong>fxdTrpsMsk</strong> (<em>bool numpy array</em>) – Array of bools that define which alleles can be mutated (1).</p></li>
@@ -1421,10 +1425,10 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <li><p><strong>mutTypeArgs</strong> (<em>dictionary</em>) – Trap types mutation function’s arguments.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Mutated chromosome.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
@@ -1435,7 +1439,7 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">mutateDiscreteChromosome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ptsIds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixedTraps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indpb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">banSites</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.mutateDiscreteChromosome" title="Permalink to this definition"></a></dt>
 <dd><p>Mutates a discrete chromosome from the available sites in the landscape (in place).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chromosome</strong> (<em>list</em>) – GA’s float chromosome generated by initChromosome.</p></li>
 <li><p><strong>ptsIds</strong> (<em>list</em>) – List of IDs for the sites (points) in the landscape (lnd.pointID).</p></li>
@@ -1444,10 +1448,10 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <li><p><strong>banSites</strong> (<em>set</em><em>, </em><em>optional</em>) – List of sites that should not be taken into account for optimization (lnd.trapsBan). Defaults to None.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Mutated chromosome (in place).</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
@@ -1455,10 +1459,10 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.optimizeDiscreteTrapsGA">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">optimizeDiscreteTrapsGA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generations=1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pop_size='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mating_params={'cxpb':</span> <span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'indpb':</span> <span class="pre">0.5}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutation_params={'indpb':</span> <span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'mutpb':</span> <span class="pre">0.4}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_params={'tSize':</span> <span class="pre">3}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitnessFun=&lt;function</span> <span class="pre">calcDiscreteFitness&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.optimizeDiscreteTrapsGA" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">optimizeDiscreteTrapsGA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generations=1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pop_size='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mating_params={'cxpb':</span> <span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'indpb':</span> <span class="pre">0.5}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutation_params={'indpb':</span> <span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'mutpb':</span> <span class="pre">0.4}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_params={'tSize':</span> <span class="pre">3}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitnessFun=&lt;function</span> <span class="pre">calcDiscreteFitness&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">max&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.optimizeDiscreteTrapsGA" title="Permalink to this definition"></a></dt>
 <dd><p>Optimizes the traps’ positions using a simple GA algorithm.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>landscape</strong> (<em>object</em>) – Landscape object to use for the analysis.</p></li>
 <li><p><strong>generations</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of generations to run in the GA. Defaults to 1000.</p></li>
@@ -1472,10 +1476,10 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbosity on the optimization. Defaults to True.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Returns the landscape and logbook for the optimization.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(object, dataframe)</p>
 </dd>
 </dl>
@@ -1483,10 +1487,10 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.optimizeTrapsGA">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">optimizeTrapsGA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generations=1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pop_size='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mating_params={'alpha':</span> <span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'cxpb':</span> <span class="pre">0.5}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutation_params={'ipb':</span> <span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'mean':</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'mutpb':</span> <span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'sd':</span> <span class="pre">100}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_params={'tSize':</span> <span class="pre">3}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitnessFun=&lt;function</span> <span class="pre">calcFitness&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.optimizeTrapsGA" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">optimizeTrapsGA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generations=1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pop_size='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mating_params={'alpha':</span> <span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'cxpb':</span> <span class="pre">0.5}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutation_params={'ipb':</span> <span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'mean':</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'mutpb':</span> <span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'sd':</span> <span class="pre">100}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_params={'tSize':</span> <span class="pre">3}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitnessFun=&lt;function</span> <span class="pre">calcFitness&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">max&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.optimizeTrapsGA" title="Permalink to this definition"></a></dt>
 <dd><p>Optimizes the traps’ positions using a simple GA algorithm.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>landscape</strong> (<em>object</em>) – Landscape object to use for the analysis.</p></li>
 <li><p><strong>generations</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of generations to run in the GA. Defaults to 1000.</p></li>
@@ -1500,10 +1504,10 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbosity on the optimization. Defaults to True.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Returns the landscape and logbook for the optimization.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(object, dataframe)</p>
 </dd>
 </dl>
@@ -1511,10 +1515,10 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.optimization.optimizeTwoSexesTrapsGA">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">optimizeTwoSexesTrapsGA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscapeMale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscapeFemale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sexWeights={'F':</span> <span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'M':</span> <span class="pre">0.5}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generations=1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pop_size='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mating_params={'alpha':</span> <span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'cxpb':</span> <span class="pre">0.3}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutation_params={'ipb':</span> <span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'mean':</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'mutpb':</span> <span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'sd':</span> <span class="pre">100}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_params={'tSize':</span> <span class="pre">3}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.optimizeTwoSexesTrapsGA" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">optimizeTwoSexesTrapsGA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">landscapeMale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landscapeFemale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sexWeights={'F':</span> <span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'M':</span> <span class="pre">0.5}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generations=1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pop_size='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mating_params={'alpha':</span> <span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'cxpb':</span> <span class="pre">0.3}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutation_params={'ipb':</span> <span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'mean':</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'mutpb':</span> <span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'sd':</span> <span class="pre">100}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_params={'tSize':</span> <span class="pre">3}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitFuns={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">max&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.optimizeTwoSexesTrapsGA" title="Permalink to this definition"></a></dt>
 <dd><p>Optimizes the traps’ positions using a simple GA algorithm for two-sexes kernels.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>landscapeMale</strong> (<em>object</em>) – Male landscape object to use for the analysis.</p></li>
 <li><p><strong>landscapeFemale</strong> (<em>object</em>) – Female landscape object to use for the analysis.</p></li>
@@ -1530,10 +1534,10 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbosity on the optimization. Defaults to True.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Returns the landscape and logbook for the optimization.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(object, dataframe)</p>
 </dd>
 </dl>
@@ -1544,17 +1548,17 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.optimization.</span></span><span class="sig-name descname"><span class="pre">reshapeInCanonicalForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sitesN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimization.reshapeInCanonicalForm" title="Permalink to this definition"></a></dt>
 <dd><p>Reshapes a migration matrix into canonical form (deprecated).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tau</strong> (<em>numpy array</em>) – Traps migration matrix.</p></li>
 <li><p><strong>sitesN</strong> (<em>int</em>) – Number of sites.</p></li>
 <li><p><strong>trapsN</strong> (<em>int</em>) – Number of traps.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reshaped matrix in canonical form.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -1566,7 +1570,7 @@ np.sum(srv.getFundamentalMatrixPseudoInverse(tau, sitesN, trapsN), axis=1)</p>
 <p>PSO Operators to calculate fitness and perform operations to search through optimization space.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="MGSurvE.optimizationPSO.Particle_Swarm">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MGSurvE.optimizationPSO.</span></span><span class="sig-name descname"><span class="pre">Particle_Swarm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lnd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_particles=50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gens=500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_min=-3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_max=3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi1=2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi2=2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimizationPSO.Particle_Swarm" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MGSurvE.optimizationPSO.</span></span><span class="sig-name descname"><span class="pre">Particle_Swarm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lnd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_particles=50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gens=500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_min=-3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_max=3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi1=2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi2=2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunction=&lt;function</span> <span class="pre">getDaysTillTrapped&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimFunctionArgs={'inner':</span> <span class="pre">&lt;function</span> <span class="pre">max&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'outer':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.optimizationPSO.Particle_Swarm" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="MGSurvE.optimizationPSO.Particle_Swarm.evaluate">
@@ -1657,17 +1661,17 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotClean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotClean" title="Permalink to this definition"></a></dt>
 <dd><p>Makes axes equally spaced and removes frame.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
 <li><p><strong>frame</strong> (<em>bool</em>) – Flag to remove plot’s frame.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(fig, ax)</p>
 </dd>
 </dl>
@@ -1678,7 +1682,7 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotDirectedNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sites</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pTypes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transMtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('o',</span> <span class="pre">'^',</span> <span class="pre">'s',</span> <span class="pre">'p',</span> <span class="pre">'d',</span> <span class="pre">'X')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('#bdb2ff',</span> <span class="pre">'#a0c4ff',</span> <span class="pre">'#e0c3fc',</span> <span class="pre">'#ffd6a5',</span> <span class="pre">'#caffbf',</span> <span class="pre">'#d0d1ff')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaNodeMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaEdgeMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaNodeAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaEdgeAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizeNodeAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000000000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widthEdgeAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'black'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotDirectedNetwork" title="Permalink to this definition"></a></dt>
 <dd><p>Plots edge and node centrality.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
@@ -1697,10 +1701,10 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Matplotlib’s plot-compliant kwargs.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(fig, ax)</p>
 </dd>
 </dl>
@@ -1711,7 +1715,7 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotFitness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.5,</span> <span class="pre">0.5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'{:.2f}'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">125</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#00000011'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotFitness" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the fitness value to the plot.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
@@ -1723,10 +1727,10 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <li><p><strong>**kwargs</strong> – Matplotlib’s text kwargs.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(fig, ax)</p>
 </dd>
 </dl>
@@ -1737,7 +1741,7 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotGAEvolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gaLog</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'envelope':</span> <span class="pre">'#1565c0',</span> <span class="pre">'mean':</span> <span class="pre">'#ffffff'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'envelope':</span> <span class="pre">0.5,</span> <span class="pre">'mean':</span> <span class="pre">0.75}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3333333333333333</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotGAEvolution" title="Permalink to this definition"></a></dt>
 <dd><p>Makes axes equally spaced and removes frame.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
@@ -1746,31 +1750,10 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <li><p><strong>alphas</strong> (<em>dict</em>) – Mean and envelope alphas</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(fig, ax)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="MGSurvE.plots.plotLandBoundary">
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotLandBoundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landTuples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(('10m',</span> <span class="pre">'#dfe7fd55',</span> <span class="pre">30),</span> <span class="pre">('10m',</span> <span class="pre">'#ffffffDD',</span> <span class="pre">5))</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotLandBoundary" title="Permalink to this definition"></a></dt>
-<dd><p>Plots the land’s boundary as a polygon.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
-<li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
-<li><p><strong>landTuples</strong> (<em>list of tuples</em>) – Check the constants.py file for format.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(fig, ax)</p>
 </dd>
 </dl>
@@ -1781,7 +1764,7 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsNumber</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Purples'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linecolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#222222'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linestyle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">':'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotMatrix" title="Permalink to this definition"></a></dt>
 <dd><p>Block matrix plot for the connection network.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
@@ -1797,10 +1780,10 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Matplotlib’s plot-compliant kwargs.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(fig, ax)</p>
 </dd>
 </dl>
@@ -1811,7 +1794,7 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotMigrationNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transMtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sitesB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sitesA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#03045e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.025</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineWidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotMigrationNetwork" title="Permalink to this definition"></a></dt>
 <dd><p>Plots a transitions matrix.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
@@ -1826,10 +1809,10 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Matplotlib’s plot-compliant kwargs.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(fig, ax)</p>
 </dd>
 </dl>
@@ -1840,19 +1823,19 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotMovementKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPoints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lnd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('#8093f1',</span> <span class="pre">'#ec0868',</span> <span class="pre">'#7371fc22')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineWidths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(4,</span> <span class="pre">8,</span> <span class="pre">0.5)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotMovementKernel" title="Permalink to this definition"></a></dt>
 <dd><p>Generates a relative movement kernel plot.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
 <li><p><strong>xPoints</strong> (<em>np array</em>) – Set of points</p></li>
-<li><p><strong>colors</strong> (<em>list of hex</em>) – List of colors to be used in the kernel profiles (zero inflation, kernel, vlines).</p></li>
-<li><p><strong>lineWidths</strong> (<em>list of floats</em>) – List of line widths to be used in the kernel profiles (zero inflation, kernel, vlines)</p></li>
+<li><p><strong>colors</strong> (<em>list</em><em> of </em><em>hex</em>) – List of colors to be used in the kernel profiles (zero inflation, kernel, vlines).</p></li>
+<li><p><strong>lineWidths</strong> (<em>list</em><em> of </em><em>floats</em>) – List of line widths to be used in the kernel profiles (zero inflation, kernel, vlines)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(fig, ax)</p>
 </dd>
 </dl>
@@ -1863,7 +1846,7 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotSites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sites</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pTypes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('o',</span> <span class="pre">'^',</span> <span class="pre">'s',</span> <span class="pre">'p',</span> <span class="pre">'d',</span> <span class="pre">'X')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('#bdb2ff',</span> <span class="pre">'#a0c4ff',</span> <span class="pre">'#e0c3fc',</span> <span class="pre">'#ffd6a5',</span> <span class="pre">'#caffbf',</span> <span class="pre">'#d0d1ff')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">350</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linewidths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotSites" title="Permalink to this definition"></a></dt>
 <dd><p>Plots a transitions matrix.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
@@ -1878,10 +1861,10 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Matplotlib’s plot-compliant kwargs.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(fig, ax)</p>
 </dd>
 </dl>
@@ -1892,7 +1875,7 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotTraps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsCoords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsTypes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsKernels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trapsFixed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{0:</span> <span class="pre">'#f7258515',</span> <span class="pre">1:</span> <span class="pre">'#5ddeb125',</span> <span class="pre">2:</span> <span class="pre">'#fe5f5515',</span> <span class="pre">3:</span> <span class="pre">'#f038ff15',</span> <span class="pre">4:</span> <span class="pre">'#e2ef7015',</span> <span class="pre">5:</span> <span class="pre">'#9381ff15'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'X'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('w',</span> <span class="pre">'k')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(2,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">':'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">350</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(25,</span> <span class="pre">-5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparencyHex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DD'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latlon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotTraps" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the traps with the radii of effectiveness.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
@@ -1909,10 +1892,10 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Matplotlib’s plot-compliant kwargs.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(fig, ax)</p>
 </dd>
 </dl>
@@ -1923,20 +1906,20 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotTrapsKernels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lnd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{0:</span> <span class="pre">'#f7258515',</span> <span class="pre">1:</span> <span class="pre">'#5ddeb125',</span> <span class="pre">2:</span> <span class="pre">'#fe5f5515',</span> <span class="pre">3:</span> <span class="pre">'#f038ff15',</span> <span class="pre">4:</span> <span class="pre">'#e2ef7015',</span> <span class="pre">5:</span> <span class="pre">'#9381ff15'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distRange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">100)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotTrapsKernels" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a distance-attractiveness plot for kernels present in the landscape.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
-<li><p><strong>colors</strong> (<em>list of hex</em>) – List of colors to be used in the kernel profiles.</p></li>
+<li><p><strong>colors</strong> (<em>list</em><em> of </em><em>hex</em>) – List of colors to be used in the kernel profiles.</p></li>
 <li><p><strong>alpha</strong> (<em>float</em>) – Opacity for the traces.</p></li>
 <li><p><strong>distRange</strong> (<em>tuple</em>) – Distances range for the x-axis.</p></li>
 <li><p><strong>aspect</strong> (<em>float</em>) – Aspect ratio for the axes.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(fig, ax)</p>
 </dd>
 </dl>
@@ -1947,7 +1930,7 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">plotTrapsNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transMtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sites</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#3d0e61'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineWidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaAmplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.plotTrapsNetwork" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the connectivity network of traps in the landscape.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
@@ -1962,10 +1945,10 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Matplotlib’s plot-compliant kwargs.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(fig, ax)</p>
 </dd>
 </dl>
@@ -1983,7 +1966,7 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.plots.</span></span><span class="sig-name descname"><span class="pre">saveFig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facecolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox_inches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tight'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_inches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.plots.saveFig" title="Permalink to this definition"></a></dt>
 <dd><p>Save figure to disk.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fig</strong> (<em>matplotlib</em>) – Matplotlib fig object.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib</em>) – Matplotlib ax object.</p></li>
@@ -1997,10 +1980,10 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <li><p><strong>**kwargs</strong> – Matplotlib savefig kwargs.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Matplotlib (fig, ax) tuple.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(fig, ax)</p>
 </dd>
 </dl>
@@ -2015,17 +1998,17 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsDonut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radii</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsDonut" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a distribution of points laid around a donut shape.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pointsNumber</strong> (<em>int</em>) – Number of sites.</p></li>
-<li><p><strong>radii</strong> (<em>tuple of floats</em>) – Minimum and maximum radii for the donut shape.</p></li>
-<li><p><strong>center</strong> (<em>tuple of floats</em>) – Coordinates for the center of the donut (x, y).</p></li>
+<li><p><strong>radii</strong> (<em>tuple</em><em> of </em><em>floats</em>) – Minimum and maximum radii for the donut shape.</p></li>
+<li><p><strong>center</strong> (<em>tuple</em><em> of </em><em>floats</em>) – Coordinates for the center of the donut (x, y).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Points’ coordinates.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -2033,27 +2016,23 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MGSurvE.pointProcess.ptsPossion">
-<<<<<<< HEAD
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsPossion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustersNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomState</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1695746545.790221</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsPossion" title="Permalink to this definition"></a></dt>
-=======
-<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsPossion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustersNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomState</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1695224857.8968217</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsPossion" title="Permalink to this definition"></a></dt>
->>>>>>> 05d5ea630e653103c2aa27e969ab858282673b62
+<span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsPossion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustersNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomState</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1695746645.9177449</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsPossion" title="Permalink to this definition"></a></dt>
 <dd><p>Generates a synthetic landscape from a Poisson distribution.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pointsNumber</strong> (<em>int</em>) – Number of sites.</p></li>
 <li><p><strong>clustersNumber</strong> (<em>int</em>) – Number of sites’ clusters.</p></li>
 <li><p><strong>radius</strong> (<em>float</em>) – Radius of the circle centered on each parent.</p></li>
 <li><p><strong>randomState</strong> (<em>int</em>) – Random seed.</p></li>
-<li><p><strong>bbox</strong> (<em>tuple of tuples</em>) – Bounding box in the form ((xLo, xHi), (yLo, yHi))</p></li>
-<li><p><strong>polygon</strong> (<em>name of shp file</em>) – Shape-file for the points to be generated within.</p></li>
+<li><p><strong>bbox</strong> (<em>tuple</em><em> of </em><em>tuples</em>) – Bounding box in the form ((xLo, xHi), (yLo, yHi))</p></li>
+<li><p><strong>polygon</strong> (<em>name</em><em> of </em><em>shp file</em>) – Shape-file for the points to be generated within.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Points’ coordinates</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -2064,16 +2043,16 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsRandUniform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsRandUniform" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a random unifor distribution of points.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pointsNumber</strong> (<em>int</em>) – Number of sites</p></li>
-<li><p><strong>bbox</strong> (<em>tuple of tuples</em>) – Bounding box in the form ((xLo, xHi), (yLo, yHi))</p></li>
+<li><p><strong>bbox</strong> (<em>tuple</em><em> of </em><em>tuples</em>) – Bounding box in the form ((xLo, xHi), (yLo, yHi))</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Points’ coordinates</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -2084,17 +2063,17 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsRegularCircle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solStart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsRegularCircle" title="Permalink to this definition"></a></dt>
 <dd><p>Creates concentric circles of points.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pointsNumber</strong> (<em>int</em>) – Approximate number of sites (real number will be lower).</p></li>
 <li><p><strong>radius</strong> (<em>float</em>) – Radius of the circle to set points on.</p></li>
 <li><p><strong>solStart</strong> (<em>float</em>) – Starting point for the steps solver</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Points’ coordinates.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
@@ -2105,16 +2084,16 @@ v_u2 = r2 * (global_best - X[t]) = u2 * (best - part)</p>
 <span class="sig-prename descclassname"><span class="pre">MGSurvE.pointProcess.</span></span><span class="sig-name descname"><span class="pre">ptsRegularGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointsNumber</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MGSurvE.pointProcess.ptsRegularGrid" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a regular grid (lattice) of points.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pointsNumber</strong> (<em>int</em>) – Number of sites.</p></li>
-<li><p><strong>bbox</strong> (<em>tuple of tuples</em>) – Bounding box in the form ((xLo, xHi), (yLo, yHi)).</p></li>
+<li><p><strong>bbox</strong> (<em>tuple</em><em> of </em><em>tuples</em>) – Bounding box in the form ((xLo, xHi), (yLo, yHi)).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Points’ coordinates.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(numpy array)</p>
 </dd>
 </dl>
