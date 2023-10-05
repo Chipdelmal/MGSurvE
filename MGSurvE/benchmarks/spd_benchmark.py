@@ -101,7 +101,7 @@ TIMES_LIST = [load(f) for f in FILES]
 TIME = {k: v for d in TIMES_LIST for k, v in d.items()}
 SAMPLE = [s for s in SAMPLE if not (tuple(s) in set(TIME))]
 # shuffle(SAMPLE)
-SAMPLE.sort(key=lambda x: (x[0]/10 + x[1]))
+SAMPLE.sort(key=lambda x: (x[0]/10 + x[1]), reverse=True)
 # Iteration cycle -------------------------------------------------------------
 cprint(
     f"* Running {len(SAMPLE)} experiments with {REPS} repetitions and {GENS} generations each on {app} setting!", 
@@ -175,7 +175,7 @@ xy = ax.plot(rsG[0], rsG[1], 'k.', ms=1.25, alpha=.5, marker='o', zorder=10)
 cs = ax.contourf(rsS[0], rsS[1], rsS[2], levels=levels, cmap=cmap, extend='max')
 ax.set_xlabel("Number of Traps")
 ax.set_ylabel("Number of Sites")
-ax.set_title(f"Runtime over {scale*GENS} generations\n({title} optimization with {len(TIME)} samples)")
+ax.set_title(f"Runtime over {scale*GENS} generations\n({title} optimization on {len(TIME)} samples)")
 ax.vlines(list(set(x)), min(y), max(y), color=lc, lw=lw, ls=ls)
 ax.hlines(list(set(y)), min(x), max(x), color=lc, lw=lw, ls=ls)
 ax.vlines(range(5, max(x), 5), min(y), max(y), lw=lw*3, ls=ls)
