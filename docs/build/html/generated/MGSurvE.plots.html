@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MGSurvE.plots &mdash; MGSurvE  documentation</title>
@@ -11,11 +11,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -28,16 +28,12 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index.html" class="icon icon-home">
-            MGSurvE
-              <img src="../_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
+            <a href="../index.html" class="icon icon-home"> MGSurvE
+            <img src="../_static/MGSurvE_Logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -76,9 +72,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../api.html">API</a></li>
-      <li class="breadcrumb-item active">MGSurvE.plots</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../api.html">API</a> &raquo;</li>
+      <li>MGSurvE.plots</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/generated/MGSurvE.plots.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -93,6 +89,10 @@
 <p>Data-Visualization functions (thanks to Elijah Bartolome in the implementation of some of the visualization functions).</p>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotClean" title="MGSurvE.plots.plotClean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotClean</span></code></a>(fig, ax[, frame, bbox, labels, pad])</p></td>
 <td><p>Makes axes equally spaced and removes frame.</p></td>
@@ -106,31 +106,34 @@
 <tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotGAEvolution" title="MGSurvE.plots.plotGAEvolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotGAEvolution</span></code></a>(fig, ax, gaLog[, colors, ...])</p></td>
 <td><p>Makes axes equally spaced and removes frame.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotMatrix" title="MGSurvE.plots.plotMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotMatrix</span></code></a>(fig, ax, matrix[, trapsNumber, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotLandBoundary" title="MGSurvE.plots.plotLandBoundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotLandBoundary</span></code></a>(fig, ax[, landTuples])</p></td>
+<td><p>Plots the land's boundary as a polygon.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotMatrix" title="MGSurvE.plots.plotMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotMatrix</span></code></a>(fig, ax, matrix[, trapsNumber, ...])</p></td>
 <td><p>Block matrix plot for the connection network.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotMigrationNetwork" title="MGSurvE.plots.plotMigrationNetwork"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotMigrationNetwork</span></code></a>(fig, ax, transMtx, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotMigrationNetwork" title="MGSurvE.plots.plotMigrationNetwork"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotMigrationNetwork</span></code></a>(fig, ax, transMtx, ...)</p></td>
 <td><p>Plots a transitions matrix.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotMovementKernel" title="MGSurvE.plots.plotMovementKernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotMovementKernel</span></code></a>(fig, ax, xPoints, lnd[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotMovementKernel" title="MGSurvE.plots.plotMovementKernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotMovementKernel</span></code></a>(fig, ax, xPoints, lnd[, ...])</p></td>
 <td><p>Generates a relative movement kernel plot.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotSites" title="MGSurvE.plots.plotSites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotSites</span></code></a>(fig, ax, sites, pTypes[, markers, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotSites" title="MGSurvE.plots.plotSites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotSites</span></code></a>(fig, ax, sites, pTypes[, markers, ...])</p></td>
 <td><p>Plots a transitions matrix.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotTraps" title="MGSurvE.plots.plotTraps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotTraps</span></code></a>(fig, ax, trapsCoords, trapsTypes, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotTraps" title="MGSurvE.plots.plotTraps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotTraps</span></code></a>(fig, ax, trapsCoords, trapsTypes, ...)</p></td>
 <td><p>Plots the traps with the radii of effectiveness.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotTrapsKernels" title="MGSurvE.plots.plotTrapsKernels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotTrapsKernels</span></code></a>(fig, ax, lnd[, colors, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotTrapsKernels" title="MGSurvE.plots.plotTrapsKernels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotTrapsKernels</span></code></a>(fig, ax, lnd[, colors, ...])</p></td>
 <td><p>Creates a distance-attractiveness plot for kernels present in the landscape.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotTrapsNetwork" title="MGSurvE.plots.plotTrapsNetwork"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotTrapsNetwork</span></code></a>(fig, ax, transMtx, traps, sites)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotTrapsNetwork" title="MGSurvE.plots.plotTrapsNetwork"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotTrapsNetwork</span></code></a>(fig, ax, transMtx, traps, sites)</p></td>
 <td><p>Plots the connectivity network of traps in the landscape.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotsClearMemory" title="MGSurvE.plots.plotsClearMemory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotsClearMemory</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.plotsClearMemory" title="MGSurvE.plots.plotsClearMemory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotsClearMemory</span></code></a>()</p></td>
 <td><p>Forces matplotlib to clear all memory (probably an overkill).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.saveFig" title="MGSurvE.plots.saveFig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saveFig</span></code></a>(fig, ax, filepath, filename[, dpi, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../MGSurvE.html#MGSurvE.plots.saveFig" title="MGSurvE.plots.saveFig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saveFig</span></code></a>(fig, ax, filepath, filename[, dpi, ...])</p></td>
 <td><p>Save figure to disk.</p></td>
 </tr>
 </tbody>
