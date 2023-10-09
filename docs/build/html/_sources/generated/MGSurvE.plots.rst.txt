@@ -17,7 +17,6 @@
       plotDirectedNetwork
       plotFitness
       plotGAEvolution
-      plotLandBoundary
       plotMatrix
       plotMigrationNetwork
       plotMovementKernel
