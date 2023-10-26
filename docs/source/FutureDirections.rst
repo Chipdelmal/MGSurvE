@@ -12,6 +12,8 @@ This extension is meant to provide with a way to setup households or populations
 Surveillance Routing
 ---------------------
 
+One major extension...
+
 |pic1| |pic2|
 
 .. |pic1| image:: ../../img/routing01.jpg
