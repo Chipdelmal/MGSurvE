@@ -38,6 +38,7 @@ MPATS = ['man', ]
 # File ID
 ###############################################################################
 OUT_PTH = './sims_out/{}_{}'.format(ID, GENS)
+# OUT_PTH = '/Users/sanchez.hmsc/Documents/WorkSims/MGSurvE_Validations/{}_{}'.format(ID, GENS)
 srv.makeFolder(OUT_PTH)
 ###############################################################################
 # Load Files
@@ -54,14 +55,14 @@ mins = [np.array([fc['min'].values for fc in log]) for log in logs]
 ###############################################################################
 # Plot GA Evolution
 ###############################################################################
-(XRAN, YRAN) = ((0, 1000), (0, 3000))
+(XRAN, YRAN) = ((0, 250), (0, 4000))
 (fig, ax) = plt.subplots(figsize=(25, 3))
 for (ix, trc) in enumerate(mins):
     ax.plot(trc.T, color=COLS[ix]+'77', lw=1.25)
 ax.set_xlim(0, XRAN[1])
 ax.set_ylim(YRAN[0], YRAN[1])
 ax.hlines(np.arange(YRAN[0], YRAN[1]+25, 1000), XRAN[0], XRAN[1], color='#00000055', lw=1, zorder=-10)
-ax.vlines(np.arange(XRAN[0], XRAN[1]+20, 100),  YRAN[0], YRAN[1], color='#00000055', lw=1, zorder=-10)
+ax.vlines(np.arange(XRAN[0], XRAN[1]+20, 50),  YRAN[0], YRAN[1], color='#00000055', lw=1, zorder=-10)
 ax.set_xticks([])
 ax.set_yticks([])
 ax.spines['top'].set_visible(False)

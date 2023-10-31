@@ -22,7 +22,7 @@ plt.rcParams['savefig.facecolor']='#00000000'
 ###############################################################################
 if srv.isNotebook():
     # User input (interactive session)
-    (ID, AP, RID) = ('YKNC', 'man', '01')
+    (ID, AP, RID) = ('YKND', 'man', '01')
 else:
     # Bash call input
     (ID, AP, RID) = argv[1:]
@@ -40,7 +40,8 @@ GENS = 5000
 ###############################################################################
 # File ID
 ###############################################################################
-OUT_PTH = './sims_out/'
+OUT_PTH = './sims_out/{}_{}'.format(ID, GENS)
+# OUT_PTH = '/Users/sanchez.hmsc/Documents/WorkSims/MGSurvE_Validations/{}_{}'.format(ID, GENS)
 srv.makeFolder(OUT_PTH)
 ###############################################################################
 # Load Files
@@ -86,7 +87,7 @@ lnd = srv.loadLandscape(
     fExt='pkl'
 )
 # Traps Kernels ---------------------------------------------------------------
-(XRAN, YRAN) = ((0, 100), (0, 1))
+(XRAN, YRAN) = ((0, 50), (0, 1))
 (fig, ax) = plt.subplots(1, 1, figsize=(25, 3), sharey=False)
 (fig, ax) = srv.plotTrapsKernels(
     fig, ax, lnd, distRange=(XRAN[0], XRAN[1]), aspect=.125
