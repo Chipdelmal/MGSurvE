@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Benchmarks &mdash; MGSurvE  documentation</title>
+  <title>Future &mdash; MGSurvE  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Future" href="FutureDirections.html" />
-    <link rel="prev" title="Visualizing Traps’ Kernels" href="TrapsKernels.html" /> 
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="Benchmarks" href="benchmarks.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,8 +47,13 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="breakdown.html">Pkg Breakdown</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demos.html">Tutorials</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Benchmarks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="FutureDirections.html">Future</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Future</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#banning-sites">Banning Sites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#surveillance-routing">Surveillance Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optimizing-trap-number-and-types">Optimizing Trap Number and Types</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>
 
@@ -66,9 +71,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Benchmarks</li>
+      <li class="breadcrumb-item active">Future</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/benchmarks.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/FutureDirections.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -76,26 +81,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="benchmarks">
-<h1>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this heading"></a></h1>
-<p>MGSurvE’s optimization runtime depends on several factors but the main ones are the number of sites and traps in our landscape.
-This is because they are both related to the size of the migration matrix and the number of operations that need to be performed on it.
-Specifically, these variables both impact the calculation of Markov’s Fundamental Matrix, which is the slowest part of the optimization process.</p>
-<p>To provide a reference on how much time we could expect optimization we provide a <a class="reference external" href="https://github.com/Chipdelmal/MGSurvE/blob/main/MGSurvE/benchmarks/spd_benchmark.py">benchmarking routine</a>.
-We ran a set of experiments limiting our server to use 16 cores and ran 5 repetitions of a set of sites-traps combinations (Latin Hypercube Sampling schemes were used) to test how the optimizations time scales (GA parameters were set to <code class="code docutils literal notranslate"><span class="pre">auto</span></code> for consistency).
-Both optimization routines (discrete and continuous) were ran over 500 generations, as that gets us a good sample of the timing for each parameter combination (after the optimization algorithm’s memory allocation and initial function calls have taken place).
-We are, however, scaling the timing to 1000 generations (doubling it) because that’s closer to the expected number of generations we would run for an optimization task.</p>
-<a class="reference internal image-reference" href="_images/timings_DSC.jpg"><img alt="_images/timings_DSC.jpg" src="_images/timings_DSC.jpg" style="width: 100%;" /></a>
-<a class="reference internal image-reference" href="_images/timings_CNT.jpg"><img alt="_images/timings_CNT.jpg" src="_images/timings_CNT.jpg" style="width: 100%;" /></a>
-<p>Our server has 44 physical cores (two “Intel(R) Xeon(R) CPU E5-2696 v4 &#64; 2.20GHz”) and 256Gb RAM but, as was previously mentioned, was limited to 16 cores for benchmarking purposes.</p>
+  <section id="future">
+<h1>Future<a class="headerlink" href="#future" title="Permalink to this heading"></a></h1>
+<p>We are currently working in developing some extensions to our base package. Some of the main lines of research we are considering for the near future are the following.</p>
+<section id="banning-sites">
+<h2>Banning Sites<a class="headerlink" href="#banning-sites" title="Permalink to this heading"></a></h2>
+<p>A simple extension to the discrete optimization case, we will be adding the option to set a group of sites that are not to be taken into account for optimization purposes.
+This extension is meant to provide with a way to setup households or populations that are not willing to lay a trap within their property but that need to be taken into account as possible sites which mosquitoes can traverse.</p>
+</section>
+<section id="surveillance-routing">
+<h2>Surveillance Routing<a class="headerlink" href="#surveillance-routing" title="Permalink to this heading"></a></h2>
+<p>Another direction in which we will be moving in the near future is the co-optimization of traps positions along with the routes for field people to check up on traps.
+In this application, we will be looking into combining the time to detection fitness function with the time it takes for vehicles to visit the traps in the landscape so that we are able to minimize the time to detection whilst taking into account the routing cost of surveillance.</p>
+<p><a class="reference internal" href="_images/routing01.jpg"><img alt="pic1" src="_images/routing01.jpg" style="width: 49%;" /></a> <a class="reference internal" href="_images/routing02.jpg"><img alt="pic2" src="_images/routing02.jpg" style="width: 49%;" /></a></p>
+</section>
+<section id="optimizing-trap-number-and-types">
+<h2>Optimizing Trap Number and Types<a class="headerlink" href="#optimizing-trap-number-and-types" title="Permalink to this heading"></a></h2>
+<p>One final avenue of research we are interested in is the optimization of the number of deployed traps and their type.
+This application would take into account the cost of the traps and be able to select the traps that would need to be deployed to keep time to detection and cost as low as possible.</p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="TrapsKernels.html" class="btn btn-neutral float-left" title="Visualizing Traps’ Kernels" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="FutureDirections.html" class="btn btn-neutral float-right" title="Future" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="benchmarks.html" class="btn btn-neutral float-left" title="Benchmarks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

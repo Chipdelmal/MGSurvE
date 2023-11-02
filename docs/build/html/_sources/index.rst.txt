@@ -60,8 +60,8 @@ Site's Map
    breakdown
    demos
    benchmarks
+   FutureDirections
    api
-
 
 ..
    comment:: Indices and tables
