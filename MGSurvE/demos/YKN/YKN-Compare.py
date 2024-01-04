@@ -22,7 +22,7 @@ plt.rcParams['savefig.facecolor']='#00000000'
 ###############################################################################
 if srv.isNotebook():
     # User input (interactive session)
-    (ID, AP, RID) = ('YKND', 'man', '01')
+    (ID, AP, RID) = ('YKNC', 'man', '01')
 else:
     # Bash call input
     (ID, AP, RID) = argv[1:]
@@ -41,7 +41,7 @@ GENS = 5000
 # File ID
 ###############################################################################
 OUT_PTH = './sims_out/{}_{}'.format(ID, GENS)
-# OUT_PTH = '/Users/sanchez.hmsc/Documents/WorkSims/MGSurvE_Validations/{}_{}'.format(ID, GENS)
+OUT_PTH = '/Users/sanchez.hmsc/Documents/WorkSims/MGSurvE_Validations/{}_{}'.format(ID, GENS)
 srv.makeFolder(OUT_PTH)
 ###############################################################################
 # Load Files
@@ -59,14 +59,14 @@ print('{} @ {}'.format(minVal, minIdx+1))
 ###############################################################################
 # Plot GA Evolution
 ###############################################################################
-(XRAN, YRAN) = ((0, 5000), (0, 150))
+(XRAN, YRAN) = ((0, 1000), (0, 200))
 (fig, ax) = plt.subplots(figsize=(25, 3))
 for (ix, trc) in enumerate(mins):
     ax.plot(trc.T/SCAL[ix], color=COLS[ix], lw=1.25)
-ax.set_xlim(0, GENS)
+ax.set_xlim(0, XRAN[1])
 ax.set_ylim(YRAN[0], YRAN[1])
 ax.hlines(np.arange(YRAN[0], YRAN[1]+25, 25), XRAN[0], XRAN[1], color='#00000033', lw=1, zorder=-10)
-ax.vlines(np.arange(XRAN[0], XRAN[1]+20, 500), YRAN[0], YRAN[1], color='#00000033', lw=1, zorder=-10)
+ax.vlines(np.arange(XRAN[0], XRAN[1]+20, 250), YRAN[0], YRAN[1], color='#00000033', lw=1, zorder=-10)
 ax.set_xticks([])
 ax.set_yticks([])
 ax.spines['top'].set_visible(False)

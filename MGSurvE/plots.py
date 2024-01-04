@@ -573,7 +573,8 @@ except ImportError:
     warnings.warn("cartopy installation was not detected! Geo-boundaries (plotLandBoundary) not available!")
 else:
     def plotLandBoundary(fig, ax, landTuples=cst.LAND_TUPLES):
-        """ Plots the land's boundary as a polygon.
+        """ Plots the land's boundary as a polygon 
+        (https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.feature.NaturalEarthFeature.html#cartopy.feature.NaturalEarthFeature).
 
         Parameters:
             fig (matplotlib): Matplotlib fig object.
